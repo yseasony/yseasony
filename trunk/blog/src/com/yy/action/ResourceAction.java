@@ -21,11 +21,12 @@ public class ResourceAction {
 
 	@RequestMapping("/user/resourceSave.do")
 	public void resourceSave(HttpServletRequest request,
-			HttpServletResponse response, String value, String resourceType) {
+			HttpServletResponse response, String value, String resourceType,String position) {
 
 		Resource resource = new Resource();
 		resource.setValue(value);
 		resource.setResourceType(resourceType);
+		resource.setPosition(Double.valueOf(position));
 
 		this.resourceSvc.save(resource);
 	}
