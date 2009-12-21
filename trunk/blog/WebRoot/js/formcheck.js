@@ -12,7 +12,7 @@ function isNull(id){
 }
 
 function between(index, from, id){
-    var str = $("#" + id + "").get(0).value
+    var str = $("#" + id + "").get(0).value;
     str = $.trim(str);
     if (str.length < index || str.length > from) {
         return "长度必须在" + index + "到" + from + "之间";
