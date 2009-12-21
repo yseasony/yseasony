@@ -11,56 +11,30 @@
     </head>
     <body>
         <table border="0px" width="280px" style="font-size: 12px;">
-            <form id="form1" name="form1" method="post" action="/user/userSave.do" onsubmit="return checksave();">
+            <form id="form1" name="form1" method="post" action="/user/resourceSave.do" onsubmit="return checksave();">
                 <tr>
                     <td>
                         资源地址:
                     </td>
                     <td>
-                        <input type="text" name="loginName" id="loginName" onfocus="onfocuscheck('loginNameTip','资源地址不能为空');" onblur="exist('loginNameTip',this.id);"/>
+                        <input type="text" name="value" id="value" onfocus="onfocuscheck('valueTip','资源地址不能为空');" onblur="exist('valueTip',this.id);"/>
                     </td>
                     <td>
-                        <div id="loginNameTip" class="onShow" style="width: 250px;">
+                        <div id="valueTip" class="onShow" style="width: 250px;">
                             请输入资源地址
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        姓名:
+                        资源类型:
                     </td>
                     <td>
-                        <input type="text" name="name" id="name" onfocus="onfocuscheck('nameTip','姓名不能为空');"/>
+                        <input type="text" name="resourceType" id="resourceType" value="url" onfocus="onfocuscheck('resourceTypeTip','资源类型不能为空');"/>
                     </td>
                     <td>
-                        <div id="nameTip" class="onShow" style="width: 250px;">
-                            请输入 姓名
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        E-mail:
-                    </td>
-                    <td>
-                        <input type="text" name="email" id="email" />
-                    </td>
-                    <td>
-                        <div id="emailTip" class="onShow" style="width: 250px;">
-                            请输入 E-mail
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        密　码:
-                    </td>
-                    <td>
-                        <input type="text" name="password" id="password" />
-                    </td>
-                    <td>
-                        <div id="passwordTip" class="onShow" style="width: 250px;">
-                            请输入 密码
+                        <div id="resourceTypeTip" class="onShow" style="width: 250px;">
+                            请输入 资源类型
                         </div>
                     </td>
                 </tr>
@@ -75,19 +49,6 @@
                         <div id="displayorderTip" class="onShow" style="width: 250px;">
                             此排序自动生成请不要更改
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        状　态:
-                    </td>
-                    <td>
-                        启用<input name="status" type="radio" id="status" value="1" checked="checked" />停用<input type="radio" name="status" id="status" value="0" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
                 </tr>
             </form>
@@ -107,16 +68,16 @@
 				
                 String: name = $("#" + id + "").get(0).value;
                 $.getJSON("/UserExist.json", {
-                    loginname: [(name)]
+                    "loginname": name
                 }, function(json){
                     if (json.exist == "false") {
                         $("#" + theclass + "").get(0).className = "onError";
-                        $("#" + theclass + "").get(0).innerHTML = "该用户名已被使用";
+                        $("#" + theclass + "").get(0).innerHTML = "该资源地址已被创建";
                         check = false;
                     }
                     else {
                         $("#" + theclass + "").get(0).className = "onCorrect";
-                        $("#" + theclass + "").get(0).innerHTML = "该用户名可以注册";
+                        $("#" + theclass + "").get(0).innerHTML = "该资源地址可以创建";
                         check = true;
                     }
                 });
