@@ -43,10 +43,10 @@
                         排　序:
                     </td>
                     <td>
-                        <input type="text" name="displayorder" value="${max}" id="displayorder" readonly="readonly"/>
+                        <input type="text" name="position" value="${max}" id="position" readonly="readonly"/>
                     </td>
                     <td>
-                        <div id="displayorderTip" class="onShow" style="width: 250px;">
+                        <div id="positionTip" class="onCorrect" style="width: 250px;">
                             此排序自动生成请不要更改
                         </div>
                     </td>
