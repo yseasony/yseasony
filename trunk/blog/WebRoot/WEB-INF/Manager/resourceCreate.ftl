@@ -10,7 +10,7 @@
         <link href="../../css/form.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <table border="0px" width="280px" style="font-size: 12px;">
+        <table border="0px" width="500px" style="font-size: 12px;">
             <form id="form1" name="form1" method="post" action="/user/resourceSave.do" onsubmit="return checksave();">
                 <tr>
                     <td>
@@ -30,7 +30,7 @@
                         资源类型:
                     </td>
                     <td>
-                        <input type="text" name="resourceType" id="resourceType" value="url" onfocus="onfocuscheck('resourceTypeTip','资源类型不能为空');"/>
+                        <input type="text" name="resourceType" id="resourceType" value="url" onfocus="onfocuscheck('resourceTypeTip','资源类型不能为空');" onblur="onblurcheck('resourceTypeTip',this.id,'')"/>
                     </td>
                     <td>
                         <div id="resourceTypeTip" class="onShow" style="width: 250px;">
@@ -51,6 +51,11 @@
                         </div>
                     </td>
                 </tr>
+             <tr>
+                    <td>
+                        <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
+                    </td>
+                </tr>
             </form>
         </table>
         <script type="text/javascript">
@@ -60,32 +65,48 @@
             });
             function exist(theclass, id){
                 if (isNull(id)) {
-                    $("#" + theclass + "").get(0).className = "onError";
-                    $("#" + theclass + "").get(0).innerHTML = "资源地址不能为空或含有空格";
+                    $("#" + theclass).get(0).className = "onError";
+                    $("#" + theclass).get(0).innerHTML = "资源地址不能为空或含有空格";
                     check = false;
                     return;
                 }
-				
-                String: name = $("#" + id + "").get(0).value;
-                $.getJSON("/UserExist.json", {
-                    "loginname": name
+                
+                String: resourceType = $("#" + id + "").get(0).value;
+                $.getJSON("/resourceExist.ajax", {
+                    "resourceType": resourceType
                 }, function(json){
                     if (json.exist == "false") {
-                        $("#" + theclass + "").get(0).className = "onError";
-                        $("#" + theclass + "").get(0).innerHTML = "该资源地址已被创建";
+                        $("#" + theclass).get(0).className = "onError";
+                        $("#" + theclass).get(0).innerHTML = "该资源地址已被创建";
                         check = false;
                     }
                     else {
-                        $("#" + theclass + "").get(0).className = "onCorrect";
-                        $("#" + theclass + "").get(0).innerHTML = "该资源地址可以创建";
+                        $("#" + theclass).get(0).className = "onCorrect";
+                        $("#" + theclass).get(0).innerHTML = "该资源地址可以创建";
                         check = true;
                     }
                 });
             }
             
             function onfocuscheck(theclass, text){
-                $("#" + theclass + "").get(0).className = "onFocus";
-                $("#" + theclass + "").get(0).innerHTML = text;
+            
+                $("#" + theclass).get(0).className = "onFocus";
+                $("#" + theclass).get(0).innerHTML = text;
+            }
+            
+            function onblurcheck(theclass, id, text){
+            
+                if (isNull(id)) {
+                    $("#" + theclass).get(0).className = "onError";
+                    $("#" + theclass).get(0).innerHTML = "不能为空或含有空格";
+                    check = false;
+                    return;
+                }
+                else {
+                    $("#" + theclass).get(0).className = "onCorrect";
+                    $("#" + theclass).get(0).innerHTML = "&nbsp";
+                    check = true;
+                }
             }
             
             function checksave(){
