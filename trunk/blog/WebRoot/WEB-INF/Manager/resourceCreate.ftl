@@ -59,11 +59,12 @@
             </form>
         </table>
         <script type="text/javascript">
-            Boolean: check = true;
+            Boolean: check = false;
             $.ajaxSetup({
                 cache: false
             });
             function exist(theclass, id){
+            
                 if (isNull(id)) {
                     $("#" + theclass).get(0).className = "onError";
                     $("#" + theclass).get(0).innerHTML = "资源地址不能为空或含有空格";
@@ -111,7 +112,8 @@
             
             function checksave(){
             
-                this.exist("valueTip", "value");
+                exist("valueTip", "value");
+                
                 if (check == true) {
                     return true;
                 }
