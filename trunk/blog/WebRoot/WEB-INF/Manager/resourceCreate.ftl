@@ -56,6 +56,7 @@
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
                 </tr>
+				<input type="hidden" name="token" value="${token}">
             </form>
         </table>
         <script type="text/javascript">
