@@ -10,27 +10,32 @@ import com.yy.service.IResourceSvc;
 
 @Service
 public class ResourceSvcImpl implements IResourceSvc {
-	
+
 	@Autowired
 	private IResourceDao resourceDao;
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.yy.service.impl.ResourceSvc#save(com.yy.model.Resource)
 	 */
 	@Transactional
-	public void save(Resource resource){
-		this.resourceDao.save(resource);
+	public void save(Resource resource) {
+		try {
+			this.resourceDao.save(resource);
+		} catch (Exception e) {
+			throw new ServiceException("资源地址保存失败");
+		}
 	}
 
-	
 	@Transactional(readOnly = true)
-	public Resource resourceExist(String value){
+	public Resource resourceExist(String value) {
 		return this.resourceDao.findUniqueBy("value", value);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public int getMax() {
 		return this.resourceDao.getMax("TBL_RESOURCE");
 	}
-	
+
 }
