@@ -26,6 +26,7 @@ public class ResourceAction {
 			HttpServletResponse response, String value, String resourceType,
 			String position) throws IOException {
 
+		System.out.println(request.getMethod());
 		if (StringUtil.isEmpty(value, resourceType, position)) {
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("缺少参数");
