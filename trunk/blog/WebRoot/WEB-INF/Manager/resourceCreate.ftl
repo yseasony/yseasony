@@ -17,7 +17,7 @@
                         资源地址:
                     </td>
                     <td>
-                        <input type="text" name="value" id="value" onfocus="onfocuscheck('valueTip','资源地址不能为空');" onblur="exist('valueTip',this.id);"/>
+                        <input type="text" name="value" id="value"/>
                     </td>
                     <td>
                         <div id="valueTip" class="onShow" style="width: 250px;">
@@ -30,7 +30,7 @@
                         资源类型:
                     </td>
                     <td>
-                        <input type="text" name="resourceType" id="resourceType" value="url" onfocus="onfocuscheck('resourceTypeTip','资源类型不能为空');" onblur="onblurcheck('resourceTypeTip',this.id,'')"/>
+                        <input type="text" name="resourceType" id="resourceType" value="url"/>
                     </td>
                     <td>
                         <div id="resourceTypeTip" class="onShow" style="width: 250px;">
@@ -55,8 +55,7 @@
                     <td>
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
-                </tr>
-				<input type="hidden" name="token" value="${token}">
+                </tr><input type="hidden" name="token" value="${token}">
             </form>
         </table>
         <script type="text/javascript">
@@ -64,56 +63,22 @@
             $.ajaxSetup({
                 cache: false
             });
-            function exist(theclass, id){
             
-                if (isNull(id)) {
-                    $("#" + theclass).get(0).className = "onError";
-                    $("#" + theclass).get(0).innerHTML = "资源地址不能为空或含有空格";
-                    check = false;
-                    return;
-                }
-                
-                String: resourceType = $("#" + id + "").get(0).value;
-                $.getJSON("/resourceExist.ajax", {
-                    "resourceType": resourceType
-                }, function(json){
-                    if (json.exist == "false") {
-                        $("#" + theclass).get(0).className = "onError";
-                        $("#" + theclass).get(0).innerHTML = "该资源地址已被创建";
-                        check = false;
-                    }
-                    else {
-                        $("#" + theclass).get(0).className = "onCorrect";
-                        $("#" + theclass).get(0).innerHTML = "该资源地址可以创建";
-                        check = true;
-                    }
-                });
-            }
-            
-            function onfocuscheck(theclass, text){
-            
-                $("#" + theclass).get(0).className = "onFocus";
-                $("#" + theclass).get(0).innerHTML = text;
-            }
-            
-            function onblurcheck(theclass, id, text){
-            
-                if (isNull(id)) {
-                    $("#" + theclass).get(0).className = "onError";
-                    $("#" + theclass).get(0).innerHTML = "不能为空或含有空格";
-                    check = false;
-                    return;
-                }
-                else {
-                    $("#" + theclass).get(0).className = "onCorrect";
-                    $("#" + theclass).get(0).innerHTML = "&nbsp";
-                    check = true;
-                }
-            }
+            $("#value").focus(function(){
+                onFocusCheck("valueTip", "资源地址不能为空")
+            });
+            $("#value").blur(function(){
+                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType")
+            });
+            $("#resourceType").focus(function(){
+                onFocusCheck("resourceTypeTip", "资源类型不能为空")
+            });
+            $("#resourceType").blur(function(){
+                onBlurCheck("resourceTypeTip", "resourceType", "不能为空或含有空格", "　")
+            });
             
             function checksave(){
-            
-                exist("valueTip", "value");
+                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType")
                 
                 if (check == true) {
                     return true;
