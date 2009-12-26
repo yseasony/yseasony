@@ -65,20 +65,20 @@
             });
             
             $("#value").focus(function(){
-                onFocusCheck("valueTip", "资源地址不能为空")
+                onFocusCheck("valueTip", "资源地址不能为空");
             });
             $("#value").blur(function(){
-                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType")
+                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
             });
             $("#resourceType").focus(function(){
-                onFocusCheck("resourceTypeTip", "资源类型不能为空")
+                onFocusCheck("resourceTypeTip", "资源类型不能为空");
             });
             $("#resourceType").blur(function(){
-                onBlurCheck("resourceTypeTip", "resourceType", "不能为空或含有空格", "　")
+                onBlurCheck("resourceTypeTip", "resourceType", "不能为空或含有空格", "　");
             });
             
             function checksave(){
-                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType")
+                exist("valueTip", "value", "资源地址不能为空或含有空格", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
                 
                 if (check == true) {
                     return true;

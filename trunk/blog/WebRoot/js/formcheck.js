@@ -49,9 +49,11 @@ function exist(tipClass,checkId,nullMessage,errorMessage,successMessage,ajaxAddr
     }
     
     String: checkValue = $("#" + checkId).get(0).value;
-    String: jsonValue = ajaxValueName+":"+checkValue;
-    $.getJSON(ajaxAddress, {jsonValue
-    }, function(json){
+    $.ajax({
+            url:ajaxAddress,
+            dataType:"json",
+            data:ajaxValueName+"="+checkValue,
+            success:function(json){
         if (json.exist == "false") {
             $("#" + tipClass).get(0).className = "onError";
             $("#" + tipClass).get(0).innerHTML = errorMessage;
@@ -62,5 +64,6 @@ function exist(tipClass,checkId,nullMessage,errorMessage,successMessage,ajaxAddr
             $("#" + tipClass).get(0).innerHTML = successMessage;
             check = true;
         }
-    });
+    }});
+    
 }
