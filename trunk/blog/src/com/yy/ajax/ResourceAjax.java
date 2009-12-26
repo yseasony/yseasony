@@ -30,7 +30,7 @@ public class ResourceAjax {
 
 		boolean exist = false;
 
-		String resourceType = request.getParameter("resourceType");
+		String resourceType = request.getParameter("ajaxValueName");
 		
 		if (resourceType == null || resourceType.trim().length() <= 0) {
 			map.put("exist", exist);
