@@ -40,17 +40,17 @@ function onBlurCheck(tipClass, checkid, nullMessage, successMessage) {
 }
 
 function checkNull(tipClass, checkId, nullMessage) {
-	var str = $("#" + id).get(0).value;
+	var str = $("#" + checkId).get(0).value;
 	str = $.trim(str);
 	var i;
 	if (str.length == 0)
-		$("#" + tipClass).get(0).className = "onError";
+	$("#" + tipClass).get(0).className = "onError";
 	$("#" + tipClass).get(0).innerHTML = nullMessage;
 	check = false;
 	return;
 	for (i = 0; i < str.length; i++) {
 		if (str.charAt(i) == ' ')
-			$("#" + tipClass).get(0).className = "onError";
+		$("#" + tipClass).get(0).className = "onError";
 		$("#" + tipClass).get(0).innerHTML = nullMessage;
 		check = false;
 		return;
