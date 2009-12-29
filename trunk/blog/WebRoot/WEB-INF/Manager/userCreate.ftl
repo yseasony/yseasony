@@ -17,7 +17,7 @@
                         用户名:
                     </td>
                     <td>
-                        <input type="text" name="loginName" id="loginName" onfocus="onfocuscheck('loginNameTip','登录名至少6个字符,最多10个字符');" onblur="exist('loginNameTip',this.id);"/>
+                        <input type="text" name="loginName" id="loginName"/>
                     </td>
                     <td>
                         <div id="loginNameTip" class="onShow" style="width: 250px;">
@@ -27,10 +27,10 @@
                 </tr>
                 <tr>
                     <td>
-                        姓名:
+                        姓　名:
                     </td>
                     <td>
-                        <input type="text" name="name" id="name" onfocus="onfocuscheck('nameTip','姓名不能为空');"/>
+                        <input type="text" name="name" id="name" />
                     </td>
                     <td>
                         <div id="nameTip" class="onShow" style="width: 250px;">
@@ -97,36 +97,37 @@
             $.ajaxSetup({
                 cache: false
             });
-            function exist(theclass, id){
-                if (isNull(id)) {
-                    $("#" + theclass + "").get(0).className = "onError";
-                    $("#" + theclass + "").get(0).innerHTML = "用户名不能为空或含有空格";
-                    check = false;
-                    return;
+            
+            $("#loginName").focus(function(){
+                onFocusCheck("loginNameTip", "登录名至少6个字符,最多10个字符");
+            });
+            
+            $("#loginName").blur(function(){
+                checkNull("loginNameTip", "loginName", "用户名不能为空或含有空格");
+                if (check == true) {
+                    between(6, 10, "loginName", "loginNameTip");
                 }
-                var str = between(6, 10, id);
-                if (str.length > 0) {
-                    $("#" + theclass + "").get(0).className = "onError";
-                    $("#" + theclass + "").get(0).innerHTML = str;
-                    check = false;
-                    return;
+                if (check == true) {
+                    exist("loginNameTip", "loginName", "该用户名已被使用", "该用户名可以注册", "/userExist.ajax", "loginname");
                 }
-                String: name = $("#" + id + "").get(0).value;
-                $.getJSON("/userExist.ajax", {
-                    "loginname": name
-                }, function(json){
-                    if (json.exist == "false") {
-                        $("#" + theclass + "").get(0).className = "onError";
-                        $("#" + theclass + "").get(0).innerHTML = "该用户名已被使用";
-                        check = false;
-                    }
-                    else {
-                        $("#" + theclass + "").get(0).className = "onCorrect";
-                        $("#" + theclass + "").get(0).innerHTML = "该用户名可以注册";
-                        check = true;
-                    }
-                });
-            }
+            });
+            
+            $("#name").focus(function(){
+                onFocusCheck("nameTip", "姓名不能为空");
+            });
+            $("#name").blur(function(){
+                checkNull("nameTip", "name", "姓名不能为空或含有空格");
+            });
+			$("#email").blur(function(){
+               $("#emailTip").get(0).className="onCorrect";
+			   $("#emailTip").get(0).innerHTML ="　";
+            });
+			$("#password").focus(function(){
+                onFocusCheck("passwordTip", "密码不能为空");
+            });
+            $("#password").blur(function(){
+                checkNull("passwordTip", "password", "密码不能为空或含有空格");
+            });
             
             function onfocuscheck(theclass, text){
                 $("#" + theclass + "").get(0).className = "onFocus";
