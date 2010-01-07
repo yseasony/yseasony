@@ -2,6 +2,7 @@ package com.yy.action;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
+import com.yy.utils.HibernateWebUtils;
+import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 import com.yy.utils.StringUtil;
 import com.yy.utils.Token;
 
@@ -23,7 +27,9 @@ public class ResourceAction {
 
 	@Autowired
 	private IResourceSvc resourceSvc;
-	
+
+	private Page<Resource> page = new Page<Resource>(10);
+
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
 			HttpServletResponse response, String value, String resourceType,
@@ -50,7 +56,7 @@ public class ResourceAction {
 	}
 
 	@RequestMapping("/user/resourceCreate.do")
-	public ModelAndView userCreate(HttpSession session) {
+	public ModelAndView resource(HttpSession session) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		String max = String.valueOf(resourceSvc.getMax());
@@ -60,4 +66,20 @@ public class ResourceAction {
 		return new ModelAndView("Manager/resourceCreate", map);
 	}
 
+	@RequestMapping("/user/resourceList.do")
+	public ModelAndView getResourceList(HttpServletRequest request) {
+		List<PropertyFilter> filters = HibernateWebUtils
+				.buildPropertyFilters(request);
+		// 设置默认排序方式
+		if (!page.isOrderBySetted()) {
+			page.setOrderBy("id");
+			page.setOrder(Page.ASC);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		page = resourceSvc.searchResource(page, filters);
+		map.put("page", page);
+
+		return new ModelAndView("Manager/resourceList", map);
+
+	}
 }
