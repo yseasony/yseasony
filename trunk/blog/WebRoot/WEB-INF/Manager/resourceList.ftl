@@ -11,7 +11,13 @@
                     名称
                 </th>
                 <th>
-                    授权
+                    类型
+                </th>
+                <th>
+                    地址 
+                </th>
+                <th>
+                    描述
                 </th>
                 <th>
                     操作
@@ -20,10 +26,16 @@
             <#list page.result as obj>
             <tr>
                 <td>
+                	${obj.resourceName}
+                </td>
+                <td>
                     ${obj.resourceType}
                 </td>
                 <td>
                     ${obj.value}
+                </td>
+                <td>
+                    ${obj.description}
                 </td>
                 <td>
                     <security:authorize ifAnyGranted="A_VIEW_ROLE">
