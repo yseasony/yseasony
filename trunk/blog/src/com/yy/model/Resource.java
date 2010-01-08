@@ -30,10 +30,12 @@ import com.yy.utils.ReflectionUtils;
 @Table(name = "TBL_RESOURCE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Resource extends AuditableEntity {
-	//-- resourceType常量 --//
+	// -- resourceType常量 --//
 	public static final String URL_TYPE = "url";
 	public static final String MENU_TYPE = "menu";
 
+	private String resourceName;
+	private String description;
 	private String resourceType;
 	private String value;
 	private double position;
@@ -74,6 +76,24 @@ public class Resource extends AuditableEntity {
 		this.position = position;
 	}
 
+	@Column(nullable = false,length = 16)
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+	@Column(length = 128)
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * 可访问该资源的授权集合.
 	 */
@@ -95,6 +115,7 @@ public class Resource extends AuditableEntity {
 	 */
 	@Transient
 	public String getAuthNames() {
-		return ReflectionUtils.convertElementPropertyToString(authorityList, "name", ",");
+		return ReflectionUtils.convertElementPropertyToString(authorityList,
+				"name", ",");
 	}
 }

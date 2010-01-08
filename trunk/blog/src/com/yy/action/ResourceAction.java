@@ -32,8 +32,8 @@ public class ResourceAction {
 
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
-			HttpServletResponse response, String value, String resourceType,
-			String position, String token) throws IOException {
+			HttpServletResponse response, Resource resource, String token)
+			throws IOException {
 
 		if (!Token.isTokenStringValid(token, request.getSession())) {
 			response.setContentType("text/html;charset=utf-8");
@@ -41,16 +41,13 @@ public class ResourceAction {
 			return;
 		}
 
-		if (StringUtil.isEmpty(value, resourceType, position)) {
+		if (StringUtil.isEmpty(resource.getDescription(),resource.getResourceName(), resource.getValue(),
+				resource.getResourceType(), String.valueOf(resource
+						.getPosition()))) {
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("缺少参数");
 			return;
 		}
-
-		Resource resource = new Resource();
-		resource.setValue(value);
-		resource.setResourceType(resourceType);
-		resource.setPosition(Double.valueOf(position));
 
 		this.resourceSvc.save(resource);
 	}
