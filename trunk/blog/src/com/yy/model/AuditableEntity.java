@@ -21,7 +21,7 @@ public class AuditableEntity extends IdEntity {
 	/**
 	 * 创建时间.
 	 */
-	//本属性只在save时有效,update时无效.
+	// 本属性只在save时有效,update时无效.
 	@Column(updatable = false)
 	public Date getCreateTime() {
 		return createTime;
@@ -46,7 +46,7 @@ public class AuditableEntity extends IdEntity {
 	/**
 	 * 最后修改时间.
 	 */
-	//本属性只在update时有效,save时无效.
+	// 本属性只在update时有效,save时无效.
 	@Column(insertable = false)
 	public Date getLastModifyTime() {
 		return lastModifyTime;

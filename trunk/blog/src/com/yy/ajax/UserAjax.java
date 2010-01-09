@@ -37,7 +37,7 @@ public class UserAjax {
 			return modelAndView;
 		}
 
-		User user = this.userSvc.userExist(loginname.trim());
+		User user = this.userSvc.exist("loginname", loginname.trim());
 
 		if (user != null) {
 			map.put("exist", exist);

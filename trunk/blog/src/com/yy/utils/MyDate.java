@@ -17,8 +17,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.myvt2.www.dao.MyDate#FirstDayInMonth(sun.util.calendar.BaseCalendar
-	 *      .Date)
+	 * @see
+	 * com.myvt2.www.dao.MyDate#FirstDayInMonth(sun.util.calendar.BaseCalendar
+	 * .Date)
 	 */
 	public static final Date FirstDayInMonth(GregorianCalendar cal) {
 		cal.add(Calendar.DATE, -(cal.get(Calendar.DATE) - 1));
@@ -34,8 +35,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.myvt2.www.dao.MyDate#LastDayInMonth(sun.util.calendar.BaseCalendar
-	 *      .Date)
+	 * @see
+	 * com.myvt2.www.dao.MyDate#LastDayInMonth(sun.util.calendar.BaseCalendar
+	 * .Date)
 	 */
 	public static final Date LastDayInMonth(GregorianCalendar cal) {
 		cal.add(Calendar.DATE, -(cal.get(Calendar.DATE) - 1));
@@ -55,8 +57,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.myvt2.www.dao.MyDate#FirstDayInWeek(sun.util.calendar.BaseCalendar
-	 *      .Date)
+	 * @see
+	 * com.myvt2.www.dao.MyDate#FirstDayInWeek(sun.util.calendar.BaseCalendar
+	 * .Date)
 	 */
 	public static final Date FirstDayInWeek(GregorianCalendar cal) {
 		cal.add(Calendar.DATE, -(cal.get(Calendar.DAY_OF_WEEK) - 1));
@@ -72,8 +75,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.myvt2.www.dao.MyDate#LastDayInWeek(sun.util.calendar.BaseCalendar
-	 *      .Date)
+	 * @see
+	 * com.myvt2.www.dao.MyDate#LastDayInWeek(sun.util.calendar.BaseCalendar
+	 * .Date)
 	 */
 	public static final Date LastDayInWeek(GregorianCalendar cal) {
 		cal.add(Calendar.DATE, -(cal.get(Calendar.DAY_OF_WEEK) - 1));
@@ -151,7 +155,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.com.mayidata.spring.dao.MyDate#FirstDayInYear(java.util.GregorianCalendar )
+	 * @see
+	 * cn.com.mayidata.spring.dao.MyDate#FirstDayInYear(java.util.GregorianCalendar
+	 * )
 	 */
 	public static Date FirstDayInYear(GregorianCalendar cal)
 			throws ParseException {
@@ -189,7 +195,9 @@ public class MyDate {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.com.mayidata.spring.dao.MyDate#LastDayInYear(java.util.GregorianCalendar )
+	 * @see
+	 * cn.com.mayidata.spring.dao.MyDate#LastDayInYear(java.util.GregorianCalendar
+	 * )
 	 */
 	public static Date LastDayInYear(GregorianCalendar cal)
 			throws ParseException {

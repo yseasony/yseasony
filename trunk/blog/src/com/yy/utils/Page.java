@@ -13,30 +13,30 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 与具体ORM实现无关的分页参数及查询结果封装.
- * 注意所有序号从1开始.
+ * 与具体ORM实现无关的分页参数及查询结果封装. 注意所有序号从1开始.
  * 
- * @param <T> Page中记录的类型.
+ * @param <T>
+ *            Page中记录的类型.
  * 
  * @author calvin
  */
 public class Page<T> {
-	//-- 公共变量 --//
+	// -- 公共变量 --//
 	public static final String ASC = "asc";
 	public static final String DESC = "desc";
 
-	//-- 分页参数 --//
+	// -- 分页参数 --//
 	protected int pageNo = 1;
 	protected int pageSize = 1;
 	protected String orderBy = null;
 	protected String order = null;
 	protected boolean autoCount = true;
 
-	//-- 返回结果 --//
+	// -- 返回结果 --//
 	protected List<T> result = Collections.emptyList();
 	protected long totalCount = -1;
 
-	//-- 构造函数 --//
+	// -- 构造函数 --//
 	public Page() {
 	}
 
@@ -49,7 +49,22 @@ public class Page<T> {
 		setAutoCount(autoCount);
 	}
 
-	//-- 访问查询参数函数 --//
+	public Page(final int pageSize, Integer pageNo, final String orderBy,
+			final String order) {
+
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		setPageNo(pageNo);
+		setPageSize(pageSize);
+		if (!StringUtil.isEmpty(orderBy, order)) {
+			setOrderBy(orderBy);
+			setOrder(order);
+		}
+
+	}
+
+	// -- 访问查询参数函数 --//
 	/**
 	 * 获得当前页的页号,序号从1开始,默认为1.
 	 */
@@ -111,7 +126,8 @@ public class Page<T> {
 	 * 是否已设置排序字段,无默认值.
 	 */
 	public boolean isOrderBySetted() {
-		return (StringUtils.isNotBlank(orderBy) && StringUtils.isNotBlank(order));
+		return (StringUtils.isNotBlank(orderBy) && StringUtils
+				.isNotBlank(order));
 	}
 
 	/**
@@ -124,13 +140,15 @@ public class Page<T> {
 	/**
 	 * 设置排序方式向.
 	 * 
-	 * @param order 可选值为desc或asc,多个排序字段时用','分隔.
+	 * @param order
+	 *            可选值为desc或asc,多个排序字段时用','分隔.
 	 */
 	public void setOrder(final String order) {
-		//检查order字符串的合法值
+		// 检查order字符串的合法值
 		String[] orders = StringUtils.split(StringUtils.lowerCase(order), ',');
 		for (String orderStr : orders) {
-			if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr))
+			if (!StringUtils.equals(DESC, orderStr)
+					&& !StringUtils.equals(ASC, orderStr))
 				throw new IllegalArgumentException("排序方向" + orderStr + "不是合法值");
 		}
 
@@ -151,7 +169,7 @@ public class Page<T> {
 		this.autoCount = autoCount;
 	}
 
-	//-- 访问查询结果函数 --//
+	// -- 访问查询结果函数 --//
 
 	/**
 	 * 取得页内的记录列表.
@@ -203,8 +221,7 @@ public class Page<T> {
 	}
 
 	/**
-	 * 取得下页的页号, 序号从1开始.
-	 * 当前页为尾页时仍返回尾页序号.
+	 * 取得下页的页号, 序号从1开始. 当前页为尾页时仍返回尾页序号.
 	 */
 	public int getNextPage() {
 		if (isHasNext())
@@ -221,8 +238,7 @@ public class Page<T> {
 	}
 
 	/**
-	 * 取得上页的页号, 序号从1开始.
-	 * 当前页为首页时返回首页序号.
+	 * 取得上页的页号, 序号从1开始. 当前页为首页时返回首页序号.
 	 */
 	public int getPrePage() {
 		if (isHasPre())

@@ -10,10 +10,10 @@ public interface IResourceSvc {
 
 	public void save(Resource resource);
 
-	public Resource resourceExist(String value);
-	
-	public int getMax();
-	
+	public Resource exist(String column, String value);
+
+	public int getMax(String table);
+
 	public Page<Resource> searchResource(final Page<Resource> page,
 			final List<PropertyFilter> filters);
 

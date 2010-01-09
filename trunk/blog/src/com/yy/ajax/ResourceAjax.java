@@ -13,13 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
 
-
 @Controller
 public class ResourceAjax {
-	
+
 	@Autowired
 	private IResourceSvc resourceSvc;
-	
+
 	@RequestMapping("/resourceExist.ajax")
 	public ModelAndView exist(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -31,14 +30,15 @@ public class ResourceAjax {
 		boolean exist = false;
 
 		String resourceType = request.getParameter("resourceType");
-		
+
 		if (resourceType == null || resourceType.trim().length() <= 0) {
 			map.put("exist", exist);
 			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
 
-		Resource resource = this.resourceSvc.resourceExist(resourceType.trim());
+		Resource resource = this.resourceSvc
+				.exist("value", resourceType.trim());
 
 		if (resource != null) {
 			map.put("exist", exist);

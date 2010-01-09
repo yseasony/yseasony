@@ -35,16 +35,19 @@ import org.springframework.util.Assert;
  */
 public class ReflectionUtils {
 
-	private static Logger logger = LoggerFactory.getLogger(ReflectionUtils.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(ReflectionUtils.class);
 
 	/**
 	 * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
 	 */
-	public static Object getFieldValue(final Object object, final String fieldName) {
+	public static Object getFieldValue(final Object object,
+			final String fieldName) {
 		Field field = getDeclaredField(object, fieldName);
 
 		if (field == null)
-			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+			throw new IllegalArgumentException("Could not find field ["
+					+ fieldName + "] on target [" + object + "]");
 
 		makeAccessible(field);
 
@@ -60,11 +63,13 @@ public class ReflectionUtils {
 	/**
 	 * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
 	 */
-	public static void setFieldValue(final Object object, final String fieldName, final Object value) {
+	public static void setFieldValue(final Object object,
+			final String fieldName, final Object value) {
 		Field field = getDeclaredField(object, fieldName);
 
 		if (field == null)
-			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+			throw new IllegalArgumentException("Could not find field ["
+					+ fieldName + "] on target [" + object + "]");
 
 		makeAccessible(field);
 
@@ -78,11 +83,13 @@ public class ReflectionUtils {
 	/**
 	 * 直接调用对象方法, 无视private/protected修饰符.
 	 */
-	public static Object invokeMethod(final Object object, final String methodName, final Class<?>[] parameterTypes,
+	public static Object invokeMethod(final Object object,
+			final String methodName, final Class<?>[] parameterTypes,
 			final Object[] parameters) {
 		Method method = getDeclaredMethod(object, methodName, parameterTypes);
 		if (method == null)
-			throw new IllegalArgumentException("Could not find method [" + methodName + "] on target [" + object + "]");
+			throw new IllegalArgumentException("Could not find method ["
+					+ methodName + "] on target [" + object + "]");
 
 		method.setAccessible(true);
 
@@ -98,7 +105,8 @@ public class ReflectionUtils {
 	 * 
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 */
-	protected static Field getDeclaredField(final Object object, final String fieldName) {
+	protected static Field getDeclaredField(final Object object,
+			final String fieldName) {
 		Assert.notNull(object, "object不能为空");
 		Assert.hasText(fieldName, "fieldName");
 		for (Class<?> superClass = object.getClass(); superClass != Object.class; superClass = superClass
@@ -116,7 +124,8 @@ public class ReflectionUtils {
 	 * 强行设置Field可访问.
 	 */
 	protected static void makeAccessible(final Field field) {
-		if (!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers())) {
+		if (!Modifier.isPublic(field.getModifiers())
+				|| !Modifier.isPublic(field.getDeclaringClass().getModifiers())) {
 			field.setAccessible(true);
 		}
 	}
@@ -126,7 +135,8 @@ public class ReflectionUtils {
 	 * 
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 */
-	protected static Method getDeclaredMethod(Object object, String methodName, Class<?>[] parameterTypes) {
+	protected static Method getDeclaredMethod(Object object, String methodName,
+			Class<?>[] parameterTypes) {
 		Assert.notNull(object, "object不能为空");
 
 		for (Class<?> superClass = object.getClass(); superClass != Object.class; superClass = superClass
@@ -141,13 +151,13 @@ public class ReflectionUtils {
 	}
 
 	/**
-	 * 通过反射,获得Class定义中声明的父类的泛型参数的类型.
-	 * 如无法找到, 返回Object.class.
-	 * eg.
-	 * public UserDao extends HibernateDao<User>
-	 *
-	 * @param clazz The class to introspect
-	 * @return the first generic declaration, or Object.class if cannot be determined
+	 * 通过反射,获得Class定义中声明的父类的泛型参数的类型. 如无法找到, 返回Object.class. eg. public UserDao
+	 * extends HibernateDao<User>
+	 * 
+	 * @param clazz
+	 *            The class to introspect
+	 * @return the first generic declaration, or Object.class if cannot be
+	 *         determined
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Class<T> getSuperClassGenricType(final Class clazz) {
@@ -155,34 +165,41 @@ public class ReflectionUtils {
 	}
 
 	/**
-	 * 通过反射,获得定义Class时声明的父类的泛型参数的类型.
-	 * 如无法找到, 返回Object.class.
+	 * 通过反射,获得定义Class时声明的父类的泛型参数的类型. 如无法找到, 返回Object.class.
 	 * 
 	 * 如public UserDao extends HibernateDao<User,Long>
-	 *
-	 * @param clazz clazz The class to introspect
-	 * @param index the Index of the generic ddeclaration,start from 0.
-	 * @return the index generic declaration, or Object.class if cannot be determined
+	 * 
+	 * @param clazz
+	 *            clazz The class to introspect
+	 * @param index
+	 *            the Index of the generic ddeclaration,start from 0.
+	 * @return the index generic declaration, or Object.class if cannot be
+	 *         determined
 	 */
 	@SuppressWarnings("unchecked")
-	public static Class getSuperClassGenricType(final Class clazz, final int index) {
+	public static Class getSuperClassGenricType(final Class clazz,
+			final int index) {
 
 		Type genType = clazz.getGenericSuperclass();
 
 		if (!(genType instanceof ParameterizedType)) {
-			logger.warn(clazz.getSimpleName() + "'s superclass not ParameterizedType");
+			logger.warn(clazz.getSimpleName()
+					+ "'s superclass not ParameterizedType");
 			return Object.class;
 		}
 
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
 		if (index >= params.length || index < 0) {
-			logger.warn("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
+			logger.warn("Index: " + index + ", Size of "
+					+ clazz.getSimpleName() + "'s Parameterized Type: "
 					+ params.length);
 			return Object.class;
 		}
 		if (!(params[index] instanceof Class)) {
-			logger.warn(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
+			logger
+					.warn(clazz.getSimpleName()
+							+ " not set the actual class on superclass generic parameter");
 			return Object.class;
 		}
 
@@ -192,11 +209,14 @@ public class ReflectionUtils {
 	/**
 	 * 提取集合中的对象的属性(通过getter函数), 组合成List.
 	 * 
-	 * @param collection 来源集合.
-	 * @param propertyName 要提取的属性名.
+	 * @param collection
+	 *            来源集合.
+	 * @param propertyName
+	 *            要提取的属性名.
 	 */
 	@SuppressWarnings("unchecked")
-	public static List convertElementPropertyToList(final Collection collection, final String propertyName) {
+	public static List convertElementPropertyToList(
+			final Collection collection, final String propertyName) {
 		List list = new ArrayList();
 
 		try {
@@ -213,12 +233,16 @@ public class ReflectionUtils {
 	/**
 	 * 提取集合中的对象的属性(通过getter函数), 组合成由分割符分隔的字符串.
 	 * 
-	 * @param collection 来源集合.
-	 * @param propertyName 要提取的属性名.
-	 * @param separator 分隔符.
+	 * @param collection
+	 *            来源集合.
+	 * @param propertyName
+	 *            要提取的属性名.
+	 * @param separator
+	 *            分隔符.
 	 */
 	@SuppressWarnings("unchecked")
-	public static String convertElementPropertyToString(final Collection collection, final String propertyName,
+	public static String convertElementPropertyToString(
+			final Collection collection, final String propertyName,
 			final String separator) {
 		List list = convertElementPropertyToList(collection, propertyName);
 		return StringUtils.join(list, separator);
@@ -227,15 +251,20 @@ public class ReflectionUtils {
 	/**
 	 * 转换字符串类型到clazz的property类型的值.
 	 * 
-	 * @param value 待转换的字符串
-	 * @param clazz 提供类型信息的Class
-	 * @param propertyName 提供类型信息的Class的属性.
+	 * @param value
+	 *            待转换的字符串
+	 * @param clazz
+	 *            提供类型信息的Class
+	 * @param propertyName
+	 *            提供类型信息的Class的属性.
 	 */
 	public static Object convertValue(Object value, Class<?> toType) {
 		try {
 			DateConverter dc = new DateConverter();
 			dc.setUseLocaleFormat(true);
-			dc.setPatterns(new String[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss" });
+			dc
+					.setPatterns(new String[] { "yyyy-MM-dd",
+							"yyyy-MM-dd HH:mm:ss" });
 			ConvertUtils.register(dc, Date.class);
 			return ConvertUtils.convert(value, toType);
 		} catch (Exception e) {
@@ -246,12 +275,15 @@ public class ReflectionUtils {
 	/**
 	 * 将反射时的checked exception转换为unchecked exception.
 	 */
-	public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
-		if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
+	public static RuntimeException convertReflectionExceptionToUnchecked(
+			Exception e) {
+		if (e instanceof IllegalAccessException
+				|| e instanceof IllegalArgumentException
 				|| e instanceof NoSuchMethodException) {
 			return new IllegalArgumentException("Reflection Exception.", e);
 		} else if (e instanceof InvocationTargetException) {
-			return new RuntimeException("Reflection Exception.", ((InvocationTargetException) e).getTargetException());
+			return new RuntimeException("Reflection Exception.",
+					((InvocationTargetException) e).getTargetException());
 		}
 
 		return new RuntimeException("Unexpected Exception.", e);

@@ -76,7 +76,7 @@ public class Resource extends AuditableEntity {
 		this.position = position;
 	}
 
-	@Column(nullable = false,length = 16)
+	@Column(nullable = false, length = 16)
 	public String getResourceName() {
 		return resourceName;
 	}

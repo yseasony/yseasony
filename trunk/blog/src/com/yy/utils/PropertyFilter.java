@@ -37,7 +37,8 @@ public class PropertyFilter {
 	 * 属性数据类型.
 	 */
 	public enum PropertyType {
-		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(Date.class), B(Boolean.class);
+		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(
+				Date.class), B(Boolean.class);
 
 		private Class<?> clazz;
 
@@ -59,32 +60,40 @@ public class PropertyFilter {
 	}
 
 	/**
-	 * @param filterName 比较属性字符串,含待比较的比较类型、属性值类型及属性列表. 
-	 *                   eg. LIKES_NAME_OR_LOGIN_NAME
-	 * @param value 待比较的值.
+	 * @param filterName
+	 *            比较属性字符串,含待比较的比较类型、属性值类型及属性列表. eg. LIKES_NAME_OR_LOGIN_NAME
+	 * @param value
+	 *            待比较的值.
 	 */
 	public PropertyFilter(final String filterName, final Object value) {
 
 		String matchTypeStr = StringUtils.substringBefore(filterName, "_");
-		String matchTypeCode = StringUtils.substring(matchTypeStr, 0, matchTypeStr.length() - 1);
-		String propertyTypeCode = StringUtils.substring(matchTypeStr, matchTypeStr.length() - 1, matchTypeStr.length());
+		String matchTypeCode = StringUtils.substring(matchTypeStr, 0,
+				matchTypeStr.length() - 1);
+		String propertyTypeCode = StringUtils.substring(matchTypeStr,
+				matchTypeStr.length() - 1, matchTypeStr.length());
 		try {
 			matchType = Enum.valueOf(MatchType.class, matchTypeCode);
 		} catch (RuntimeException e) {
-			throw new IllegalArgumentException("filter名称" + filterName + "没有按规则编写,无法得到属性比较类型.", e);
+			throw new IllegalArgumentException("filter名称" + filterName
+					+ "没有按规则编写,无法得到属性比较类型.", e);
 		}
 
 		try {
-			propertyType = Enum.valueOf(PropertyType.class, propertyTypeCode).getValue();
+			propertyType = Enum.valueOf(PropertyType.class, propertyTypeCode)
+					.getValue();
 		} catch (RuntimeException e) {
-			throw new IllegalArgumentException("filter名称" + filterName + "没有按规则编写,无法得到属性值类型.", e);
+			throw new IllegalArgumentException("filter名称" + filterName
+					+ "没有按规则编写,无法得到属性值类型.", e);
 		}
 
 		String propertyNameStr = StringUtils.substringAfter(filterName, "_");
-		propertyNames = StringUtils.split(propertyNameStr, PropertyFilter.OR_SEPARATOR);
+		propertyNames = StringUtils.split(propertyNameStr,
+				PropertyFilter.OR_SEPARATOR);
 
-		Assert.isTrue(propertyNames.length > 0, "filter名称" + filterName + "没有按规则编写,无法得到属性名称.");
-		//按entity property中的类型将字符串转化为实际类型.
+		Assert.isTrue(propertyNames.length > 0, "filter名称" + filterName
+				+ "没有按规则编写,无法得到属性名称.");
+		// 按entity property中的类型将字符串转化为实际类型.
 		this.propertyValue = ReflectionUtils.convertValue(value, propertyType);
 	}
 
@@ -107,7 +116,8 @@ public class PropertyFilter {
 	 */
 	public String getPropertyName() {
 		if (propertyNames.length > 1)
-			throw new IllegalArgumentException("There are not only one property");
+			throw new IllegalArgumentException(
+					"There are not only one property");
 		return propertyNames[0];
 	}
 

@@ -28,8 +28,6 @@ public class ResourceAction {
 	@Autowired
 	private IResourceSvc resourceSvc;
 
-	private Page<Resource> page = new Page<Resource>(10);
-
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
 			HttpServletResponse response, Resource resource, String token)
@@ -41,9 +39,9 @@ public class ResourceAction {
 			return;
 		}
 
-		if (StringUtil.isEmpty(resource.getDescription(),resource.getResourceName(), resource.getValue(),
-				resource.getResourceType(), String.valueOf(resource
-						.getPosition()))) {
+		if (StringUtil.isEmpty(resource.getDescription(), resource
+				.getResourceName(), resource.getValue(), resource
+				.getResourceType(), String.valueOf(resource.getPosition()))) {
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("缺少参数");
 			return;
@@ -56,7 +54,7 @@ public class ResourceAction {
 	public ModelAndView resource(HttpSession session) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		String max = String.valueOf(resourceSvc.getMax());
+		String max = String.valueOf(resourceSvc.getMax("TBL_RESOURCE"));
 
 		map.put("token", Token.getTokenString(session));
 		map.put("max", max);
@@ -64,19 +62,27 @@ public class ResourceAction {
 	}
 
 	@RequestMapping("/user/resourceList.do")
-	public ModelAndView getResourceList(HttpServletRequest request) {
+	public ModelAndView getResourceList(HttpServletRequest request,
+			Integer pageNo, String orderBy, String order) {
 		List<PropertyFilter> filters = HibernateWebUtils
 				.buildPropertyFilters(request);
+
+		Page<Resource> page = new Page<Resource>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
 		if (!page.isOrderBySetted()) {
 			page.setOrderBy("id");
 			page.setOrder(Page.ASC);
 		}
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		page = resourceSvc.searchResource(page, filters);
 		map.put("page", page);
 
 		return new ModelAndView("Manager/resourceList", map);
+	}
 
+	public String delResource(Integer resourceId) {
+
+		return "redirect:/user/resourceList.do";
 	}
 }

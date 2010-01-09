@@ -21,9 +21,9 @@ public class UserAction {
 	private IUserSvc userSvc;
 
 	@RequestMapping("/user/userSave.do")
-	public void userSave(HttpServletRequest request, HttpServletResponse response,
-			String status, String email, String loginName, String name,
-			String password,String displayorder) {
+	public void userSave(HttpServletRequest request,
+			HttpServletResponse response, String status, String email,
+			String loginName, String name, String password, String displayorder) {
 
 		User user = new User();
 		user.setCreateTime(new Timestamp(System.currentTimeMillis()));
@@ -40,11 +40,11 @@ public class UserAction {
 	}
 
 	@RequestMapping("/user/userCreate.do")
-	public ModelAndView userCreate(){
-		
-		HashMap<String,String> map = new HashMap<String,String>();
-		String max = String.valueOf(userSvc.getMax());
+	public ModelAndView userCreate() {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		String max = String.valueOf(userSvc.getMax("tbl_user"));
 		map.put("max", max);
-		return new ModelAndView("Manager/userCreate",map);
+		return new ModelAndView("Manager/userCreate", map);
 	}
 }

@@ -12,13 +12,15 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author calvin
  */
-public class OpenSessionInViewFilter extends org.springframework.orm.hibernate3.support.OpenSessionInViewFilter {
+public class OpenSessionInViewFilter extends
+		org.springframework.orm.hibernate3.support.OpenSessionInViewFilter {
 
 	public static final String EXCLUDE_SUFFIXS_NAME = "excludeSuffixs";
 
 	public static final String INCLUDE_SUFFIXS_NAME = "includeSuffixs";
 
-	private static final String[] DEFAULT_EXCLUDE_SUFFIXS = { ".js", ".css", ".jpg", ".gif" };
+	private static final String[] DEFAULT_EXCLUDE_SUFFIXS = { ".js", ".css",
+			".jpg", ".gif" };
 
 	private static final String[] DEFAULT_INCLUDE_SUFFIXS = { ".action" };
 
@@ -30,7 +32,8 @@ public class OpenSessionInViewFilter extends org.springframework.orm.hibernate3.
 	 * 重载过滤控制函数,忽略特定后缀名的请求.
 	 */
 	@Override
-	protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
+	protected boolean shouldNotFilter(final HttpServletRequest request)
+			throws ServletException {
 		String fullPath = request.getServletPath();
 		String path = StringUtils.substringBefore(fullPath, "?");
 
@@ -53,17 +56,19 @@ public class OpenSessionInViewFilter extends org.springframework.orm.hibernate3.
 	@Override
 	protected void initFilterBean() throws ServletException {
 
-		String includeSuffixStr = getFilterConfig().getInitParameter(INCLUDE_SUFFIXS_NAME);
+		String includeSuffixStr = getFilterConfig().getInitParameter(
+				INCLUDE_SUFFIXS_NAME);
 
 		if (StringUtils.isNotBlank(includeSuffixStr)) {
 			includeSuffixs = includeSuffixStr.split(",");
-			//为匹配字符串加上"."使匹配更精确，如.jpg
+			// 为匹配字符串加上"."使匹配更精确，如.jpg
 			for (int i = 0; i < includeSuffixs.length; i++) {
 				includeSuffixs[i] = "." + includeSuffixs[i];
 			}
 		}
 
-		String excludeSuffixStr = getFilterConfig().getInitParameter(EXCLUDE_SUFFIXS_NAME);
+		String excludeSuffixStr = getFilterConfig().getInitParameter(
+				EXCLUDE_SUFFIXS_NAME);
 
 		if (StringUtils.isNotBlank(excludeSuffixStr)) {
 			excludeSuffixs = excludeSuffixStr.split(",");
@@ -73,4 +78,3 @@ public class OpenSessionInViewFilter extends org.springframework.orm.hibernate3.
 		}
 	}
 }
-

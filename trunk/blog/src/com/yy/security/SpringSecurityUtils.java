@@ -22,7 +22,8 @@ public class SpringSecurityUtils {
 	 * 取得当前用户的登录名, 如果当前用户未登录则返回空字符串.
 	 */
 	public static String getCurrentUserName() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		if (auth == null)
 			return "";
 		return auth.getName();
@@ -33,7 +34,8 @@ public class SpringSecurityUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends User> T getCurrentUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 		if (principal == null)
 			return null;
 		return (T) principal;
