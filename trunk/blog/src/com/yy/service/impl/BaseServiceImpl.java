@@ -10,18 +10,26 @@ import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
 
 public class BaseServiceImpl<T, PK extends Serializable> {
-	
-	private HibernateDao<T,PK> hibernateDao;
+
+	private HibernateDao<T, PK> hibernateDao;
 
 	@Transactional
-	public void save(T t){
+	public void save(T t) {
 		try {
 			this.hibernateDao.save(t);
 		} catch (Exception e) {
 			throw new ServiceException("保存失败");
 		}
 	}
-	
+
+	public void delete(PK id) {
+		try {
+			hibernateDao.delete(id);
+		} catch (Exception e) {
+			throw new ServiceException("删除失败");
+		}
+	}
+
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
 		return this.hibernateDao.getMax(table);
@@ -30,14 +38,15 @@ public class BaseServiceImpl<T, PK extends Serializable> {
 	public void setHibernateDao(HibernateDao<T, PK> hibernateDao) {
 		this.hibernateDao = hibernateDao;
 	}
-	
+
 	@Transactional(readOnly = true)
-	public T exist(String column,String value) {
+	public T exist(String column, String value) {
 		return this.hibernateDao.findUniqueBy(column, value);
 	}
-	
+
 	@Transactional(readOnly = true)
-	public Page<T> searchResource(final Page<T> page, final List<PropertyFilter> filters) {
+	public Page<T> searchResource(final Page<T> page,
+			final List<PropertyFilter> filters) {
 		return this.hibernateDao.findPage(page, filters);
 	}
 }
