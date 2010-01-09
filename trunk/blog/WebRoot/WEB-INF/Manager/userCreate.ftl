@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <script language="javascript" src="../../js/jquery-1.3.2.js">
+        <script language="javascript" src="/js/jquery-1.3.2.js">
         </script>
-        <script language="javascript" src="../../js/formcheck.js">
+        <script language="javascript" src="/js/formcheck.js">
         </script>
         <link href="../../css/form.css" rel="stylesheet" type="text/css">
     </head>
