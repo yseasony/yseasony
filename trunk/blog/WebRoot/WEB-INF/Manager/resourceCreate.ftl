@@ -104,6 +104,9 @@
             $("#resourceName").focus(function(){
                 onFocusCheck("resourceNameTip", "资源名称不能为空");
             });
+            $("#resourceName").blur(function(){
+                checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
+            });
             $("#description").blur(function(){
                 $("#descriptionTip").get(0).className = "onCorrect";
                 $("#descriptionTip").get(0).innerHTML = "　";
