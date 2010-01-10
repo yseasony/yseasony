@@ -22,6 +22,7 @@ public class BaseServiceImpl<T, PK extends Serializable> {
 		}
 	}
 
+	@Transactional
 	public void delete(PK id) {
 		try {
 			hibernateDao.delete(id);

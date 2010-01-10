@@ -81,8 +81,9 @@ public class ResourceAction {
 		return new ModelAndView("Manager/resourceList", map);
 	}
 
-	public String delResource(Integer resourceId) {
-
+	@RequestMapping("/user/delResource.do")
+	public String delResource(Long resourceId) {
+		resourceSvc.delete(resourceId);
 		return "redirect:/user/resourceList.do";
 	}
 }
