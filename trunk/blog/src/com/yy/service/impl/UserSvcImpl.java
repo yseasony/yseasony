@@ -19,7 +19,7 @@ public class UserSvcImpl extends BaseServiceImpl<User, Long> implements
 	private IUserDao userDao;
 
 	@Override
-	@Resource(name = "userDao")
+	@Resource(name = "userDaoImpl")
 	public void setHibernateDao(HibernateDao<User, Long> hibernateDao) {
 		super.setHibernateDao(hibernateDao);
 	}

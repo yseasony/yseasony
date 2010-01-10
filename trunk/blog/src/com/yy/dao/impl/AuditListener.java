@@ -19,21 +19,24 @@ import com.yy.security.SpringSecurityUtils;
 @SuppressWarnings("serial")
 public class AuditListener implements SaveOrUpdateEventListener {
 
-	public void onSaveOrUpdate(SaveOrUpdateEvent event) throws HibernateException {
+	public void onSaveOrUpdate(SaveOrUpdateEvent event)
+			throws HibernateException {
 		Object object = event.getObject();
 
-		//如果对象是AuditableEntity子类,添加审计信息.
+		// 如果对象是AuditableEntity子类,添加审计信息.
 		if (object instanceof AuditableEntity) {
 			AuditableEntity entity = (AuditableEntity) object;
 
 			if (entity.getId() == null) {
-				//创建新对象
+				// 创建新对象
 				entity.setCreateTime(new Date());
 				entity.setCreateBy(SpringSecurityUtils.getCurrentUserName());
 			} else {
-				//修改旧对象
+				// 修改旧对象
 				entity.setLastModifyTime(new Date());
-				entity.setLastModifyBy(SpringSecurityUtils.getCurrentUserName());
+				entity
+						.setLastModifyBy(SpringSecurityUtils
+								.getCurrentUserName());
 			}
 		}
 	}

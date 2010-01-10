@@ -7,9 +7,9 @@ import com.yy.dao.IRoleDao;
 
 @Service
 public class RoleSvcImpl {
-	
+
 	private IRoleDao roleDao;
-	
+
 	@Transactional(readOnly = true)
 	public int getMax() {
 		return this.roleDao.getMax("tbl_role");

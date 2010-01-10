@@ -22,9 +22,11 @@ public class ResourceDetailsServiceImpl implements ResourceDetailsService {
 	 * @see ResourceDetailsService#getRequestMap()
 	 */
 	public LinkedHashMap<String, String> getRequestMap() throws Exception {
-		List<Resource> resourceList = securityEntityManager.getUrlResourceWithAuthorities();
+		List<Resource> resourceList = securityEntityManager
+				.getUrlResourceWithAuthorities();
 
-		LinkedHashMap<String, String> requestMap = new LinkedHashMap<String, String>(resourceList.size());
+		LinkedHashMap<String, String> requestMap = new LinkedHashMap<String, String>(
+				resourceList.size());
 		for (Resource resource : resourceList) {
 			requestMap.put(resource.getValue(), resource.getAuthNames());
 		}

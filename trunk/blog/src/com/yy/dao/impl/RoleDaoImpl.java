@@ -15,18 +15,21 @@ import com.yy.model.User;
  */
 @Repository
 public class RoleDaoImpl extends HibernateDao<Role, Long> implements IRoleDao {
-	
+
 	private static final String QUERY_USER_BY_ROLEID = "select u from User u left join u.roleList r where r.id=?";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.yy.dao.impl.IRoleDao#delete(java.lang.Long)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void delete(Long id) {
 		Role role = get(id);
-		//查询出拥有该角色的用户,并删除该用户的角色.
-		List<User> users = createQuery(QUERY_USER_BY_ROLEID, role.getId()).list();
+		// 查询出拥有该角色的用户,并删除该用户的角色.
+		List<User> users = createQuery(QUERY_USER_BY_ROLEID, role.getId())
+				.list();
 		for (User u : users) {
 			u.getRoleList().remove(role);
 		}

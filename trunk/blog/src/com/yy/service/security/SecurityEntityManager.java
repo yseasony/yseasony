@@ -26,13 +26,14 @@ import com.yy.utils.PropertyFilter;
  * 
  * @author calvin
  */
-//Spring Service Bean的标识.
+// Spring Service Bean的标识.
 @Service
-//默认将类中的所有函数纳入事务管理.
+// 默认将类中的所有函数纳入事务管理.
 @Transactional
 public class SecurityEntityManager {
 
-	private static Logger logger = LoggerFactory.getLogger(SecurityEntityManager.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(SecurityEntityManager.class);
 
 	@Autowired
 	private IUserDao userDao;
@@ -43,7 +44,7 @@ public class SecurityEntityManager {
 	@Autowired
 	private IResourceDao resourceDao;
 
-	//-- User Manager --//
+	// -- User Manager --//
 	@Transactional(readOnly = true)
 	public User getUser(Long id) {
 		return userDao.get(id);
@@ -58,7 +59,8 @@ public class SecurityEntityManager {
 	 */
 	public void deleteUser(Long id) {
 		if (id == 1) {
-			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
+			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils
+					.getCurrentUserName());
 			throw new ServiceException("不能删除超级管理员用户");
 		}
 		userDao.delete(id);
@@ -68,7 +70,8 @@ public class SecurityEntityManager {
 	 * 使用属性过滤条件查询用户.
 	 */
 	@Transactional(readOnly = true)
-	public Page<User> searchUser(final Page<User> page, final List<PropertyFilter> filters) {
+	public Page<User> searchUser(final Page<User> page,
+			final List<PropertyFilter> filters) {
 		return userDao.findPage(page, filters);
 	}
 
@@ -79,7 +82,7 @@ public class SecurityEntityManager {
 
 	/**
 	 * 检查用户名是否唯一.
-	 *
+	 * 
 	 * @return loginName在数据库中唯一或等于oldLoginName时返回true.
 	 */
 	@Transactional(readOnly = true)
@@ -87,7 +90,7 @@ public class SecurityEntityManager {
 		return userDao.isPropertyUnique("loginName", loginName, oldLoginName);
 	}
 
-	//-- Role Manager --//
+	// -- Role Manager --//
 	@Transactional(readOnly = true)
 	public Role getRole(Long id) {
 		return roleDao.get(id);
@@ -106,7 +109,7 @@ public class SecurityEntityManager {
 		roleDao.delete(id);
 	}
 
-	//-- Resource Manager --//
+	// -- Resource Manager --//
 	/**
 	 * 查找URL类型的资源并初始化可访问该资源的授权.
 	 */
@@ -115,7 +118,7 @@ public class SecurityEntityManager {
 		return resourceDao.getUrlResourceWithAuthorities();
 	}
 
-	//-- Authority Manager --//
+	// -- Authority Manager --//
 	@Transactional(readOnly = true)
 	public List<Authority> getAllAuthority() {
 		return authorityDao.getAll();

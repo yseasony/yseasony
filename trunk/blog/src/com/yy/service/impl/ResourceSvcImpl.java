@@ -9,14 +9,15 @@ import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
 
 @Service
-public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements IResourceSvc {
+public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
+		IResourceSvc {
 
 	@SuppressWarnings("unused")
 	@Autowired
 	private IResourceDao resourceDao;
 
 	@Override
-	@javax.annotation.Resource(name="resourceDao")
+	@javax.annotation.Resource(name = "resourceDaoImpl")
 	public void setHibernateDao(HibernateDao<Resource, Long> hibernateDao) {
 		super.setHibernateDao(hibernateDao);
 	}

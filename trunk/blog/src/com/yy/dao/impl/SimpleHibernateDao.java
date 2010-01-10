@@ -153,7 +153,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#getAll(java.lang.String,
-	 *      boolean)
+	 * boolean)
 	 */
 	public List<T> getAll(String orderBy, boolean isAsc) {
 		Criteria c = createCriteria();
@@ -168,7 +168,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findBy(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public List<T> findBy(final String propertyName, final Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
@@ -180,7 +180,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUniqueBy(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public T findUniqueBy(final String propertyName, final Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
@@ -201,7 +201,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#find(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public <X> List<X> find(final String hql, final Object... values) {
 		return createQuery(hql, values).list();
@@ -211,7 +211,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#find(java.lang.String,
-	 *      java.util.Map)
+	 * java.util.Map)
 	 */
 	public <X> List<X> find(final String hql, final Map<String, Object> values) {
 		return createQuery(hql, values).list();
@@ -221,7 +221,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUnique(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public <X> X findUnique(final String hql, final Object... values) {
 		return (X) createQuery(hql, values).uniqueResult();
@@ -231,7 +231,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUnique(java.lang.String,
-	 *      java.util.Map)
+	 * java.util.Map)
 	 */
 	public <X> X findUnique(final String hql, final Map<String, Object> values) {
 		return (X) createQuery(hql, values).uniqueResult();
@@ -241,7 +241,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#batchExecute(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public int batchExecute(final String hql, final Object... values) {
 		return createQuery(hql, values).executeUpdate();
@@ -251,7 +251,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#batchExecute(java.lang.String,
-	 *      java.util.Map)
+	 * java.util.Map)
 	 */
 	public int batchExecute(final String hql, final Map<String, Object> values) {
 		return createQuery(hql, values).executeUpdate();
@@ -261,7 +261,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#createQuery(java.lang.String,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public Query createQuery(final String queryString, final Object... values) {
 		Assert.hasText(queryString, "queryString不能为空");
@@ -278,7 +278,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#createQuery(java.lang.String,
-	 *      java.util.Map)
+	 * java.util.Map)
 	 */
 	public Query createQuery(final String queryString,
 			final Map<String, Object> values) {
@@ -293,7 +293,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.yy.dao.impl.ISimpleHibernateDao#find(org.hibernate.criterion.Criterion)
+	 * @see
+	 * com.yy.dao.impl.ISimpleHibernateDao#find(org.hibernate.criterion.Criterion
+	 * )
 	 */
 	public List<T> find(final Criterion... criterions) {
 		return createCriteria(criterions).list();
@@ -302,7 +304,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUnique(org.hibernate.criterion.Criterion)
+	 * @see
+	 * com.yy.dao.impl.ISimpleHibernateDao#findUnique(org.hibernate.criterion
+	 * .Criterion)
 	 */
 	public T findUnique(final Criterion... criterions) {
 		return (T) createCriteria(criterions).uniqueResult();
@@ -311,7 +315,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.yy.dao.impl.ISimpleHibernateDao#createCriteria(org.hibernate.criterion.Criterion)
+	 * @see
+	 * com.yy.dao.impl.ISimpleHibernateDao#createCriteria(org.hibernate.criterion
+	 * .Criterion)
 	 */
 	public Criteria createCriteria(final Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);

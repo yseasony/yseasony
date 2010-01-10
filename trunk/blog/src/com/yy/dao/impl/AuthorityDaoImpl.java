@@ -11,5 +11,6 @@ import com.yy.model.Authority;
  * @author calvin
  */
 @Repository
-public class AuthorityDaoImpl extends HibernateDao<Authority, Long> implements IAuthorityDao {
+public class AuthorityDaoImpl extends HibernateDao<Authority, Long> implements
+		IAuthorityDao {
 }

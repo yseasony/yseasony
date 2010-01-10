@@ -35,8 +35,8 @@ public class DefinitionSourceFactoryBean implements FactoryBean {
 	}
 
 	/**
-	 * 返回注入了Ant
-	 * Style的URLMatcher和ResourceDetailService提供的RequestMap的DefaultFilterInvocationDefinitionSource.
+	 * 返回注入了AntStyle的URLMatcher和ResourceDetailService提供的RequestMap的DefaultFilterInvocationDefinitionSource
+	 * .
 	 */
 	public Object getObject() throws Exception {
 		LinkedHashMap<RequestKey, ConfigAttributeDefinition> requestMap = buildRequestMap();
