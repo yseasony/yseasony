@@ -26,4 +26,7 @@
 	<cache name="com.yy.model.Role.auths" maxElementsInMemory="500" overflowToDisk="true"
 		eternal="true">
 	</cache>
+	<cache name="com.yy.model.Authority" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+	</cache>
 </ehcache>

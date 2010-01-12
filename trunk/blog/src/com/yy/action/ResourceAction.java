@@ -39,7 +39,7 @@ public class ResourceAction {
 			return;
 		}
 
-		if (StringUtil.isEmpty(resource.getDescription(), resource
+		if (StringUtil.isEmpty(resource
 				.getResourceName(), resource.getValue(), resource
 				.getResourceType(), String.valueOf(resource.getPosition()))) {
 			response.setContentType("text/html;charset=utf-8");
@@ -82,8 +82,8 @@ public class ResourceAction {
 	}
 
 	@RequestMapping("/user/delResource.do")
-	public String delResource(Long resourceId) {
-		resourceSvc.delete(resourceId);
+	public String delResource(Long resourceId,Double position) {
+		resourceSvc.delete(resourceId,position);
 		return "redirect:/user/resourceList.do";
 	}
 }

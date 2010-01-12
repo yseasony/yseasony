@@ -189,5 +189,8 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * 取得总数+1
 	 */
 	public int getMax(String table);
-
+	/**
+	 * 执行SQL
+	 */
+	public void executeSql(String sql);
 }

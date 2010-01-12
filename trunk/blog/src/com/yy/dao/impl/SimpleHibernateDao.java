@@ -392,10 +392,12 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	public int getMax(String table) {
 
 		String sql = "select count(*)+1 from " + table + "";
-
 		Integer a = Integer.parseInt(this.getSession().createSQLQuery(sql)
 				.uniqueResult().toString());
-
 		return a;
+	}
+
+	public void executeSql(String sql) {
+		this.getSession().createSQLQuery(sql).executeUpdate();
 	}
 }

@@ -17,6 +17,6 @@ public interface IResourceSvc {
 	public Page<Resource> searchResource(final Page<Resource> page,
 			final List<PropertyFilter> filters);
 
-	public void delete(Long id);
+	public void delete(Long id, Double position);
 
 }

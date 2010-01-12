@@ -30,4 +30,8 @@ public class ResourceDaoImpl extends HibernateDao<Resource, Long> implements
 				Resource.URL_TYPE);
 		return distinct(query).list();
 	}
+
+	public void updatePosition(Double position) {
+		super.executeSql("update tbl_resource set position = position-1 where position >"+ position + "");
+	}
 }
