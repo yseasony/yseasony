@@ -53,19 +53,6 @@
                 </tr>
                 <tr>
                     <td>
-                        排　序:
-                    </td>
-                    <td>
-                        <input type="text" name="position" value="${max}" id="position" readonly="readonly"/>
-                    </td>
-                    <td>
-                        <div id="positionTip" class="onCorrect" style="width: 250px;">
-                            此排序自动生成请不要更改
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         描述：
                     </td>
                     <td>
@@ -82,7 +69,9 @@
                     <td>
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
-                </tr><input type="hidden" name="token" value="${token}">
+                </tr>
+				<input type="hidden" name="token" value="${token}">
+				<input type="hidden" name="position" value="${max}"/>
             </form>
         </table>
         <script type="text/javascript">
@@ -134,9 +123,15 @@
                 if (check == true) {
                     exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
                 }
+				
+				if (check == true) {
+					checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
+                }
+				
                 if (check == true) {
                     checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
                 }
+				
                 if (check == true) {
                     return true;
                 }

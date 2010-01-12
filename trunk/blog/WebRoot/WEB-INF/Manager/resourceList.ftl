@@ -58,7 +58,7 @@
                                 </security:authorize>
                             </security:authorize>
                             <security:authorize ifAnyGranted="A_MODIFY_ROLE">
-                                <a href="role!input.action?id=${obj.id}">修改</a>&nbsp;<a href="/user/delResource.do?resourceId=${obj.id}">删除</a>
+                                <a href="role!input.action?id=${obj.id}">修改</a>&nbsp;<a href="/user/delResource.do?resourceId=${obj.id}&position=${obj.position}">删除</a>
                             </security:authorize>
                         </td>
                     </tr>

@@ -64,6 +64,7 @@ function exist(tipClass, checkId, errorMessage, successMessage, ajaxAddress,
 	$.ajax( {
 		url : ajaxAddress,
 		dataType : "json",
+		async: false,
 		data : ajaxValueName + "=" + checkValue,
 		success : function(json) {
 			if (json.exist == "false") {
