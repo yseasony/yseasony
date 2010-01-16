@@ -1,9 +1,12 @@
 package com.yy.ajax;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
+import com.yy.utils.HibernateWebUtils;
+import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 @Controller
 public class ResourceAjax {
@@ -50,6 +56,32 @@ public class ResourceAjax {
 		modelAndView.addAllObjects(map);
 		return modelAndView;
 
+	}
+	
+	@RequestMapping("/user/resourceList.ajax")
+	public ModelAndView getResourceList(HttpServletRequest request,
+			Integer pageNo, String orderBy, String order) {
+		List<PropertyFilter> filters = HibernateWebUtils
+				.buildPropertyFilters(request);
+		
+		ModelAndView modelAndView = new ModelAndView("jsonView");
+
+		Page<Resource> page = new Page<Resource>(1, pageNo, orderBy, order);
+		// 设置默认排序方式
+		if (!page.isOrderBySetted()) {
+			page.setOrderBy("id");
+			page.setOrder(Page.ASC);
+		}
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		page = resourceSvc.searchResource(page, filters);
+		
+		JSONObject jsonObject = JSONObject.fromObject(page);
+		
+		map.put("page", jsonObject);
+
+		modelAndView.addAllObjects(map);
+		return modelAndView;
 	}
 
 }
