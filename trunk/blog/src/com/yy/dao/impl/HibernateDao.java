@@ -99,6 +99,23 @@ public class HibernateDao<T, PK extends Serializable> extends
 		page.setResult(result);
 		return page;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Page<T> findPage(final Page<T> page, final String hql) {
+		Assert.notNull(page, "page不能为空");
+
+		Query q = createQuery(hql).setCacheable(true);
+
+		if (page.isAutoCount()) {
+			long totalCount = countHqlResult(hql);
+			page.setTotalCount(totalCount);
+		}
+
+		setPageParameter(q, page);
+		List result = q.list();
+		page.setResult(result);
+		return page;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -205,6 +222,29 @@ public class HibernateDao<T, PK extends Serializable> extends
 					+ countHql, e);
 		}
 	}
+	
+	/**
+	 * 执行count查询获得本次Hql查询所能获得的对象总数.
+	 * 
+	 * 本函数只能自动处理简单的hql语句,复杂的hql查询请另行编写count语句查询.
+	 */
+	protected long countHqlResult(final String hql) {
+		String fromHql = hql;
+		// select子句与order by子句会影响count查询,进行简单的排除.
+		fromHql = "from " + StringUtils.substringAfter(fromHql, "from");
+		fromHql = StringUtils.substringBefore(fromHql, "order by");
+
+		String countHql = "select count(*) " + fromHql;
+
+		try {
+			Long count = findUnique(countHql);
+			return count;
+		} catch (Exception e) {
+			throw new RuntimeException("hql can't be auto count, hql is:"
+					+ countHql, e);
+		}
+	}
+	
 
 	/**
 	 * 执行count查询获得本次Hql查询所能获得的对象总数.

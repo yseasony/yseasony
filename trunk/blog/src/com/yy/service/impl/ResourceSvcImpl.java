@@ -8,6 +8,7 @@ import com.yy.dao.IResourceDao;
 import com.yy.dao.impl.HibernateDao;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
+import com.yy.utils.Page;
 
 @Service
 public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
@@ -31,5 +32,9 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 			throw new ServiceException("删除失败");
 		}
 		
+	}
+	
+	public Page<Resource> getPage(Page<Resource> page){
+		return resourceDao.getPage(page);
 	}
 }

@@ -1,7 +1,9 @@
 package com.yy.test.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import com.yy.dao.impl.ResourceDaoImpl;
 import com.yy.model.Resource;
 import com.yy.service.impl.ServiceException;
 import com.yy.test.base.SpringTxTestCase;
+import com.yy.utils.Page;
 
 public class ResourceDao extends SpringTxTestCase{
 
@@ -67,6 +70,24 @@ public class ResourceDao extends SpringTxTestCase{
 		Query query = resourceDao.getSession().createQuery(hql);
 		List<Resource> list = query.list();
 		System.out.println(list.get(0).getId());
+		
+	}
+	
+	
+	@Test
+	public void page(){
+		
+		Page<Resource> page = new Page<Resource>(1, 1, "", "");
+		// 设置默认排序方式
+		if (!page.isOrderBySetted()) {
+			page.setOrderBy("id");
+			page.setOrder(Page.ASC);
+		}
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		String hql = "select new Resource(id,value) from Resource";
+		resourceDao.findPage(page, hql, map);
 		
 	}
 	                     

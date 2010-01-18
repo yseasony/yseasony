@@ -33,6 +33,18 @@ public interface IHibernateDao<T, PK extends Serializable> extends
 	 */
 	public Page<T> findPage(final Page<T> page, final String hql,
 			final Object... values);
+	
+	/**
+	 * 按HQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.不支持其中的orderBy参数.
+	 * @param hql
+	 *            hql语句.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPage(final Page<T> page, final String hql);
 
 	/**
 	 * 按HQL分页查询.

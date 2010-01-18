@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yy.dao.IResourceDao;
 import com.yy.model.Resource;
+import com.yy.utils.Page;
 
 /**
  * 受保护资源对象的泛型DAO.
@@ -33,5 +34,11 @@ public class ResourceDaoImpl extends HibernateDao<Resource, Long> implements
 
 	public void updatePosition(Double position) {
 		super.executeSql("update tbl_resource set position = position-1 where position >"+ position + "");
+	}
+	
+	public Page<Resource> getPage(Page<Resource> page){
+		
+		String hql = "select new Resource(id,value) from  Resource";
+		return super.findPage(page, hql);
 	}
 }

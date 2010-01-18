@@ -3,6 +3,7 @@ package com.yy.dao;
 import java.util.List;
 
 import com.yy.model.Resource;
+import com.yy.utils.Page;
 
 public interface IResourceDao extends IHibernateDao<Resource, Long> {
 
@@ -12,5 +13,7 @@ public interface IResourceDao extends IHibernateDao<Resource, Long> {
 	public List<Resource> getUrlResourceWithAuthorities();
 	
 	public void updatePosition(Double position);
+	
+	public Page<Resource> getPage(Page<Resource> page);
 
 }
