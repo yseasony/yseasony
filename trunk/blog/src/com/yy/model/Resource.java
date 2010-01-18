@@ -118,4 +118,13 @@ public class Resource extends AuditableEntity {
 		return ReflectionUtils.convertElementPropertyToString(authorityList,
 				"name", ",");
 	}
+
+	public Resource() {
+	}
+
+	public Resource(long id, String value) {
+		this.value = value;
+		super.setId(id);
+	}
+
 }

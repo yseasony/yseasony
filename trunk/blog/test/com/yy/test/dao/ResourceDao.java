@@ -63,10 +63,10 @@ public class ResourceDao extends SpringTxTestCase{
 	@Test
 	public void select(){
 		
-		String hql = "SELECT new Resource(value) FROM Resource";
+		String hql = "SELECT new Resource(id,value) FROM Resource";
 		Query query = resourceDao.getSession().createQuery(hql);
 		List<Resource> list = query.list();
-		System.out.println(list.get(0).getResourceName());
+		System.out.println(list.get(0).getId());
 		
 	}
 	                     
