@@ -84,9 +84,10 @@ public class ResourceDao extends SpringTxTestCase{
 			page.setOrder(Page.ASC);
 		}
 		
-		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("value", "q");
 		
-		String hql = "select new Resource(id,value) from Resource";
+		String hql = "select new Resource(id,value) from Resource where value =:value";
 		resourceDao.findPage(page, hql, map);
 		
 	}
