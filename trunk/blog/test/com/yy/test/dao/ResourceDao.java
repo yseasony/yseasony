@@ -1,7 +1,9 @@
 package com.yy.test.dao;
 
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,17 @@ public class ResourceDao extends SpringTxTestCase{
 		this.resourceDao.delete(987153L);
 		this.resourceDao.getSessionFactory().getCurrentSession().createSQLQuery("update tbl_resource set position = position-1 where position >3").executeUpdate();
 		System.out.println(new Date(System.currentTimeMillis()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void select(){
+		
+		String hql = "SELECT new Resource(value) FROM Resource";
+		Query query = resourceDao.getSession().createQuery(hql);
+		List<Resource> list = query.list();
+		System.out.println(list.get(0).getResourceName());
+		
 	}
 	                     
 }
