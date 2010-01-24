@@ -1,4 +1,4 @@
-﻿#pager ul.pages {
+#pager ul.pages {
 display:block;
 border:none;
 text-transform:uppercase;
@@ -31,3 +31,8 @@ color:#000;
 font-weight:700;
 background-color:#eee;
 }
+
+* { font-size: 12px; font-family: sans-serif; }
+table { border-collapse: collapse; border: 2px solid #9ab; clear: left; }
+td, th { border: 1px solid #bcc; padding: 5px; color: #333; text-align: center; }
+th { background: #eef4ff; }
