@@ -66,7 +66,7 @@ public class ResourceAjax {
 		
 		ModelAndView modelAndView = new ModelAndView("jsonView");
 
-		Page<Resource> page = new Page<Resource>(1, pageNo, orderBy, order);
+		Page<Resource> page = new Page<Resource>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
 		if (!page.isOrderBySetted()) {
 			page.setOrderBy("id");

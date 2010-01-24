@@ -265,7 +265,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 */
 	public Query createQuery(final String queryString, final Object... values) {
 		Assert.hasText(queryString, "queryString不能为空");
-		Query query = getSession().createQuery(queryString).setCacheable(true);
+		Query query = getSession().createQuery(queryString);
 		if (values != null) {
 			for (int i = 0; i < values.length; i++) {
 				query.setParameter(i, values[i]);

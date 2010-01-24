@@ -121,9 +121,15 @@ public class Resource extends AuditableEntity {
 
 	public Resource() {
 	}
-
-	public Resource(long id, String value) {
+	
+	public Resource(long id,String resourceName, String description,
+			String resourceType, String value, double position) {
+		super();
+		this.resourceName = resourceName;
+		this.description = description;
+		this.resourceType = resourceType;
 		this.value = value;
+		this.position = position;
 		super.setId(id);
 	}
 
