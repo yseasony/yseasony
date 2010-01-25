@@ -45,7 +45,7 @@ public class SimpleHibernateDaoTest extends SpringTxTestCase {
 		dao.save(user);
 		user.setName("boo");
 		dao.save(user);
-	    dao.delete(user);
+		dao.delete(user);
 	}
 
 	@Test
@@ -61,12 +61,12 @@ public class SimpleHibernateDaoTest extends SpringTxTestCase {
 	@Test
 	public void findByHQL() {
 
-		List<User> users = dao.find("from User u where loginName=?",
+		List<User> users = dao.find("from User u where loginName=?", false,
 				DEFAULT_LOGIN_NAME);
 		assertEquals(1, users.size());
 		assertEquals(DEFAULT_LOGIN_NAME, users.get(0).getLoginname());
 
-		User user = dao.findUnique("from User u where loginName=?",
+		User user = dao.findUnique("from User u where loginName=?", false,
 				DEFAULT_LOGIN_NAME);
 		assertEquals(DEFAULT_LOGIN_NAME, user.getLoginname());
 

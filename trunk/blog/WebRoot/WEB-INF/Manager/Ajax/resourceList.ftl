@@ -10,14 +10,13 @@
 		<script src="/js/table.js" type="text/javascript">
         </script>
         <script type="text/javascript" language="javascript">
-        	
 			var orderBy = "";
 			var order = "";
 			var orderNO ;
             $.ajaxSetup({
                 cache: false
             });
-			
+            
             var totalPages = 0;
             
             $(document).ready(function(){

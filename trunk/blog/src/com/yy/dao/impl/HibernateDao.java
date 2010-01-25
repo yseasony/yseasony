@@ -87,7 +87,7 @@ public class HibernateDao<T, PK extends Serializable> extends
 			final Object... values) {
 		Assert.notNull(page, "page不能为空");
 
-		Query q = createQuery(hql, values);
+		Query q = createQuery(hql, true, values);
 
 		if (page.isAutoCount()) {
 			long totalCount = countHqlResult(hql, values);
@@ -99,12 +99,12 @@ public class HibernateDao<T, PK extends Serializable> extends
 		page.setResult(result);
 		return page;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Page<T> findPage(final Page<T> page, final String hql) {
 		Assert.notNull(page, "page不能为空");
 
-		Query q = createQuery(hql).setCacheable(true);
+		Query q = createQuery(hql, true);
 
 		if (page.isAutoCount()) {
 			long totalCount = countHqlResult(hql);
@@ -215,14 +215,14 @@ public class HibernateDao<T, PK extends Serializable> extends
 		String countHql = "select count(*) " + fromHql;
 
 		try {
-			Long count = findUnique(countHql, values);
+			Long count = findUnique(countHql, true, values);
 			return count;
 		} catch (Exception e) {
 			throw new RuntimeException("hql can't be auto count, hql is:"
 					+ countHql, e);
 		}
 	}
-	
+
 	/**
 	 * 执行count查询获得本次Hql查询所能获得的对象总数.
 	 * 
@@ -237,14 +237,13 @@ public class HibernateDao<T, PK extends Serializable> extends
 		String countHql = "select count(*) " + fromHql;
 
 		try {
-			Long count = findUnique(countHql);
+			Long count = findUnique(countHql, true);
 			return count;
 		} catch (Exception e) {
 			throw new RuntimeException("hql can't be auto count, hql is:"
 					+ countHql, e);
 		}
 	}
-	
 
 	/**
 	 * 执行count查询获得本次Hql查询所能获得的对象总数.

@@ -27,7 +27,7 @@ public class ResourceDaoImpl extends HibernateDao<Resource, Long> implements
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Resource> getUrlResourceWithAuthorities() {
-		Query query = createQuery(QUERY_BY_RESOURCETYPE_WITH_AUTHORITY,
+		Query query = createQuery(QUERY_BY_RESOURCETYPE_WITH_AUTHORITY,false,
 				Resource.URL_TYPE);
 		return distinct(query).list();
 	}

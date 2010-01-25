@@ -28,8 +28,8 @@ public class RoleDaoImpl extends HibernateDao<Role, Long> implements IRoleDao {
 	public void delete(Long id) {
 		Role role = get(id);
 		// 查询出拥有该角色的用户,并删除该用户的角色.
-		List<User> users = createQuery(QUERY_USER_BY_ROLEID, role.getId())
-				.list();
+		List<User> users = createQuery(QUERY_USER_BY_ROLEID, false,
+				role.getId()).list();
 		for (User u : users) {
 			u.getRoleList().remove(role);
 		}

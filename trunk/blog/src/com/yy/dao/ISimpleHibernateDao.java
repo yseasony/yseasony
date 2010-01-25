@@ -67,7 +67,8 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * @param values
 	 *            数量可变的参数,按顺序绑定.
 	 */
-	public <X> List<X> find(final String hql, final Object... values);
+	public <X> List<X> find(final String hql, boolean cache,
+			final Object... values);
 
 	/**
 	 * 按HQL查询对象列表.
@@ -83,7 +84,8 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * @param values
 	 *            数量可变的参数,按顺序绑定.
 	 */
-	public <X> X findUnique(final String hql, final Object... values);
+	public <X> X findUnique(final String hql, boolean cache,
+			final Object... values);
 
 	/**
 	 * 按HQL查询唯一对象.
@@ -96,7 +98,8 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 执行HQL进行批量修改/删除操作.
 	 */
-	public int batchExecute(final String hql, final Object... values);
+	public int batchExecute(final String hql, boolean cache,
+			final Object... values);
 
 	/**
 	 * 执行HQL进行批量修改/删除操作.
@@ -113,7 +116,8 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * @param values
 	 *            数量可变的参数,按顺序绑定.
 	 */
-	public Query createQuery(final String queryString, final Object... values);
+	public Query createQuery(final String queryString, boolean cache,
+			final Object... values);
 
 	/**
 	 * 根据查询HQL与参数列表创建Query对象.
@@ -189,6 +193,7 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * 取得总数+1
 	 */
 	public int getMax(String table);
+
 	/**
 	 * 执行SQL
 	 */

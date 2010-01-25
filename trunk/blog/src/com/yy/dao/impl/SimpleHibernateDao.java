@@ -203,8 +203,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#find(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public <X> List<X> find(final String hql, final Object... values) {
-		return createQuery(hql, values).list();
+	public <X> List<X> find(final String hql,boolean cache, final Object... values) {
+		return createQuery(hql, cache,values).list();
 	}
 
 	/*
@@ -223,8 +223,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUnique(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public <X> X findUnique(final String hql, final Object... values) {
-		return (X) createQuery(hql, values).uniqueResult();
+	public <X> X findUnique(final String hql, boolean cache,final Object... values) {
+		return (X) createQuery(hql,cache, values).uniqueResult();
 	}
 
 	/*
@@ -243,8 +243,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#batchExecute(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public int batchExecute(final String hql, final Object... values) {
-		return createQuery(hql, values).executeUpdate();
+	public int batchExecute(final String hql, boolean cache, final Object... values) {
+		return createQuery(hql, cache, values).executeUpdate();
 	}
 
 	/*
@@ -263,9 +263,12 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#createQuery(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public Query createQuery(final String queryString, final Object... values) {
+	public Query createQuery(final String queryString,boolean cache,final Object... values) {
 		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
+		if (cache) {
+			query.setCacheable(true);
+		}
 		if (values != null) {
 			for (int i = 0; i < values.length; i++) {
 				query.setParameter(i, values[i]);
