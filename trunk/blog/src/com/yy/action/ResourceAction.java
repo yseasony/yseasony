@@ -61,7 +61,7 @@ public class ResourceAction {
 		return new ModelAndView("Manager/resourceCreate", map);
 	}
 
-	@RequestMapping("/user/resourceList.do")
+	//@RequestMapping("/user/resourceList.do")
 	public ModelAndView getResourceList(HttpServletRequest request,
 			Integer pageNo, String orderBy, String order) {
 		List<PropertyFilter> filters = HibernateWebUtils
@@ -80,6 +80,13 @@ public class ResourceAction {
 
 		return new ModelAndView("Manager/resourceList", map);
 	}
+	
+	@RequestMapping("/user/resourceList.do")
+	public ModelAndView getResourceList(){
+		
+		return new ModelAndView("Manager/Ajax/resourceList");
+	}
+	
 
 	@RequestMapping("/user/delResource.do")
 	public String delResource(Long resourceId,Double position) {
