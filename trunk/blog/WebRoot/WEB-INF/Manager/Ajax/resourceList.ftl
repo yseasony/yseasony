@@ -1,17 +1,23 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>jQuery.pager.js Test</title>
+        <title>资源列表</title>
         <link href="/css/Pager.css" rel="stylesheet" type="text/css" />
         <script src="/js/jquery.js" type="text/javascript">
         </script>
         <script src="/js/jquery.pager.js" type="text/javascript">
         </script>
+		<script src="/js/table.js" type="text/javascript">
+        </script>
         <script type="text/javascript" language="javascript">
+        	
+			var orderBy = "";
+			var order = "";
+			var orderNO ;
             $.ajaxSetup({
                 cache: false
             });
-            
+			
             var totalPages = 0;
             
             $(document).ready(function(){
@@ -23,10 +29,10 @@
             }
             
             function page(pageNo){
-            
+            	orderNO = pageNo;
                 $.ajax({
                     url: "/user/resourceList.ajax",
-                    data: "pageNo=" + pageNo,
+                    data: "pageNo=" + pageNo+"&orderBy="+orderBy+"&order="+order,
                     dataType: "json",
                     success: function(json){
                         // alert(json.page.pageSize);
@@ -41,8 +47,6 @@
                         var html = "";
                         
                         $.each(json.page.result, function(i, n){
-                            //alert("#id"+i);
-                            //$("#id"+i).innerHTML=n.resourceName;
                             html = html + "<tr><td>" + n.position + "</td><td>" +
                             n.resourceName +
                             "</td><td>" +
@@ -68,7 +72,7 @@
         <table width="620">
             <tr>
                 <th>
-                    <a href="javascript:sort('position','asc')">序号</a>
+                    <a href="javascript:sort('position','desc')">序号</a>
                 </th>
                 <th>
                     名称
@@ -77,7 +81,7 @@
                     类型
                 </th>
                 <th>
-                    <a href="javascript:sort('value','asc')">地址 </a>
+                    <a href="javascript:sort('value','desc')">地址 </a>
                 </th>
                 <th width="50">
                     描述
