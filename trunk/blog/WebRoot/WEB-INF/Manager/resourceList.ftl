@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>资源列表</title>
-        <script language="javascript" src="/js/jquery-1.3.2.js"></script>
+        <script language="javascript" src="/js/jquery.js"></script>
         <script language="javascript" src="/js/table.js">
         </script>
     </head>
