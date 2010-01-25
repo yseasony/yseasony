@@ -14,19 +14,19 @@
 
 
 	<!-- Special objects setting. -->
-	<cache name="com.yy.model.User" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yy.model.User" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
-	<cache name="com.yy.model.User.roles" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yy.model.User.roles" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
-	<cache name="com.yy.model.Role" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yy.model.Role" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
-	<cache name="com.yy.model.Role.auths" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yy.model.Role.auths" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
-	<cache name="com.yy.model.Authority" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yy.model.Authority" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
 </ehcache>
