@@ -78,6 +78,7 @@ public class ResourceAjax {
 		}
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		page = resourceSvc.getPage(page,filters);
 		
 		JSONObject jsonObject = JSONObject.fromObject(page);

@@ -39,17 +39,14 @@ public class ResourceDaoImpl extends HibernateDao<Resource, Long> implements
 	
 	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters){
 		
-		StringBuffer where = new StringBuffer();
-		where.append("where ");
-		
 		if (filters.size() > 0) {
-			for (int i = 0; i < filters.size(); i++) {
-				where.append(filters.get(i).getPropertyName()).append(" ")
-				.append(filters.get(i).getMatchType());
-			}
+			String hql = "select new Resource(id,resourceName,description,resourceType,value,position) from Resource "+super.filters(filters)+"order by "+page.getOrderBy()+" "+page.getOrder()+"";
+			return super.findPage(page, hql);
+			
 		}
-		System.out.println(filters.get(0));
+		
 		String hql = "select new Resource(id,resourceName,description,resourceType,value,position) from Resource order by "+page.getOrderBy()+" "+page.getOrder()+"";
 		return super.findPage(page, hql);
 	}
+	
 }

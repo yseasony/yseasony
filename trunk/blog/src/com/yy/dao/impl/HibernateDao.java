@@ -416,4 +416,39 @@ public class HibernateDao<T, PK extends Serializable> extends
 		Object object = findUniqueBy(propertyName, newValue);
 		return (object == null);
 	}
+	
+	protected String filters(final List<PropertyFilter> filters){
+		StringBuffer where = new StringBuffer();
+		where.append("where ");
+		
+		if (filters.size() > 0) {
+			for (int i = 0; i < filters.size(); i++) {
+				where.append(filters.get(i).getPropertyName()).append(" ")
+				.append(this.filterBuilder(filters.get(i).getMatchType().toString(),
+						filters.get(i).getPropertyValue().toString()));
+				if(i != filters.size()-1){
+					where.append("and").append(" ");
+				}
+			}
+		}
+		
+		return where.toString();
+	}
+	
+	protected String filterBuilder(String MatchType,String PropertyValue){
+		
+		StringBuffer filterBuilder = new StringBuffer();
+		
+		if (MatchType.equalsIgnoreCase("LIKE")) {
+			filterBuilder.append("like").append(" ")
+			.append("'%").append(PropertyValue).append("%'").append(" ");
+		}
+		
+		if (MatchType.equalsIgnoreCase("EQ")) {
+			filterBuilder.append("=").append(" ")
+			.append("'").append(PropertyValue).append("'").append(" ");
+		}
+		
+		return filterBuilder.toString();
+	}
 }

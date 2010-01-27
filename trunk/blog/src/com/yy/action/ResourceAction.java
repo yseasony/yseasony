@@ -54,7 +54,7 @@ public class ResourceAction {
 	public ModelAndView resource(HttpSession session) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		String max = String.valueOf(resourceSvc.getMax("TBL_RESOURCE"));
+		String max = String.valueOf(resourceSvc.getMax("Resource"));
 
 		map.put("token", Token.getTokenString(session));
 		map.put("max", max);
@@ -83,7 +83,6 @@ public class ResourceAction {
 	
 	@RequestMapping("/user/resourceList.do")
 	public ModelAndView getResourceList(){
-		
 		return new ModelAndView("Manager/Ajax/resourceList");
 	}
 	

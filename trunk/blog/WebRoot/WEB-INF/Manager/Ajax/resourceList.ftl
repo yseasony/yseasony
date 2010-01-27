@@ -14,6 +14,7 @@
             var order = "";
             var orderNO;
             var url = "";
+			var loading = "<img id='jquery-loading' src='/images/70.gif' alt='Loading...' />";
             $.ajaxSetup({
                 cache: false
             });
@@ -29,6 +30,7 @@
             }
             
             function page(pageNo,search){
+				$("#loading").html(loading);
                 orderNO = pageNo;
 				
 				url = "pageNo=" + pageNo + "&orderBy=" + orderBy + "&order=" + order+
@@ -66,7 +68,7 @@
                         });
                         
                         $("#result").html(html);
-                        
+                        $("#loading").html("");
                     }
                 });
             }
@@ -112,5 +114,7 @@
         </table>
         <div id="pager">
         </div>
+		<span id="loading">
+        </span>
     </body>
 </html>

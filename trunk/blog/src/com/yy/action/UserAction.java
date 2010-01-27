@@ -43,7 +43,7 @@ public class UserAction {
 	public ModelAndView userCreate() {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		String max = String.valueOf(userSvc.getMax("tbl_user"));
+		String max = String.valueOf(userSvc.getMax("User"));
 		map.put("max", max);
 		return new ModelAndView("Manager/userCreate", map);
 	}
