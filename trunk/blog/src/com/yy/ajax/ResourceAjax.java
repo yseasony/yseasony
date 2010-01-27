@@ -1,6 +1,7 @@
 package com.yy.ajax;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
+import com.yy.utils.HibernateWebUtils;
 import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 @Controller
 public class ResourceAjax {
@@ -57,10 +60,13 @@ public class ResourceAjax {
 	
 	@RequestMapping("/user/resourceList.ajax")
 	public ModelAndView getResourceList(HttpServletRequest request,
-			Integer pageNo, String orderBy, String order) {
+			Integer pageNo, String orderBy, String order,String filter_LIKES_resourceName) {
 		
-//		List<PropertyFilter> filters = HibernateWebUtils
-//				.buildPropertyFilters(request);
+		String a = request.getParameter("filter_LIKES_resourceName");
+		System.out.println(filter_LIKES_resourceName);
+		System.out.println(a);
+		List<PropertyFilter> filters = HibernateWebUtils
+				.buildPropertyFilters(request);
 		
 		ModelAndView modelAndView = new ModelAndView("jsonView");
 
@@ -72,7 +78,7 @@ public class ResourceAjax {
 		}
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		page = resourceSvc.getPage(page);
+		page = resourceSvc.getPage(page,filters);
 		
 		JSONObject jsonObject = JSONObject.fromObject(page);
 		

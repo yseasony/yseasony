@@ -1,5 +1,7 @@
 package com.yy.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,7 @@ import com.yy.dao.impl.HibernateDao;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
 import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 @Service
 public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
@@ -34,7 +37,7 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 		
 	}
 	
-	public Page<Resource> getPage(Page<Resource> page){
-		return resourceDao.getPage(page);
+	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters){
+		return resourceDao.getPage(page,filters);
 	}
 }

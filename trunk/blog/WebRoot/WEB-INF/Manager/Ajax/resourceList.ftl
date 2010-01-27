@@ -7,12 +7,13 @@
         </script>
         <script src="/js/jquery.pager.js" type="text/javascript">
         </script>
-		<script src="/js/table.js" type="text/javascript">
+        <script src="/js/table.js" type="text/javascript">
         </script>
         <script type="text/javascript" language="javascript">
-			var orderBy = "";
-			var order = "";
-			var orderNO ;
+            var orderBy = "";
+            var order = "";
+            var orderNO;
+            var url = "";
             $.ajaxSetup({
                 cache: false
             });
@@ -27,11 +28,15 @@
                 page(pageclickednumber);
             }
             
-            function page(pageNo){
-            	orderNO = pageNo;
+            function page(pageNo,search){
+                orderNO = pageNo;
+				
+				url = "pageNo=" + pageNo + "&orderBy=" + orderBy + "&order=" + order+
+				"&filter_LIKES_resourceName="+$("#filter_resourceName").val()+
+				"&filter_LIKES_value="+$("#filter_value").val();
                 $.ajax({
                     url: "/user/resourceList.ajax",
-                    data: "pageNo=" + pageNo+"&orderBy="+orderBy+"&order="+order,
+                    data: url,
                     dataType: "json",
                     success: function(json){
                         // alert(json.page.pageSize);
@@ -68,6 +73,19 @@
         </script>
     </head>
     <body>
+        <table width="620">
+            <tr>
+                <td>
+                    名称: <input type="text" name="filter_LIKES_resourceName" id="filter_resourceName" size="9"/>
+                </td>
+                <td>
+                    地址 : <input type="text" name="filter_LIKES_value" id="filter_value" size="9"/>
+                </td>
+                <td>
+                    <input class="button" type="button" value="搜索" onclick="search();"/>
+                </td>
+            </tr>
+        </table>
         <table width="620">
             <tr>
                 <th>

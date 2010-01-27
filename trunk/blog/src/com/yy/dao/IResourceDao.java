@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yy.model.Resource;
 import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 public interface IResourceDao extends IHibernateDao<Resource, Long> {
 
@@ -14,6 +15,6 @@ public interface IResourceDao extends IHibernateDao<Resource, Long> {
 	
 	public void updatePosition(Double position);
 	
-	public Page<Resource> getPage(Page<Resource> page);
+	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters);
 
 }
