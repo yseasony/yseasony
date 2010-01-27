@@ -115,5 +115,7 @@
 	<!-- SpringContextUtils定义 -->
 	<bean id="springContextUtils" class="com.yy.utils.SpringContextUtils"
 		lazy-init="false" />
+		
+	<aop:aspectj-autoproxy />
 
 </beans>

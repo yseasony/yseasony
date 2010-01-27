@@ -3,6 +3,9 @@ package com.yy.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.impl.HibernateDao;
@@ -13,11 +16,16 @@ public class BaseServiceImpl<T, PK extends Serializable> {
 
 	private HibernateDao<T, PK> hibernateDao;
 
+	//private Class<T> entityClass;
+
+	//private Log log = LogFactory.getLog(entityClass);
+
+	@AfterThrowing(pointcut="afterThrowing()")
 	@Transactional
 	public void save(T t) {
 		try {
 			this.hibernateDao.save(t);
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			throw new ServiceException("保存失败");
 		}
 	}
@@ -49,5 +57,12 @@ public class BaseServiceImpl<T, PK extends Serializable> {
 	public Page<T> searchResource(final Page<T> page,
 			final List<PropertyFilter> filters) {
 		return this.hibernateDao.findPage(page, filters);
+	}
+
+	@SuppressWarnings("unused")
+	private void afterThrowing() {
+		System.out.println("do~~~");
+//		log.error(e.getCause());
+//		log.error(e.getMessage());
 	}
 }
