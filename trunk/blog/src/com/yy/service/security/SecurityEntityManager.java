@@ -51,7 +51,12 @@ public class SecurityEntityManager {
 	}
 
 	public void saveUser(User entity) {
-		userDao.save(entity);
+		try {
+			userDao.save(entity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -102,7 +107,12 @@ public class SecurityEntityManager {
 	}
 
 	public void saveRole(Role entity) {
-		roleDao.save(entity);
+		try {
+			roleDao.save(entity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteRole(Long id) {

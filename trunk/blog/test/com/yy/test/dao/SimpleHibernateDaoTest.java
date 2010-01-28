@@ -42,9 +42,9 @@ public class SimpleHibernateDaoTest extends SpringTxTestCase {
 		User user = new User();
 		user.setName("foo");
 		user.setLoginname("foo");
-		dao.save(user);
+		//dao.save(user);
 		user.setName("boo");
-		dao.save(user);
+		//dao.save(user);
 		dao.delete(user);
 	}
 

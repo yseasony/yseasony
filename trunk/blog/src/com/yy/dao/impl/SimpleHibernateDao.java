@@ -101,7 +101,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#save(T)
 	 */
-	public void save(final T entity) {
+	public void save(final T entity) throws Exception {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().saveOrUpdate(entity);
 		logger.debug("save entity: {}", entity);

@@ -117,5 +117,5 @@
 		lazy-init="false" />
 		
 	<aop:aspectj-autoproxy />
-
+    
 </beans>

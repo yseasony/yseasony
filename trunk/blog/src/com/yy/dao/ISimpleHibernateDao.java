@@ -12,8 +12,9 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 
 	/**
 	 * 保存新增或修改的对象.
+	 * @throws Exception 
 	 */
-	public void save(final T entity);
+	public void save(final T entity) throws Exception;
 
 	/**
 	 * 删除对象.

@@ -7,6 +7,6 @@ import com.yy.model.Authority;
 @Service
 public interface AuthoritySvc {
 	
-	public void save(Authority authority);
+	public void save(Authority authority) ;
 
 }
