@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.impl.ResourceDaoImpl;
+import com.yy.exception.MyException;
 import com.yy.model.Resource;
-import com.yy.service.impl.ServiceException;
 import com.yy.test.base.SpringTxTestCase;
 import com.yy.utils.Page;
 
@@ -47,7 +47,7 @@ public class ResourceDao extends SpringTxTestCase{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServiceException("失败");
+			throw new MyException("失败");
 		}
 		
 	}

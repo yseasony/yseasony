@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;   
 import org.springframework.stereotype.Component;
 
-import com.yy.service.impl.ServiceException;
+import com.yy.exception.MyException;
   
 @Aspect
 @Component
@@ -34,7 +34,7 @@ public class AopTest {
   
     //@AfterThrowing("com.yy.test.base.AopTest.helloworld()")   
     @AfterThrowing(pointcut="execution(* com.yy.test.base.*.*(..))",throwing="e" )   
-    public void exceptionSayHello(ServiceException e) {   
+    public void exceptionSayHello(MyException e) {   
         System.out.println("throw runtime exception");   
     }   
   
