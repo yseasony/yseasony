@@ -62,9 +62,6 @@ public class ResourceAjax {
 	public ModelAndView getResourceList(HttpServletRequest request,
 			Integer pageNo, String orderBy, String order,String filter_LIKES_resourceName) {
 		
-		String a = request.getParameter("filter_LIKES_resourceName");
-		System.out.println(filter_LIKES_resourceName);
-		System.out.println(a);
 		List<PropertyFilter> filters = HibernateWebUtils
 				.buildPropertyFilters(request);
 		
