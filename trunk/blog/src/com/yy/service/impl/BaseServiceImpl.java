@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.impl.HibernateDao;
+import com.yy.exception.MyException;
 import com.yy.utils.AopLog;
 import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
@@ -19,7 +20,7 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		try {
 			this.hibernateDao.save(t);
 		} catch (Exception e) {
-			throw new ServiceException(e.getMessage());
+			throw new MyException(e.getMessage());
 		}
 	}
 	
@@ -28,17 +29,13 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		try {
 			hibernateDao.delete(id);
 		} catch (Exception e) {
-			throw new ServiceException("删除失败");
+			throw new MyException("删除失败");
 		}
 	}
 
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
 		return this.hibernateDao.getMax(table);
-	}
-
-	public void setHibernateDao(HibernateDao<T, PK> hibernateDao) {
-		this.hibernateDao = hibernateDao;
 	}
 
 	@Transactional(readOnly = true)
@@ -50,6 +47,10 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 	public Page<T> searchResource(final Page<T> page,
 			final List<PropertyFilter> filters) {
 		return this.hibernateDao.findPage(page, filters);
+	}
+	
+	public void setHibernateDao(HibernateDao<T, PK> hibernateDao) {
+		this.hibernateDao = hibernateDao;
 	}
 
 }

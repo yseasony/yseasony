@@ -2,13 +2,13 @@ package com.yy.service.impl;
 
 import java.util.List;
 
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.IResourceDao;
 import com.yy.dao.impl.HibernateDao;
+import com.yy.exception.MyException;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
 import com.yy.utils.Page;
@@ -28,13 +28,12 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 	}
 
 	@Transactional
-	@AfterThrowing(pointcut="afterThrowing()")
 	public void delete(Long id, Double position) {
 		try {
-			this.resourceDao.delete(id);
+			this.delete(id);
 			this.resourceDao.updatePosition(position);
-		} catch (ServiceException e) {
-			throw new ServiceException("删除失败");
+		} catch (MyException e) {
+			throw new MyException("删除失败");
 		}
 		
 	}

@@ -6,7 +6,7 @@ import com.yy.model.Resource;
 import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
 
-public interface IResourceDao extends IHibernateDao<Resource, Long> {
+public interface IResourceDao{
 
 	/**
 	 * 查询URL类型的资源并预加载可访问该资源的授权信息.

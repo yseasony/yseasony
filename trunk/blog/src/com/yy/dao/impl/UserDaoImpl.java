@@ -12,4 +12,10 @@ import com.yy.model.User;
  */
 @Repository
 public class UserDaoImpl extends HibernateDao<User, Long> implements IUserDao {
+
+	@Override
+	public User findUniqueBy(String propertyName, String value) {
+		return super.findUniqueBy(propertyName, value);
+	}
+	
 }

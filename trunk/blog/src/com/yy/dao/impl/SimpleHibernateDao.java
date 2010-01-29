@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
+import com.yy.exception.MyException;
 import com.yy.utils.ReflectionUtils;
 
 /**
@@ -101,7 +102,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#save(T)
 	 */
-	public void save(final T entity) throws Exception {
+	public void save(final T entity) throws MyException {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().saveOrUpdate(entity);
 		logger.debug("save entity: {}", entity);
