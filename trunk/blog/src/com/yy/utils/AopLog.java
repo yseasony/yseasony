@@ -2,15 +2,19 @@ package com.yy.utils;
 
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class AopLog<T> {
 
-	@AfterThrowing(pointcut="execution(* com.yy.service..*.*(..))",throwing="e")
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@AfterThrowing(pointcut = "execution(* com.yy.service..*.*(..))", throwing = "e")
 	public void afterThrowing(Exception e) {
-		System.out.println("do afterThrowing");
+		logger.error(e.getMessage());
 	}
-	
+
 }
