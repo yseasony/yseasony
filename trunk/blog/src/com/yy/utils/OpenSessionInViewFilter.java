@@ -22,7 +22,7 @@ public class OpenSessionInViewFilter extends
 	private static final String[] DEFAULT_EXCLUDE_SUFFIXS = { ".js", ".css",
 			".jpg", ".gif" };
 
-	private static final String[] DEFAULT_INCLUDE_SUFFIXS = { ".action" };
+	private static final String[] DEFAULT_INCLUDE_SUFFIXS = { ".action",".do",".ajax" };
 
 	private String[] excludeSuffixs = DEFAULT_EXCLUDE_SUFFIXS;
 

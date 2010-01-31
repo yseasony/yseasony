@@ -29,4 +29,10 @@
 	<cache name="com.yy.model.Authority" maxElementsInMemory="5000" overflowToDisk="true"
 		eternal="true">
 	</cache>
+	<cache name="com.yy.model.Resource" maxElementsInMemory="5000" overflowToDisk="true"
+		eternal="true">
+	</cache>
+	<cache name="com.yy.model.Resource.authorityList" maxElementsInMemory="5000" overflowToDisk="true"
+		eternal="true">
+	</cache>
 </ehcache>
