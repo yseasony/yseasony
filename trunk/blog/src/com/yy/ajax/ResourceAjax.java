@@ -38,7 +38,7 @@ public class ResourceAjax {
 		String resourceType = request.getParameter("resourceType");
 
 		if (resourceType == null || resourceType.trim().length() <= 0) {
-			map.put("exist", true);
+			map.put("exist", exist);
 			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
@@ -47,7 +47,7 @@ public class ResourceAjax {
 				.exist("value", resourceType.trim());
 
 		if (resource != null) {
-			map.put("exist", true);
+			map.put("exist", exist);
 			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
