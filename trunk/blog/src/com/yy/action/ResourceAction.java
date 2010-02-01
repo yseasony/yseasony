@@ -88,7 +88,7 @@ public class ResourceAction {
 	
 
 	@RequestMapping("/user/delResource.do")
-	public String delResource(Long resourceId,Double position) {
+	public String delResource(HttpServletRequest request,Long resourceId,Double position) {
 		resourceSvc.delete(resourceId,position);
 		return "redirect:/user/resourceList.do";
 	}
