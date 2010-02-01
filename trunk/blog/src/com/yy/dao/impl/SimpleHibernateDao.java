@@ -115,7 +115,11 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 */
 	public void delete(final T entity) {
 		Assert.notNull(entity, "entity不能为空");
-		getSession().delete(entity);
+		try {
+			getSession().delete(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		logger.debug("delete entity: {}", entity);
 	}
 
