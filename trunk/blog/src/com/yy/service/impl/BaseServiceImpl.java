@@ -33,6 +33,15 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		}
 	}
 
+	@Transactional
+	public void delete(T entity) {
+		try {
+			hibernateDao.delete(entity);
+		} catch (Exception e) {
+			throw new MyException("删除失败");
+		}
+	}
+	
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
 		return this.hibernateDao.getMax(table);
@@ -51,6 +60,10 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 	
 	public void setHibernateDao(HibernateDao<T, PK> hibernateDao) {
 		this.hibernateDao = hibernateDao;
+	}
+
+	public HibernateDao<T, PK> getHibernateDao() {
+		return hibernateDao;
 	}
 
 }
