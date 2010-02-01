@@ -7,8 +7,12 @@
  */
 package com.yy.test.base;
 
+
 import org.hibernate.SessionFactory;
 import org.junit.Assert;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -25,6 +29,12 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
 @TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
 public class SpringTxTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 
+	protected MockHttpServletRequest request = new MockHttpServletRequest();
+	
+	protected MockHttpServletResponse response = new MockHttpServletResponse();
+	
+	protected MockHttpSession session = (MockHttpSession) request.getSession();
+	
 	/**
 	 * 刷新sessionFactory,强制Hibernate执行SQL以验证ORM配置.
 	 * 
