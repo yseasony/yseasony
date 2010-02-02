@@ -62,8 +62,8 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		this.hibernateDao = hibernateDao;
 	}
 
-	public HibernateDao<T, PK> getHibernateDao() {
-		return hibernateDao;
+	@Transactional(readOnly = true)
+	public T getById(PK id){
+		return this.hibernateDao.get(id);
 	}
-
 }

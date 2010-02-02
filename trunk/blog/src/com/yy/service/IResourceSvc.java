@@ -21,4 +21,5 @@ public interface IResourceSvc {
 	
 	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters);
 
+	public Resource getById(Long resourceId);
 }
