@@ -39,9 +39,9 @@ public class ResourceAction {
 			return;
 		}
 
-		if (StringUtil.isEmpty(resource
-				.getResourceName(), resource.getValue(), resource
-				.getResourceType(), String.valueOf(resource.getPosition()))) {
+		if (StringUtil.isEmpty(resource.getResourceName(), resource.getValue(),
+				resource.getResourceType(), String.valueOf(resource
+						.getPosition()))) {
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("缺少参数");
 			return;
@@ -61,7 +61,7 @@ public class ResourceAction {
 		return new ModelAndView("Manager/resourceCreate", map);
 	}
 
-	//@RequestMapping("/user/resourceList.do")
+	// @RequestMapping("/user/resourceList.do")
 	public ModelAndView getResourceList(HttpServletRequest request,
 			Integer pageNo, String orderBy, String order) {
 		List<PropertyFilter> filters = HibernateWebUtils
@@ -80,16 +80,28 @@ public class ResourceAction {
 
 		return new ModelAndView("Manager/resourceList", map);
 	}
-	
+
 	@RequestMapping("/user/resourceList.do")
-	public ModelAndView getResourceList(){
+	public ModelAndView getResourceList() {
 		return new ModelAndView("Manager/Ajax/resourceList");
 	}
-	
 
 	@RequestMapping("/user/delResource.do")
-	public String delResource(HttpServletRequest request,Long resourceId,Double position) {
-		resourceSvc.delete(resourceId,position);
+	public String delResource(HttpServletRequest request, Long resourceId,
+			Double position) {
+		resourceSvc.delete(resourceId, position);
 		return "redirect:/user/resourceList.do";
+	}
+
+	@RequestMapping("/user/editResource.do")
+	public ModelAndView editResource(HttpSession session,Long resourceId) {
+		Resource resource = new Resource();
+		resource = resourceSvc.getById(resourceId);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("resource", resource);
+		map.put("token", Token.getTokenString(session));
+		
+		return new ModelAndView("Manager/resourceCreate", map);
 	}
 }
