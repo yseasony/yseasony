@@ -62,7 +62,7 @@
                             "</td><td>" +
                             n.description +
                             "</td><td>" +
-                            "<a href='role!input.action?id=" + n.id + "'>查看</a>"+
+                            "<a href='/user/editResource.do?resourceId=" + n.id + "'>查看</a>　"+
 							"<a href='/user/delResource.do?resourceId=" + n.id +"&position="+n.position+"'>删除</a>"+
 							"</td></tr>";
                         });

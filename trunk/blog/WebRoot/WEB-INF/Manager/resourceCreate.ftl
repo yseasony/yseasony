@@ -17,7 +17,7 @@
                         资源名称:
                     </td>
                     <td>
-                        <input type="text" name="resourceName" id="resourceName"/>
+                        <input type="text" name="resourceName" id="resourceName" value="${resource.resourceName}"/>
                     </td>
                     <td>
                         <div id="resourceNameTip" class="onShow" style="width: 250px;">
@@ -30,7 +30,7 @@
                         资源地址:
                     </td>
                     <td>
-                        <input type="text" name="value" id="value"/>
+                        <input type="text" name="value" id="value" value="${resource.value}"/>
                     </td>
                     <td>
                         <div id="valueTip" class="onShow" style="width: 250px;">
@@ -56,7 +56,7 @@
                         描述：
                     </td>
                     <td>
-                        <textarea cols="15" name="description" id="description">
+                        <textarea cols="15" name="description" id="description" value="${resource.description}">
                         </textarea>
                     </td>
                     <td>
@@ -70,8 +70,14 @@
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
                 </tr>
+                <#setting number_format="#">
 				<input type="hidden" name="token" value="${token}">
-				<input type="hidden" name="position" value="${max}"/>
+				 <#if resource.id?exists>
+                 <input type="hidden" name="id" value="${resource.id}"/>
+                <#else>
+                <input type="hidden" name="position" value="${max}"/>
+                </#if>
+				
             </form>
         </table>
         <script type="text/javascript">
