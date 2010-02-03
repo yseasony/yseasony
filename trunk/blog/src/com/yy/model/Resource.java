@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -100,7 +99,6 @@ public class Resource extends AuditableEntity {
 	 * 可访问该资源的授权集合.
 	 */
 	@ManyToMany
-	@Cascade(value={org.hibernate.annotations.CascadeType.DELETE})
 	@JoinTable(name = "TBL_RESOURCE_AUTHORITY", joinColumns = { @JoinColumn(name = "RESOURCE_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTHORITY_ID") })
 	@Fetch(FetchMode.JOIN)
 	@OrderBy("id")
