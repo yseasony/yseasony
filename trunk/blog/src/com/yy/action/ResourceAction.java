@@ -102,6 +102,6 @@ public class ResourceAction {
 		map.put("resource", resource);
 		map.put("token", Token.getTokenString(session));
 		
-		return new ModelAndView("Manager/resourceCreate", map);
+		return new ModelAndView("Manager/resourceEdit", map);
 	}
 }
