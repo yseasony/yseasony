@@ -68,7 +68,7 @@ public class JsonTest extends SpringTxTestCase{
 		
 		
 		JSONArray jsonArray = JSONArray.fromObject(list);  
-		System.out.println( jsonArray );  
+		System.out.println( jsonArray.toString() );  
 		
 		
 		
