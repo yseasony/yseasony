@@ -30,13 +30,11 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 	@Transactional
 	public void delete(Long id, Double position) {
 		try {
-			
 			this.delete(id);
 			this.resourceDao.updatePosition(position);
 		} catch (MyException e) {
-			throw new MyException("删除失败");
+			throw new MyException(e.getMessage());
 		}
-		
 	}
 	
 	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters){

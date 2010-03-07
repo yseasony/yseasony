@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yy.exception.MyException;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
 import com.yy.utils.HibernateWebUtils;
@@ -23,7 +24,7 @@ import com.yy.utils.StringUtil;
 import com.yy.utils.Token;
 
 @Controller
-public class ResourceAction {
+public class ResourceAction extends BaseAction {
 
 	@Autowired
 	private IResourceSvc resourceSvc;
@@ -51,7 +52,7 @@ public class ResourceAction {
 	}
 
 	@RequestMapping("/user/resourceCreate.do")
-	public ModelAndView resource(HttpSession session) {
+	public ModelAndView resourceCreate(HttpSession session) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		String max = String.valueOf(resourceSvc.getMax("Resource"));
@@ -89,19 +90,23 @@ public class ResourceAction {
 	@RequestMapping("/user/delResource.do")
 	public String delResource(HttpServletRequest request, Long resourceId,
 			Double position) {
-		resourceSvc.delete(resourceId, position);
+		try {
+			resourceSvc.delete(resourceId, position);
+		} catch (MyException e) {
+		}
+
 		return "redirect:/user/resourceList.do";
 	}
 
 	@RequestMapping("/user/editResource.do")
-	public ModelAndView editResource(HttpSession session,Long resourceId) {
+	public ModelAndView editResource(HttpSession session, Long resourceId) {
 		Resource resource = new Resource();
 		resource = resourceSvc.getById(resourceId);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		map.put("resource", resource);
 		map.put("token", Token.getTokenString(session));
-		
+
 		return new ModelAndView("Manager/resourceEdit", map);
 	}
 }
