@@ -3,7 +3,7 @@
     <head>
         <title>资源列表</title>
         <link href="/css/Pager.css" rel="stylesheet" type="text/css" />
-        <script src="/js/jquery.js" type="text/javascript">
+        <script src="/js/jquery.min.js" type="text/javascript">
         </script>
         <script src="/js/jquery.pager.js" type="text/javascript">
         </script>
