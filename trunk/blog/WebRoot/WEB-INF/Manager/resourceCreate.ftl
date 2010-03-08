@@ -3,11 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>资源管理</title>
-        <script language="javascript" src="/js/jquery.js">
+        <script language="javascript" src="/js/jquery.min.js">
         </script>
         <script language="javascript" src="/js/formcheck.js">
         </script>
-        <link href="../../css/form.css" rel="stylesheet" type="text/css">
+        <link href="/css/form.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <table border="0px" width="500px" style="font-size: 12px;">
