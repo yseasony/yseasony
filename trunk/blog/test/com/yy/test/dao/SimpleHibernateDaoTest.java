@@ -82,7 +82,7 @@ public class SimpleHibernateDaoTest extends SpringTxTestCase {
 
 	@Test
 	public void findByCriterion() {
-		Criterion c = Restrictions.eq("loginName", DEFAULT_LOGIN_NAME);
+		Criterion c = Restrictions.eq("loginname", DEFAULT_LOGIN_NAME);
 		List<User> users = dao.find(c);
 		assertEquals(1, users.size());
 		assertEquals(DEFAULT_LOGIN_NAME, users.get(0).getLoginname());
