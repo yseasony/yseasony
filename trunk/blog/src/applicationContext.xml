@@ -103,10 +103,12 @@
 		</property>
 	</bean>
 
+	<bean id="jotm" class="org.springframework.transaction.jta.JotmFactoryBean" />
+	
 	<!-- 事务管理器配置,单数据源事务 -->
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="userTransaction" ref="jotm" />
 	</bean>
 
 	<!-- 使用annotation定义事务 -->
