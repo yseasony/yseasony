@@ -21,7 +21,7 @@ public class ImgFontByte {
 			return null;
 		str = str.trim();
 		int len = str.length();
-		if (len == 0 || len % 2 == 1)
+		if (len == 0 || (len & 1) == 1)
 			return null;
 
 		byte[] b = new byte[len / 2];

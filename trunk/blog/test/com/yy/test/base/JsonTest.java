@@ -30,7 +30,7 @@ public class JsonTest extends SpringTxTestCase{
 		Map<Object,Object> map = new HashMap<Object,Object>();  
 		map.put( "name", "json" );  
 		map.put( "bool", Boolean.TRUE );  
-		map.put( "int", new Integer(1) );  
+		map.put( "int", Integer.valueOf("1"));  
 		map.put( "arr", new String[]{"a","b"} );  
 		map.put( "func", "function(i){ return this.arr[i]; }" );  
 		  
