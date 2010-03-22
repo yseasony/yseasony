@@ -25,7 +25,7 @@
 
 	<filter>
 		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
-		<filter-class>com.yy.utils.OpenSessionInViewFilter</filter-class>
+		<filter-class>com.yy.utils.MyOpenSessionInViewFilter</filter-class>
 		<init-param>
 			<param-name>excludeSuffixs</param-name>
 			<param-value>js,css,jpg,gif</param-value>
@@ -70,18 +70,6 @@
 	<session-config>
 		<session-timeout>20</session-timeout>
 	</session-config>
-
-	<!-- 使用sitemesh -->
-
-	<filter>
-		<filter-name>sitemesh</filter-name>
-		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>sitemesh</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 
 	<!-- 使用freemarker -->
 
