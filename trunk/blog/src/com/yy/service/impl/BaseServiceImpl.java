@@ -19,7 +19,7 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 	public void save(T t) {
 		try {
 			this.hibernateDao.save(t);
-		} catch (Exception e) {
+		} catch (MyException e) {
 			throw new MyException(e.getMessage());
 		}
 	}

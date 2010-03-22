@@ -23,6 +23,10 @@ public class SpringContextUtils implements ApplicationContextAware {
 	 * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
 	 */
 	public void setApplicationContext(ApplicationContext context) {
+		extracted(context);
+	}
+
+	private void extracted(ApplicationContext context) {
 		applicationContext = context;
 	}
 

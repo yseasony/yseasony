@@ -14,8 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +29,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
@@ -85,7 +87,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/**
 	 * 采用@Autowired按类型注入SessionFactory,当有多个SesionFactory的时候Override本函数.
 	 */
-	@Autowired
+	@Resource(name="sessionFactory")
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -102,9 +104,17 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#save(T)
 	 */
-	public void save(final T entity) throws MyException {
-		Assert.notNull(entity, "entity不能为空");
-		getSession().saveOrUpdate(entity);
+	public void save(final T entity) {
+		if (entity == null) {
+			logger.error("save entity is null");
+			throw new MyException("不能保存空对象");
+		}
+		try {
+			getSession().save(entity);
+		} catch (HibernateException e) {
+			logger.error("save entity is error");
+			throw new MyException("保存失败");
+		}
 		logger.debug("save entity: {}", entity);
 	}
 

@@ -20,6 +20,7 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 
 	@Autowired
 	private IResourceDao resourceDao;
+	
 
 	@Override
 	@javax.annotation.Resource(name = "resourceDaoImpl")
@@ -37,6 +38,7 @@ public class ResourceSvcImpl extends BaseServiceImpl<Resource, Long> implements
 		}
 	}
 	
+	@Transactional(readOnly = true)
 	public Page<Resource> getPage(Page<Resource> page,final List<PropertyFilter> filters){
 		return resourceDao.getPage(page,filters);
 	}

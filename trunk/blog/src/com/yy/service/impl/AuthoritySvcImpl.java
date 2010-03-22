@@ -13,6 +13,7 @@ import com.yy.service.IAuthoritySvc;
 @Service
 public class AuthoritySvcImpl extends BaseServiceImpl<Authority, Long> implements IAuthoritySvc{
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private IAuthorityDao authorityDao;
 	

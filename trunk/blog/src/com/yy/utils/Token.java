@@ -28,7 +28,7 @@ public class Token {
 	}
 
 	private static String generateTokenString() {
-		return new Long(System.currentTimeMillis()).toString();
+		return  Long.valueOf(System.currentTimeMillis()).toString();
 	}
 
 	/** */

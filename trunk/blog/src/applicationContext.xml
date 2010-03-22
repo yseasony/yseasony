@@ -26,21 +26,20 @@
 	<context:component-scan base-package="com.yy.test" />
 
 	<!-- 数据源配置,在测试环境使用单连接 -->
-	<bean id="dataSource" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource"
-		destroy-method="shutdown">
-		<constructor-arg index="0">
-			<bean class="org.enhydra.jdbc.standard.StandardXADataSource">
-				<property name="driverName" value="${jdbc.driver}" />
-				<property name="url" value="${jdbc.url}" />
-			</bean>
-		</constructor-arg>
-		<!--  Connection Info  -->
-		<property name="transactionManager" ref="jotm" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<!--  Connection Pooling Info -->
-		<property name="minSize" value="5" />
-		<property name="maxSize" value="100" />
+	<bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName" value="dataSource" />
+		<property name="xaDataSourceClassName">
+			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="url">${jdbc.url}</prop>
+				<prop key="user">${jdbc.username}</prop>
+				<prop key="password">${jdbc.password}</prop>
+			</props>
+		</property>
+		<property name="poolSize" value="3" />
 	</bean>
 
 	<!-- Hibernate配置 -->
@@ -100,98 +99,51 @@
 			</map>
 		</property>
 	</bean>
-	
-		<!-- 数据源配置,在测试环境使用单连接 -->
-	<bean id="dataSource2" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource"
-		destroy-method="shutdown">
-		<constructor-arg index="0">
-			<bean class="org.enhydra.jdbc.standard.StandardXADataSource">
-				<property name="driverName" value="${jdbc.driver}" />
-				<property name="url" value="jdbc:mysql://192.168.17/blog?useUnicode=true&amp;characterEncoding=utf-8" />
-			</bean>
-		</constructor-arg>
-		<!--  Connection Info  -->
-		<property name="transactionManager" ref="jotm" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<!--  Connection Pooling Info -->
-		<property name="minSize" value="5" />
-		<property name="maxSize" value="100" />
+
+	<!--
+		Construct Atomikos UserTransactionManager, needed to configure Spring
+	-->
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<!--
+			when close is called, should we force transactions to terminate or
+			not?
+		-->
+		<property name="forceShutdown">
+			<value>true</value>
+		</property>
 	</bean>
 
-	<!-- Hibernate配置 -->
-	<bean id="sessionFactory2"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource2" />
-		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
-		</property>
-		<property name="namingStrategy">
-			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">
-					${hibernate.dialect}
-				</prop>
-				<prop key="hibernate.show_sql">
-					${hibernate.show_sql}
-				</prop>
-				<prop key="hibernate.format_sql">
-					${hibernate.format_sql}
-				</prop>
-				<prop key="hibernate.cache.use_second_level_cache">
-					${hibernate.cache.use_second_level_cache} </prop>
-				<prop key="hibernate.cache.provider_class">
-					org.hibernate.cache.EhCacheProvider </prop>
-				<prop key="hibernate.cache.use_query_cache">
-					${hibernate.cache.use_query_cache} </prop>
-				<prop key="hibernate.cache.provider_configuration_file_resource_path">
-					${hibernate.ehcache_config_file} </prop>
-				<prop key="hibernate.hbm2ddl.auto"> ${hibernate.hbm2ddl.auto} </prop>
-
-				<!--
-					<prop key="hibernate.cache.use_second_level_cache">
-					${hibernate.cache.use_second_level_cache} </prop> <prop
-					key="hibernate.cache.provider_class">
-					com.googlecode.hibernate.memcached.MemcachedCacheProvider </prop>
-					<prop key="hibernate.cache.use_query_cache"> true </prop> <prop
-					key="hibernate.memcached.servers"> 192.168.1.164:11211 </prop>
-					<prop key="hibernate.memcached.cacheTimeSeconds"> 300 </prop> <prop
-					key="hibernate.memcached.operationTimeout"> 3000 </prop> <prop
-					key="hibernate.memcached.commandFactory"> BinaryCommandFactory
-					</prop> <prop key="hibernate.memcached.clearSupported"> false
-					</prop>
-				-->
-			</props>
-		</property>
-		<property name="eventListeners">
-			<map>
-				<entry key="save-update">
-					<list>
-						<bean class="com.yy.dao.impl.AuditListener" />
-						<bean class="org.hibernate.event.def.DefaultSaveOrUpdateEventListener" />
-					</list>
-				</entry>
-			</map>
+	<!--
+		Also use Atomikos UserTransactionImp, needed to configure Spring
+	-->
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<property name="transactionTimeout">
+			<value>1000</value>
 		</property>
 	</bean>
-	
-	<!-- 事务管理器配置,多数据源事务 -->
-	<bean id="jotm" class="org.springframework.transaction.jta.JotmFactoryBean" />
-	
-	<bean id="transactionManager"
+
+	<!--
+		Configure the Spring framework to use JTA transactions from Atomikos
+	-->
+	<bean id="springTransactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager">
-		<property name="userTransaction" ref="jotm" />
+
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
 	</bean>
-	
+
 	<!-- 使用annotation定义事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="springTransactionManager" />
 
 	<!-- SpringContextUtils定义 -->
 	<bean id="springContextUtils" class="com.yy.utils.SpringContextUtils"
 		lazy-init="false" />
-		
+
 	<aop:aspectj-autoproxy />
-    
+
 </beans>

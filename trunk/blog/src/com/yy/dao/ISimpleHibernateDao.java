@@ -8,15 +8,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 
-import com.yy.exception.MyException;
-
 public interface ISimpleHibernateDao<T, PK extends Serializable> {
 
 	/**
 	 * 保存新增或修改的对象.
 	 * @throws Exception 
 	 */
-	public void save(final T entity) throws MyException;
+	public void save(final T entity);
 
 	/**
 	 * 删除对象.

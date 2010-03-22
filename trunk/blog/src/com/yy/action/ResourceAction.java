@@ -100,8 +100,7 @@ public class ResourceAction extends BaseAction {
 
 	@RequestMapping("/user/editResource.do")
 	public ModelAndView editResource(HttpSession session, Long resourceId) {
-		Resource resource = new Resource();
-		resource = resourceSvc.getById(resourceId);
+		Resource resource = resourceSvc.getById(resourceId);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("resource", resource);

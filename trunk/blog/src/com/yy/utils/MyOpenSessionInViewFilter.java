@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
 
 /**
  * 缩窄OpenSessionInViewFilter的过滤范围,请求css、js、图片等静态内容时不创建/关闭Hibernate Session连接.
@@ -12,8 +13,7 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author calvin
  */
-public class OpenSessionInViewFilter extends
-		org.springframework.orm.hibernate3.support.OpenSessionInViewFilter {
+public class MyOpenSessionInViewFilter extends OpenSessionInViewFilter {
 
 	public static final String EXCLUDE_SUFFIXS_NAME = "excludeSuffixs";
 
