@@ -42,7 +42,6 @@ public class ResourceDaoImpl extends HibernateDao<Resource, Long> implements
 		if (filters.size() > 0) {
 			String hql = "select new Resource(id,resourceName,description,resourceType,value,position) from Resource "+super.filters(filters)+"order by "+page.getOrderBy()+" "+page.getOrder()+"";
 			return super.findPage(page, hql);
-			
 		}
 		
 		String hql = "select new Resource(id,resourceName,description,resourceType,value,position) from Resource order by "+page.getOrderBy()+" "+page.getOrder()+"";
