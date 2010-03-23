@@ -57,7 +57,7 @@ public class Page<T> {
 		}
 		setPageNo(pageNo);
 		setPageSize(pageSize);
-		if (!StringUtil.isEmpty(orderBy, order)) {
+		if (!MyStringUtils.isBlank(orderBy, order)) {
 			setOrderBy(orderBy);
 			setOrder(order);
 		}

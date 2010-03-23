@@ -28,8 +28,8 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 	public void delete(PK id) {
 		try {
 			hibernateDao.delete(id);
-		} catch (Exception e) {
-			throw new MyException("删除失败");
+		} catch (MyException e) {
+			throw new MyException(e.getMessage());
 		}
 	}
 
@@ -37,8 +37,8 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 	public void delete(T entity) {
 		try {
 			hibernateDao.delete(entity);
-		} catch (Exception e) {
-			throw new MyException("删除失败");
+		} catch (MyException e) {
+			throw new MyException(e.getMessage());
 		}
 	}
 	

@@ -20,7 +20,6 @@ import com.yy.service.IResourceSvc;
 import com.yy.utils.HibernateWebUtils;
 import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
-import com.yy.utils.StringUtil;
 import com.yy.utils.Token;
 
 @Controller
@@ -39,7 +38,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 			return;
 		}
 
-		if (StringUtil.isEmpty(resource.getResourceName(), resource.getValue(),
+		if (isBlank(resource.getResourceName(), resource.getValue(),
 				resource.getResourceType(), String.valueOf(resource
 						.getPosition()))) {
 			writeOut(response, "缺少参数");
@@ -60,7 +59,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		return new ModelAndView("Manager/resourceCreate", map);
 	}
 
-	// @RequestMapping("/user/resourceList.do")
+	//@RequestMapping("/user/resourceList.do")
 	public ModelAndView getResourceList(HttpServletRequest request,
 			Integer pageNo, String orderBy, String order) {
 		List<PropertyFilter> filters = HibernateWebUtils
@@ -73,11 +72,8 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 			page.setOrder(Page.ASC);
 		}
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		page = resourceSvc.searchResource(page, filters);
-		map.put("page", page);
-
-		return new ModelAndView("Manager/resourceList", map);
+		return new ModelAndView("Manager/resourceList", "page", page);
 	}
 
 	@RequestMapping("/user/resourceList.do")

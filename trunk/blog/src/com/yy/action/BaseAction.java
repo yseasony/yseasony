@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.yy.utils.MyStringUtils;
 
 public class BaseAction<T> {
 	
@@ -23,7 +24,11 @@ public class BaseAction<T> {
 	}
 	
 	protected boolean isBlank(String str) {
-		return StringUtils.isBlank(str);
+		return MyStringUtils.isBlank(str);
+	}
+	
+	protected boolean isBlank(String... str) {
+		return MyStringUtils.isBlank(str);
 	}
 
 }

@@ -14,7 +14,7 @@ public class AopLog<T> {
 
 	@AfterThrowing(pointcut = "execution(* com.yy.service..*.*(..))", throwing = "e")
 	public void afterThrowing(Exception e) {
-		logger.error(e.getMessage());
+		logger.error(e.getMessage()+" cause by :"+e.fillInStackTrace().toString());
 	}
 
 }
