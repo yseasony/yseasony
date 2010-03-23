@@ -68,12 +68,12 @@
             });
             
             $("#name").focus(function(){
-                onFocusCheck("nameTip", "资源地址不能为空");
+                onFocusCheck("valueTip", "权限名称不能为空");
             });
             $("#value").blur(function(){
-                checkNull("valueTip", "name", "资源地址不能为空或含有空格");
+                checkNull("valueTip", "name", "权限名称不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "name", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("valueTip", "name", "该权限名称已被创建", "该权限名称可以创建", "/resourceExist.ajax", "resourceType");
                 }
             });
             
@@ -86,9 +86,9 @@
             });
             
             function checksave(){
-                checkNull("valueTip", "value", "资源地址不能为空或含有空格");
+                checkNull("valueTip", "value", "权限代码不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("valueTip", "value", "该权限代码已被创建", "该权限代码可以创建", "/resourceExist.ajax", "resourceType");
                 }
 				
 				if (check == true) {
