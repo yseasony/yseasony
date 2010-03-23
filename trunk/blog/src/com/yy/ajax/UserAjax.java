@@ -1,7 +1,5 @@
 package com.yy.ajax;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,41 +12,32 @@ import com.yy.model.User;
 import com.yy.service.IUserSvc;
 
 @Controller
-public class UserAjax {
+public class UserAjax extends BaseAjax<UserAjax> {
 
 	@Autowired
 	private IUserSvc userSvc;
 
 	@RequestMapping("/userExist.ajax")
 	public ModelAndView exist(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
+			HttpServletResponse response, String loginname) throws Exception {
 
 		ModelAndView modelAndView = new ModelAndView("jsonView");
-
 		boolean exist = false;
+		modelAndView.addObject("exist", exist);
 
-		String loginname = request.getParameter("loginname");
-
-		if (loginname == null || loginname.trim().length() <= 0) {
-			map.put("exist", exist);
-			modelAndView.addAllObjects(map);
+		if (isBlank(loginname)) {
 			return modelAndView;
 		}
 
 		User user = this.userSvc.exist("loginname", loginname.trim());
 
 		if (user != null) {
-			map.put("exist", exist);
-			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
-		exist = true;
-		map.put("exist", exist);
-		modelAndView.addAllObjects(map);
-		return modelAndView;
 
+		exist = true;
+		modelAndView.addObject("exist", exist);
+		return modelAndView;
 	}
 
 }

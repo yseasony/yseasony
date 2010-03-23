@@ -110,7 +110,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 			throw new MyException("不能保存空对象");
 		}
 		try {
-			getSession().save(entity);
+			getSession().saveOrUpdate(entity);
 		} catch (HibernateException e) {
 			logger.error("save entity is error");
 			throw new MyException("保存失败");
