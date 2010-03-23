@@ -20,14 +20,14 @@ import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
 
 @Controller
-public class ResourceAjax {
+public class ResourceAjax extends BaseAjax<ResourceAjax>{
 
 	@Autowired
 	private IResourceSvc resourceSvc;
 
 	@RequestMapping("/resourceExist.ajax")
 	public ModelAndView exist(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,String value) throws Exception {
 
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
 
@@ -35,16 +35,14 @@ public class ResourceAjax {
 
 		boolean exist = false;
 
-		String resourceType = request.getParameter("resourceType");
-
-		if (resourceType == null || resourceType.trim().length() <= 0) {
+		if (value == null || value.trim().length() <= 0) {
 			map.put("exist", exist);
 			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
 
 		Resource resource = this.resourceSvc
-				.exist("value", resourceType.trim());
+				.exist("value", value.trim());
 
 		if (resource != null) {
 			map.put("exist", exist);

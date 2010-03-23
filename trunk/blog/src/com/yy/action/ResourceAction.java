@@ -24,7 +24,7 @@ import com.yy.utils.StringUtil;
 import com.yy.utils.Token;
 
 @Controller
-public class ResourceAction extends BaseAction {
+public class ResourceAction extends BaseAction<ResourceAction> {
 
 	@Autowired
 	private IResourceSvc resourceSvc;
@@ -35,16 +35,14 @@ public class ResourceAction extends BaseAction {
 			throws IOException {
 
 		if (!Token.isTokenStringValid(token, request.getSession())) {
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().write("请勿重复提交");
+			writeOut(response, "请勿重复提交");
 			return;
 		}
 
 		if (StringUtil.isEmpty(resource.getResourceName(), resource.getValue(),
 				resource.getResourceType(), String.valueOf(resource
 						.getPosition()))) {
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().write("缺少参数");
+			writeOut(response, "缺少参数");
 			return;
 		}
 

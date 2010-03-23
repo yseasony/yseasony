@@ -86,7 +86,7 @@
             $("#value").blur(function(){
                 checkNull("valueTip", "value", "资源地址不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "value");
                 }
             });
             

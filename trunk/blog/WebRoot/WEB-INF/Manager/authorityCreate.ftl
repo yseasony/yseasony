@@ -3,57 +3,44 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>资源管理</title>
-        <script language="javascript" src="/js/jquery.js">
+        <script language="javascript" src="/js/jquery.min.js">
         </script>
         <script language="javascript" src="/js/formcheck.js">
         </script>
-        <link href="../../css/form.css" rel="stylesheet" type="text/css">
+        <link href="/css/form.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <table border="0px" width="500px" style="font-size: 12px;">
             <form id="form1" name="form1" method="post" action="/user/resourceSave.do" onsubmit="return checksave();">
                 <tr>
                     <td>
-                        资源名称:
+                        权限名称:
                     </td>
                     <td>
-                        <input type="text" name="resourceName" id="resourceName"  />
+                        <input type="text" name="name" id="name"  />
                     </td>
                     <td>
-                        <div id="resourceNameTip" class="onShow" style="width: 250px;">
-                            请输入资源名称
+                        <div id="nameTip" class="onShow" style="width: 250px;">
+                            请输入权限名称
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        资源地址:
+                        权限代码:
                     </td>
                     <td>
                         <input type="text" name="value" id="value"  />
                     </td>
                     <td>
                         <div id="valueTip" class="onShow" style="width: 250px;">
-                            请输入资源地址
+                            请输入 权限代码
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        资源类型:
-                    </td>
-                    <td>
-                        <input type="text" name="resourceType" id="resourceType" value="url"/>
-                    </td>
-                    <td>
-                        <div id="resourceTypeTip" class="onShow" style="width: 250px;">
-                            请输入 资源类型
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        描述：
+                        关联资源地址：
                     </td>
                     <td>
                         <textarea cols="15" name="description" id="description"  >
@@ -61,7 +48,7 @@
                     </td>
                     <td>
                         <div id="descriptionTip" class="onShow" style="width: 250px;">
-                            请输入描述
+                            请选择关联地址
                         </div>
                     </td>
                 </tr>
@@ -80,36 +67,16 @@
                 cache: false
             });
             
-            $("#value").focus(function(){
-                onFocusCheck("valueTip", "资源地址不能为空");
+            $("#name").focus(function(){
+                onFocusCheck("nameTip", "资源地址不能为空");
             });
             $("#value").blur(function(){
-                checkNull("valueTip", "value", "资源地址不能为空或含有空格");
+                checkNull("valueTip", "name", "资源地址不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("valueTip", "name", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "resourceType");
                 }
             });
             
-            $("#resourceName").focus(function(){
-                onFocusCheck("resourceNameTip", "资源名称不能为空");
-            });
-            $("#resourceName").blur(function(){
-                checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
-            });
-            $("#description").blur(function(){
-                $("#descriptionTip").get(0).className = "onCorrect";
-                $("#descriptionTip").get(0).innerHTML = "　";
-            });
-            
-            $("#resourceType").focus(function(){
-                onFocusCheck("resourceTypeTip", "资源类型不能为空");
-            });
-            $("#resourceType").blur(function(){
-                checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
-                if (check == true) {
-                    onBlurCheck("resourceTypeTip", "　");
-                }
-            });
             
             $("#resourceType").blur(function(){
                 checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");

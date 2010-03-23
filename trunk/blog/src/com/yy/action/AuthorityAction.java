@@ -17,7 +17,7 @@ import com.yy.service.IAuthoritySvc;
 import com.yy.utils.Token;
 
 @Controller
-public class AuthorityAction extends BaseAction{
+public class AuthorityAction extends BaseAction<AuthorityAction>{
 	
 	@Autowired
 	private IAuthoritySvc authoritySvc;
