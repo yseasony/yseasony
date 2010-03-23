@@ -1,10 +1,8 @@
 package com.yy.ajax;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
@@ -26,32 +24,23 @@ public class ResourceAjax extends BaseAjax<ResourceAjax>{
 	private IResourceSvc resourceSvc;
 
 	@RequestMapping("/resourceExist.ajax")
-	public ModelAndView exist(HttpServletRequest request,
-			HttpServletResponse response,String value) throws Exception {
-
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
+	public ModelAndView exist(String value){
 
 		ModelAndView modelAndView = new ModelAndView("jsonView");
-
 		boolean exist = false;
-
-		if (value == null || value.trim().length() <= 0) {
-			map.put("exist", exist);
-			modelAndView.addAllObjects(map);
+		modelAndView.addObject("exist",exist);
+		
+		if (isBlank(value)) {
 			return modelAndView;
 		}
 
-		Resource resource = this.resourceSvc
-				.exist("value", value.trim());
-
+		Resource resource = this.resourceSvc.exist("value", value.trim());
 		if (resource != null) {
-			map.put("exist", exist);
-			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
+		
 		exist = true;
-		map.put("exist", exist);
-		modelAndView.addAllObjects(map);
+		modelAndView.addObject("exist",exist);
 		return modelAndView;
 
 	}
@@ -60,10 +49,7 @@ public class ResourceAjax extends BaseAjax<ResourceAjax>{
 	public ModelAndView getResourceList(HttpServletRequest request,
 			Integer pageNo, String orderBy, String order,String filter_LIKES_resourceName) {
 		
-		List<PropertyFilter> filters = HibernateWebUtils
-				.buildPropertyFilters(request);
-		
-		ModelAndView modelAndView = new ModelAndView("jsonView");
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(request);
 
 		Page<Resource> page = new Page<Resource>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
@@ -71,16 +57,12 @@ public class ResourceAjax extends BaseAjax<ResourceAjax>{
 			page.setOrderBy("id");
 			page.setOrder(Page.ASC);
 		}
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		page = resourceSvc.getPage(page,filters);
-		
 		JSONObject jsonObject = JSONObject.fromObject(page);
 		
-		map.put("page", jsonObject);
-
-		modelAndView.addAllObjects(map);
+		ModelAndView modelAndView = new ModelAndView("jsonView");
+		modelAndView.addObject("page", jsonObject);
 		return modelAndView;
 	}
 
