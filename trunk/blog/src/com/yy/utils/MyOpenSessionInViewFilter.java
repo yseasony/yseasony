@@ -31,7 +31,6 @@ public class MyOpenSessionInViewFilter extends OpenSessionInViewFilter {
 	/**
 	 * 重载过滤控制函数,忽略特定后缀名的请求.
 	 */
-	@Override
 	protected boolean shouldNotFilter(final HttpServletRequest request)
 			throws ServletException {
 		String fullPath = request.getServletPath();
@@ -53,7 +52,6 @@ public class MyOpenSessionInViewFilter extends OpenSessionInViewFilter {
 	/**
 	 * 初始化excludeSuffixs参数.
 	 */
-	@Override
 	protected void initFilterBean() throws ServletException {
 
 		String includeSuffixStr = getFilterConfig().getInitParameter(

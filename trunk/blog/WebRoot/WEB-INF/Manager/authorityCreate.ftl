@@ -17,10 +17,10 @@
                         权限名称:
                     </td>
                     <td>
-                        <input type="text" name="name" id="name"  />
+                        <input type="text" name="displayName" id="displayName"  />
                     </td>
                     <td>
-                        <div id="nameTip" class="onShow" style="width: 250px;">
+                        <div id="displayNameTip" class="onShow" style="width: 250px;">
                             请输入权限名称
                         </div>
                     </td>
@@ -30,10 +30,10 @@
                         权限代码:
                     </td>
                     <td>
-                        <input type="text" name="value" id="value"  />
+                        <input type="text" name="name" id="name"  />
                     </td>
                     <td>
-                        <div id="valueTip" class="onShow" style="width: 250px;">
+                        <div id="nameTip" class="onShow" style="width: 250px;">
                             请输入 权限代码
                         </div>
                     </td>
@@ -67,36 +67,36 @@
                 cache: false
             });
             
-            $("#name").focus(function(){
-                onFocusCheck("valueTip", "权限名称不能为空");
+            $("#displayName").focus(function(){
+                onFocusCheck("displayNameTip", "权限名称不能为空");
             });
-            $("#value").blur(function(){
-                checkNull("valueTip", "name", "权限名称不能为空或含有空格");
+            $("#displayName").blur(function(){
+                checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "name", "该权限名称已被创建", "该权限名称可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("displayNameTip", "displayName", "该权限名称已被创建", "该权限名称可以创建", "/resourceExist.ajax", "resourceType");
                 }
             });
             
             
-            $("#resourceType").blur(function(){
-                checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
+            $("#name").focus(function(){
+                onFocusCheck("nameTip", "权限代码不能为空");
+            });
+            $("#name").blur(function(){
+                checkNull("nameTip", "name", "权限代码不能为空或含有空格");
                 if (check == true) {
-                    onBlurCheck("resourceTypeTip", "　");
+                    exist("nameTip", "name", "该权限代码已被创建", "该权限代码可以创建", "/resourceExist.ajax", "resourceType");
                 }
             });
             
             function checksave(){
-                checkNull("valueTip", "value", "权限代码不能为空或含有空格");
+                checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
                 if (check == true) {
-                    exist("valueTip", "value", "该权限代码已被创建", "该权限代码可以创建", "/resourceExist.ajax", "resourceType");
+                    exist("displayNameTip", "displayName", "该权限名称已被创建", "该权限名称可以创建", "/resourceExist.ajax", "resourceType");
                 }
 				
-				if (check == true) {
-					checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
-                }
-				
+				checkNull("nameTip", "name", "权限代码不能为空或含有空格");
                 if (check == true) {
-                    checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
+                    exist("nameTip", "name", "该权限代码已被创建", "该权限代码可以创建", "/resourceExist.ajax", "resourceType");
                 }
 				
                 if (check == true) {

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -114,19 +115,18 @@ public class HibernateWebUtils {
 	 * 
 	 * eg. filter_EQUAL_name filter_LIKE_name_OR_email
 	 */
-	@SuppressWarnings("unchecked")
 	public static List<PropertyFilter> buildPropertyFilters(
 			final HttpServletRequest request, final String filterPrefix) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
 
 		// 从request中获取含属性前缀名的参数,构造去除前缀名后的参数Map.
-		Map<String, String> filterParamMap = WebUtils
+		Map<String, Object> filterParamMap = WebUtils
 				.getParametersStartingWith(request, filterPrefix);
 
 		// 分析参数Map,构造PropertyFilter列表
-		for (Map.Entry<String, String> entry : filterParamMap.entrySet()) {
+		for (Entry<String, Object> entry : filterParamMap.entrySet()) {
 			String filterName = entry.getKey();
-			String value = entry.getValue();
+			String value = entry.getValue().toString();
 			// 如果value值为空,则忽略此filter.
 			boolean omit = StringUtils.isBlank(value);
 			if (!omit) {
