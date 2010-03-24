@@ -25,7 +25,7 @@ import org.springframework.security.util.UrlMatcher;
  * 
  * @author calvin
  */
-public class DefinitionSourceFactoryBean implements FactoryBean<Object> {
+public class DefinitionSourceFactoryBean implements FactoryBean{
 
 	private ResourceDetailsService resourceDetailsService;
 
