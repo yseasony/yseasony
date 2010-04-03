@@ -72,20 +72,6 @@
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">
 					${hibernate.ehcache_config_file} </prop>
 				<prop key="hibernate.hbm2ddl.auto"> ${hibernate.hbm2ddl.auto} </prop>
-
-				<!--
-					<prop key="hibernate.cache.use_second_level_cache">
-					${hibernate.cache.use_second_level_cache} </prop> <prop
-					key="hibernate.cache.provider_class">
-					com.googlecode.hibernate.memcached.MemcachedCacheProvider </prop>
-					<prop key="hibernate.cache.use_query_cache"> true </prop> <prop
-					key="hibernate.memcached.servers"> 192.168.1.164:11211 </prop>
-					<prop key="hibernate.memcached.cacheTimeSeconds"> 300 </prop> <prop
-					key="hibernate.memcached.operationTimeout"> 3000 </prop> <prop
-					key="hibernate.memcached.commandFactory"> BinaryCommandFactory
-					</prop> <prop key="hibernate.memcached.clearSupported"> false
-					</prop>
-				-->
 			</props>
 		</property>
 		<property name="eventListeners">
