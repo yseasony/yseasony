@@ -92,6 +92,7 @@
 		<url-pattern>*.ajax</url-pattern>
 	</servlet-mapping>
 
+	<!-- webservices -->
 	<servlet>
 		<display-name>REST</display-name>
 		<servlet-name>REST</servlet-name>
