@@ -23,6 +23,7 @@
 
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
 	<context:component-scan base-package="com.yy" />
+	<context:component-scan base-package="com.yy.ws" />
 	<context:component-scan base-package="com.yy.test" />
 
 	<!-- 数据源配置,在测试环境使用单连接 -->
