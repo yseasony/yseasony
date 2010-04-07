@@ -21,6 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <form action="/services/restful/updatecategory" method="post">
+    <input type="text" name="a">
+    <button type="submit">1</button>
+    </form>
   </body>
 </html>
