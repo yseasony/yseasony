@@ -104,7 +104,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#save(T)
 	 */
-	public void save(final T entity) {
+	public void save(final T entity) throws MyException{
 		if (entity == null) {
 			logger.error("save entity is null");
 			throw new MyException("不能保存空对象");
@@ -112,10 +112,10 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 		try {
 			getSession().saveOrUpdate(entity);
 		} catch (HibernateException e) {
-			logger.error("save entity is error");
-			throw new MyException("保存失败");
+			logger.error("save entity error");
+			throw new MyException(e.fillInStackTrace());
 		}
-		logger.debug("save entity: {}", entity);
+		logger.debug("save entity success : {}", entity);
 	}
 
 	/*

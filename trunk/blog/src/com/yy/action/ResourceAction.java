@@ -1,6 +1,5 @@
 package com.yy.action;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,8 +31,8 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute Resource resource,BindingResult result, String token)
-			throws IOException {
+			HttpServletResponse response, Resource resource,
+			BindingResult result, String token) {
 
 		if (!Token.isTokenStringValid(token, request.getSession())) {
 			writeOut(response, "请勿重复提交");
@@ -46,8 +44,14 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 			writeOut(response, result.getFieldError().getCode());
 			return;
 		}
+
+		try {
+			this.resourceSvc.save(resource);
+		} catch (MyException e) {
+			writeOut(response, e.getMessage());
+			return;
+		}
 		
-		this.resourceSvc.save(resource);
 	}
 
 	@RequestMapping("/user/resourceCreate.do")

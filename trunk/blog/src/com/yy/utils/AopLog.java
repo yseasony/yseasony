@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.yy.exception.MyException;
+
 @Aspect
 @Component
 public class AopLog<T> {
@@ -13,8 +15,8 @@ public class AopLog<T> {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@AfterThrowing(pointcut = "execution(* com.yy.service..*.*(..))", throwing = "e")
-	public void afterThrowing(Exception e) {
-		logger.error(e.getMessage()+" cause by :"+e.fillInStackTrace().toString());
+	public void afterThrowing(MyException e) {
+		logger.error(e.getMessage()+" cause by :"+e.getCause());
 	}
 
 }

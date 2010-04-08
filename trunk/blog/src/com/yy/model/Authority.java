@@ -20,7 +20,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority extends AuditableEntity<Long> {
 
+	/**
+	 * 权限代码
+	 */
 	private String name;
+	/**
+	 * 权限名
+	 */
 	private String displayName;
 
 	@Column(nullable = false, unique = true)
