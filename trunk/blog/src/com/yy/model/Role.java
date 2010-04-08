@@ -28,7 +28,7 @@ import com.yy.utils.ReflectionUtils;
 @Entity
 @Table(name = "TBL_ROLE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Role extends AuditableEntity {
+public class Role extends AuditableEntity<Long> {
 
 	private String name;
 	private List<Authority> authorityList = new ArrayList<Authority>();

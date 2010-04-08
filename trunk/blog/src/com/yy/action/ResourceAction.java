@@ -10,10 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yy.action.validate.ResourceValidator;
 import com.yy.exception.MyException;
 import com.yy.model.Resource;
 import com.yy.service.IResourceSvc;
@@ -30,7 +33,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
-			HttpServletResponse response, Resource resource, String token)
+			HttpServletResponse response, @ModelAttribute Resource resource,BindingResult result, String token)
 			throws IOException {
 
 		if (!Token.isTokenStringValid(token, request.getSession())) {
@@ -38,13 +41,12 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 			return;
 		}
 
-		if (isBlank(resource.getResourceName(), resource.getValue(),
-				resource.getResourceType(), String.valueOf(resource
-						.getPosition()))) {
-			writeOut(response, "缺少参数");
+		new ResourceValidator().validate(resource, result);
+		if (result.hasErrors()) {
+			writeOut(response, result.getFieldError().getCode());
 			return;
 		}
-
+		
 		this.resourceSvc.save(resource);
 	}
 

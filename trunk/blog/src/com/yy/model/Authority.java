@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "TBL_AUTHORITY")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Authority extends AuditableEntity {
+public class Authority extends AuditableEntity<Long> {
 
 	private String name;
 	private String displayName;

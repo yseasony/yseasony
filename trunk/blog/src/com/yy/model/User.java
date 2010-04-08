@@ -29,7 +29,7 @@ import com.yy.utils.ReflectionUtils;
 @Entity
 @Table(name = "TBL_USER")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class User extends AuditableEntity {
+public class User extends AuditableEntity<Long> {
 	private String loginname;
 	private String password;
 	private String name;

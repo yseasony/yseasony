@@ -24,8 +24,8 @@ public class AuditListener implements SaveOrUpdateEventListener {
 		Object object = event.getObject();
 
 		// 如果对象是AuditableEntity子类,添加审计信息.
-		if (object instanceof AuditableEntity) {
-			AuditableEntity entity = (AuditableEntity) object;
+		if (object instanceof AuditableEntity<?>) {
+			AuditableEntity<?> entity = (AuditableEntity<?>) object;
 
 			if (entity.getId() == null) {
 				// 创建新对象

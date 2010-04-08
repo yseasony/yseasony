@@ -9,9 +9,10 @@ import javax.persistence.MappedSuperclass;
  * 含审计信息的Entity基类.
  * 
  * @author calvin
+ * @param <T>
  */
 @MappedSuperclass
-public class AuditableEntity extends IdEntity {
+public class AuditableEntity<T> extends IdEntity<T> {
 
 	protected Date createTime;
 	protected String createBy;

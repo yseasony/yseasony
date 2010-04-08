@@ -30,7 +30,7 @@ import com.yy.utils.ReflectionUtils;
 @org.hibernate.annotations.Entity(dynamicUpdate=true)
 @Table(name = "TBL_RESOURCE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Resource extends AuditableEntity {
+public class Resource extends AuditableEntity<Long> {
 	// -- resourceType常量 --//
 	public static final String URL_TYPE = "url";
 	public static final String MENU_TYPE = "menu";
@@ -69,6 +69,7 @@ public class Resource extends AuditableEntity {
 	/**
 	 * 资源在SpringSecurity中的校验顺序字段.
 	 */
+	@Column(nullable = false)
 	public double getPosition() {
 		return position;
 	}
