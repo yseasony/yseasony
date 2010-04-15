@@ -4,7 +4,6 @@ package com.yy.ws;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,11 +29,11 @@ public class TestWsImpl{
 	}
 	
 	 	@POST
-	    @Produces(MediaType.TEXT_PLAIN)
 	    @Path("/updatecategory")
-	    @Consumes(MediaType.TEXT_PLAIN)
-	    public String updateCategory(@FormParam("a")  String a) {
-	        System.out.println("接受的数据为:"+a);
+	    @Produces(MediaType.TEXT_PLAIN)
+	    public String updateCategory(@FormParam("a")  String a,@FormParam("b")  String b) {
+	        System.out.println("接受的数据为a:"+a);
+	        System.out.println("接受的数据为b:"+b);
 	        return "ok";
 	    }
 
