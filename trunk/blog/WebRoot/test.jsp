@@ -11,7 +11,7 @@
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:8080/services/restful/updatecategory",
-                    data: "a=a",
+                    data: "a=a&b=b",
                     dataType: "text",
                     success: function(json){
                         alert(json);
