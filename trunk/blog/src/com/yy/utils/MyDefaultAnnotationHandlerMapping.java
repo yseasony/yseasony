@@ -5,10 +5,16 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 
 public class MyDefaultAnnotationHandlerMapping extends
 		DefaultAnnotationHandlerMapping {
-	private ArrayList<String> a;
+	private ArrayList<String> urls;
+
+	private ArrayList<String> regexUrls;
 
 	public void setUrls(ArrayList<String> paramArrayList) {
-		this.a = paramArrayList;
+		this.urls = paramArrayList;
+	}
+
+	public void setRegexUrls(ArrayList<String> regexUrls) {
+		this.regexUrls = regexUrls;
 	}
 
 	public String[] getFiltered(String[] paramArrayOfString) {
@@ -16,10 +22,15 @@ public class MyDefaultAnnotationHandlerMapping extends
 			return null;
 		ArrayList<String> localArrayList = new ArrayList<String>();
 		for (String str : paramArrayOfString) {
-			if (!(this.a.contains(str))) {
-				continue;
+			if (this.urls.contains(str)) {
+				localArrayList.add(str);
+			} else {
+				for (String regex : regexUrls) {
+					if (str.matches(regex)) {
+						localArrayList.add(str);
+					}
+				}
 			}
-			localArrayList.add(str);
 		}
 		return ((String[]) localArrayList.toArray(new String[localArrayList
 				.size()]));
