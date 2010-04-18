@@ -7,12 +7,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yy.action.BaseAction;
+import com.yy.utils.Token;
+
 @Component
-public class CommonSaveInterceptor implements HandlerInterceptor{
+public class CommonSaveInterceptor extends BaseAction<CommonSaveInterceptor> implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("----------");
+		if (!Token.isTokenStringValid(request.getParameter("token"), request.getSession())) {
+			writeOut(response, "请勿重复提交");
+			return false;
+		}
 		return true;
 	}
 
@@ -20,7 +26,7 @@ public class CommonSaveInterceptor implements HandlerInterceptor{
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("after----------");
 		
 	}
 
@@ -28,7 +34,7 @@ public class CommonSaveInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("post----------");
 		
 	}
 

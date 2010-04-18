@@ -32,12 +32,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 	@RequestMapping(value = "/user/resourceSave.do", method = RequestMethod.POST)
 	public void resourceSave(HttpServletRequest request,
 			HttpServletResponse response, Resource resource,
-			BindingResult result, String token) {
-
-		if (!Token.isTokenStringValid(token, request.getSession())) {
-			writeOut(response, "请勿重复提交");
-			return;
-		}
+			BindingResult result) {
 
 		new ResourceValidator().validate(resource, result);
 		if (result.hasErrors()) {
