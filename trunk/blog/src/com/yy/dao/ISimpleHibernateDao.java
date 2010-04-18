@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 
@@ -14,9 +15,10 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 
 	/**
 	 * 保存新增或修改的对象.
-	 * @throws Exception 
+	 * @throws MyException 
+	 * @throws HibernateException
 	 */
-	public void save(final T entity) throws MyException ;
+	public void save(final T entity) throws MyException, HibernateException;
 
 	/**
 	 * 删除对象.

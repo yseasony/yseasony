@@ -87,7 +87,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/**
 	 * 采用@Autowired按类型注入SessionFactory,当有多个SesionFactory的时候Override本函数.
 	 */
-	@Resource(name="sessionFactory")
+	@Resource(name = "sessionFactory")
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -104,16 +104,15 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * 
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#save(T)
 	 */
-	public void save(final T entity) throws MyException{
+	public void save(final T entity) throws MyException, HibernateException {
 		if (entity == null) {
-			logger.error("save entity is null");
-			throw new MyException("不能保存空对象");
+			throw new MyException("save entity is null");
 		}
 		try {
 			getSession().saveOrUpdate(entity);
 		} catch (HibernateException e) {
-			logger.error("save entity error");
-			throw new MyException(e.fillInStackTrace());
+			logger.error("save " + entity.getClass() + "error", e);
+			throw e;
 		}
 		logger.debug("save entity success : {}", entity);
 	}
@@ -125,7 +124,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 */
 	public void delete(final T entity) throws MyException {
 		Assert.notNull(entity, "entity不能为空");
-			getSession().delete(entity);
+		getSession().delete(entity);
 		logger.debug("delete entity: {}", entity);
 	}
 
@@ -214,8 +213,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#find(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public <X> List<X> find(final String hql,boolean cache, final Object... values) {
-		return createQuery(hql, cache,values).list();
+	public <X> List<X> find(final String hql, boolean cache,
+			final Object... values) {
+		return createQuery(hql, cache, values).list();
 	}
 
 	/*
@@ -234,8 +234,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUnique(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public <X> X findUnique(final String hql, boolean cache,final Object... values) {
-		return (X) createQuery(hql,cache, values).uniqueResult();
+	public <X> X findUnique(final String hql, boolean cache,
+			final Object... values) {
+		return (X) createQuery(hql, cache, values).uniqueResult();
 	}
 
 	/*
@@ -254,7 +255,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#batchExecute(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public int batchExecute(final String hql, boolean cache, final Object... values) {
+	public int batchExecute(final String hql, boolean cache,
+			final Object... values) {
 		return createQuery(hql, cache, values).executeUpdate();
 	}
 
@@ -274,7 +276,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#createQuery(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public Query createQuery(final String queryString,boolean cache,final Object... values) {
+	public Query createQuery(final String queryString, boolean cache,
+			final Object... values) {
 		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
 		if (cache) {
@@ -406,8 +409,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	public int getMax(String table) {
 
 		String hql = "select count(*)+1 from " + table + "";
-		return Integer.valueOf(this.createQuery(hql, true).uniqueResult().toString());
-	
+		return Integer.valueOf(this.createQuery(hql, true).uniqueResult()
+				.toString());
+
 	}
 
 	public void executeSql(String sql) {
