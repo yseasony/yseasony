@@ -5,25 +5,36 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yy.dao.impl.HibernateDao;
+import com.yy.dao.IHibernateDao;
 import com.yy.exception.MyException;
+import com.yy.service.IBaseService;
 import com.yy.utils.AopLog;
 import com.yy.utils.Page;
 import com.yy.utils.PropertyFilter;
 
-public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
+public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> implements IBaseService<T, PK>{
 
-	private HibernateDao<T, PK> hibernateDao;
+	private IHibernateDao<T, PK> hibernateDao;
+	
+	public void setHibernateDao(IHibernateDao<T, PK> hibernateDao) {
+		this.hibernateDao = hibernateDao;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#save(T)
+	 */
 	@Transactional
 	public void save(T t) {
 		try {
 			this.hibernateDao.save(t);
-		} catch (MyException e) {
-			throw new MyException("保存失败！",e.getCause());
+		} catch (Exception e) {
+			throw new MyException(e);
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#delete(PK)
+	 */
 	@Transactional
 	public void delete(PK id) {
 		try {
@@ -33,6 +44,9 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#delete(T)
+	 */
 	@Transactional
 	public void delete(T entity) {
 		try {
@@ -42,11 +56,17 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#getMax(java.lang.String)
+	 */
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
 		return this.hibernateDao.getMax(table);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#exist(java.lang.String, java.lang.String)
+	 */
 	@Transactional(readOnly = true)
 	public T exist(String column, String value) {
 		return this.hibernateDao.findUniqueBy(column, value);
@@ -57,13 +77,14 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T>{
 			final List<PropertyFilter> filters) {
 		return this.hibernateDao.findPage(page, filters);
 	}
-	
-	public void setHibernateDao(HibernateDao<T, PK> hibernateDao) {
-		this.hibernateDao = hibernateDao;
-	}
 
+	/* (non-Javadoc)
+	 * @see com.yy.service.impl.IBaseService#getById(PK)
+	 */
 	@Transactional(readOnly = true)
 	public T getById(PK id){
 		return this.hibernateDao.get(id);
 	}
+	
+	
 }

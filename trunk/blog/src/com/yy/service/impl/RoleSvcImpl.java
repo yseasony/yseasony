@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yy.dao.impl.HibernateDao;
+import com.yy.dao.IHibernateDao;
 import com.yy.model.Role;
 
 @Service
@@ -22,7 +22,7 @@ public class RoleSvcImpl extends BaseServiceImpl<Role, Long> {
 
 	@Override
 	@Resource(name = "roleDaoImpl")
-	public void setHibernateDao(HibernateDao<Role, Long> hibernateDao) {
+	public void setHibernateDao(IHibernateDao<Role, Long> hibernateDao) {
 		super.setHibernateDao(hibernateDao);
 	}
 }

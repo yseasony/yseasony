@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.IUserDao;
-import com.yy.dao.impl.HibernateDao;
+import com.yy.dao.IHibernateDao;
 import com.yy.exception.MyException;
 import com.yy.model.User;
 import com.yy.service.IUserSvc;
@@ -21,7 +21,7 @@ public class UserSvcImpl extends BaseServiceImpl<User, Long> implements
 
 	@Override
 	@Resource(name = "userDaoImpl")
-	public void setHibernateDao(HibernateDao<User, Long> hibernateDao) {
+	public void setHibernateDao(IHibernateDao<User, Long> hibernateDao) {
 		super.setHibernateDao(hibernateDao);
 	}
 
