@@ -14,7 +14,11 @@
 		</property>
 		<property name="urls">
 			<list>
-				<value>/user/resourceSave.do</value>
+			</list>
+		</property>
+		<property name="regexUrls">
+			<list>
+				<value>/user/(.+?)Save.do</value>
 			</list>
 		</property>
 	</bean>
