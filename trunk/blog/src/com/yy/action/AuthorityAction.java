@@ -8,10 +8,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yy.action.validate.ResourceValidator;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
 import com.yy.utils.Token;
@@ -24,7 +26,14 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 	
 	@RequestMapping(value = "/user/authoritySave.do", method = RequestMethod.POST)
 	public void authoritySave(HttpServletRequest request,
-			HttpServletResponse response, Authority authority) {
+			HttpServletResponse response, Authority authority,BindingResult result) {
+		
+		new ResourceValidator().validate(authority, result);
+		if (result.hasErrors()) {
+			writeOut(response, result.getFieldError().getCode());
+			return;
+		}
+		
 		authoritySvc.save(authority);
 	}
 

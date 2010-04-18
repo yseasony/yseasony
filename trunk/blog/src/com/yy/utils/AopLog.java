@@ -19,10 +19,10 @@ public class AopLog<T> {
 	public AopLog() {
 		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
 	}
-	
+
 	@AfterThrowing(pointcut = "execution(* com.yy.service..*.*(..))", throwing = "e")
 	public void afterThrowing(MyException e) {
-		logger.error(e.getMessage()+" cause by :"+e.getCause());
+		logger.error(e.getMessage() + " cause by :" + e.getCause());
 	}
 
 }

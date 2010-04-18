@@ -43,7 +43,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		try {
 			this.resourceSvc.save(resource);
 		} catch (MyException e) {
-			writeOut(response, e.getMessage());
+			writeOut(response, "保存失败！");
 			return;
 		}
 		
