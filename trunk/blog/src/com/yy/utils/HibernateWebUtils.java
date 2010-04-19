@@ -2,6 +2,7 @@ package com.yy.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -137,4 +138,21 @@ public class HibernateWebUtils {
 		}
 		return filterList;
 	}
+	
+	public static List<PropertyFilter> buildPropertyFiltersAjax(
+			final HashMap<String, String> map) {
+		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
+		for (Entry<String, String> entry : map.entrySet()) {
+			String filterName = entry.getKey();
+			String value = entry.getValue().toString();
+			// 如果value值为空,则忽略此filter.
+			boolean omit = StringUtils.isBlank(value);
+			if (!omit) {
+				PropertyFilter filter = new PropertyFilter(filterName, value);
+				filterList.add(filter);
+			}
+		}
+		return filterList;
+	}
+	
 }

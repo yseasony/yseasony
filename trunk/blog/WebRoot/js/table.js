@@ -9,9 +9,9 @@ function sort(orderBys, defaultOrder) {
 		}
 	} else {
 		orderBy = orderBys;
-		order = (defaultOrder);
+		order = defaultOrder;
 	}
-	page(orderNO);
+	page(1);
 }
 
 function search() {

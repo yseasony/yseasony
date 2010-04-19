@@ -9,6 +9,10 @@
         </script>
         <script src="/js/table.js" type="text/javascript">
         </script>
+        <script type='text/javascript' src='/dwr/interface/ResourceAjax.js'>
+        </script>
+        <script type='text/javascript' src='/dwr/engine.js'>
+        </script>
         <script src="/js/resourceList.js" type="text/javascript">
         </script>
     </head>
@@ -52,7 +56,6 @@
         </table>
         <div id="pager">
         </div>
-		<span id="loading">
-        </span>
+        <span id="loading"></span>
     </body>
 </html>

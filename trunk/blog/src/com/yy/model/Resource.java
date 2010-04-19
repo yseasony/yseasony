@@ -12,6 +12,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -30,6 +31,7 @@ import com.yy.utils.ReflectionUtils;
 @org.hibernate.annotations.Entity(dynamicUpdate=true)
 @Table(name = "TBL_RESOURCE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@DataTransferObject
 public class Resource extends AuditableEntity<Long> {
 	// -- resourceType常量 --//
 	public static final String URL_TYPE = "url";

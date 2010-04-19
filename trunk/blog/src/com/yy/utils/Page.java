@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.directwebremoting.annotations.DataTransferObject;
 
 /**
  * 与具体ORM实现无关的分页参数及查询结果封装. 注意所有序号从1开始.
@@ -20,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author calvin
  */
+@DataTransferObject
 public class Page<T> {
 	// -- 公共变量 --//
 	public static final String ASC = "asc";
