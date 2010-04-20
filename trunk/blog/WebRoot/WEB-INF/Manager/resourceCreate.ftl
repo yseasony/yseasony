@@ -76,5 +76,7 @@
                 </tr><input type="hidden" name="token" value="${token}"><input type="hidden" name="position" value="${max}"/>
             </form>
         </table>
+        <script language="javascript" src="/js_debug/resourceCreate.js">
+        </script>
     </body>
 </html>
