@@ -26,7 +26,7 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
  */
 //默认载入applicationContext-test.xml,子类中的@ContextConfiguration定义将合并父类的定义.
 @ContextConfiguration(locations = { "classpath:/applicationContext.xml" })
-@TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
+@TransactionConfiguration(transactionManager="springTransactionManager",defaultRollback=false)
 public class SpringTxTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected MockHttpServletRequest request = new MockHttpServletRequest();
