@@ -3,9 +3,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>资源管理</title>
-        <script language="javascript" src="/js/jquery.min.js">
+        <script language="javascript" src="/js_debug/jquery.js">
         </script>
-        <script language="javascript" src="/js/formcheck.js">
+        <script language="javascript" src="/js_debug/formcheck.js">
+        </script>
+        <script type='text/javascript' src='/dwr/interface/ResourceAjax.js'>
+        </script>
+        <script type='text/javascript' src='/dwr/engine.js'>
         </script>
         <link href="/css/form.css" rel="stylesheet" type="text/css">
     </head>
@@ -17,7 +21,7 @@
                         资源名称:
                     </td>
                     <td>
-                        <input type="text" name="resourceName" id="resourceName"  />
+                        <input type="text" name="resourceName" id="resourceName" />
                     </td>
                     <td>
                         <div id="resourceNameTip" class="onShow" style="width: 250px;">
@@ -30,7 +34,7 @@
                         资源地址:
                     </td>
                     <td>
-                        <input type="text" name="value" id="value"  />
+                        <input type="text" name="value" id="value" />
                     </td>
                     <td>
                         <div id="valueTip" class="onShow" style="width: 250px;">
@@ -56,7 +60,7 @@
                         描述：
                     </td>
                     <td>
-                        <textarea cols="15" name="description" id="description"  >
+                        <textarea cols="15" name="description" id="description">
                         </textarea>
                     </td>
                     <td>
@@ -69,76 +73,8 @@
                     <td>
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
-                </tr>
-				<input type="hidden" name="token" value="${token}">
-                <input type="hidden" name="position" value="${max}"/>
+                </tr><input type="hidden" name="token" value="${token}"><input type="hidden" name="position" value="${max}"/>
             </form>
         </table>
-        <script type="text/javascript">
-            Boolean: check = false;
-            $.ajaxSetup({
-                cache: false
-            });
-            
-            $("#value").focus(function(){
-                onFocusCheck("valueTip", "资源地址不能为空");
-            });
-            $("#value").blur(function(){
-                checkNull("valueTip", "value", "资源地址不能为空或含有空格");
-                if (check == true) {
-                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "value");
-                }
-            });
-            
-            $("#resourceName").focus(function(){
-                onFocusCheck("resourceNameTip", "资源名称不能为空");
-            });
-            $("#resourceName").blur(function(){
-                checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
-            });
-            $("#description").blur(function(){
-                $("#descriptionTip").get(0).className = "onCorrect";
-                $("#descriptionTip").get(0).innerHTML = "　";
-            });
-            
-            $("#resourceType").focus(function(){
-                onFocusCheck("resourceTypeTip", "资源类型不能为空");
-            });
-            $("#resourceType").blur(function(){
-                checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
-                if (check == true) {
-                    onBlurCheck("resourceTypeTip", "　");
-                }
-            });
-            
-            $("#resourceType").blur(function(){
-                checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
-                if (check == true) {
-                    onBlurCheck("resourceTypeTip", "　");
-                }
-            });
-            
-            function checksave(){
-                checkNull("valueTip", "value", "资源地址不能为空或含有空格");
-                if (check == true) {
-                    exist("valueTip", "value", "该资源地址已被创建", "该资源地址可以创建", "/resourceExist.ajax", "value");
-                }
-				
-				if (check == true) {
-					checkNull("resourceNameTip", "resourceName", "资源名称不能为空或含有空格");
-                }
-				
-                if (check == true) {
-                    checkNull("resourceTypeTip", "resourceType", "资源类型不能为空或含有空格");
-                }
-				
-                if (check == true) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        </script>
     </body>
 </html>

@@ -13,7 +13,7 @@
         </script>
         <script type='text/javascript' src='/dwr/engine.js'>
         </script>
-        <script src="/js/resourceList.js" type="text/javascript">
+        <script type="text/javascript" src="/js/resourceList.js">
         </script>
     </head>
     <body>
