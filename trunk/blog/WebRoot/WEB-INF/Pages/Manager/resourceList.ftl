@@ -1,10 +1,11 @@
+<#include "/Pages/ftl_lib/js_config.ftl"/>
 <?xml version="1.0" encoding="UTF-8"?>
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>资源列表</title>
-        <script language="javascript" src="/js/jquery.js"></script>
-        <script language="javascript" src="/js/table.js">
+        <script language="javascript" src="<@path/>/jquery.js"></script>
+        <script language="javascript" src="<@path/>/table.js">
         </script>
     </head>
     <body>
