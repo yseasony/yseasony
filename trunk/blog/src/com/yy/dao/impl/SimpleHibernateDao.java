@@ -33,6 +33,7 @@ import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
 import com.yy.exception.MyException;
+import com.yy.utils.MyStringUtils;
 import com.yy.utils.ReflectionUtils;
 
 /**
@@ -192,10 +193,17 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUniqueBy(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public T findUniqueBy(final String propertyName, final Object value) {
-		Assert.hasText(propertyName, "propertyName不能为空");
+	public T findUniqueBy(final String propertyName, final Object value) throws MyException, HibernateException{
+		if (MyStringUtils.isBlank(propertyName)) {
+			throw new MyException("propertyName is can't be null");
+		}
 		Criterion criterion = Restrictions.eq(propertyName, value);
-		return (T) createCriteria(criterion).uniqueResult();
+		try {
+			return (T) createCriteria(criterion).uniqueResult();
+		} catch (HibernateException e) {
+			logger.error("findUniqueBy " + propertyName + "error", e);
+			throw e;
+		}
 	}
 
 	/*

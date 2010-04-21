@@ -24,7 +24,7 @@ public class ResourceAjax extends BaseAjax<ResourceAjax>{
 	private IResourceSvc resourceSvc;
 	
 	@RemoteMethod
-	public boolean exist(String value){
+	public boolean existResource(String value){
 		if (isBlank(value)) {
 			return false;
 		}

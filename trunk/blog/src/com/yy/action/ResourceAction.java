@@ -57,7 +57,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 
 		map.put("token", Token.getTokenString(session));
 		map.put("max", max);
-		return new ModelAndView("Manager/resourceCreate", map);
+		return new ModelAndView("Pages/Manager/resourceCreate", map);
 	}
 
 	//@RequestMapping("/user/resourceList.do")
@@ -74,12 +74,12 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		}
 
 		page = resourceSvc.searchResource(page, filters);
-		return new ModelAndView("Manager/resourceList", "page", page);
+		return new ModelAndView("Pages/Manager/resourceList", "page", page);
 	}
 
 	@RequestMapping("/user/resourceList.do")
 	public ModelAndView getResourceList() {
-		return new ModelAndView("Manager/Ajax/resourceList");
+		return new ModelAndView("Pages/Manager/Ajax/resourceList");
 	}
 
 	@RequestMapping("/user/delResource.do")
@@ -101,6 +101,6 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		map.put("resource", resource);
 		map.put("token", Token.getTokenString(session));
 
-		return new ModelAndView("Manager/resourceEdit", map);
+		return new ModelAndView("Pages/Manager/resourceEdit", map);
 	}
 }

@@ -27,24 +27,21 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 	@RequestMapping(value = "/user/authoritySave.do", method = RequestMethod.POST)
 	public void authoritySave(HttpServletRequest request,
 			HttpServletResponse response, Authority authority,BindingResult result) {
-		
 		new ResourceValidator().validate(authority, result);
 		if (result.hasErrors()) {
 			writeOut(response, result.getFieldError().getCode());
 			return;
 		}
-		
 		authoritySvc.save(authority);
 	}
 
 	@RequestMapping("/user/authorityCreate.do")
 	public ModelAndView authorityCreate(HttpSession session) {
-
 		HashMap<String, String> map = new HashMap<String, String>();
 		String max = String.valueOf(authoritySvc.getMax("Authority"));
 
 		map.put("token", Token.getTokenString(session));
 		map.put("max", max);
-		return new ModelAndView("Manager/authorityCreate", map);
+		return new ModelAndView("Pages/Manager/authorityCreate", map);
 	}
 }
