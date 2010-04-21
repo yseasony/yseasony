@@ -40,7 +40,7 @@ $("#resourceType").blur(function() {
 
 function exist() {
 	dwr.engine.setAsync(false);
-	ResourceAjax.exist($("#value").val(), callback);
+	ResourceAjax.existResource($("#value").val(), callback);
 	function callback(value) {
 		tip("valueTip", "该资源地址已被创建", "该资源地址可以创建", value);
 		return value;
