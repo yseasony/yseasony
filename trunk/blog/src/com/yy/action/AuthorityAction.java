@@ -1,3 +1,4 @@
+
 package com.yy.action;
 
 import java.util.HashMap;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yy.action.validate.ResourceValidator;
+import com.yy.action.validate.AuthorityValidator;
+import com.yy.exception.MyException;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
 import com.yy.utils.Token;
@@ -26,22 +28,30 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 	
 	@RequestMapping(value = "/user/authoritySave.do", method = RequestMethod.POST)
 	public void authoritySave(HttpServletRequest request,
-			HttpServletResponse response, Authority authority,BindingResult result) {
-		new ResourceValidator().validate(authority, result);
+			HttpServletResponse response,String resourceIds, Authority authority,BindingResult result) {
+		new AuthorityValidator().validate(authority, result);
 		if (result.hasErrors()) {
 			writeOut(response, result.getFieldError().getCode());
 			return;
 		}
-		authoritySvc.save(authority);
+		
+		String[] resourceId = {};
+		if (!isBlank(resourceIds)) {
+			resourceId =resourceIds.split(",");
+		}
+		
+		try {
+			authoritySvc.save(authority,resourceId);
+		} catch (MyException e) {
+			writeOut(response,"保存失败！");
+		}
+		
 	}
 
 	@RequestMapping("/user/authorityCreate.do")
 	public ModelAndView authorityCreate(HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String max = String.valueOf(authoritySvc.getMax("Authority"));
-
 		map.put("token", Token.getTokenString(session));
-		map.put("max", max);
 		return new ModelAndView("Pages/Manager/authorityCreate", map);
 	}
 }

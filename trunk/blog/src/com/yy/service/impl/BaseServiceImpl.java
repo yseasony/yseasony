@@ -69,7 +69,11 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 	 */
 	@Transactional(readOnly = true)
 	public T exist(String column, String value) {
-		return this.hibernateDao.findUniqueBy(column, value);
+		try {
+			return this.hibernateDao.findUniqueBy(column, value);
+		} catch (Exception e) {
+			throw new MyException(e);
+		}
 	}
 
 	@Transactional(readOnly = true)

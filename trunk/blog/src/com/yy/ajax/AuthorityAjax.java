@@ -5,6 +5,7 @@ import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.yy.exception.MyException;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
 
@@ -21,11 +22,16 @@ public class AuthorityAjax extends BaseAjax<AuthorityAjax> {
 		if (isBlank(column, value)) {
 			return false;
 		}
-		Authority authority = authoritySvc.exist(column, value);
+		Authority authority = null;
+		try {
+			authority = authoritySvc.exist(column, value);
+		} catch (MyException e) {
+			return false;
+		}
 
 		if (authority != null) {
 			return false;
 		}
-		return false;
+		return true;
 	}
 }

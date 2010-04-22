@@ -59,7 +59,7 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 按属性查找唯一对象,匹配方式为相等.
 	 */
-	public T findUniqueBy(final String propertyName, final Object value);
+	public T findUniqueBy(final String propertyName, final Object value) throws MyException, HibernateException;
 
 	/**
 	 * 按id列表获取对象.
@@ -112,6 +112,12 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 * @return 更新记录数.
 	 */
 	public int batchExecute(final String hql, final Map<String, Object> values);
+	/**
+	 * 执行SQL进行批量修改/删除操作.
+	 * @param sql
+	 * @throws HibernateException
+	 */
+	public void batchExecute(final String sql) throws HibernateException;
 
 	/**
 	 * 根据查询HQL与参数列表创建Query对象.
@@ -202,5 +208,5 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 执行SQL
 	 */
-	public void executeSql(String sql);
+	public void executeSql(String sql) throws HibernateException;
 }

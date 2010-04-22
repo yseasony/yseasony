@@ -193,7 +193,8 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 * @see com.yy.dao.impl.ISimpleHibernateDao#findUniqueBy(java.lang.String,
 	 * java.lang.Object)
 	 */
-	public T findUniqueBy(final String propertyName, final Object value) throws MyException, HibernateException{
+	public T findUniqueBy(final String propertyName, final Object value)
+			throws MyException, HibernateException {
 		if (MyStringUtils.isBlank(propertyName)) {
 			throw new MyException("propertyName is can't be null");
 		}
@@ -276,6 +277,14 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 */
 	public int batchExecute(final String hql, final Map<String, Object> values) {
 		return createQuery(hql, values).executeUpdate();
+	}
+	
+	public void batchExecute(final String sql) throws HibernateException{
+		try {
+			executeSql(sql);
+		} catch (HibernateException e) {
+			throw e;
+		}
 	}
 
 	/*
@@ -422,7 +431,11 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 
 	}
 
-	public void executeSql(String sql) {
-		this.getSession().createSQLQuery(sql).executeUpdate();
+	public void executeSql(String sql) throws HibernateException{
+		try {
+			this.getSession().createSQLQuery(sql).executeUpdate();
+		} catch (HibernateException e) {
+			throw e;
+		}
 	}
 }
