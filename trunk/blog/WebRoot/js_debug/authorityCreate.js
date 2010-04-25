@@ -55,7 +55,7 @@ function checksave(){
     if (check == true) {
         var arrayId = '';
         $("input[name='resourceId']:checked").each(function(){
-            if (isNull(arrayId)) {
+            if (arrayId == '') {
                 arrayId += $(this).val() + ',';
             }
             else {

@@ -41,10 +41,10 @@ function page(pageNo){
             "</td><td>" +
             n.description +
             "</td><td>" +
-            "<a href='/user/editResource.do?resourceId=" +
+            "<a href='/user/resourceEdit.do?resourceId=" +
             n.id +
             "'>查看</a>　" +
-            "<a href='/user/delResource.do?resourceId=" +
+            "<a href='/user/resourceDel.do?resourceId=" +
             n.id +
             "&position=" +
             n.position +
