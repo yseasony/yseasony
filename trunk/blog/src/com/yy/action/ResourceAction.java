@@ -82,7 +82,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		return new ModelAndView("Pages/Manager/Ajax/resourceList");
 	}
 
-	@RequestMapping("/user/delResource.do")
+	@RequestMapping("/user/resourceDel.do")
 	public String delResource(HttpServletRequest request, Long resourceId,
 			Double position) {
 		try {
@@ -93,7 +93,7 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 		return "redirect:/user/resourceList.do";
 	}
 
-	@RequestMapping("/user/editResource.do")
+	@RequestMapping("/user/resourceEdit.do")
 	public ModelAndView editResource(HttpSession session, Long resourceId) {
 		Resource resource = resourceSvc.getById(resourceId);
 		HashMap<String, Object> map = new HashMap<String, Object>();

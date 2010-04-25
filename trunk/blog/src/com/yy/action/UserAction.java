@@ -20,6 +20,10 @@ public class UserAction {
 	@Autowired
 	private IUserSvc userSvc;
 
+	@RequestMapping("/user/login.do")
+	public ModelAndView login() {
+		return new ModelAndView("Pages/login");
+	}
 	@RequestMapping("/user/userSave.do")
 	public void userSave(HttpServletRequest request,
 			HttpServletResponse response, String status, String email,
