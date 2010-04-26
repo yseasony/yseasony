@@ -51,7 +51,7 @@ public class User extends AuditableEntity<Long> {
 		this.version = version;
 	}
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 12)
 	public String getLoginname() {
 		return loginname;
 	}
@@ -63,6 +63,7 @@ public class User extends AuditableEntity<Long> {
 	/**
 	 * 演示用明文密码.
 	 */
+	@Column(nullable = false, length = 12)
 	public String getPassword() {
 		return password;
 	}
@@ -71,6 +72,7 @@ public class User extends AuditableEntity<Long> {
 		this.password = password;
 	}
 
+	@Column(nullable = false, length = 15)
 	public String getName() {
 		return name;
 	}
@@ -79,6 +81,7 @@ public class User extends AuditableEntity<Long> {
 		this.name = name;
 	}
 
+	@Column(length = 50)
 	public String getEmail() {
 		return email;
 	}

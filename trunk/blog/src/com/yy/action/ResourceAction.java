@@ -52,8 +52,8 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 	@RequestMapping("/user/resourceCreate.do")
 	public ModelAndView resourceCreate(HttpSession session) {
 
-		HashMap<String, String> map = new HashMap<String, String>();
-		String max = String.valueOf(resourceSvc.getMax("Resource"));
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int max = resourceSvc.getMax("Resource");
 
 		map.put("token", Token.getTokenString(session));
 		map.put("max", max);
