@@ -1,5 +1,7 @@
 package com.yy.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import com.yy.dao.IHibernateDao;
 import com.yy.exception.MyException;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
+import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 @Service
 public class AuthoritySvcImpl extends BaseServiceImpl<Authority, Long>
@@ -39,6 +43,10 @@ public class AuthoritySvcImpl extends BaseServiceImpl<Authority, Long>
 		} catch (Exception e) {
 			throw new MyException(e);
 		}
-
+	}
+	
+	@Transactional(readOnly=true)
+	public Page<Authority> getPage(Page<Authority> page,final List<PropertyFilter> filters) {
+		return authorityDao.getPage(page, filters);
 	}
 }

@@ -142,6 +142,9 @@ public class HibernateWebUtils {
 	public static List<PropertyFilter> buildPropertyFiltersAjax(
 			final HashMap<String, String> map) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
+		if (map == null) {
+			return filterList;
+		}
 		for (Entry<String, String> entry : map.entrySet()) {
 			String filterName = entry.getKey();
 			String value = entry.getValue().toString();

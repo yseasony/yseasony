@@ -451,4 +451,5 @@ public class HibernateDao<T, PK extends Serializable> extends
 		
 		return filterBuilder.toString();
 	}
+
 }

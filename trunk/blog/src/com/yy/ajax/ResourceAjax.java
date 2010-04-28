@@ -3,8 +3,6 @@ package com.yy.ajax;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +41,10 @@ public class ResourceAjax extends BaseAjax<ResourceAjax> {
 	}
 
 	@RemoteMethod
-	public Page<Resource> getResourceList(HttpServletRequest request,
-			Integer pageNo, String orderBy, String order,
-			HashMap<String, String> map) {
-		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFiltersAjax(map);
+	public Page<Resource> getResourceList(Integer pageNo, String orderBy,
+			String order, HashMap<String, String> map) {
+		List<PropertyFilter> filters = HibernateWebUtils
+				.buildPropertyFiltersAjax(map);
 		Page<Resource> page = new Page<Resource>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
 		if (!page.isOrderBySetted()) {
