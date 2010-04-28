@@ -89,7 +89,7 @@ PageClick = function(pageclickednumber){
 
 function page(pageNo){
     $("#loading").html(loading);
-    ResourceAjax.getResourceList("", pageNo, "", "", filters, callback);
+    ResourceAjax.getResourceList(pageNo, "", "", filters, callback);
     function callback(page){
         totalPages = parseInt(page.totalPages);
         $("#pager").pager({
