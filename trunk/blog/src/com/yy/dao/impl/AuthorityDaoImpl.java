@@ -26,6 +26,7 @@ public class AuthorityDaoImpl extends HibernateDao<Authority, Long> implements
 		}
 		
 		String hql = "select new Authority(id,displayName) from Authority order by "+page.getOrderBy()+" "+page.getOrder()+"";
+		
 		return super.findPage(page, hql);
 	}
 }

@@ -452,4 +452,8 @@ public class HibernateDao<T, PK extends Serializable> extends
 		return filterBuilder.toString();
 	}
 
+	protected <Y> void encapsulation(T t,Y... y) {
+		
+	}
+	
 }
