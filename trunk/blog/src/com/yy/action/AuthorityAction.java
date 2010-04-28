@@ -34,7 +34,7 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 			writeOut(response, result.getFieldError().getCode());
 			return;
 		}
-		System.out.println(resourceIds);
+		
 		String[] resourceId = {};
 		if (!isBlank(resourceIds)) {
 			resourceId =resourceIds.split(",");
