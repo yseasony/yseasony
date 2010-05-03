@@ -3,7 +3,6 @@ package com.yy.action;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +26,8 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 	private IAuthoritySvc authoritySvc;
 	
 	@RequestMapping(value = "/user/authoritySave.do", method = RequestMethod.POST)
-	public void authoritySave(HttpServletRequest request,
-			HttpServletResponse response,String resourceIds, Authority authority,BindingResult result) {
+	public void authoritySave(HttpServletResponse response, String resourceIds,
+			Authority authority, BindingResult result) {
 		new AuthorityValidator().validate(authority, result);
 		if (result.hasErrors()) {
 			writeOut(response, result.getFieldError().getCode());
@@ -53,5 +52,10 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("token", Token.getTokenString(session));
 		return new ModelAndView("Pages/Manager/authorityCreate", map);
+	}
+	
+	@RequestMapping("/user/authorityList.do")
+	public ModelAndView getAuthorityList() {
+		return new ModelAndView("Pages/Manager/Ajax/authorityList");
 	}
 }

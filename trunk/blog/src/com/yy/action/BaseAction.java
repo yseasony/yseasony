@@ -19,7 +19,7 @@ public class BaseAction<T> {
 			response.getWriter().write(value);
 			response.getWriter().flush();
 		} catch (IOException e) {
-			logger.error("response出错", e.getStackTrace());
+			logger.error("response error", e);
 		}
 	}
 	
