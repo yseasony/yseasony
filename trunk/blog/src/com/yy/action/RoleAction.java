@@ -21,8 +21,7 @@ public class RoleAction extends BaseAction<RoleAction>{
 	private IRoleSvc roleSvc;
 
 	@RequestMapping(value = "/user/authoritySave.do", method = RequestMethod.POST)
-	public void authoritySave(
-HttpServletResponse response,
+	public void authoritySave(HttpServletResponse response,
 			String authorityIds, Role role, BindingResult result) {
 		new AuthorityValidator().validate(role, result);
 		if (result.hasErrors()) {
