@@ -18,9 +18,8 @@ PageClick = function(pageclickednumber){
 
 function page(pageNo){
     $("#loading").html(loading);
-    filters["LIKES_resourceName"] = $("#filter_resourceName").val();
-    filters["LIKES_value"] = $("#filter_value").val();
-    ResourceAjax.getResourceList(pageNo, orderBy, order, filters, callback);
+    filters["LIKES_displayName"] = $("#filter_displayName").val();
+    AuthorityAjax.getAuthorityList(pageNo, orderBy, order, filters, callback);
     function callback(page){
         totalPages = parseInt(page.totalPages);
         $("#pager").pager({
@@ -32,14 +31,8 @@ function page(pageNo){
         var html = "";
         
         $.each(page.result, function(i, n){
-            html = html + "<tr><td>" + n.position + "</td><td>" +
-            n.resourceName +
-            "</td><td>" +
-            n.resourceType +
-            "</td><td>" +
-            n.value +
-            "</td><td>" +
-            n.description +
+            html = html + "<tr><td>" + n.id + "</td><td>" +
+            n.displayName +
             "</td><td>" +
             "<a href='/user/resourceEdit.do?resourceId=" +
             n.id +
