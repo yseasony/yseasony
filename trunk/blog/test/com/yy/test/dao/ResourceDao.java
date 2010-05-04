@@ -1,5 +1,6 @@
 package com.yy.test.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +30,10 @@ public class ResourceDao extends SpringTxTestCase{
 	@Transactional
 	@Test
 	public void insert(){
-		
+		long b = System.currentTimeMillis();
 		int j = 0;
 		try {
-			for (int i = 0; i < 100000; i++) {
+			for (int i = 0; i < 50000; i++) {
 				Resource resource = new Resource();
 				resource.setPosition(i);
 				resource.setResourceName("test"+i);
@@ -49,9 +50,25 @@ public class ResourceDao extends SpringTxTestCase{
 			e.printStackTrace();
 			throw new MyException("失败");
 		}
-		
+		System.out.println(System.currentTimeMillis()-b);
 	}
 	
+	@Transactional
+	@Test
+	public void batchInsert() {
+		long b = System.currentTimeMillis();
+		List<Resource> list = new ArrayList<Resource>();
+		for (int i = 0; i < 50000; i++) {
+			Resource resource = new Resource();
+			resource.setPosition(i);
+			resource.setResourceName("test"+i);
+			resource.setResourceType("url");
+			resource.setValue("test"+i);
+			list.add(resource);
+		}
+		resourceDao.batchInsert(list,3000);
+		System.out.println(System.currentTimeMillis()-b);
+	}
 	
 	@Transactional
 	@Test
