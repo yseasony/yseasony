@@ -279,13 +279,17 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 		return createQuery(hql, values).executeUpdate();
 	}
 	
-	public void batchExecute(final String sql) throws HibernateException{
-		try {
-			executeSql(sql);
-		} catch (HibernateException e) {
-			throw e;
+	public void batchInsert(List<T> list,int batchSize) {
+		int i = 0;
+		for (T t : list) {
+			this.getSession().save(t);
+			i++;
+			if (i % batchSize == 0) {
+				this.getSession().flush();
+				this.getSession().clear();
+			}
 		}
-	}
+	} 
 
 	/*
 	 * (non-Javadoc)

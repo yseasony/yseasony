@@ -113,13 +113,6 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public int batchExecute(final String hql, final Map<String, Object> values);
 	/**
-	 * 执行SQL进行批量修改/删除操作.
-	 * @param sql
-	 * @throws HibernateException
-	 */
-	public void batchExecute(final String sql) throws HibernateException;
-
-	/**
 	 * 根据查询HQL与参数列表创建Query对象.
 	 * 
 	 * 本类封装的find()函数全部默认返回对象类型为T,当不为T时使用本函数.
