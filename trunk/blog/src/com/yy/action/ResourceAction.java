@@ -83,11 +83,13 @@ public class ResourceAction extends BaseAction<ResourceAction> {
 	}
 
 	@RequestMapping("/user/resourceDel.do")
-	public String delResource(HttpServletRequest request, Long resourceId,
+	public String delResource(HttpServletRequest request,HttpServletResponse response, Long resourceId,
 			Double position) {
 		try {
 			resourceSvc.delete(resourceId, position);
 		} catch (MyException e) {
+			writeOut(response, "删除失败！");
+			return "";
 		}
 
 		return "redirect:/user/resourceList.do";
