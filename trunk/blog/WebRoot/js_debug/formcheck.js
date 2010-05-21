@@ -35,18 +35,18 @@ function checkNull(tipClass, checkId, nullMessage){
     var i;
     if (str.length == 0) {
         tip(tipClass, nullMessage, "　", false)
-        return;
+        return false;
     }
     else {
         for (i = 0; i < str.length; i++) {
             if (str.charAt(i) == ' ') {
                 tip(tipClass, nullMessage, "　", false)
-                return;
+                return false;
             }
         }
     }
     tip(tipClass, nullMessage, "　", true);
-    return;
+    return true;
 }
 
 function tip(tipClass, errorMessage, successMessage, value){

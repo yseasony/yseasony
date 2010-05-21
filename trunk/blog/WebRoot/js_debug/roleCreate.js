@@ -10,7 +10,7 @@ $("#name").focus(function(){
 $("#name").blur(function(){
     checkNull("nameTip", "name", "角色名称不能为空或含有空格");
     if (check == true) {
-        existRole("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
+        existRole("name", "name", "nameTip", "该角色名称已被创建", "该角色名称可以创建");
     }
 });
 
@@ -23,37 +23,29 @@ function existRole(column, value, valueTip, errorMessage, successMessage){
     }
 }
 
-function checksave(){
+function checksave(){ 
 
     check = true;
     
-    if (isNull("displayName")) {
-        checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
-    }
-    
-    if (check == true) {
-        existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
-    }
-    
     if (isNull("name")) {
-        checkNull("nameTip", "name", "权限代码不能为空或含有空格");
+        checkNull("nameTip", "name", "角色名称不能为空或含有空格");
     }
     
     if (check == true) {
-        existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
+        existRole("name", "name", "nameTip", "该角色名称已被创建", "该角色名称可以创建");
     }
     
     if (check == true) {
         var arrayId = '';
-        $("input[name='resourceId']:checked").each(function(){
+        $("input[name='authorityId']:checked").each(function(){
             if (arrayId == '') {
-                arrayId += $(this).val() + ',';
-            }
-            else {
                 arrayId += $(this).val();
             }
+            else {
+                arrayId += ',' + $(this).val();
+            }
         });
-        $("#resourceIds").val(arrayId);
+        $("#authorityIds").val(arrayId);
         document.form1.submit();
         return true;
     }
@@ -80,7 +72,7 @@ PageClick = function(pageclickednumber){
 
 function page(pageNo){
     $("#loading").html(loading);
-    ResourceAjax.getResourceList(pageNo, "", "", filters, callback);
+    AuthorityAjax.getAuthorityList(pageNo, "", "", filters, callback);
     function callback(page){
         totalPages = parseInt(page.totalPages);
         $("#pager").pager({
@@ -92,7 +84,7 @@ function page(pageNo){
         var html = "";
         
         $.each(page.result, function(i, n){
-            html = html + "<input type='checkbox' name='resourceId' id='resourceId' value =" + n.id + " >" + n.resourceName;
+            html = html + "<input type='checkbox' name='authorityId' id='authorityId' value =" + n.id + " >" + n.displayName;
         });
         
         $("#result").html(html);

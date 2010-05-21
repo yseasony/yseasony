@@ -56,10 +56,10 @@ function checksave(){
         var arrayId = '';
         $("input[name='resourceId']:checked").each(function(){
             if (arrayId == '') {
-                arrayId += $(this).val() + ',';
+                arrayId += $(this).val();
             }
             else {
-                arrayId += $(this).val();
+                arrayId += ',' + $(this).val();
             }
         });
         $("#resourceIds").val(arrayId);
