@@ -16,8 +16,7 @@ public class AuthorityValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "权限代码不能为空!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "displayName", "权限名不能为空!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "角色名称不能为空!");
 	}
 
 }

@@ -36,8 +36,8 @@ public class AuthoritySvcImpl extends BaseServiceImpl<Authority, Long>
 			if (resourceId != null) {
 				for (String id : resourceId) {
 					authorityDao.executeSql(
-					"INSERT INTO tbl_resource_authority(resource_id,  authority_id) " +
-					"VALUES ("+ Long.valueOf(id)+ ","+ authority.getId() + ");");
+					"INSERT INTO tbl_role_authority('role_id',  'authority_id') " +
+					"VALUES ('"+ Long.valueOf(id)+ "','"+ authority.getId() + "')");
 				}
 			}
 		} catch (Exception e) {

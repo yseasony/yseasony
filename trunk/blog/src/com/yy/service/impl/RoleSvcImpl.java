@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.IHibernateDao;
 import com.yy.dao.IRoleDao;
@@ -23,14 +24,15 @@ public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc
 		super.setHibernateDao(hibernateDao);
 	}
 	
+	@Transactional
 	public void save(Role role ,String[] authorityId) {
 		try {
 			save(role);
 			if (authorityId != null) {
 				for (String id : authorityId) {
 					roleDao.executeSql(
-					"INSERT INTO tbl_resource_authority(resource_id,  authority_id) " +
-					"VALUES ("+ Long.valueOf(id)+ ","+ role.getId() + ");");
+					"INSERT INTO tbl_role_authority(role_id,  authority_id) " +
+					"VALUES ('"+role.getId()+ "','"+ Long.valueOf(id) + "');");
 				}
 			}
 		} catch (Exception e) {
