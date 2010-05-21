@@ -8,7 +8,7 @@
         <script language="javascript" src="<@path/>/formcheck.js"></script>
         <script src="<@path/>/jquery.pager.js" type="text/javascript"></script>
         <script type='text/javascript' src='/dwr/interface/AuthorityAjax.js'></script>
-        <script type='text/javascript' src='/dwr/interface/RoleAjax .js'></script>
+        <script type='text/javascript' src='/dwr/interface/RoleAjax.js'></script>
         <script type='text/javascript' src='/dwr/engine.js'></script>
         <link href="/css/form.css" rel="stylesheet" type="text/css"></head>
 		<link href="/css/pagerCreate.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
                 </tr><input type="hidden" name="token" value="${token}">
-				<input type="hidden" name="resourceIds" id="resourceIds"></form>
+				<input type="hidden" name="authorityIds" id="authorityIds"></form>
         </table>
         <script language="javascript" src="<@path/>/roleCreate.js"></script>
     </body>

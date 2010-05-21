@@ -84,7 +84,6 @@
 
 	<!-- webservices -->
 	<servlet>
-		<display-name>REST</display-name>
 		<servlet-name>REST</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<load-on-startup>1</load-on-startup>
