@@ -1,0 +1,38 @@
+#pager ul.pages {
+display:block;
+border:none;
+text-transform:uppercase;
+font-size:12px;
+margin:2px 0 5px;
+padding:0;
+}
+
+#pager ul.pages li {
+list-style:none;
+float:left;
+border:1px solid #ccc;
+text-decoration:none;
+margin:0 3px 0 0;
+padding:2px;
+}
+
+#pager ul.pages li:hover {
+border:1px solid #003f7e;
+}
+
+#pager ul.pages li.pgEmpty {
+border:1px solid #eee;
+color:#eee;
+}
+
+#pager ul.pages li.pgCurrent {
+border:1px solid #003f7e;
+color:#000;
+font-weight:700;
+background-color:#eee;
+}
+
+#pager * { font-size: 12px; font-family: sans-serif; }
+#pager ul.table { border-collapse: collapse; border: 2px solid #9ab; clear: left; }
+#pager ul.td, ul.th { border: 1px solid #bcc; padding: 5px; color: #333; text-align: center; }
+#pager ul.th { background: #eef4ff; }
