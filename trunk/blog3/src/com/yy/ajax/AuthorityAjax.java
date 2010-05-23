@@ -42,24 +42,22 @@ public class AuthorityAjax extends BaseAjax<AuthorityAjax> {
 	}
 	
 	@RemoteMethod
-	public Page<Authority> getAuthorityList(
-			Integer pageNo, String orderBy, String order,
-			HashMap<String, String> map) {
+	public Page<Authority> getAuthorityList(Integer pageNo, String orderBy,
+			String order, HashMap<String, String> map) {
 		List<PropertyFilter> filters = null;
 		try {
 			filters = HibernateWebUtils.buildPropertyFiltersAjax(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		Page<Authority> page = new Page<Authority>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
 		if (!page.isOrderBySetted()) {
 			page.setOrderBy("id");
 			page.setOrder(Page.ASC);
 		}
-		
 		page = authoritySvc.getPage(page, filters);
-		return page;
+		return page; 
 	}
 }

@@ -28,15 +28,21 @@ public class Authority extends AuditableEntity<Long> {
 	 * SpringSecurity中默认的角色/授权名前缀.
 	 */
 	public static final String AUTHORITY_PREFIX = "ROLE_";
-
+	/**
+	 * 权限代码
+	 */
 	private String name;
+	/**
+	 * 权限名
+	 */
+	private String displayName;
 
 	public Authority() {
 	}
 
-	public Authority(Long id, String name) {
+	public Authority(Long id, String displayName) {
 		super.setId(id);
-		this.name = name;
+		this.displayName = displayName;
 	}
 
 	@Column(nullable = false, unique = true)
@@ -58,4 +64,11 @@ public class Authority extends AuditableEntity<Long> {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 }
