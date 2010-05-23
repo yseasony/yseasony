@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+ http://www.springframework.org/schema/tx  
+ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd  
+ http://www.directwebremoting.org/schema/spring-dwr       
+ http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd  
+ http://www.springframework.org/schema/context  
+ http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<!-- 启用 annotation 配置模式 -->
+	<dwr:configuration />
+
+	<!-- spring容器中检查拥有@RemoteProxy 和 @RemoteMethod注解的类 -->
+	<dwr:annotation-config />
+
+	<!-- 要求DWR将util.js和 engine.js映射到dwrController -->
+	<dwr:url-mapping />
+
+	<!-- 开启debug -->
+	<dwr:controller id="dwrController" debug="true" />
+
+	<!-- 使用annotation 自动注册 bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.yy.ajax" />
+
+	<!-- 扫描需要转换的java对象 -->
+	<dwr:annotation-scan scanRemoteProxy="true" base-package="com.yy.model" />
+	<dwr:annotation-scan scanRemoteProxy="true" base-package="com.yy.utils" />
+
+</beans> 
