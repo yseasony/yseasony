@@ -14,7 +14,7 @@
 		<s:intercept-url pattern="/js/**" filters="none" />
 		<s:intercept-url pattern="/js_debug/**" filters="none" />
  
-		<s:intercept-url pattern="/user/roleCreate.do" access="hasAnyRole('ROLE_创建角色')" />
+		<s:intercept-url pattern="/user/roleCreate1.do" access="hasAnyRole('ROLE_LIST_RESOURCE')" />
 
 		<s:form-login login-page="/login.action" default-target-url="/" authentication-failure-url="/login.action?error=true" />
 		<s:logout logout-success-url="/" />
