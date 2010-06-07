@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -29,6 +29,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
@@ -88,7 +89,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	/**
 	 * 采用@Autowired按类型注入SessionFactory,当有多个SesionFactory的时候Override本函数.
 	 */
-	@Resource(name = "sessionFactory")
+	@Autowired
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -428,16 +429,14 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	}
 
 	public int getMax(String table) {
-
 		String hql = "select count(*)+1 from " + table + "";
 		return Integer.valueOf(this.createQuery(hql, true).uniqueResult()
 				.toString());
-
 	}
 
-	public void executeSql(String sql) throws HibernateException{
+	public SQLQuery executeSql(String sql) throws HibernateException{
 		try {
-			this.getSession().createSQLQuery(sql).executeUpdate();
+			return this.getSession().createSQLQuery(sql);
 		} catch (HibernateException e) {
 			throw e;
 		}

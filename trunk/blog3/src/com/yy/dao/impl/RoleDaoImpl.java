@@ -2,6 +2,8 @@ package com.yy.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 import com.yy.dao.IRoleDao;
@@ -18,11 +20,6 @@ public class RoleDaoImpl extends HibernateDao<Role, Long> implements IRoleDao {
 
 	private static final String QUERY_USER_BY_ROLEID = "select u from User u left join u.roleList r where r.id=?";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yy.dao.impl.IRoleDao#delete(java.lang.Long)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void delete(Long id) {
@@ -34,5 +31,18 @@ public class RoleDaoImpl extends HibernateDao<Role, Long> implements IRoleDao {
 			u.getRoleList().remove(role);
 		}
 		super.delete(role);
+	}
+	
+	public void save_Role_Authority(Long roleId,Long authorityId) throws HibernateException {
+		String sql = "insert into tbl_role_authority (role_id,authority_id) values (?,?);";
+		try {
+			SQLQuery query = super.executeSql(sql);
+			query.setParameter(0, roleId);
+			query.setParameter(1, authorityId);
+			query.executeUpdate();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

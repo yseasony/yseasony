@@ -35,8 +35,6 @@ public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc
 					"VALUES ('"+role.getId()+ "','"+ Long.valueOf(id) + "');");
 				}
 			}
-			Role role2=null;
-			role2.getAuthIds();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new MyException(e);

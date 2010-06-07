@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:s="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:s="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
 	default-lazy-init="true">
@@ -13,16 +13,18 @@
 		<s:intercept-url pattern="/images/**" filters="none" />
 		<s:intercept-url pattern="/js/**" filters="none" />
 		<s:intercept-url pattern="/js_debug/**" filters="none" />
- 
-		<s:intercept-url pattern="/user/roleCreate1.do" access="hasAnyRole('ROLE_LIST_RESOURCE')" />
 
-		<s:form-login login-page="/login.action" default-target-url="/" authentication-failure-url="/login.action?error=true" />
+		<s:intercept-url pattern="/user/roleCreate1.do"
+			access="hasAnyRole('ROLE_LIST_RESOURCE')" />
+
+		<s:form-login login-page="/login.action"
+			default-target-url="/" authentication-failure-url="/login.action?error=true" />
 		<s:logout logout-success-url="/" />
 	</s:http>
 
 	<!-- 方法安全配置 -->
 	<s:global-method-security secured-annotations="enabled" />
-	
+
 	<!-- 认证配置, 使用userDetailsService提供的用户信息 -->
 	<s:authentication-manager alias="authenticationManager">
 		<s:authentication-provider user-service-ref="userDetailsService">

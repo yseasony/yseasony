@@ -5,12 +5,9 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-lazy-init="true">
-	
-	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-	<context:component-scan base-package="com.yy" />
+
 	<context:annotation-config />
-	<aop:aspectj-autoproxy  proxy-target-class="true"/>
-	
+
 	<!-- 定义受环境影响易变的变量 -->
 	<bean
 		class="com.yy.utils.ExtendedPropertyPlaceholderConfigurer">
@@ -24,23 +21,26 @@
 		</property>
 	</bean>
 
-	
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.yy" />
 
 	<!-- 数据源配置,在测试环境使用单连接 -->
-	<bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
-		init-method="init" destroy-method="close">
-		<property name="uniqueResourceName" value="dataSource" />
-		<property name="xaDataSourceClassName">
-			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
-		</property>
-		<property name="xaProperties">
-			<props>
-				<prop key="url">${jdbc.url}</prop>
-				<prop key="user">${jdbc.username}</prop>
-				<prop key="password">${jdbc.password}</prop>
-			</props>
-		</property>
-		<property name="poolSize" value="3" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!--  Connection Info 
+		-->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!--  Connection Pooling Info 
+		-->
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="maxWait" value="1000" />
+		<property name="poolPreparedStatements" value="false" />
+		<property name="defaultAutoCommit" value="false" />
 	</bean>
 
 	<!-- Hibernate配置 -->
@@ -87,43 +87,15 @@
 		</property>
 	</bean>
 
-	<!--
-		Construct Atomikos UserTransactionManager, needed to configure Spring
-	-->
-	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
-		init-method="init" destroy-method="close">
-		<property name="forceShutdown">
-			<value>true</value>
-		</property>
-	</bean>
-
-	<!--
-		Also use Atomikos UserTransactionImp, needed to configure Spring
-	-->
-	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
-		<property name="transactionTimeout">
-			<value>300</value>
-		</property>
-	</bean>
-
-	<!--
-		Configure the Spring framework to use JTA transactions from Atomikos
-	-->
-	<bean id="springTransactionManager"
-		class="org.springframework.transaction.jta.JtaTransactionManager">
-		<property name="transactionManager">
-			<ref bean="atomikosTransactionManager" />
-		</property>
-		<property name="userTransaction">
-			<ref bean="atomikosUserTransaction" />
-		</property>
+	<!-- 事务管理器配置,单数据源事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- 使用annotation定义事务 -->
-	<tx:annotation-driven transaction-manager="springTransactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-	<!-- SpringContextUtils定义 -->
-	<bean id="springContextUtils" class="com.yy.utils.SpringContextUtils"
-		lazy-init="false" />
-
+	<aop:aspectj-autoproxy />
+    
 </beans>

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 
 import com.yy.exception.MyException;
@@ -201,5 +202,5 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 执行SQL
 	 */
-	public void executeSql(String sql) throws HibernateException;
+	public SQLQuery executeSql(String sql) throws HibernateException;
 }
