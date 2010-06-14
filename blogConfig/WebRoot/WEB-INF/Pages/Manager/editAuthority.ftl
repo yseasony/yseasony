@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>添加权限</title>
+        <title>修改权限</title>
         <script language="javascript" src="<@path/>/jquery.js"></script>
         <script language="javascript" src="<@path/>/formcheck.js"></script>
         <script src="<@path/>/jquery.pager.js" type="text/javascript"></script>
