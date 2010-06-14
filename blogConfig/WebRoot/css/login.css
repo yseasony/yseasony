@@ -1,0 +1,41 @@
+.login_top_bg {
+	background-image: url(/images/login-top-bg.gif);
+	background-repeat: repeat-x;
+}
+
+.login_txt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 25px;
+	color: #333333;
+}
+.Submit {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #629DAE;
+	text-decoration: none;
+	background-image: url(/images/Submit_bg.gif);
+	background-repeat: repeat-x;
+}
+.login_bg {
+	background-image: url(/images/login_bg.jpg);
+	background-repeat: repeat-x;
+}
+.login_bg2 {
+	background-image: url(/images/login-content-bg.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.login_txt_bt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #666666;
+	font-weight: bold;
+	margin-left:5px;
+}
+
+.left_topbg {
+	background-image: url(/images/content-bg.gif);
+	background-repeat: repeat-x;
+
