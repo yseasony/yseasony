@@ -38,6 +38,6 @@
                     </td>
                 </tr><input type="hidden" name="token" value="${token}">
         </table>
-        <script language="javascript" src="<@path/>/authorityCreate.js"></script>
+        <script language="javascript" src="<@path/>/createAuthority.js"></script>
     </body>
 </html>

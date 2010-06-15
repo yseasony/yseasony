@@ -17,7 +17,7 @@
                 <tr>
                     <td>权限名称:</td>
                     <td>
-                        <input type="text" name="displayName" id="displayName" />
+                        <input type="text" name="displayName" id="displayName" value="${authority.displayName}"/>
                     </td>
                     <td>
                         <div id="displayNameTip" class="onShow" style="width: 250px;">请输入权限名称</div>
@@ -26,7 +26,7 @@
                 <tr>
                     <td>权限代码:</td>
                     <td>
-                        <input type="text" name="name" id="name" />
+                        <input type="text" name="name" id="name" value="${authority.name}"/>
                     </td>
                     <td>
                         <div id="nameTip" class="onShow" style="width: 250px;">请输入权限代码</div>
@@ -36,8 +36,8 @@
                     <td>
                         <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
                     </td>
-                </tr><input type="hidden" name="token" value="${token}">
+                </tr><input type="hidden" name="id" value="${authority.id}">
         </table>
-        <script language="javascript" src="<@path/>/authorityCreate.js"></script>
+        <script language="javascript" src="<@path/>/createAuthority.js"></script>
     </body>
 </html>
