@@ -1,5 +1,6 @@
-<#include "/Pages/ftl_lib/js_config.ftl"/> <?xml version="1.0" encoding="UTF-8"?>
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<#include "/Pages/ftl_lib/js_config.ftl"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +14,7 @@
 		<link href="/css/pagerCreate.css" rel="stylesheet" type="text/css" />
     <body>
         <table border="0px" width="500px" style="font-size: 12px;">
-            <form id="form1" name="form1" method="post" action="/manage/user/authoritySave.do" onsubmit="return checksave();">
+            <form id="form1" name="form1" method="post" action="/manage/user/saveAuthority.do" onsubmit="return checksave();">
                 <tr>
                     <td>权限名称:</td>
                     <td>
@@ -38,6 +39,10 @@
                     </td>
                 </tr><input type="hidden" name="id" value="${authority.id}">
         </table>
-        <script language="javascript" src="<@path/>/createAuthority.js"></script>
+		 <script language="javascript">
+		 	var displayName = '${authority.displayName}';
+			var name = '${authority.name}';
+		 </script>
+        <script language="javascript" src="<@path/>/editAuthority.js"></script>
     </body>
 </html>

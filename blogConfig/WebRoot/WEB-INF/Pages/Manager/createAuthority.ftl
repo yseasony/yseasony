@@ -13,7 +13,7 @@
 		<link href="/css/pagerCreate.css" rel="stylesheet" type="text/css" />
     <body>
         <table border="0px" width="500px" style="font-size: 12px;">
-            <form id="form1" name="form1" method="post" action="/manage/user/authoritySave.do" onsubmit="return checksave();">
+            <form id="form1" name="form1" method="post" action="/manage/user/saveAuthority.do" onsubmit="return checksave();">
                 <tr>
                     <td>权限名称:</td>
                     <td>
