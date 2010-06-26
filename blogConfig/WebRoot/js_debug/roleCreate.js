@@ -35,60 +35,10 @@ function checksave(){
         existRole("name", "name", "nameTip", "该角色名称已被创建", "该角色名称可以创建");
     }
     
-    if (check == true) {
-        var arrayId = '';
-        $("input[name='authorityId']:checked").each(function(){
-            if (arrayId == '') {
-                arrayId += $(this).val();
-            }
-            else {
-                arrayId += ',' + $(this).val();
-            }
-        });
-        $("#authorityIds").val(arrayId);
-        document.form1.submit();
-        return true;
-    }
     else {
         return false;
     }
 }
 
-var loading = "<img id='jquery-loading' src='/images/70.gif' alt='Loading...' />";
-$.ajaxSetup({
-    cache: false
-});
 
-var totalPages = 0;
-var filters = new Object();
-
-$(document).ready(function(){
-    page(1);
-});
-
-PageClick = function(pageclickednumber){
-    page(pageclickednumber);
-}
-
-function page(pageNo){
-    $("#loading").html(loading);
-    AuthorityAjax.getAuthorityList(pageNo, "", "", filters, callback);
-    function callback(page){
-        totalPages = parseInt(page.totalPages);
-        $("#pager").pager({
-            pagenumber: pageNo,
-            pagecount: totalPages,
-            buttonClickCallback: PageClick
-        });
-        
-        var html = "";
-        
-        $.each(page.result, function(i, n){
-            html = html + "<input type='checkbox' name='authorityId' id='authorityId' value =" + n.id + " >" + n.displayName;
-        });
-        
-        $("#result").html(html);
-        $("#loading").html("");
-    }
-}
 

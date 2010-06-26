@@ -9,7 +9,9 @@ $("#displayName").focus(function(){
 $("#displayName").blur(function(){
     checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
     if (check == true) {
+    	if (displayName != $("#displayName").val()) {
         existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
+    	}
     }
 });
 
@@ -19,7 +21,9 @@ $("#name").focus(function(){
 $("#name").blur(function(){
     checkNull("nameTip", "name", "权限代码不能为空或含有空格");
     if (check == true) {
-        existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
+    	if (name != $("#name").val()) {
+    		existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
+		}
     }
 });
 
@@ -41,15 +45,18 @@ function checksave(){
     }
     
     if (check == true) {
+    	if (displayName != $("#displayName").val()) {
         existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
+    	}
     }
-    
     if (isNull("name")) {
         checkNull("nameTip", "name", "权限代码不能为空或含有空格");
     }
     
     if (check == true) {
+    	if (name != $("#name").val()){
         existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
+    	}
     }
     else {
         return false;
