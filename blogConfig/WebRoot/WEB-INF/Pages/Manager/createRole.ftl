@@ -7,7 +7,6 @@
         <script language="javascript" src="<@path/>/jquery.js"></script>
         <script language="javascript" src="<@path/>/formcheck.js"></script>
         <script src="<@path/>/jquery.pager.js" type="text/javascript"></script>
-        <script type='text/javascript' src='/dwr/interface/AuthorityAjax.js'></script>
         <script type='text/javascript' src='/dwr/interface/RoleAjax.js'></script>
         <script type='text/javascript' src='/dwr/engine.js'></script>
         <link href="/css/form.css" rel="stylesheet" type="text/css"></head>
@@ -27,9 +26,9 @@
                 <tr>
                     <td>授权：</td>
                     <td>
-                        <div id="result"></div> 
-                        <div id="pager"></div>
-                        <span id="loading"></span>
+                    <#list list as obj>
+                     ${obj.displayName}<input type='checkbox' name='authorityId' value =" ${obj.id}" >
+                    </#list>
                     </td>
                     <td>
                         <div id="descriptionTip" class="onShow" style="width: 250px;">请选择关联权限 </div>
