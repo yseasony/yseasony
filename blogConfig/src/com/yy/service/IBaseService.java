@@ -1,6 +1,7 @@
 package com.yy.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.yy.exception.MyException;
 
@@ -18,4 +19,5 @@ public interface IBaseService<T, PK extends Serializable> {
 
 	public T getById(PK id);
 
+	public List<T> getListAll();
 }

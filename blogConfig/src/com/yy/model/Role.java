@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -28,6 +29,7 @@ import com.yy.utils.ReflectionUtils;
 @Entity
 @Table(name = "TBL_ROLE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@DataTransferObject
 public class Role extends AuditableEntity<Long> {
 
 	private String name;

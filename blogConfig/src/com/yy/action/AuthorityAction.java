@@ -41,6 +41,16 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 		}
 		
 	}
+	
+	@RequestMapping(value = "/manage/user/deleteAuthority.do")
+	public String deleteAuthority(HttpServletResponse response,Long authorityId) {
+		try {
+			authoritySvc.delete(authorityId);
+		} catch (MyException e) {
+			writeOut(response,"删除失败！");
+		}
+		return "redirect:/manage/user/getAuthorityList.do";
+	}
 
 	@RequestMapping("/manage/user/createAuthority.do")
 	public ModelAndView createAuthority(HttpSession session) {

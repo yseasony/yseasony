@@ -8,11 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yy.dao.IHibernateDao;
 import com.yy.exception.MyException;
 import com.yy.service.IBaseService;
-import com.yy.utils.AopLog;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
-public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> implements IBaseService<T, PK>{
+public class BaseServiceImpl<T, PK extends Serializable> implements IBaseService<T, PK>{
 
 	private IHibernateDao<T, PK> hibernateDao;
 	
@@ -20,9 +17,6 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 		this.hibernateDao = hibernateDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#save(T)
-	 */
 	@Transactional
 	public void save(T t) {
 		try {
@@ -32,9 +26,6 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#delete(PK)
-	 */
 	@Transactional
 	public void delete(PK id) {
 		try {
@@ -44,9 +35,6 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#delete(T)
-	 */
 	@Transactional
 	public void delete(T entity) {
 		try {
@@ -56,17 +44,11 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#getMax(java.lang.String)
-	 */
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
 		return this.hibernateDao.getMax(table);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#exist(java.lang.String, java.lang.String)
-	 */
 	@Transactional(readOnly = true)
 	public T exist(String column, String value) {
 		try {
@@ -77,18 +59,13 @@ public class BaseServiceImpl<T, PK extends Serializable> extends AopLog<T> imple
 	}
 
 	@Transactional(readOnly = true)
-	public Page<T> searchResource(final Page<T> page,
-			final List<PropertyFilter> filters) {
-		return this.hibernateDao.findPage(page, filters);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.yy.service.impl.IBaseService#getById(PK)
-	 */
-	@Transactional(readOnly = true)
 	public T getById(PK id){
 		return this.hibernateDao.get(id);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<T> getListAll(){
+		return this.hibernateDao.getAll();
+	}
 	
 }

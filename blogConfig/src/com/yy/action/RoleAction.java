@@ -1,6 +1,7 @@
 package com.yy.action;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.action.validate.AuthorityValidator;
 import com.yy.exception.MyException;
+import com.yy.model.Authority;
 import com.yy.model.Role;
+import com.yy.service.IAuthoritySvc;
 import com.yy.service.IRoleSvc;
 import com.yy.utils.Token;
 
@@ -24,6 +27,9 @@ public class RoleAction extends BaseAction<RoleAction>{
 	
 	@Autowired
 	private IRoleSvc roleSvc;
+	
+	@Autowired
+	private IAuthoritySvc authoritySvc;
 
 	@RequestMapping(value = "/manage/user/roleSave.do", method = RequestMethod.POST)
 	public void roleSave(HttpServletResponse response,
@@ -47,10 +53,18 @@ public class RoleAction extends BaseAction<RoleAction>{
 
 	}
 	
-	@RequestMapping("/manage/user/roleCreate.do")
+	@RequestMapping("/manage/user/createRole.do")
 	public ModelAndView roleCreate(HttpSession session) {
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Authority> list = authoritySvc.getListAll();
 		map.put("token", Token.getTokenString(session));
-		return new ModelAndView("Pages/Manager/roleCreate", map);
+		map.put("list", list);
+		return new ModelAndView("Pages/Manager/createRole", map);
 	}
+	
+	@RequestMapping("/manage/user/getRoleList.do")
+	public ModelAndView getRoleList() {
+		return new ModelAndView("Pages/Manager/Ajax/roleList");
+	}
+	
 }

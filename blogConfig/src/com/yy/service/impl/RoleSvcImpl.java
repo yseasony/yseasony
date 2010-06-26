@@ -1,5 +1,7 @@
 package com.yy.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import com.yy.dao.IRoleDao;
 import com.yy.exception.MyException;
 import com.yy.model.Role;
 import com.yy.service.IRoleSvc;
+import com.yy.utils.Page;
+import com.yy.utils.PropertyFilter;
 
 @Service
 public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc {
@@ -38,5 +42,10 @@ public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc
 		} catch (Exception e) {
 			throw new MyException(e);
 		}
+	}
+	
+	@Transactional(readOnly=true)
+	public Page<Role> getPage(Page<Role> page,final List<PropertyFilter> filters) {
+		return roleDao.findPage(page, filters);
 	}
 }
