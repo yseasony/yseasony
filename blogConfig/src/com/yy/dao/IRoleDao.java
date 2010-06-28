@@ -2,9 +2,7 @@ package com.yy.dao;
 
 
 import java.util.List;
-
 import org.hibernate.HibernateException;
-
 import com.yy.model.Role;
 
 

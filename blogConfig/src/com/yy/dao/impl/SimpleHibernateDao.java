@@ -436,19 +436,11 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 
 	}
 
-	public int executeSql(String sql) throws HibernateException{
-		try {
-			return executeSQLQuery(sql).executeUpdate();
-		} catch (HibernateException e) {
-			throw e;
-		}
+	public int executeSql(String sql) throws HibernateException {
+		return executeSQLQuery(sql).executeUpdate();
 	}
-	
-	public SQLQuery executeSQLQuery(String sql) throws HibernateException{
-		try {
-			return this.getSession().createSQLQuery(sql);
-		} catch (HibernateException e) {
-			throw e;
-		}
+
+	public SQLQuery executeSQLQuery(String sql) throws HibernateException {
+		return this.getSession().createSQLQuery(sql);
 	}
 }
