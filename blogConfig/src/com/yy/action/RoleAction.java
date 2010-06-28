@@ -67,4 +67,12 @@ public class RoleAction extends BaseAction<RoleAction>{
 		return new ModelAndView("Pages/Manager/Ajax/roleList");
 	}
 	
+	@RequestMapping("/manage/user/editRole.do")
+	public ModelAndView editAuthority(HttpSession session, Long roleId) {
+		Role role = roleSvc.getById(roleId);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("role", role);
+		map.put("token", Token.getTokenString(session));
+		return new ModelAndView("Pages/Manager/editRole", map);
+	}
 }
