@@ -3,6 +3,8 @@ package com.yy.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
 import com.yy.model.Role;
 
 
@@ -16,5 +18,7 @@ public interface IRoleDao extends IHibernateDao<Role, Long>{
 	public Role get(Long id);
 	
 	public List<Role> getAll(String propertyName,boolean b);
+	
+	public void insertRoleAuth(Long roleId, Long authId) throws HibernateException;
 	
 }

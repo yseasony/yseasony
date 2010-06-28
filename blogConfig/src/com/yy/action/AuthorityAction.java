@@ -26,12 +26,12 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 	private IAuthoritySvc authoritySvc;
 	
 	@RequestMapping(value = "/manage/user/saveAuthority.do", method = RequestMethod.POST)
-	public void saveAuthority(HttpServletResponse response,
+	public String saveAuthority(HttpServletResponse response,
 			Authority authority, BindingResult result) {
 		new AuthorityValidator().validate(authority, result);
 		if (result.hasErrors()) {
 			writeOut(response, result.getFieldError().getCode());
-			return;
+			return "";
 		}
 		
 		try {
@@ -40,6 +40,7 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 			writeOut(response,"保存失败！");
 		}
 		
+		return "redirect:/manage/user/getAuthorityList.do";
 	}
 	
 	@RequestMapping(value = "/manage/user/deleteAuthority.do")

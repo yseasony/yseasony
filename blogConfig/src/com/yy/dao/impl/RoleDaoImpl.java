@@ -2,6 +2,8 @@ package com.yy.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 import com.yy.dao.IRoleDao;
@@ -34,5 +36,18 @@ public class RoleDaoImpl extends HibernateDao<Role, Long> implements IRoleDao {
 			u.getRoleList().remove(role);
 		}
 		super.delete(role);
+	}
+	
+	public void insertRoleAuth(Long roleId, Long authId) throws HibernateException{
+		String sql = "INSERT INTO tbl_role_authority(role_id,  authority_id) VALUES (?,?)";
+		try {
+			SQLQuery q = super.executeSQLQuery(sql);
+			q.setParameter(0, roleId);
+			q.setParameter(0, authId);
+			q.executeUpdate();
+		} catch (HibernateException e) {
+			throw e;
+		}
+		
 	}
 }

@@ -34,9 +34,7 @@ public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc
 			save(role);
 			if (authorityId != null) {
 				for (String id : authorityId) {
-					roleDao.executeSql(
-					"INSERT INTO tbl_role_authority(role_id,  authority_id) " +
-					"VALUES ('"+role.getId()+ "','"+ Long.valueOf(id) + "');");
+					roleDao.insertRoleAuth(role.getId(), Long.valueOf(id));
 				}
 			}
 		} catch (Exception e) {

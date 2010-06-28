@@ -7,6 +7,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 
 import com.yy.exception.MyException;
@@ -200,6 +201,20 @@ public interface ISimpleHibernateDao<T, PK extends Serializable> {
 
 	/**
 	 * 执行SQL
+	 * @param sql
+	 * @return int
+	 * @throws HibernateException
+	 * @author YseasonY
+	 * @version time ：2010-6-28 下午04:31:18
 	 */
-	public void executeSql(String sql) throws HibernateException;
+	public int executeSql(String sql) throws HibernateException;
+	/**
+	 * 执行SQL
+	 * @param sql
+	 * @return SQLQuery
+	 * @throws HibernateException
+	 * @author YseasonY
+	 * @version time ：2010-6-28 下午04:30:40
+	 */
+	public SQLQuery executeSQLQuery(String sql) throws HibernateException;
 }

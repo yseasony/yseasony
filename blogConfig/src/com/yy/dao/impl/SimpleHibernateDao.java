@@ -20,6 +20,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -435,9 +436,17 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 
 	}
 
-	public void executeSql(String sql) throws HibernateException{
+	public int executeSql(String sql) throws HibernateException{
 		try {
-			this.getSession().createSQLQuery(sql).executeUpdate();
+			return executeSQLQuery(sql).executeUpdate();
+		} catch (HibernateException e) {
+			throw e;
+		}
+	}
+	
+	public SQLQuery executeSQLQuery(String sql) throws HibernateException{
+		try {
+			return this.getSession().createSQLQuery(sql);
 		} catch (HibernateException e) {
 			throw e;
 		}
