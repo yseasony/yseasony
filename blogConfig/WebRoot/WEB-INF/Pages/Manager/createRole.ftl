@@ -27,7 +27,7 @@
                     <td>授权：</td>
                     <td>
                     <#list list as obj>
-                     ${obj.displayName}<input type='checkbox' name='authorityIds' value =" ${obj.id}" >
+                     ${obj.displayName}<input type='checkbox' name='authorityIds' value ="${obj.id}" >
                     </#list>
                     </td>
                     <td>
@@ -41,6 +41,6 @@
                 </tr><input type="hidden" name="token" value="${token}">
 				<input type="hidden" name="authorityIds" id="authorityIds"></form>
         </table>
-        <script language="javascript" src="<@path/>/roleCreate.js"></script>
+        <script language="javascript" src="<@path/>/createRole.js"></script>
     </body>
 </html>
