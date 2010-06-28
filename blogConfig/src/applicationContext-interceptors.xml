@@ -18,7 +18,7 @@
 		</property>
 		<property name="regexUrls">
 			<list>
-				<value>/manage/user/(.+?)Save.do</value>
+				<value>/manage/user/save(.+?).do</value>
 			</list>
 		</property>
 	</bean>
