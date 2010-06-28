@@ -13,7 +13,7 @@
 		<link href="/css/pagerCreate.css" rel="stylesheet" type="text/css" />
     <body>
         <table border="0px" width="500px" style="font-size: 12px;">
-            <form id="form1" name="form1" method="post" action="/user/roleSave.do" onsubmit="return checksave();">
+            <form id="form1" name="form1" method="post" action="/manage/user/saveRole.do" onsubmit="return checksave();">
                 <tr>
                     <td>角色名称:</td>
                     <td>
@@ -27,7 +27,7 @@
                     <td>授权：</td>
                     <td>
                     <#list list as obj>
-                     ${obj.displayName}<input type='checkbox' name='authorityId' value =" ${obj.id}" >
+                     ${obj.displayName}<input type='checkbox' name='authorityIds' value =" ${obj.id}" >
                     </#list>
                     </td>
                     <td>
