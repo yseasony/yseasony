@@ -42,7 +42,7 @@ public class RoleAjax extends BaseAjax<RoleAjax>{
 	}
 	
 	@RemoteMethod
-	public Page<Role> getAuthorityList(
+	public Page<Role> getRoleList(
 			Integer pageNo, String orderBy, String order,
 			HashMap<String, String> map) {
 		List<PropertyFilter> filters = null;
