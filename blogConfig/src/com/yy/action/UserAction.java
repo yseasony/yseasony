@@ -23,6 +23,7 @@ public class UserAction {
 	public ModelAndView login() {
 		return new ModelAndView("Pages/login");
 	}
+
 	@RequestMapping("/manage/user/userSave.do")
 	public void userSave(HttpServletRequest request,
 			HttpServletResponse response, User user) {

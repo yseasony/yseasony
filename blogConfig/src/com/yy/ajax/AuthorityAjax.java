@@ -23,22 +23,21 @@ public class AuthorityAjax extends BaseAjax<AuthorityAjax> {
 	private IAuthoritySvc authoritySvc;
 
 	@RemoteMethod
-	public boolean existAuthority(String column, String value) {
-
-		if (isBlank(column, value)) {
-			return false;
-		}
-		Authority authority = null;
+	public boolean existDisplayName(String value) {
 		try {
-			authority = authoritySvc.exist(column, value);
+			return authoritySvc.exist("displayName", value);
 		} catch (MyException e) {
 			return false;
 		}
-
-		if (authority != null) {
+	}
+	
+	@RemoteMethod
+	public boolean existName(String value) {
+		try {
+			return authoritySvc.exist("name", value);
+		} catch (MyException e) {
 			return false;
 		}
-		return true;
 	}
 	
 	@RemoteMethod

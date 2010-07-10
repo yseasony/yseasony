@@ -22,21 +22,21 @@ public class UserAjax extends BaseAjax<UserAjax> {
 			HttpServletResponse response, String loginname) throws Exception {
 
 		ModelAndView modelAndView = new ModelAndView("jsonView");
-		boolean exist = false;
-		modelAndView.addObject("exist", exist);
-
-		if (isBlank(loginname)) {
-			return modelAndView;
-		}
-
-		User user = this.userSvc.exist("loginname", loginname.trim());
-
-		if (user != null) {
-			return modelAndView;
-		}
-
-		exist = true;
-		modelAndView.addObject("exist", exist);
+//		boolean exist = false;
+//		modelAndView.addObject("exist", exist);
+//
+//		if (isBlank(loginname)) {
+//			return modelAndView;
+//		}
+//
+//		User user = this.userSvc.exist("loginname", loginname.trim());
+//
+//		if (user != null) {
+//			return modelAndView;
+//		}
+//
+//		exist = true;
+//		modelAndView.addObject("exist", exist);
 		return modelAndView;
 	}
 

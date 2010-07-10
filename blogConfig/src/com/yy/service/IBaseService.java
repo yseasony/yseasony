@@ -15,7 +15,7 @@ public interface IBaseService<T, PK extends Serializable> {
 
 	public int getMax(String table);
 
-	public T exist(String column, String value);
+	public boolean exist(String column, String value);
 
 	public T getById(PK id);
 

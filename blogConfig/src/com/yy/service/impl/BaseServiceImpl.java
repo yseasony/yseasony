@@ -50,9 +50,14 @@ public class BaseServiceImpl<T, PK extends Serializable> implements IBaseService
 	}
 
 	@Transactional(readOnly = true)
-	public T exist(String column, String value) {
+	public boolean exist(String column, String value) {
 		try {
-			return this.hibernateDao.findUniqueBy(column, value);
+			T t = this.hibernateDao.findUniqueBy(column, value);
+			if (t == null) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception e) {
 			throw new MyException(e);
 		}

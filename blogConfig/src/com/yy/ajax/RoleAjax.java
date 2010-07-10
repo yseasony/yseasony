@@ -24,21 +24,11 @@ public class RoleAjax extends BaseAjax<RoleAjax>{
 	
 	@RemoteMethod
 	public boolean existRole(String value) {
-		if (isBlank(value)) {
-			return false;
-		}
-		Role role = null;
 		try {
-			role = this.roleSvc.exist("value", value.trim());
+			return roleSvc.exist("value", value);
 		} catch (MyException e) {
 			return false;
 		}
-
-		if (role != null) {
-			return false;
-		}
-		
-		return true;
 	}
 	
 	@RemoteMethod
