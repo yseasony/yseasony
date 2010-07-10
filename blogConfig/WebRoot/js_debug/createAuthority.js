@@ -1,57 +1,41 @@
-Boolean: check = false;
+$(document).ready(function(){
+    $("#displayName").focus();
+    $("#inputForm").validate({
+        rules: {
+            displayName: {
+                required: true,
+                existDisplayName: true
+            },
+            name: {
+                required: true,
+				existName: true
+            }
+        },
+        messages: {
+            displayName: {
+                required: "权限名称不能为空",
+                existDisplayName: "此权限名称已存在"
+            },
+            name: {
+                required: "权限代码不能为空",
+				existName:"此权限代码已存在"
+            }
+        },
+		errorElement: "div"
+    });
+});
+
 $.ajaxSetup({
     cache: false
 });
 
-$("#displayName").focus(function(){
-    onFocusCheck("displayNameTip", "权限名称不能为空");
-});
-$("#displayName").blur(function(){
-    checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
-    if (check == true) {
-        existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
-    }
-});
-
-$("#name").focus(function(){
-    onFocusCheck("nameTip", "权限代码不能为空");
-});
-$("#name").blur(function(){
-    checkNull("nameTip", "name", "权限代码不能为空或含有空格");
-    if (check == true) {
-        existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
-    }
-});
-
-function existAuthority(column, value, valueTip, errorMessage, successMessage){
+jQuery.validator.addMethod("existDisplayName", function existAuthority(value, element){
     dwr.engine.setAsync(false);
-    AuthorityAjax.existAuthority(column, $("#" + value).val(), callback);
-    function callback(value){
-        tip(valueTip, errorMessage, successMessage, value);
-        return value;
-    }
-}
+    return AuthorityAjax.existDisplayName(element.value);
+}, "Exist.");
 
-function checksave(){
+jQuery.validator.addMethod("existName", function existAuthority(value, element){
+    dwr.engine.setAsync(false);
+    return AuthorityAjax.existName(element.value);
+}, "Exist.");
 
-    check = true;
-    
-    if (isNull("displayName")) {
-        checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
-    }
-    
-    if (check == true) {
-        existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
-    }
-    
-    if (isNull("name")) {
-        checkNull("nameTip", "name", "权限代码不能为空或含有空格");
-    }
-    
-    if (check == true) {
-        existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
-    }
-    else {
-        return false;
-    }
-}

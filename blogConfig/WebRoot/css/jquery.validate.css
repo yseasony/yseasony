@@ -1,0 +1,16 @@
+div.error {
+	background: url(../images/onError.gif) no-repeat;
+	position: absolute;
+	margin-top: -21px;
+	margin-left: 150px;
+	color: white;
+	padding: 3px;
+	text-align: left;
+	z-index: 1;
+	color: #333333;
+}
+
+div.checked {
+	background: transparent url(../images/onSuccess.gif) no-repeat scroll 0
+		0;
+}
