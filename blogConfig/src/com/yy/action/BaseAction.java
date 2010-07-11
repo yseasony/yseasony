@@ -2,6 +2,7 @@ package com.yy.action;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -21,6 +22,10 @@ public class BaseAction<T> {
 		} catch (IOException e) {
 			logger.error("response error", e);
 		}
+	}
+	
+	protected void setErrorMsg(HttpServletRequest request, String value) {
+		request.setAttribute("error", value);
 	}
 	
 	protected boolean isBlank(String str) {
