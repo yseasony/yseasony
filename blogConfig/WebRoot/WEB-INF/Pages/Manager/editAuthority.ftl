@@ -7,29 +7,30 @@
     <title>修改权限</title>
     <script language="javascript" src="<@path/>/jquery.js"></script>
     <script language="javascript" src="<@path/>/jquery.validate.js"></script>
-    <script language="javascript" src="<@path/>/createAuthority.js"></script>
+    <script language="javascript" src="<@path/>/editAuthority.js"></script>
     <script type='text/javascript' src='/dwr/interface/AuthorityAjax.js'></script>
     <script type='text/javascript' src='/dwr/engine.js'></script>
     <link href="/css/base.css" type="text/css" rel="stylesheet"/>
     <link href="/css/jquery.validate.css" type="text/css" rel="stylesheet"/>
     <script language="javascript">
-        var displayName_value = '${authority.displayName!default("玩")}';
-        var name_value = '${authority.name!default("玩")}';
+        var displayName_value = '${authority?if_exists.displayName?if_exists}';
+        var name_value = '${authority?if_exists.name?if_exists}';
     </script>
 </head>
     <body>
+    	${error?if_exists}
     	<form id="inputForm" name="form1" method="post" action="/manage/user/saveAuthority.do">
         <table border="0px" width="300px">
                 <tr>
                     <td>权限名称:</td>
                     <td>
-                        <input type="text" name="displayName" id="displayName" value="${authority.displayName}"/>
+                        <input type="text" name="displayName" id="displayName" value="${authority?if_exists.displayName?if_exists}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>权限代码:</td>
                     <td>
-                        <input type="text" name="name" id="name" value="${authority.name}"/>
+                        <input type="text" name="name" id="name" value="${authority?if_exists.name?if_exists}"/>
                     </td>
                 </tr>
                 <tr>
@@ -38,8 +39,8 @@
                     </td>
                 </tr>
         </table>
-		<input type="hidden" name="id" value="${authority.id}">
-		<input type="hidden" name="token" value="${token}">
+		<input type="hidden" name="id" value="${authority?if_exists.id?if_exists}">
+		<input type="hidden" name="token" value="${token?if_exists}">
 		</form>
     </body>
 </html>
