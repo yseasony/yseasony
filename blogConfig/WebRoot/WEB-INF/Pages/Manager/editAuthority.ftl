@@ -13,8 +13,8 @@
     <link href="/css/base.css" type="text/css" rel="stylesheet"/>
     <link href="/css/jquery.validate.css" type="text/css" rel="stylesheet"/>
     <script language="javascript">
-        var displayName = '${authority.displayName}';
-        var name = '${authority.name}';
+        var displayName_value = '${authority.displayName!default("玩")}';
+        var name_value = '${authority.name!default("玩")}';
     </script>
 </head>
     <body>
