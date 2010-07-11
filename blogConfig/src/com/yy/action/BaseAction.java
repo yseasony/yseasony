@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yy.utils.MyStringUtils;
+import com.yy.utils.Token;
 
 public class BaseAction<T> {
 	
@@ -22,6 +23,11 @@ public class BaseAction<T> {
 		} catch (IOException e) {
 			logger.error("response error", e);
 		}
+	}
+	
+	protected void setErrorMsgWithToken(HttpServletRequest request, String value){
+		request.setAttribute("error", value);
+		request.setAttribute("token", Token.getTokenString(request.getSession()));
 	}
 	
 	protected void setErrorMsg(HttpServletRequest request, String value) {

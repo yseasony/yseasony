@@ -31,14 +31,15 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 			HttpServletRequest request,Authority authority, BindingResult result) {
 		new AuthorityValidator().validate(authority, result);
 		if (result.hasErrors()) {
-			writeOut(response, result.getFieldError().getCode());
-			return "";
+			setErrorMsgWithToken(request, "保存失败！");
+			return "Pages/Manager/editAuthority";
 		}
 		
 		try {
 			authoritySvc.save(authority);
 		} catch (MyException e) {
-			writeOut(response,"保存失败！");
+			setErrorMsgWithToken(request, "保存失败！");
+			return "Pages/Manager/editAuthority";
 		}
 		
 		return "redirect:/manage/user/getAuthorityList.do";
