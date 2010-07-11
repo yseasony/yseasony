@@ -1,64 +1,66 @@
-Boolean: check = false;
+$(document).ready(function(){
+    $("#displayName").focus();
+    $("#inputForm").validate({
+        rules: {
+            displayName: {
+                required: true,
+                existDisplayName: true,
+                rangelength: [4, 20]
+            },
+            name: {
+                required: true,
+                existName: true,
+                rangelength: [4, 20]
+            }
+        },
+        messages: {
+            displayName: {
+                required: "权限名称不能为空",
+                existDisplayName: "此权限名称已存在",
+                rangelength: "长度必须在{0}-{1}之间"
+            },
+            name: {
+                required: "权限代码不能为空",
+                existName: "此权限代码已存在",
+                rangelength: "长度必须在{0}-{1}之间"
+            }
+        },
+        success: function(div){
+            div.addClass("success").text("　")
+        },
+        errorElement: "div"
+    });
+});
+
 $.ajaxSetup({
     cache: false
 });
 
-$("#displayName").focus(function(){
-    onFocusCheck("displayNameTip", "权限名称不能为空");
-});
-$("#displayName").blur(function(){
-    checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
-    if (check == true) {
-    	if (displayName != $("#displayName").val()) {
-        existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
-    	}
-    }
-});
-
-$("#name").focus(function(){
-    onFocusCheck("nameTip", "权限代码不能为空");
-});
-$("#name").blur(function(){
-    checkNull("nameTip", "name", "权限代码不能为空或含有空格");
-    if (check == true) {
-    	if (name != $("#name").val()) {
-    		existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
-		}
-    }
-});
-
-function existAuthority(column, value, valueTip, errorMessage, successMessage){
+jQuery.validator.addMethod("existDisplayName", function existAuthority(value, element){
     dwr.engine.setAsync(false);
-    AuthorityAjax.existAuthority(column, $("#" + value).val(), callback);
-    function callback(value){
-        tip(valueTip, errorMessage, successMessage, value);
-        return value;
-    }
-}
-
-function checksave(){
-
-    check = true;
-    
-    if (isNull("displayName")) {
-        checkNull("displayNameTip", "displayName", "权限名称不能为空或含有空格");
-    }
-    
-    if (check == true) {
-    	if (displayName != $("#displayName").val()) {
-        existAuthority("displayName", "displayName", "displayNameTip", "该权限名称已被创建", "该权限名称可以创建");
-    	}
-    }
-    if (isNull("name")) {
-        checkNull("nameTip", "name", "权限代码不能为空或含有空格");
-    }
-    
-    if (check == true) {
-    	if (name != $("#name").val()){
-        existAuthority("name", "name", "nameTip", "该权限代码已被创建", "该权限代码可以创建");
-    	}
+    if (typeof(displayName_value) == 'undefined' || displayName_value == '') {
+        return AuthorityAjax.existDisplayName(element.value);
     }
     else {
-        return false;
+    	if(displayName_value == element.value){
+			return true;
+		} else{
+        return AuthorityAjax.existDisplayName(element.value);
+		}
     }
-}
+}, "Exist.");
+
+jQuery.validator.addMethod("existName", function existAuthority(value, element){
+    dwr.engine.setAsync(false);
+	if (typeof(name_value) == 'undefined' || name_value == '') {
+        return AuthorityAjax.existName(element.value);
+    }
+    else {
+    	if(name_value == element.value){
+			return true;
+		} else{
+        return AuthorityAjax.existName(element.value);
+		}
+    }
+}, "Exist.");
+
