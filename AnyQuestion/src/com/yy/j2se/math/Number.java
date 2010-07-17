@@ -1,4 +1,4 @@
-package com.yy.j2se;
+package com.yy.j2se.math;
 
 /**
  * @author YseasonY
