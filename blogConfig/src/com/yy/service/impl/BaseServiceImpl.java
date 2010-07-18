@@ -20,7 +20,7 @@ public class BaseServiceImpl<T, PK extends Serializable> implements IBaseService
 	@Transactional
 	public void save(T t) {
 		try {
-			this.hibernateDao.save(t);
+			hibernateDao.save(t);
 		} catch (Exception e) {
 			throw new MyException(e);
 		}
@@ -46,13 +46,13 @@ public class BaseServiceImpl<T, PK extends Serializable> implements IBaseService
 	
 	@Transactional(readOnly = true)
 	public int getMax(String table) {
-		return this.hibernateDao.getMax(table);
+		return hibernateDao.getMax(table);
 	}
 
 	@Transactional(readOnly = true)
 	public boolean exist(String column, String value) {
 		try {
-			T t = this.hibernateDao.findUniqueBy(column, value);
+			T t = hibernateDao.findUniqueBy(column, value);
 			if (t == null) {
 				return true;
 			} else {
@@ -65,12 +65,12 @@ public class BaseServiceImpl<T, PK extends Serializable> implements IBaseService
 
 	@Transactional(readOnly = true)
 	public T getById(PK id){
-		return this.hibernateDao.get(id);
+		return hibernateDao.get(id);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<T> getListAll(){
-		return this.hibernateDao.getAll();
+		return hibernateDao.getAll();
 	}
 	
 }
