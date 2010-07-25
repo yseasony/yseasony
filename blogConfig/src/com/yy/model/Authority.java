@@ -51,6 +51,7 @@ public class Authority extends AuditableEntity<Long> {
 		this.name = name;
 	}
 
+	@Column(nullable = false, unique = true)
 	public String getDisplayName() {
 		return displayName;
 	}
