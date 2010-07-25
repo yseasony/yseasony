@@ -1,5 +1,5 @@
 .login_top_bg {
-	background-image: url(/images/login-top-bg.gif);
+	background-image: url(../images/login-top-bg.gif);
 	background-repeat: repeat-x;
 }
 
@@ -14,15 +14,16 @@
 	font-size: 12px;
 	color: #629DAE;
 	text-decoration: none;
-	background-image: url(/images/Submit_bg.gif);
+	background-image: url(../images/Submit_bg.gif);
 	background-repeat: repeat-x;
 }
 .login_bg {
-	background-image: url(/images/login_bg.jpg);
+	background-image: url(../images/login_bg.jpg);
 	background-repeat: repeat-x;
 }
 .login_bg2 {
-	background-image: url(/images/login-content-bg.gif);
+	height:532px;
+	background-image: url(../images/login-content-bg.gif);
 	background-repeat: no-repeat;
 	background-position: right;
 }
@@ -36,6 +37,6 @@
 }
 
 .left_topbg {
-	background-image: url(/images/content-bg.gif);
+	background-image: url(../images/content-bg.gif);
 	background-repeat: repeat-x;
-
+}
