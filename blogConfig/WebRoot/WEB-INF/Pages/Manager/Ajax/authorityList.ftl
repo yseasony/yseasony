@@ -1,15 +1,15 @@
-<#include "/Pages/ftl_lib/js_config.ftl"/>
+<#include "/Pages/ftl_lib/config.ftl"/>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head> 
         <title>权限列表</title>
-        <link href="/css/Pager.css" rel="stylesheet" type="text/css" />
+        <link href="<@ctx/>/css/Pager.css" rel="stylesheet" type="text/css" />
         <script src="<@path/>/jquery.js" type="text/javascript"></script>
         <script src="<@path/>/jquery.pager.js" type="text/javascript"></script>
         <script src="<@path/>/table.js" type="text/javascript"></script>
-        <script type='text/javascript' src='/dwr/interface/AuthorityAjax.js'></script>
-        <script type='text/javascript' src='/dwr/engine.js'></script>
+        <script type='text/javascript' src='<@ctx/>/dwr/interface/AuthorityAjax.js'></script>
+        <script type='text/javascript' src='<@ctx/>/dwr/engine.js'></script>
         <script type="text/javascript" src="<@path/>/authorityList.js"></script>
     </head>
     <body>
