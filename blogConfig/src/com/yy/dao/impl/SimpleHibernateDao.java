@@ -113,7 +113,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 		try {
 			getSession().saveOrUpdate(entity);
 		} catch (HibernateException e) {
-			logger.error("save " + entity.getClass() + "error", e);
+			logger.error("save " + entity.getClass() + " error", e);
 			throw e;
 		}
 		logger.debug("save entity success : {}", entity);
