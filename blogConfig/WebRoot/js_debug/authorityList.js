@@ -1,7 +1,7 @@
 var orderBy = "";
 var order = "";
 var filters = new Object();
-var loading = "<img id='jquery-loading' src='/images/70.gif' alt='Loading...' />";
+var loading = "<img id='jquery-loading' src='../../images/70.gif' alt='Loading...' />";
 $.ajaxSetup({
     cache: false
 });
@@ -34,10 +34,10 @@ function page(pageNo){
             html = html + "<tr><td>" + n.id + "</td><td>" +
             n.displayName +
             "</td><td>" +
-            "<a href='/manage/user/editAuthority.do?authorityId=" +
+            "<a href='editAuthority.do?authorityId=" +
             n.id +
             "'>查看</a>　" +
-            "<a href='/manage/user/deleteAuthority.do?authorityId=" +
+            "<a href='deleteAuthority.do?authorityId=" +
             n.id +
             "' onclick='javascript:return del();' >删除</a>" +
             "</td></tr>";
