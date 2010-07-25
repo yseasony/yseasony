@@ -7,7 +7,7 @@
     <title>修改权限</title>
     <script type="text/javascript" src="<@path/>/jquery.js"></script>
     <script type="text/javascript" src="<@path/>/jquery.validate.js"></script>
-    <script type="text/javascript" src="<@path/>/createAuthority.js"></script>
+    <script type="text/javascript" src="<@path/>/editAuthority.js"></script>
     <script type="text/javascript" src="<@ctx/>/dwr/interface/AuthorityAjax.js"></script>
     <script type="text/javascript" src="<@ctx/>/dwr/engine.js"></script>
     <link href="<@ctx/>/css/base.css" type="text/css" rel="stylesheet"/>
