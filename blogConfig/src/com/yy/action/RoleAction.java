@@ -3,7 +3,7 @@ package com.yy.action;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +32,21 @@ public class RoleAction extends BaseAction<RoleAction>{
 	private IAuthoritySvc authoritySvc;
 
 	@RequestMapping(value = "/manage/user/saveRole.do", method = RequestMethod.POST)
-	public void roleSave(HttpServletResponse response,
+	public void roleSave(HttpServletRequest request,
 			String authorityIds, Role role, BindingResult result) {
 		new AuthorityValidator().validate(role, result);
 		if (result.hasErrors()) {
-			writeOut(response, result.getFieldError().getCode());
+			setErrorMsgWithToken(request, result);
 			return;
 		}
-
-		String[] authorityId = {};
+		String[] authorityId = null;
 		if (!isBlank(authorityIds)) {
 			authorityId = authorityIds.split(",");
 		}
-
 		try {
 			roleSvc.save(role, authorityId);
 		} catch (MyException e) {
-			writeOut(response, "保存失败！");
+			setErrorMsgWithToken(request, "保存失败！");
 		}
 
 	}
@@ -59,7 +57,7 @@ public class RoleAction extends BaseAction<RoleAction>{
 		List<Authority> list = authoritySvc.getListAll();
 		map.put("token", Token.getTokenString(session));
 		map.put("list", list);
-		return new ModelAndView("Pages/Manager/createRole", map);
+		return new ModelAndView("Pages/Manager/editRole", map);
 	}
 	
 	@RequestMapping("/manage/user/getRoleList.do")

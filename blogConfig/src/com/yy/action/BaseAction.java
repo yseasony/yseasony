@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 
 import com.yy.utils.MyStringUtils;
 import com.yy.utils.Token;
@@ -27,6 +28,11 @@ public class BaseAction<T> {
 	
 	protected void setErrorMsgWithToken(HttpServletRequest request, String value){
 		request.setAttribute("error", value);
+		request.setAttribute("token", Token.getTokenString(request.getSession()));
+	}
+	
+	protected void setErrorMsgWithToken(HttpServletRequest request, BindingResult result){
+		request.setAttribute("error", result.getFieldError().getCode());
 		request.setAttribute("token", Token.getTokenString(request.getSession()));
 	}
 	

@@ -53,7 +53,6 @@ public class Page<T> {
 
 	public Page(final int pageSize, Integer pageNo, final String orderBy,
 			final String order) {
-
 		if (pageNo == null) {
 			pageNo = 1;
 		}
@@ -63,7 +62,6 @@ public class Page<T> {
 			setOrderBy(orderBy);
 			setOrder(order);
 		}
-
 	}
 
 	// -- 访问查询参数函数 --//
@@ -79,7 +77,6 @@ public class Page<T> {
 	 */
 	public void setPageNo(final int pageNo) {
 		this.pageNo = pageNo;
-
 		if (pageNo < 1) {
 			this.pageNo = 1;
 		}

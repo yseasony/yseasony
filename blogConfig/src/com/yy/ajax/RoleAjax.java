@@ -35,13 +35,7 @@ public class RoleAjax extends BaseAjax<RoleAjax>{
 	public Page<Role> getRoleList(
 			Integer pageNo, String orderBy, String order,
 			HashMap<String, String> map) {
-		List<PropertyFilter> filters = null;
-		try {
-			filters = HibernateWebUtils.buildPropertyFiltersAjax(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFiltersAjax(map);
 		Page<Role> page = new Page<Role>(10, pageNo, orderBy, order);
 		// 设置默认排序方式
 		if (!page.isOrderBySetted()) {

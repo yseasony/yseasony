@@ -19,14 +19,12 @@ public class AuthorityDaoImpl extends HibernateDao<Authority, Long> implements
 		IAuthorityDao {
 	
 	public Page<Authority> getPage(Page<Authority> page,final List<PropertyFilter> filters){
-		
+		String hql = null ;
 		if (filters.size() > 0) {
-			String hql = "select new Authority(id,displayName) from Authority "+super.filters(filters)+"order by "+page.getOrderBy()+" "+page.getOrder()+"";
-			return super.findPage(page, hql);
+			hql = "select new Authority(id,displayName) from Authority "+filters(filters)+"order by "+page.getOrderBy()+" "+page.getOrder()+"";
+		} else {
+			hql = "select new Authority(id,displayName) from Authority order by "+page.getOrderBy()+" "+page.getOrder()+"";
 		}
-		
-		String hql = "select new Authority(id,displayName) from Authority order by "+page.getOrderBy()+" "+page.getOrder()+"";
-		
 		return super.findPage(page, hql);
 	}
 }
