@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,17 +22,18 @@ import com.yy.service.IAuthoritySvc;
 import com.yy.utils.Token;
 
 @Controller
+@Scope("session")
 public class AuthorityAction extends BaseAction<AuthorityAction>{
 	
 	@Autowired
 	private IAuthoritySvc authoritySvc;
 	
 	@RequestMapping(value = "/manage/user/saveAuthority.do", method = RequestMethod.POST)
-	public String saveAuthority(HttpServletResponse response,
+	public String saveAuthority(
 			HttpServletRequest request,Authority authority, BindingResult result) {
 		new AuthorityValidator().validate(authority, result);
 		if (result.hasErrors()) {
-			setErrorMsgWithToken(request, "保存失败！");
+			setErrorMsgWithToken(request, result.getFieldError().getCode());
 			return "Pages/Manager/editAuthority";
 		}
 		
