@@ -35,7 +35,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" name="button" id="button" value="提交" /><input type="reset" name="button2" id="button2" value="重置" />
+                        <input type="submit" name="button" id="button" value="提交" />
+						<input type="reset" name="button2" id="button2" value="重置" />
                     </td>
                 </tr>
         </table>
