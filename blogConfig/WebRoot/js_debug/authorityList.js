@@ -42,7 +42,6 @@ function page(pageNo){
             "' onclick='javascript:return del();' >删除</a>" +
             "</td></tr>";
         });
-        
         $("#result").html(html);
         $("#loading").html("");
     }
