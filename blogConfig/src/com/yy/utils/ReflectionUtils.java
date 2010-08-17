@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2005-2009 springside.org.cn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * 
- * $Id: ReflectionUtils.java 578 2009-10-20 15:58:39Z calvinxiu $
- */
 package com.yy.utils;
 
 import java.lang.reflect.Field;
@@ -22,8 +15,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 
 /**
@@ -35,8 +27,7 @@ import org.springframework.util.Assert;
  */
 public class ReflectionUtils {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(ReflectionUtils.class);
+	private final static Logger logger = Logger.getLogger(ReflectionUtils.class);
 
 	/**
 	 * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
@@ -55,7 +46,7 @@ public class ReflectionUtils {
 		try {
 			result = field.get(object);
 		} catch (IllegalAccessException e) {
-			logger.error("不可能抛出的异常{}", e.getMessage());
+			logger.error("不可能抛出的异常{}", e);
 		}
 		return result;
 	}
@@ -76,7 +67,7 @@ public class ReflectionUtils {
 		try {
 			field.set(object, value);
 		} catch (IllegalAccessException e) {
-			logger.error("不可能抛出的异常:{}", e.getMessage());
+			logger.error("不可能抛出的异常:{}", e);
 		}
 	}
 

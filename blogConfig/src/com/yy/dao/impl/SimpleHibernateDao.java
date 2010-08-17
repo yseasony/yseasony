@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2005-2009 springside.org.cn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * 
- * $Id: SimpleHibernateDao.java 582 2009-10-22 14:26:23Z calvinxiu $
- */
 package com.yy.dao.impl;
 
 import java.io.Serializable;
@@ -16,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -28,8 +22,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
@@ -54,10 +46,10 @@ import com.yy.utils.ReflectionUtils;
 public class SimpleHibernateDao<T, PK extends Serializable> implements
 		ISimpleHibernateDao<T, PK> {
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
 	protected SessionFactory sessionFactory;
-
+	
+	protected Logger logger = Logger.getLogger(getClass());
+	
 	protected Class<T> entityClass;
 
 	/**
@@ -116,7 +108,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 			logger.error("save " + entity.getClass() + " error", e);
 			throw e;
 		}
-		logger.debug("save entity success : {}", entity);
+		logger.debug("save entity success : {}" + entity.toString());
 	}
 
 	/*
@@ -127,7 +119,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	public void delete(final T entity) throws MyException {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().delete(entity);
-		logger.debug("delete entity: {}", entity);
+		logger.debug("delete entity: {}" + entity.toString());
 	}
 
 	/*
@@ -138,8 +130,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	public void delete(final PK id) {
 		Assert.notNull(id, "id不能为空");
 		delete(get(id));
-		logger.debug("delete entity {},id is {}", entityClass.getSimpleName(),
-				id);
+		logger.debug("delete entity {}, id is {}" + entityClass.getSimpleName() + " : " +id );
 	}
 
 	/*

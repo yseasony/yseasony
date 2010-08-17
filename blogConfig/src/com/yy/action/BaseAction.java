@@ -5,8 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 
 import com.yy.utils.MyStringUtils;
@@ -14,7 +13,7 @@ import com.yy.utils.Token;
 
 public class BaseAction<T> {
 	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected Logger logger = Logger.getLogger(getClass());
 	
 	protected void writeOut(HttpServletResponse response, String value) {
 		try {

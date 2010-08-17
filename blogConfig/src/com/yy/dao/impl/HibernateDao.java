@@ -286,7 +286,7 @@ public class HibernateDao<T, PK extends Serializable> extends
 			ReflectionUtils
 					.setFieldValue(impl, "orderEntries", new ArrayList());
 		} catch (Exception e) {
-			logger.error("不可能抛出的异常:{}", e.getMessage());
+			logger.error("不可能抛出的异常:{}", e);
 		}
 
 		// 执行Count查询
@@ -305,7 +305,7 @@ public class HibernateDao<T, PK extends Serializable> extends
 		try {
 			ReflectionUtils.setFieldValue(impl, "orderEntries", orderEntries);
 		} catch (Exception e) {
-			logger.error("不可能抛出的异常:{}", e.getMessage());
+			logger.error("不可能抛出的异常:{}", e);
 		}
 
 		return totalCount;
