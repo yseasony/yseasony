@@ -27,23 +27,24 @@ function page(pageNo){
             pagecount: totalPages,
             buttonClickCallback: PageClick
         });
-		
-        var html = "";
-        
+        $(".ready").remove();
+        $("#template").show();
+        var count = 1;
         $.each(page.result, function(i, n){
-            html = html + "<tr><td>" + n.id + "</td><td>" +
-            n.displayName +
-            "</td><td>" +
-            "<a href='editAuthority.do?authorityId=" +
-            n.id +
-            "'>查看</a>　" +
-            "<a href='deleteAuthority.do?authorityId=" +
-            n.id +
-            "' onclick='javascript:return del();' >删除</a>" +
-            "</td></tr>";
+        	var row = $("#template").clone();
+        	var view = "<a href='editAuthority.do?authorityId="+n.id+"'>查看</a> ";
+        	var del = "<a href='deleteAuthority.do?authorityId="+n.id+"'onclick='javascript:return del();'>删除</a>";
+        	row.find("#cbox").html("<input type='checkbox' class='p_cbox'/>");
+        	row.find("#aid").text(n.id);
+        	row.find("#displayName").text(n.displayName);
+        	row.find("#todo").html(view+del);
+        	row.attr("class","ready");
+        	row.appendTo("#b_table");
+        	count++;
         });
-        $("#result").html(html);
-        $("#loading").html("");
+        $("#template").hide();
+        $("#loading").hide();
+        $("#c_pager").css("height",24*count);
     }
 }
 
