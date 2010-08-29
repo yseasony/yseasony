@@ -1,4 +1,4 @@
-package com.yy.lang.utils;
+package com.yy.lang.utils.spring;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

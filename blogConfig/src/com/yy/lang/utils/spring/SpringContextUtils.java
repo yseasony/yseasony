@@ -5,7 +5,7 @@
  * 
  * $Id: SpringContextUtils.java 422 2009-09-05 14:43:11Z calvinxiu $
  */
-package com.yy.lang.utils;
+package com.yy.lang.utils.spring;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

@@ -1,4 +1,4 @@
-package com.yy.lang.utils;
+package com.yy.lang.utils.spring;
 
 import java.util.ArrayList;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;

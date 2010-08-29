@@ -1,4 +1,4 @@
-package com.yy.lang.utils;
+package com.yy.lang.utils.spring;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
