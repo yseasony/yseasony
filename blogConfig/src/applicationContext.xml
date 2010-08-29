@@ -10,13 +10,12 @@
 
 	<!-- 定义受环境影响易变的变量 -->
 	<bean
-		class="com.yy.utils.ExtendedPropertyPlaceholderConfigurer">
+		class="com.yy.lang.utils.spring.ExtendedPropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath*:/jdbc.properties
-				</value>
+				<value>classpath*:/jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -40,7 +39,7 @@
 				<prop key="password">${jdbc.password}</prop>
 			</props>
 		</property>
-		<property name="poolSize" value="3" />
+		<property name="poolSize" value="5" />
 	</bean>
 
 	<!-- Hibernate配置 -->
@@ -128,8 +127,7 @@
 	<tx:annotation-driven transaction-manager="springTransactionManager" />
 
 	<!-- SpringContextUtils定义 -->
-	<bean id="springContextUtils" class="com.yy.utils.SpringContextUtils"
-		lazy-init="false" />
+	<bean id="springContextUtils" class="com.yy.lang.utils.spring.SpringContextUtils" lazy-init="false" />
 
 	<aop:aspectj-autoproxy />
 
