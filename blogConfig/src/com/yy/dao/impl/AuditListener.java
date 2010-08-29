@@ -6,8 +6,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.event.SaveOrUpdateEvent;
 import org.hibernate.event.SaveOrUpdateEventListener;
 
+import com.yy.lang.utils.security.SpringSecurityUtils;
 import com.yy.model.AuditableEntity;
-import com.yy.security.SpringSecurityUtils;
 
 /**
  * 在自动为entity添加审计信息的Hibernate EventListener.
