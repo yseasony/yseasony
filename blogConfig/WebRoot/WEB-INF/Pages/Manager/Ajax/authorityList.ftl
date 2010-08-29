@@ -13,27 +13,32 @@
         <script type="text/javascript" src="<@path/>/authorityList.js"></script>
     </head>
     <body>
-        <table width="620">
-            <tr>
-                <td>
-                    名称: <input type="text" name="filter_LIKES_displayName" id="filter_displayName" size="9"/>
-                </td>
-                <td>
-                    <input class="button" type="button" value="搜索" onclick="search();"/>
-                </td>
-            </tr>
-        </table>
-        <table width="620">
-            <tr>
-                <th>
-                    <a href="javascript:sort('id','desc')">序号</a>
-                </th>
-                <th>权限名</th>
-                <th>操作</th>
-            </tr>
-            <tbody id="result"></tbody>
-        </table>
-        <div id="pager"></div>
-        <span id="loading"></span>
-    </body>
+    	<span id="loading"></span>
+    	<div id="search" style="width:428px;">
+		<div id="input"><label>权限名:</label><input type="text" name="filter_LIKES_displayName" id="filter_displayName" size="20"/></div>
+		<div id="button"><input class="s_button" type="button" value="搜索" onclick="search();"/></div>
+		</div>
+        <div id="c_pager" style="width:828px;">
+            <ul id="b_table">
+                <li class="b_title" style="width:23px;">
+                </li>
+                <li class="b_title" style="width:200px;">
+                    <a href="javascript:sort('id','desc')">ID</a>
+                </li>
+                <li class="b_title" style="width:300px;">
+                    <label>权限名</label>
+                </li>
+                <li class="b_title" style="width:300px;">
+                   <label>操作</label>
+                </li>
+                <span id="template">
+					<li id="cbox" style="width:23px;"></li>
+					<li id="aid" style="width:200px;"></li>
+					<li id="displayName" style="width:300px;"></li>
+					<li id="todo" style="width:300px;"></li>
+                </span>
+            </ul>
+        </div>
+		<div style="width:828px;" id="d_pager"><div id="pager"></div></div>
+	    </body>
 </html>

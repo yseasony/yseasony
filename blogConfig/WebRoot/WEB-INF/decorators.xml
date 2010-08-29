@@ -12,9 +12,8 @@
 	<decorator name="main" page="main.ftl">
 		<pattern>/manage/*</pattern>
 	</decorator>
-
+	
 	<decorator name="header" page="header.ftl" />
 	<decorator name="left" page="left.ftl" />
 	<decorator name="footer" page="footer.ftl" />
-	
 </decorators>

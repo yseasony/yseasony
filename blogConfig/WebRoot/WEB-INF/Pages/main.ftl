@@ -5,8 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>首页</title>
-		<link href="<@ctx/>/css/main.css" rel="stylesheet" type="text/css">
+		<title><@decorator.title/></title>
+		<link href="<@ctx/>/css/main.css" rel="stylesheet" type="text/css" />
 		<@decorator.head />
         <script language="JavaScript" type="text/JavaScript">
             $(function(){
@@ -15,17 +15,23 @@
             }); 
             var adjust=function(){
             var h=document.documentElement.clientHeight;
-			var w=window.screen.availWidth;
-			$("#content").css("width",w-170); 
-            if(h
-            <500){
+			var w=document.documentElement.clientWidth;
+			w = w - 157;
+			var cw = $("#c_pager").width();
+			if(w<cw){
+			w = cw;
+			}
+			$("#content").css("width",w);
+			$("#container").css("width",w+157);
+			$("#foot").css("width",w+157);
+            if(h<500){
             var f = 500-h;
             h=500; 
             $("#footer").css("bottom",-f); 
             }else{ 
             $("#footer").css("bottom",0); 
             }
-            $("#left").css("height",h-79); 
+            $("#left").css("height",h-80); 
             } 
         </script>
 	</head>
@@ -39,8 +45,10 @@
         		<@page.applyDecorator name="left" />
         	</div>
         	<div id="content">
-        		<@decorator.body />
+        		<div id="bc"></div>
+				<@decorator.body />
         	</div>
+			<div id="clearfloat"></div>
         </div>
         <div id="footer">
         	<@page.applyDecorator name="footer" />
