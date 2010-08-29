@@ -29,10 +29,10 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.util.Assert;
 
 import com.yy.dao.IHibernateDao;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
-import com.yy.utils.ReflectionUtils;
-import com.yy.utils.PropertyFilter.MatchType;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
+import com.yy.lang.utils.ReflectionUtils;
+import com.yy.lang.utils.PropertyFilter.MatchType;
 
 /**
  * 封装SpringSide扩展功能的Hibernat DAO泛型基类.

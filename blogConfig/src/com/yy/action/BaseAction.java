@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 
-import com.yy.utils.MyStringUtils;
-import com.yy.utils.Token;
+import com.yy.lang.string.YYStringUtils;
+import com.yy.lang.utils.Token;
 
 public class BaseAction<T> {
 	
@@ -40,11 +40,11 @@ public class BaseAction<T> {
 	}
 	
 	protected boolean isBlank(String str) {
-		return MyStringUtils.isBlank(str);
+		return YYStringUtils.isBlank(str);
 	}
 	
 	protected boolean isBlank(String... str) {
-		return MyStringUtils.isBlank(str);
+		return YYStringUtils.isBlank(str);
 	}
 
 }

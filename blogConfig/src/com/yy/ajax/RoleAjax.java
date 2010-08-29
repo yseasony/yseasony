@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.yy.exception.MyException;
+import com.yy.lang.utils.HibernateWebUtils;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
 import com.yy.model.Role;
 import com.yy.service.IRoleSvc;
-import com.yy.utils.HibernateWebUtils;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
 @Controller
 @RemoteProxy

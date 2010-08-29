@@ -26,8 +26,8 @@ import org.springframework.util.Assert;
 
 import com.yy.dao.ISimpleHibernateDao;
 import com.yy.exception.MyException;
-import com.yy.utils.MyStringUtils;
-import com.yy.utils.ReflectionUtils;
+import com.yy.lang.string.YYStringUtils;
+import com.yy.lang.utils.ReflectionUtils;
 
 /**
  * 封装Hibernate原生API的DAO泛型基类.
@@ -187,7 +187,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> implements
 	 */
 	public T findUniqueBy(final String propertyName, final Object value)
 			throws MyException, HibernateException {
-		if (MyStringUtils.isBlank(propertyName)) {
+		if (YYStringUtils.isBlank(propertyName)) {
 			throw new MyException("propertyName is can't be null");
 		}
 		Criterion criterion = Restrictions.eq(propertyName, value);

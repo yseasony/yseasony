@@ -4,7 +4,6 @@ package com.yy.action;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.action.validate.AuthorityValidator;
 import com.yy.exception.MyException;
+import com.yy.lang.utils.Token;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
-import com.yy.utils.Token;
 
 @Controller
 @Scope("session")
@@ -38,21 +37,24 @@ public class AuthorityAction extends BaseAction<AuthorityAction>{
 		}
 		try {
 			authoritySvc.save(authority);
+			return "redirect:/manage/user/getAuthorityList.do";
 		} catch (MyException e) {
 			setErrorMsgWithToken(request, "保存失败！");
 			return "Pages/Manager/editAuthority";
 		}
-		return "redirect:/manage/user/getAuthorityList.do";
+		
 	}
 	
 	@RequestMapping(value = "/manage/user/deleteAuthority.do")
-	public String deleteAuthority(HttpServletResponse response,Long authorityId) {
+	public String deleteAuthority(HttpServletRequest request,Long authorityId) {
 		try {
 			authoritySvc.delete(authorityId);
+			return "redirect:/manage/user/getAuthorityList.do";
 		} catch (MyException e) {
-			writeOut(response,"删除失败！");
+			setErrorMsg(request, "删除失败！");
+			return "Pages/Manager/Ajax/authorityList";
 		}
-		return "redirect:/manage/user/getAuthorityList.do";
+		
 	}
 
 	@RequestMapping("/manage/user/createAuthority.do")

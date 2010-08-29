@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.IAuthorityDao;
 import com.yy.dao.IHibernateDao;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
 import com.yy.model.Authority;
 import com.yy.service.IAuthoritySvc;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
 @Service
 public class AuthoritySvcImpl extends BaseServiceImpl<Authority, Long>

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.action.BaseAction;
-import com.yy.utils.Token;
+import com.yy.lang.utils.Token;
 
 @Component
 public class CommonSaveInterceptor extends BaseAction<CommonSaveInterceptor> implements HandlerInterceptor {

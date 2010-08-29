@@ -15,11 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yy.action.validate.AuthorityValidator;
 import com.yy.exception.MyException;
+import com.yy.lang.utils.Token;
 import com.yy.model.Authority;
 import com.yy.model.Role;
 import com.yy.service.IAuthoritySvc;
 import com.yy.service.IRoleSvc;
-import com.yy.utils.Token;
 
 
 @Controller
@@ -32,21 +32,24 @@ public class RoleAction extends BaseAction<RoleAction>{
 	private IAuthoritySvc authoritySvc;
 
 	@RequestMapping(value = "/manage/user/saveRole.do", method = RequestMethod.POST)
-	public void roleSave(HttpServletRequest request,
+	public String roleSave(HttpServletRequest request,
 			String authorityIds, Role role, BindingResult result) {
 		new AuthorityValidator().validate(role, result);
 		if (result.hasErrors()) {
 			setErrorMsgWithToken(request, result);
-			return;
+			return "Pages/Manager/editAuthority";
 		}
+		
 		String[] authorityId = null;
 		if (!isBlank(authorityIds)) {
 			authorityId = authorityIds.split(",");
 		}
 		try {
 			roleSvc.save(role, authorityId);
+			return "redirect:/manage/user/getRoleList.do";
 		} catch (MyException e) {
 			setErrorMsgWithToken(request, "保存失败！");
+			return "Pages/Manager/editAuthority";
 		}
 
 	}

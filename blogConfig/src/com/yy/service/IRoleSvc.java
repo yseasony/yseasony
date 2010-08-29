@@ -2,9 +2,9 @@ package com.yy.service;
 
 import java.util.List;
 
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
 import com.yy.model.Role;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
 
 public interface IRoleSvc extends IBaseService<Role, Long>{

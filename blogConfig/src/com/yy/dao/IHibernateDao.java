@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.hibernate.criterion.Criterion;
 
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
-import com.yy.utils.PropertyFilter.MatchType;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
+import com.yy.lang.utils.PropertyFilter.MatchType;
 
 public interface IHibernateDao<T, PK extends Serializable> extends
 		ISimpleHibernateDao<T, PK> {

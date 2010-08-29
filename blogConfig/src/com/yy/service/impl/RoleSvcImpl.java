@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yy.dao.IHibernateDao;
 import com.yy.dao.IRoleDao;
 import com.yy.exception.MyException;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
 import com.yy.model.Role;
 import com.yy.service.IRoleSvc;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
 @Service
 public class RoleSvcImpl extends BaseServiceImpl<Role, Long> implements IRoleSvc {

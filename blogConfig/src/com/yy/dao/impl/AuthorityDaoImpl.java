@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.yy.dao.IAuthorityDao;
+import com.yy.lang.utils.Page;
+import com.yy.lang.utils.PropertyFilter;
 import com.yy.model.Authority;
-import com.yy.utils.Page;
-import com.yy.utils.PropertyFilter;
 
 /**
  * 授权对象的泛型DAO.
