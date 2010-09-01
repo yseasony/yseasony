@@ -3,7 +3,7 @@
 <div id="headerbackgroud">
 	<div id="logo">1</div>
 	<div id="head_menu">
-		<ul><li>用户管理</li></ul>
+		<ul><li><a href="javascript:test();">用户管理</a></li></ul>
 	</div>
 	<div id="logout">3</div>
 </div>

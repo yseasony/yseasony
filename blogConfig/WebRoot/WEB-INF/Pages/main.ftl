@@ -8,7 +8,7 @@
 		<title><@decorator.title/></title>
 		<link href="<@ctx/>/css/main.css" rel="stylesheet" type="text/css" />
 		<@decorator.head />
-        <script language="JavaScript" type="text/JavaScript">
+        <script language="JavaScript" type="text/javascript">
             $(function(){
             window.onresize = adjust; 
             adjust(); 
@@ -32,7 +32,11 @@
             $("#footer").css("bottom",0); 
             }
             $("#left").css("height",h-80); 
-            } 
+            }
+			
+			function test(){
+				$("#showIt").html("<a href='/manage/user/getAuthorityList.do'>aaaaaaa</a>");
+			}
         </script>
 	</head>
 	<body>
