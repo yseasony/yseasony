@@ -17,9 +17,9 @@ public class MyOpenSessionInViewFilter extends OpenSessionInViewFilter {
 
 	public static final String INCLUDE_SUFFIXS_NAME = "includeSuffixs";
 
-	private static final String[] DEFAULT_EXCLUDE_SUFFIXS = {".js", ".css", ".jpg", ".gif"};
+	private static final String[] DEFAULT_EXCLUDE_SUFFIXS = {".js", ".css", ".jpg", ".gif",".ico",".png"};
 
-	private static final String[] DEFAULT_INCLUDE_SUFFIXS = {".xhtml", ".do"};
+	private static final String[] DEFAULT_INCLUDE_SUFFIXS = {".action", ".do"};
 
 	private String[] excludeSuffixs = DEFAULT_EXCLUDE_SUFFIXS;
 
@@ -29,7 +29,8 @@ public class MyOpenSessionInViewFilter extends OpenSessionInViewFilter {
 	 * 重载过滤控制函数,忽略特定后缀名的请求.
 	 */
 	protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
-		String fullPath = request.getServletPath();
+		logger.debug(request.getRequestURI());
+		String fullPath = request.getRequestURI();
 		String path = StringUtils.substringBefore(fullPath, "?");
 		for (String suffix : includeSuffixs) {
 			if (path.endsWith(suffix))
