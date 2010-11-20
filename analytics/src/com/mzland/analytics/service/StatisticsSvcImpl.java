@@ -44,8 +44,8 @@ public class StatisticsSvcImpl implements StatisticsWs {
 	private DownDetailDao downDetailDao;
 
 	@Transactional
-	public void uploadRecord(String u) {
-		UploadDTO uploadDTO = JsonBinder.buildNonDefaultBinder().fromJson(u, UploadDTO.class);
+	public void uploadRecord(HashMap<String, Object> u) {
+		UploadDTO uploadDTO = ConvertUtils.toObject(new UploadDTO(), u);
 		Upload upload = ConvertUtils.beanCopy(new Upload(), uploadDTO);
 		uploadDao.save(upload);
 	}
@@ -89,8 +89,8 @@ public class StatisticsSvcImpl implements StatisticsWs {
 
 	@Override
 	@Transactional
-	public int mmDown(String mmDown) {
-		MMDownDTO downDTO = JsonBinder.buildNonDefaultBinder().fromJson(mmDown, MMDownDTO.class);
+	public int mmDown(HashMap<String, Object> mmDown) {
+		MMDownDTO downDTO = ConvertUtils.toObject(new MMDownDTO(), mmDown);
 		Down down = downDao.get(downDTO.getId());
 		int downs = 1;
 		if (down != null) {

@@ -14,7 +14,7 @@ public interface StatisticsWs {
 	 * 
 	 * @return
 	 */
-	public void uploadRecord(String u);
+	public void uploadRecord(HashMap<String, Object> u);
 
 	/**
 	 * access index,login
@@ -26,5 +26,5 @@ public interface StatisticsWs {
 	 * 
 	 * @param mmDown
 	 */
-	public int mmDown(String mmDown);
+	public int mmDown(HashMap<String, Object> mmDown);
 }
