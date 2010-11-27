@@ -1,13 +1,11 @@
 package com.mzland.analytics.service;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yseasony.utils.encode.JsonBinder;
 import org.yseasony.utils.reflection.ConvertUtils;
 
 import com.mzland.analytics.dao.DownDao;
@@ -23,10 +21,9 @@ import com.mzland.analytics.entity.DownDetail;
 import com.mzland.analytics.entity.Upload;
 import com.mzland.analytics.entity.UserAccess;
 import com.mzland.analytics.entity.UserInfo;
-import com.mzland.analytics.ws.StatisticsWs;
 
 @Service
-public class StatisticsSvcImpl implements StatisticsWs {
+public class StatisticsSvcImpl {
 
 	@Autowired
 	private UploadDao uploadDao;
@@ -44,16 +41,13 @@ public class StatisticsSvcImpl implements StatisticsWs {
 	private DownDetailDao downDetailDao;
 
 	@Transactional
-	public void uploadRecord(HashMap<String, Object> u) {
-		UploadDTO uploadDTO = ConvertUtils.toObject(new UploadDTO(), u);
+	public void uploadRecord(UploadDTO uploadDTO) {
 		Upload upload = ConvertUtils.beanCopy(new Upload(), uploadDTO);
 		uploadDao.save(upload);
 	}
 
-	@Override
 	@Transactional
-	public void userAccess(HashMap<String, Object> userLog) {
-		UserLogDTO userLogDTO = ConvertUtils.toObject(new UserLogDTO(), userLog);
+	public void userAccess(UserLogDTO userLogDTO) {
 		UserInfo userInfo = userInfoDao.get(userLogDTO.getCustomerId());
 		if (userLogDTO.getUid() != 0) {
 			if (userInfo != null) {
@@ -87,10 +81,8 @@ public class StatisticsSvcImpl implements StatisticsWs {
 
 	}
 
-	@Override
 	@Transactional
-	public int mmDown(HashMap<String, Object> mmDown) {
-		MMDownDTO downDTO = ConvertUtils.toObject(new MMDownDTO(), mmDown);
+	public int mmDown(MMDownDTO downDTO) {
 		Down down = downDao.get(downDTO.getId());
 		int downs = 1;
 		if (down != null) {

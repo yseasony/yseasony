@@ -1,10 +1,13 @@
 package com.mzland.analytics.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * 
  * @author yseasony(yseasony@gmail.com)
  */
+@XmlRootElement
 public class UploadDTO implements java.io.Serializable {
 
 	private static final long serialVersionUID = -394842751697938466L;
