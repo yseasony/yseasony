@@ -57,6 +57,7 @@ public class StatisticsSvcImpl {
 				userInfoDao.saveOrUpdate(userInfo);
 			} else {
 				userInfo = new UserInfo();
+				userInfo.setUsername(userLogDTO.getUsername());
 				userInfo.setCustomerId(userLogDTO.getCustomerId());
 				userInfo.setLastloginip(userLogDTO.getUserIp());
 				userInfo.setUid(userLogDTO.getUid());
