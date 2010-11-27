@@ -1,5 +1,8 @@
 package com.mzland.analytics.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class UserLogDTO {
 
 	private String customerId;
