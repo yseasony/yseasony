@@ -1,14 +1,9 @@
 package com.mzland.analytics.entity;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,11 +16,10 @@ public class UserInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 7251478561353588746L;
 	private String customerId;
 	private Integer uid;
+	private String username;
 	private String userImei;
 	private Timestamp lastlogintime = new Timestamp(System.currentTimeMillis());
 	private String lastloginip;
-	private Set<DownDetail> downDetails = new HashSet<DownDetail>(0);
-	private Set<UserAccess> userAccesses = new HashSet<UserAccess>(0);
 
 	@Id
 	@Column(name = "customer_id", unique = true, nullable = false, length = 38)
@@ -73,22 +67,13 @@ public class UserInfo implements java.io.Serializable {
 		this.userImei = userImei;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
-	public Set<DownDetail> getDownDetails() {
-		return downDetails;
+	@Column(name = "username",nullable = false, length = 20)
+	public String getUsername() {
+		return username;
 	}
 
-	public void setDownDetails(Set<DownDetail> downDetails) {
-		this.downDetails = downDetails;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
-	public Set<UserAccess> getUserAccesses() {
-		return userAccesses;
-	}
-
-	public void setUserAccesses(Set<UserAccess> userAccesses) {
-		this.userAccesses = userAccesses;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

@@ -3,11 +3,8 @@ package com.mzland.analytics.entity;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,7 +19,6 @@ public class UserAccess implements java.io.Serializable {
 
 	private String accessId;
 	private String customerId;
-	private UserInfo userInfo;
 	private Short itemId;
 	private String userIp;
 	private String userImei;
@@ -93,16 +89,6 @@ public class UserAccess implements java.io.Serializable {
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_id", nullable = false,insertable=false,updatable=false)
-	public UserInfo getUserInfo() {
-		return userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
 	}
 
 }

@@ -100,7 +100,7 @@ public class StatisticsSvcImpl {
 			down.setTitile(downDTO.getTitle());
 		}
 		DownDetail downDetail = new DownDetail();
-		downDetail.setDown(down);
+		downDetail.setMultimediaId(down.getMultimediaId());
 		downDetail.setDownloadTime(new Timestamp(System.currentTimeMillis()));
 		downDetail.setCustomerId(downDTO.getCustomerId());
 		downDetailDao.save(downDetail);

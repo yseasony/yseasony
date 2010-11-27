@@ -1,5 +1,12 @@
 package com.mzland.analytics.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * 
+ * @author yseasony(yseasony@gmail.com)
+ */
+@XmlRootElement
 public class MMDownDTO {
 
 	private String id;

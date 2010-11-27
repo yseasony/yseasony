@@ -3,11 +3,8 @@ package com.mzland.analytics.entity;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,8 +19,7 @@ public class DownDetail implements java.io.Serializable {
 
 	private static final long serialVersionUID = 3112519483325892360L;
 	private String downDetailId;
-	private Down down;
-	private UserInfo userInfo;
+	private String multimediaId;
 	private Timestamp downloadTime;
 	private String customerId;
 
@@ -39,16 +35,6 @@ public class DownDetail implements java.io.Serializable {
 		this.downDetailId = downDetailId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "multimedia_id", nullable = false)
-	public Down getDown() {
-		return down;
-	}
-
-	public void setDown(Down down) {
-		this.down = down;
-	}
-
 	@Column(name = "download_time", nullable = false, length = 19)
 	public Timestamp getDownloadTime() {
 		return this.downloadTime;
@@ -56,16 +42,6 @@ public class DownDetail implements java.io.Serializable {
 
 	public void setDownloadTime(Timestamp downloadTime) {
 		this.downloadTime = downloadTime;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_id", nullable = false, insertable = false, updatable = false)
-	public UserInfo getUserInfo() {
-		return userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
 	}
 
 	@Column(name = "customer_id", nullable = false)
@@ -76,4 +52,15 @@ public class DownDetail implements java.io.Serializable {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
+
+	@Column(name = "multimedia_id", nullable = false)
+	public String getMultimediaId() {
+		return multimediaId;
+	}
+
+	public void setMultimediaId(String multimediaId) {
+		this.multimediaId = multimediaId;
+	}
+	
+	
 }

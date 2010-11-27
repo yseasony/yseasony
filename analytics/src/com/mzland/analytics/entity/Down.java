@@ -1,14 +1,9 @@
 package com.mzland.analytics.entity;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +21,6 @@ public class Down implements java.io.Serializable {
 	private Integer downloadsTotal;
 	private Timestamp createTime;
 	private Timestamp lastModifyTime;
-	private Set<DownDetail> downDetails = new HashSet<DownDetail>(0);
 
 	@Id
 	@Column(name = "multimedia_id", unique = true, nullable = false, length = 38)
@@ -82,14 +76,4 @@ public class Down implements java.io.Serializable {
 	public void setLastModifyTime(Timestamp lastModifyTime) {
 		this.lastModifyTime = lastModifyTime;
 	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "down")
-	public Set<DownDetail> getDownDetails() {
-		return downDetails;
-	}
-
-	public void setDownDetails(Set<DownDetail> downDetails) {
-		this.downDetails = downDetails;
-	}
-
 }

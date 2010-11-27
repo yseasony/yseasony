@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class UserLogDTO {
 
 	private String customerId;
+	private String username;
 	private int uid;
 	private String userIp;
 	private String version;
@@ -59,6 +60,14 @@ public class UserLogDTO {
 
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }
