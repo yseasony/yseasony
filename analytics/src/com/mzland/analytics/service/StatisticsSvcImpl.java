@@ -94,15 +94,13 @@ public class StatisticsSvcImpl {
 		} else {
 			down = new Down();
 			down.setCategoryId(downDTO.getCategoryId());
-			down.setCreateTime(new Timestamp(System.currentTimeMillis()));
 			down.setDownloadsTotal(downs);
-			down.setLastModifyTime(new Timestamp(System.currentTimeMillis()));
 			down.setMultimediaId(downDTO.getId());
 			down.setTitile(downDTO.getTitle());
+			downDao.save(down);
 		}
 		DownDetail downDetail = new DownDetail();
-		downDetail.setMultimediaId(down.getMultimediaId());
-		downDetail.setDownloadTime(new Timestamp(System.currentTimeMillis()));
+		downDetail.setMultimediaId(downDTO.getId());
 		downDetail.setCustomerId(downDTO.getCustomerId());
 		downDetailDao.save(downDetail);
 		return downs;

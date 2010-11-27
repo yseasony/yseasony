@@ -20,7 +20,7 @@ public class DownDetail implements java.io.Serializable {
 	private static final long serialVersionUID = 3112519483325892360L;
 	private String downDetailId;
 	private String multimediaId;
-	private Timestamp downloadTime;
+	private Timestamp downloadTime = new Timestamp(System.currentTimeMillis());
 	private String customerId;
 
 	@GenericGenerator(name = "generator", strategy = "uuid.hex")

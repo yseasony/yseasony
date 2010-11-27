@@ -19,8 +19,8 @@ public class Down implements java.io.Serializable {
 	private String titile;
 	private Integer categoryId;
 	private Integer downloadsTotal;
-	private Timestamp createTime;
-	private Timestamp lastModifyTime;
+	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
+	private Timestamp lastModifyTime = new Timestamp(System.currentTimeMillis());
 
 	@Id
 	@Column(name = "multimedia_id", unique = true, nullable = false, length = 38)
