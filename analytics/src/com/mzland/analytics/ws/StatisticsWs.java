@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mzland.analytics.dto.GSDownDTO;
 import com.mzland.analytics.dto.MMDownDTO;
 import com.mzland.analytics.dto.UploadDTO;
 import com.mzland.analytics.dto.UserLogDTO;
@@ -44,5 +45,12 @@ public class StatisticsWs {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void mmDown(MMDownDTO downDTO) {
 		statisticsSvcImpl.mmDown(downDTO);
+	}
+	
+	@POST
+	@Path(value = "/gsDown")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void gsDown(GSDownDTO gsDownDTO) {
+		statisticsSvcImpl.gsDown(gsDownDTO);
 	}
 }

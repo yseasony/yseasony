@@ -10,14 +10,19 @@ import org.yseasony.utils.reflection.ConvertUtils;
 
 import com.mzland.analytics.dao.DownDao;
 import com.mzland.analytics.dao.DownDetailDao;
+import com.mzland.analytics.dao.GSDownDetailDao;
+import com.mzland.analytics.dao.GamesoftDownDao;
 import com.mzland.analytics.dao.UploadDao;
 import com.mzland.analytics.dao.UserAccessDao;
 import com.mzland.analytics.dao.UserInfoDao;
+import com.mzland.analytics.dto.GSDownDTO;
 import com.mzland.analytics.dto.MMDownDTO;
 import com.mzland.analytics.dto.UploadDTO;
 import com.mzland.analytics.dto.UserLogDTO;
 import com.mzland.analytics.entity.Down;
 import com.mzland.analytics.entity.DownDetail;
+import com.mzland.analytics.entity.GamesoftDown;
+import com.mzland.analytics.entity.GamesoftDownDetail;
 import com.mzland.analytics.entity.Upload;
 import com.mzland.analytics.entity.UserAccess;
 import com.mzland.analytics.entity.UserInfo;
@@ -36,9 +41,14 @@ public class StatisticsSvcImpl {
 
 	@Autowired
 	private DownDao downDao;
-	
+
 	@Autowired
 	private DownDetailDao downDetailDao;
+
+	@Autowired
+	private GamesoftDownDao gamesoftDownDao;
+	@Autowired
+	private GSDownDetailDao gsDownDetailDao;
 
 	@Transactional
 	public void uploadRecord(UploadDTO uploadDTO) {
@@ -96,13 +106,38 @@ public class StatisticsSvcImpl {
 			down.setCategoryId(downDTO.getCategoryId());
 			down.setDownloadsTotal(downs);
 			down.setMultimediaId(downDTO.getId());
-			down.setTitile(downDTO.getTitle());
+			down.setTitle(downDTO.getTitle());
 			downDao.save(down);
 		}
 		DownDetail downDetail = new DownDetail();
 		downDetail.setMultimediaId(downDTO.getId());
 		downDetail.setCustomerId(downDTO.getCustomerId());
 		downDetailDao.save(downDetail);
+		return downs;
+	}
+
+	@Transactional
+	public int gsDown(GSDownDTO gsDownDTO) {
+		GamesoftDown down = gamesoftDownDao.get(gsDownDTO.getId());
+		int downs = 1;
+		if (down != null) {
+			downs = down.getDownloadsTotal() + 1;
+			down.setLastModifyTime(new Timestamp(System.currentTimeMillis()));
+			down.setDownloadsTotal(downs);
+			gamesoftDownDao.saveOrUpdate(down);
+		} else {
+			down = new GamesoftDown();
+			down.setCategoryId(gsDownDTO.getCategoryId());
+			down.setDownloadsTotal(downs);
+			down.setGamesoftId(gsDownDTO.getId());
+			down.setTitle(gsDownDTO.getTitle());
+			gamesoftDownDao.save(down);
+		}
+		GamesoftDownDetail downDetail = new GamesoftDownDetail();
+		downDetail.setGamesoftId(gsDownDTO.getId());
+		downDetail.setCustomerId(gsDownDTO.getCustomerId());
+		downDetail.setPhoneModelId(gsDownDTO.getPhoneModelId());
+		gsDownDetailDao.save(downDetail);
 		return downs;
 	}
 

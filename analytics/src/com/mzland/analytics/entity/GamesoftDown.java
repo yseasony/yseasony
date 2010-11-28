@@ -11,11 +11,11 @@ import javax.persistence.Table;
  * @author yseasony(yseasony@gmail.com)
  */
 @Entity
-@Table(name = "ma_down", catalog = "mz_analytics")
-public class Down implements java.io.Serializable {
+@Table(name = "ma_gamesoft_down", catalog = "mz_analytics")
+public class GamesoftDown implements java.io.Serializable {
 
-	private static final long serialVersionUID = -2512707190599647259L;
-	private String multimediaId;
+	private static final long serialVersionUID = -1938834200575320082L;
+	private String gamesoftId;
 	private String title;
 	private Integer categoryId;
 	private Integer downloadsTotal;
@@ -23,16 +23,16 @@ public class Down implements java.io.Serializable {
 	private Timestamp lastModifyTime = new Timestamp(System.currentTimeMillis());
 
 	@Id
-	@Column(name = "multimedia_id", unique = true, nullable = false, length = 38)
-	public String getMultimediaId() {
-		return this.multimediaId;
+	@Column(name = "gamesoft_id", unique = true, nullable = false, length = 36)
+	public String getGamesoftId() {
+		return this.gamesoftId;
 	}
 
-	public void setMultimediaId(String multimediaId) {
-		this.multimediaId = multimediaId;
+	public void setGamesoftId(String gamesoftId) {
+		this.gamesoftId = gamesoftId;
 	}
 
-	@Column(name = "title", nullable = false, length = 150)
+	@Column(name = "title", nullable = false, length = 50)
 	public String getTitle() {
 		return this.title;
 	}
@@ -76,4 +76,5 @@ public class Down implements java.io.Serializable {
 	public void setLastModifyTime(Timestamp lastModifyTime) {
 		this.lastModifyTime = lastModifyTime;
 	}
+
 }
