@@ -21,7 +21,7 @@ public class GamesoftDownDetail implements java.io.Serializable {
 	private String gamesoftId;
 	private String customerId;
 	private Integer phoneModelId;
-	private Timestamp downloadTime;
+	private Timestamp downloadTime = new Timestamp(System.currentTimeMillis()) ;
 
 
 	// Property accessors
