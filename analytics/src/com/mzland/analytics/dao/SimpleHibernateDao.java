@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 
 public interface SimpleHibernateDao<T, PK extends Serializable> {
@@ -76,5 +77,7 @@ public interface SimpleHibernateDao<T, PK extends Serializable> {
 	 *            数量可变的Criterion.
 	 */
 	public T findUnique(final Criterion... criterions);
+	
+	public SQLQuery createSQLQuery(final String queryString, final Object... values);
 
 }

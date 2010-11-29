@@ -1,12 +1,15 @@
 package com.mzland.analytics.ws;
 
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yseasony.utils.encode.JsonBinder;
 
 import com.mzland.analytics.dto.GSDownDTO;
 import com.mzland.analytics.dto.MMDownDTO;
@@ -52,5 +55,12 @@ public class StatisticsWs {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void gsDown(GSDownDTO gsDownDTO) {
 		statisticsSvcImpl.gsDown(gsDownDTO);
+	}
+	
+	@GET
+	@Path(value = "/weekCount")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public String weekCount() {
+		return JsonBinder.buildNonDefaultBinder().toJson( statisticsSvcImpl.weekCount());
 	}
 }

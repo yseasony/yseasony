@@ -1,6 +1,7 @@
 package com.mzland.analytics.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,4 +142,8 @@ public class StatisticsSvcImpl {
 		return downs;
 	}
 
+	@Transactional(readOnly = true)
+	public List<String> weekCount() {
+		return gsDownDetailDao.countWeek();
+	}
 }

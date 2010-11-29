@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -364,5 +365,17 @@ public class SimpleHibernateDaoImpl<T, PK extends Serializable> implements Simpl
 		}
 		Object object = findUniqueBy(propertyName, newValue);
 		return (object == null);
+	}
+	
+	public SQLQuery createSQLQuery(final String queryString, final Object... values) {
+		Assert.hasText(queryString, "queryString不能为空");
+		SQLQuery query = getSession().createSQLQuery(queryString);
+		query.setCacheable(true);
+		if (values != null) {
+			for (int i = 0; i < values.length; i++) {
+				query.setParameter(i, values[i]);
+			}
+		}
+		return query;
 	}
 }
