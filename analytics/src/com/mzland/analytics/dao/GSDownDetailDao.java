@@ -6,5 +6,9 @@ import com.mzland.analytics.entity.GamesoftDownDetail;
 
 public interface GSDownDetailDao extends SimpleHibernateDao<GamesoftDownDetail, String>{
 
-	public List<String> countWeek();
+	List<String> countWeek(int modelId,int categoryId,int limit);
+
+	List<String> countDay(int modelId, int categoryId, int limit);
+
+	List<String> countMonth(int modelId, int categoryId, int limit);
 }
