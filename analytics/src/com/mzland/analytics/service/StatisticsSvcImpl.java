@@ -143,7 +143,7 @@ public class StatisticsSvcImpl {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> weekCount(int modelId, int categoryId, int limit, String time) {
+	public List<String> gsDownRank(int modelId, int categoryId, int limit, String time) {
 		if (time.equals("week")) {
 			return gsDownDetailDao.countWeek(modelId, categoryId, limit);
 		} else if (time.equals("day")) {

@@ -59,13 +59,13 @@ public class StatisticsWs {
 	}
 
 	@GET
-	@Path(value = "/{time}")
+	@Path(value = "/gsDownRank/{time}")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public String weekCount(@PathVariable(value = "time") String time,
+	public String gsDownRank(@PathVariable(value = "time") String time,
 							@QueryParam(value = "modelId") Integer modelId,
 							@QueryParam(value = "categoryId") Integer categoryId,
 							@QueryParam(value = "limit") Integer limit) {
-		return JsonBinder.buildNonDefaultBinder().toJson(statisticsSvcImpl.weekCount(	modelId,
+		return JsonBinder.buildNonDefaultBinder().toJson(statisticsSvcImpl.gsDownRank(	modelId,
 																						categoryId,
 																						limit,
 																						time));
