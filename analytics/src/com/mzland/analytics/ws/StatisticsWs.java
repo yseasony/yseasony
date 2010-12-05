@@ -4,12 +4,12 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.yseasony.utils.encode.JsonBinder;
 
 import com.mzland.analytics.dto.GSDownDTO;
@@ -61,7 +61,7 @@ public class StatisticsWs {
 	@GET
 	@Path(value = "/gsDownRank/{time}")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public String gsDownRank(@PathVariable(value = "time") String time,
+	public String gsDownRank(@PathParam(value = "time") String time,
 							@QueryParam(value = "modelId") Integer modelId,
 							@QueryParam(value = "categoryId") Integer categoryId,
 							@QueryParam(value = "limit") Integer limit) {
