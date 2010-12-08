@@ -14,7 +14,7 @@ public class GSDownDetailDaoImpl extends SimpleHibernateDaoImpl<GamesoftDownDeta
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> countWeek(int modelId,int categoryId,int limit) {
-		String sql = "SELECT gdd.gamesoft_id FROM ma_gamesoft_down_detail gdd INNER JOIN ma_gamesoft_down gd ON gdd.gamesoft_id = gd.gamesoft_id WHERE gdd.phone_model_id = ? AND gd.category_id = ? AND gdd.download_time BETWEEN DATE_FORMAT(NOW()-7,'%Y-%m-%d') AND NOW() GROUP BY gdd.gamesoft_id ORDER BY count(gdd.gamesoft_id) desc LIMIT ?";
+		String sql = "SELECT gdd.gamesoft_id FROM ma_gamesoft_down_detail gdd INNER JOIN ma_gamesoft_down gd ON gdd.gamesoft_id = gd.gamesoft_id WHERE gdd.phone_model_id = ? AND gd.category_id = ? AND (LEFT(`download_time`,10) BETWEEN DATE_ADD(CURDATE(), INTERVAL -(WEEKDAY(CURDATE()) + 1) DAY) AND CURDATE())  GROUP BY gdd.gamesoft_id ORDER BY count(gdd.gamesoft_id) desc LIMIT ?";
 		return createSQLQuery(sql,modelId,categoryId,limit).addScalar("gamesoft_id", StandardBasicTypes.STRING).list();
 	}
 
