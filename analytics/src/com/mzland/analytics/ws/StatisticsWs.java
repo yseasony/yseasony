@@ -50,6 +50,7 @@ public class StatisticsWs {
 		}
 		catch (Exception e) {
 			logger.error("userAccess error", e);
+			logger.error(userLogDTO.toString());
 		}
 		
 	}
