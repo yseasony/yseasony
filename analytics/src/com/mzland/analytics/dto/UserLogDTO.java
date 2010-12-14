@@ -2,6 +2,8 @@ package com.mzland.analytics.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 @XmlRootElement
 public class UserLogDTO {
 
@@ -70,4 +72,8 @@ public class UserLogDTO {
 		this.username = username;
 	}
 
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 }

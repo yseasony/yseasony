@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yseasony.utils.encode.JsonBinder;
+import org.yseasony.utils.log.Log;
+import org.yseasony.utils.log.Logs;
 
 import com.mzland.analytics.dto.GSDownDTO;
 import com.mzland.analytics.dto.MMDownDTO;
@@ -27,6 +29,8 @@ import com.mzland.analytics.service.StatisticsSvcImpl;
 @Path(value = "/analytics")
 public class StatisticsWs {
 
+	private Log logger = Logs.getLog(getClass());
+	
 	@Autowired
 	private StatisticsSvcImpl statisticsSvcImpl;
 
@@ -41,7 +45,13 @@ public class StatisticsWs {
 	@Path(value = "/userAccess")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void userAccess(UserLogDTO userLogDTO) {
-		statisticsSvcImpl.userAccess(userLogDTO);
+		try {
+			statisticsSvcImpl.userAccess(userLogDTO);
+		}
+		catch (Exception e) {
+			logger.error("userAccess error", e);
+		}
+		
 	}
 
 	@POST
