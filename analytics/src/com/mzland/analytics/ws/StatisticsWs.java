@@ -11,8 +11,6 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yseasony.utils.encode.JsonBinder;
-import org.yseasony.utils.log.Log;
-import org.yseasony.utils.log.Logs;
 
 import com.mzland.analytics.dto.GSDownDTO;
 import com.mzland.analytics.dto.MMDownDTO;
@@ -27,10 +25,8 @@ import com.mzland.analytics.service.StatisticsSvcImpl;
  */
 @Component
 @Path(value = "/analytics")
-public class StatisticsWs {
+public class StatisticsWs extends BaseWs{
 
-	private Log logger = Logs.getLog(getClass());
-	
 	@Autowired
 	private StatisticsSvcImpl statisticsSvcImpl;
 
