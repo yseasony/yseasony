@@ -31,7 +31,11 @@ public class CooperationSvcImpl {
 	 * @param imei
 	 * @param version
 	 * @param pkgNumber
-	 * @return -1 已经存在此用户记录 -2 此包pkgNumber无法找到对应的合作商，将记录为自己的用户 -3 保存时出现错误 1 保存成功
+	 * @return 
+	 * -1 已经存在此用户记录
+	 * -2 此包pkgNumber无法找到对应的合作商，将记录为自己的用户 
+	 * -3 保存时出现错误 
+	 * 1 保存成功
 	 */
 	@Transactional
 	public int recordLog(String imei, String version, String pkgNumber) {

@@ -22,6 +22,8 @@ public class CooperationLog implements java.io.Serializable {
 	private String version;
 	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 
+	public CooperationLog() {}
+
 	public CooperationLog(String imei, String version, String pkgNumber, short cid) {
 		this.imei = imei;
 		this.version = version;
