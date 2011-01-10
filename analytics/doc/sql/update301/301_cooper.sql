@@ -1,4 +1,3 @@
-drop table if exists ma_cooperation;
 /*==============================================================*/
 /* Table: ma_cooperation                                        */
 /*==============================================================*/
@@ -42,7 +41,6 @@ alter table ma_cooperation comment '合作商家';
 alter table ma_cooperation add constraint FK_user_cooperation foreign key (id)
       references ma_user (id) on delete restrict on update restrict;
 
-drop table if exists ma_promotion_pkg;
 /*==============================================================*/
 /* Table: ma_promotion_pkg                                      */
 /*==============================================================*/
@@ -56,7 +54,6 @@ create table ma_promotion_pkg
    primary key (pkg_number)
 );
 
-drop table if exists ma_talk;
 /*==============================================================*/
 /* Table: ma_talk                                               */
 /*==============================================================*/
@@ -73,8 +70,7 @@ alter table ma_talk comment '回访记录';
 
 alter table ma_talk add constraint FK_FK_talk_cooper foreign key (cid)
       references ma_cooperation (cid) on delete restrict on update restrict;
-
-drop table if exists ma_coop_file;      
+  
 /*==============================================================*/
 /* Table: ma_coop_file                                          */
 /*==============================================================*/
@@ -93,7 +89,6 @@ alter table ma_coop_file comment '文件列表 ，存放协议等一些文件';
 alter table ma_coop_file add constraint FK_FK_coop_file foreign key (cid)
       references ma_cooperation (cid) on delete restrict on update restrict;
       
-drop table if exists ma_resource;  
 /*==============================================================*/
 /* Table: ma_resource                                           */
 /*==============================================================*/
@@ -113,8 +108,7 @@ alter table ma_resource comment '资源包列表';
 
 alter table ma_resource add constraint FK_FK_cooper_resource foreign key (cid)
       references ma_cooperation (cid) on delete restrict on update restrict; 
-
-drop table if exists ma_res_income;        
+     
 /*==============================================================*/
 /* Table: ma_res_income                                         */
 /*==============================================================*/
@@ -152,8 +146,7 @@ alter table ma_balance comment '结算记录表';
 
 alter table ma_balance add constraint FK_balance_cooper foreign key (cid)
       references ma_cooperation (cid) on delete restrict on update restrict;
-                       
-drop table if exists ma_user_pkg;                           
+                                               
 /*==============================================================*/
 /* Table: ma_user_pkg                                           */
 /*==============================================================*/
@@ -168,8 +161,7 @@ alter table ma_user_pkg add constraint FK_pkg_user foreign key (pkg_number)
 
 alter table ma_user_pkg add constraint FK_user_pkg foreign key (user_id)
       references ma_user (id) on delete restrict on update restrict;
- 
- drop table if exists ma_prom_coop_pkg;     
+   
 /*==============================================================*/
 /* Table: ma_prom_coop_pkg                                      */
 /*==============================================================*/
@@ -184,8 +176,7 @@ alter table ma_prom_coop_pkg add constraint FK_prom_coop_pkg foreign key (pkg_nu
 
 alter table ma_prom_coop_pkg add constraint FK_prom_pkg_coop foreign key (cid)
       references ma_cooperation (cid) on delete restrict on update restrict;
-
-drop table if exists ma_cooperation_log;    
+ 
 /*==============================================================*/
 /* Table: ma_cooperation_log                                    */
 /*==============================================================*/
@@ -200,8 +191,7 @@ create table ma_cooperation_log
 
 alter table ma_cooperation_log add constraint FK_pkg_log foreign key (pkg_number)
       references ma_promotion_pkg (pkg_number) on delete restrict on update restrict;
-
-drop table if exists ma_salesman_count_log;    
+   
 /*==============================================================*/
 /* Table: ma_salesman_count_log                                 */
 /*==============================================================*/
