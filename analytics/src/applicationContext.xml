@@ -29,7 +29,7 @@
 	</context:component-scan>
 
 
-	<!-- 数据源配置  -->
+	<!-- 数据源配置 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<!-- Connection Info -->
@@ -75,5 +75,10 @@
 	<!-- 以静态变量保存ApplicationContext -->
 	<bean name="springContextHolder" class="org.yseasony.utils.spring.SpringContextHolder"
 		lazy-init="false" />
-		
+
+	<bean id="taskClientImpl" class="com.mzland.analytics.client.TaskClientImpl">
+		<property name="baseUrl" value="${mzland.task.host}"></property>
+	</bean>
+	
+	<import resource="task.xml"/>
 </beans>

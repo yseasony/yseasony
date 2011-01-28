@@ -15,7 +15,7 @@ public class PromotionPkg implements java.io.Serializable {
 
 	private static final long serialVersionUID = -1975672781803375499L;
 	private String pkgNumber;
-	private Double money;
+	private String downAdd;
 	private String version;
 	private String os;
 
@@ -28,15 +28,6 @@ public class PromotionPkg implements java.io.Serializable {
 
 	public void setPkgNumber(String pkgNumber) {
 		this.pkgNumber = pkgNumber;
-	}
-
-	@Column(name = "money", nullable = false, precision = 5)
-	public Double getMoney() {
-		return this.money;
-	}
-
-	public void setMoney(Double money) {
-		this.money = money;
 	}
 
 	@Column(name = "version", nullable = false, length = 10)
@@ -55,6 +46,15 @@ public class PromotionPkg implements java.io.Serializable {
 
 	public void setOs(String os) {
 		this.os = os;
+	}
+
+	@Column(name = "down_add")
+	public String getDownAdd() {
+		return downAdd;
+	}
+
+	public void setDownAdd(String downAdd) {
+		this.downAdd = downAdd;
 	}
 
 }

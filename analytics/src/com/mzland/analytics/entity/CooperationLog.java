@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -18,17 +17,15 @@ public class CooperationLog implements java.io.Serializable {
 	private static final long serialVersionUID = -5646156100292881345L;
 	private String imei;
 	private String pkgNumber;
-	private Short cid;
 	private String version;
 	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 
 	public CooperationLog() {}
 
-	public CooperationLog(String imei, String version, String pkgNumber, short cid) {
+	public CooperationLog(String imei, String version, String pkgNumber) {
 		this.imei = imei;
 		this.version = version;
 		this.pkgNumber = pkgNumber;
-		this.cid = cid;
 	}
 
 	@Id
@@ -66,15 +63,6 @@ public class CooperationLog implements java.io.Serializable {
 
 	public void setPkgNumber(String pkgNumber) {
 		this.pkgNumber = pkgNumber;
-	}
-
-	@JoinColumn(name = "cid", nullable = false)
-	public Short getCid() {
-		return cid;
-	}
-
-	public void setCid(Short cid) {
-		this.cid = cid;
 	}
 
 }
