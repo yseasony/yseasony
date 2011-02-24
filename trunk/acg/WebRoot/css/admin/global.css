@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.user {
+	background-image: url(../../img/user.png);
+}
+
+.user_add {
+	background-image: url(../../img/user_add.png);
+}
+
+.user_delete {
+	background-image: url(../../img/user_delete.png);
+}
+
+.user_edit {
+	background-image: url(../../img/user_edit.png);
+}
