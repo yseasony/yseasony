@@ -1,23 +1,26 @@
 Ext.onReady(function() {
+
 			var submit = new Ext.Button({
 						text : '登录',
 						handler : function() {
 							loginFrom.getForm().submit({
+								url : '../../admin/j_spring_security_check',
 								success : function(loginFrom, action) {
 									window.location = '../../admin/index';
 								},
 								failure : function(loginFrom, action) {
-									obj = Ext.util.JSON
-											.decode(action.response.responseText);
-									var r = obj.errors.reason;
-
-									if (r == -1) {
-										Ext.Msg.alert('', '登录失败！');
-									} else if (r == -2) {
-										Ext.Msg.alert('', '验证码错误！');
-										reloadcode();
-									} else {
-										Ext.Msg.alert('', '服务器出现问题！');
+									if (action.failureType == 'server') {
+										obj = Ext.util.JSON
+												.decode(action.response.responseText);
+										var r = obj.errors.reason;
+										if (r == -1) {
+											Ext.Msg.alert('', '登录失败！');
+										} else if (r == -2) {
+											Ext.Msg.alert('', '验证码错误！');
+											reloadcode();
+										} else {
+											Ext.Msg.alert('', '服务器出现问题！');
+										}
 									}
 								}
 							});
@@ -31,9 +34,14 @@ Ext.onReady(function() {
 						}
 					});
 
+					
+			var loginFrom = function(){
+				
+			}
+			
+			
 			var loginFrom = new Ext.ux.FormPanelEx({
 						bodyStyle : "padding:10px;",
-						url : '../../admin/j_spring_security_check',
 						buttons : [submit, reset],
 						items : [{
 									id : 'j_username',

@@ -52,14 +52,32 @@ Ext.ux.FormPanelEx = Ext.extend(Ext.FormPanel, {
 			labelAlign : 'right',
 			labelWidth : 50,
 			defaultType : 'textfield',
-			// 提交操作
 			formSubmit : function() {
+				Ext.Msg.alert("Alert", "Enter Key Event !");
 			},
-			// 加载数据操作
-			formLoad : function() {
-			},
-			// 取消操作
 			formCancel : function() {
+			},
+			constructor : function(config) {
+				Ext.apply(this, config);
+				_this = this;
+				Ext.ux.FormPanelEx.superclass.constructor.call(this, {
+							keys : [{
+										key : [Ext.EventObject.ENTER],
+										handler : function() {
+											_this.formSubmit();
+										}
+									}],
+							buttons : [_this.buttons, {
+										text : '提交',
+										handler : function() {
+											_this.formSubmit();
+										}
+									}, {
+										text : '取消',
+										handler : function() {
+											_this.formCancel();
+										}
+									}]
+						});
 			}
 		});
-Ext.reg('FormPanelEx', Ext.ux.FormPanelEx);
