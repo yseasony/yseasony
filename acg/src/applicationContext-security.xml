@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:s="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
+	default-lazy-init="true">
+
+	<s:global-method-security
+		pre-post-annotations="enabled" />
+
+	<!-- http安全配置 -->
+	<s:http auto-config="false" use-expressions="true" entry-point-ref="authenticationEntryPoint">
+		<s:intercept-url pattern="/ext/**" filters="none" />
+		<s:intercept-url pattern="/css/**" filters="none" />
+		<s:intercept-url pattern="/js/**" filters="none" />
+
+		<s:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+		<s:logout logout-success-url="/admin/login" />
+	</s:http>
+
+	<!-- 认证配置, 使用userDetailsService提供的用户信息 -->
+	<s:authentication-manager alias="authenticationManager">
+		<s:authentication-provider user-service-ref="userDetailsService">
+			<s:password-encoder hash="plaintext" />
+		</s:authentication-provider>
+	</s:authentication-manager>
+
+	<bean id="authenticationFilter"
+		class="org.yseasony.acg.security.MyAuthenticationProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<property name="loginFormUrl" value="/admin/login" />
+	</bean>
+
+
+	<!-- 项目实现的用户查询服务 -->
+	<bean id="userDetailsService" class="org.yseasony.acg.security.UserDetailsServiceImpl" />
+
+	<!--JCaptcha验证码服务 -->
+	<bean id="captchaService"
+		class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="org.yseasony.acg.security.GMailEngine" />
+		</property>
+		<!-- 默认生成的图片180秒过期 , 可另行设置 <property name="minGuarantedStorageDelayInSeconds" 
+			value="180" /> -->
+	</bean>
+</beans>
