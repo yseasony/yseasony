@@ -62,10 +62,4 @@ public class PhoneWs extends BaseWs {
 		return result.toString();
 	}
 
-	public static void main(String[] args) {
-		String value = "imei=&pkgNumber=0000200000&version=300";
-		byte[] key = Encrypt.encryptByTea(value);
-		value = EncodeUtils.hexEncode(key);
-		System.out.println(value);
-	}
 }
