@@ -3,6 +3,10 @@ User = Acg.User;
 
 User.usm = new Ext.grid.CheckboxSelectionModel();
 
+User.userFrom = Ext.extend(Ext.ux.FormPanelEx, {
+
+})
+
 User.utb = new Ext.Toolbar({
 	items : [{
 				text : '添加用户',

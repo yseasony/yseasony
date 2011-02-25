@@ -31,6 +31,7 @@ Ext.ux.GridPanelEx = Ext.extend(Ext.grid.GridPanel, {
 		});
 
 Ext.ux.WindowEx = Ext.extend(Ext.Window, {
+			layout : 'fit',
 			border : false,
 			bodyStyle : 'padding:5px 5px 0px 5px;',
 			buttonAlign : 'center',
@@ -53,7 +54,6 @@ Ext.ux.FormPanelEx = Ext.extend(Ext.FormPanel, {
 			labelWidth : 50,
 			defaultType : 'textfield',
 			formSubmit : function() {
-				Ext.Msg.alert("Alert", "Enter Key Event !");
 			},
 			formCancel : function() {
 			},
