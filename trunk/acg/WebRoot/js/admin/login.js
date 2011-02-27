@@ -4,9 +4,9 @@ Login = Acg.Login;
 Login.LoginFromEx = Ext.extend(Ext.ux.FormPanelEx, {
 			formSubmit : function() {
 				this.getForm().submit({
-					url : '../../admin/j_spring_security_check',
+					url : './j_spring_security_check',
 					success : function(loginFrom, action) {
-						window.location = '../../admin/index';
+						window.location = './index';
 					},
 					failure : function(loginFrom, action) {
 						if (action.failureType == 'server') {
@@ -23,7 +23,7 @@ Login.LoginFromEx = Ext.extend(Ext.ux.FormPanelEx, {
 							}
 						}
 					}
-				})
+				});
 			},
 			formCancel : function() {
 				this.getForm().reset();
@@ -77,7 +77,7 @@ Login.win = new Ext.ux.WindowEx({
 		});
 
 Login.reloadcode = function() {
-	document.getElementById("code").src = "/admin/jcaptcha.jpg?"
+	document.getElementById("code").src = "../admin/jcaptcha.jpg?"
 			+ Math.random();
 }
 
@@ -89,7 +89,7 @@ Ext.onReady(function() {
 						height : 22,
 						id : 'code',
 						tag : 'img',
-						src : '/admin/jcaptcha.jpg',
+						src : './jcaptcha.jpg',
 						style : 'padding-left:7px;',
 						align : 'absbottom',
 						onclick : "javascript:Login.reloadcode()"
