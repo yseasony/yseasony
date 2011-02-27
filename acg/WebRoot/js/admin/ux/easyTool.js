@@ -43,7 +43,7 @@ Ext.ux.WindowEx = Ext.extend(Ext.Window, {
 				Ext.apply(this, config);
 				Ext.ux.WindowEx.superclass.constructor.call(this, arguments);
 			}
-		})
+		});
 
 Ext.ux.FormPanelEx = Ext.extend(Ext.FormPanel, {
 			frame : true,

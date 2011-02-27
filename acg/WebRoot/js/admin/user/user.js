@@ -5,7 +5,7 @@ User.usm = new Ext.grid.CheckboxSelectionModel();
 
 User.userFrom = Ext.extend(Ext.ux.FormPanelEx, {
 
-})
+});
 
 User.utb = new Ext.Toolbar({
 	items : [{
@@ -44,7 +44,7 @@ User.utb = new Ext.Toolbar({
 						Ext.Msg.confirm('确认', '真的要删除选中的数据吗？', function(btn) {
 							if (btn == 'yes') {
 								Ext.Ajax.request({
-									url : '../../admin/userDelete',
+									url : 'userDelete',
 									success : function(request) {
 										var result = Ext
 												.decode(request.responseText);
@@ -85,7 +85,7 @@ User.utb = new Ext.Toolbar({
 User.ustore = new Ext.data.JsonStore({
 			totalProperty : 'page.totalCount',
 			root : 'page.result',
-			url : '../../admin/userPage',
+			url : './userPage',
 			fields : [{
 						name : 'id',
 						sortable : true,
@@ -193,8 +193,8 @@ User.userPanel = new Ext.Panel({
 			autoScroll : true,
 			border : false,
 			iconCls : 'user',
-			items : [User.userTree]
-		});
+			items : [ User.userTree ]
+});
 
 User.init = function() {
 	Index.menu.add(User.userPanel);
