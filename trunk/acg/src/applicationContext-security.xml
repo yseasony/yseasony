@@ -28,6 +28,7 @@
 	<bean id="authenticationFilter"
 		class="org.yseasony.acg.security.MyAuthenticationProcessingFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="filterProcessesUrl" value="/admin/j_spring_security_check" />
 	</bean>
 
 	<bean id="authenticationEntryPoint"
