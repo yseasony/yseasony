@@ -15,9 +15,6 @@ public class PromotionPkg implements java.io.Serializable {
 
 	private static final long serialVersionUID = -1975672781803375499L;
 	private String pkgNumber;
-	private String downAdd;
-	private String version;
-	private String os;
 
 	// Property accessors
 	@Id
@@ -28,33 +25,6 @@ public class PromotionPkg implements java.io.Serializable {
 
 	public void setPkgNumber(String pkgNumber) {
 		this.pkgNumber = pkgNumber;
-	}
-
-	@Column(name = "version", nullable = false, length = 10)
-	public String getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	@Column(name = "os", nullable = false, length = 20)
-	public String getOs() {
-		return this.os;
-	}
-
-	public void setOs(String os) {
-		this.os = os;
-	}
-
-	@Column(name = "down_add")
-	public String getDownAdd() {
-		return downAdd;
-	}
-
-	public void setDownAdd(String downAdd) {
-		this.downAdd = downAdd;
 	}
 
 }

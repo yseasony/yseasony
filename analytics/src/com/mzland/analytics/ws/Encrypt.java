@@ -216,9 +216,7 @@ public class Encrypt {
 			decryptStr = Encrypt.decrypt(secretInfo, offset, KEY, TIMES);
 			System.arraycopy(decryptStr, 0, tempDecrypt, offset, 8);
 		}
-
-		int n = tempDecrypt[secretInfo.length - 1];
-		return new String(tempDecrypt, 0, decryptStr.length - n);
+		return new String(tempDecrypt, 0, decryptStr.length);
 	}
 
 	/**

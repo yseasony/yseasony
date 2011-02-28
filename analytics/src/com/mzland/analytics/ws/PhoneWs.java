@@ -62,4 +62,11 @@ public class PhoneWs extends BaseWs {
 		return result.toString();
 	}
 
+	public static void main(String[] args) {
+		String key = "4ECDC328ED294E9EFA4A825DAC383E56AC335C4E30BB10AD45C4A04F1528E4BC061F207A6ABFDDF530D30EBF7F740FB59DCCA96045093C6A";
+		byte[] src = EncodeUtils.hexDecode(key);
+		key = Encrypt.decryptByTea(src).trim();
+		
+		System.out.println(key);
+	}
 }
