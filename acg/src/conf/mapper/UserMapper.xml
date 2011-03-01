@@ -41,7 +41,7 @@
 		SELECT
 		acg_role.id,
 		acg_role.`name`,
-		id
+		acg_user.id
 		FROM
 		acg_user
 		INNER JOIN
@@ -50,7 +50,7 @@
 		acg_role ON
 		acg_user_role.role_id = acg_role.id
 		WHERE
-		id =
+		acg_user.id =
 		#{id,jdbcType=BIGINT}
 	</select>
 
