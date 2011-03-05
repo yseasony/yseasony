@@ -46,38 +46,69 @@ Ext.ux.WindowEx = Ext.extend(Ext.Window, {
 		});
 
 Ext.ux.FormPanelEx = Ext.extend(Ext.FormPanel, {
-			frame : true,
-			region : 'center',
-			buttonAlign : 'center',
-			autoHeight : true,
-			labelAlign : 'right',
-			labelWidth : 50,
-			defaultType : 'textfield',
-			formSubmit : function() {
-			},
-			formCancel : function() {
-			},
-			constructor : function(config) {
-				Ext.apply(this, config);
-				_this = this;
-				Ext.ux.FormPanelEx.superclass.constructor.call(this, {
-							keys : [{
-										key : [Ext.EventObject.ENTER],
-										handler : function() {
-											_this.formSubmit();
-										}
-									}],
-							buttons : [_this.buttons, {
-										text : '提交',
-										handler : function() {
-											_this.formSubmit();
-										}
-									}, {
-										text : '取消',
-										handler : function() {
-											_this.formCancel();
-										}
-									}]
-						});
+	frame : true,
+	region : 'center',
+	buttonAlign : 'center',
+	autoHeight : true,
+	labelAlign : 'right',
+	labelWidth : 70,
+	defaultType : 'textfield',
+	formSubmit : function() {
+	},
+	formCancel : function() {
+	},
+	formLoad : function() {
+	},
+	constructor : function(config) {
+		Ext.apply(this, config);
+		Ext.apply(Ext.form.VTypes, {
+					password : function(val, field) {// val指这里的文本框值，field指这个文本框组件，大家要明白这个意思
+						if (field.confirmTo) {// confirmTo是我们自定义的配置参数，一般用来保存另外的组件的id值
+							var pwd = Ext.get(field.confirmTo);// 取得confirmTo的那个id的值
+							return (val == pwd.getValue());
+						}
+						return false;
+					}
+				});
+		Ext.apply(Ext.form.VTypes, {
+			valueExist : function(val, field) {
+				if (field.existUrl && val.length >= field.minLength) {// 校验地址
+					var filters = new Object();
+					var b = false;
+					filters[field.filterName] = val;
+					Ext.Ajax.request({
+								async : false,
+								url : field.existUrl,
+								params : filters,
+								success : function(response, options) {
+									b = Ext.decode(response.responseText).success
+								}
+							});
+
+				}
+				return b;
 			}
 		});
+		_this = this;
+		Ext.ux.FormPanelEx.superclass.constructor.call(this, {
+					keys : [{
+								key : [Ext.EventObject.ENTER],
+								handler : function() {
+									_this.formSubmit();
+								}
+							}],
+					buttons : [_this.buttons, {
+								text : '提交',
+								handler : function() {
+									_this.formSubmit();
+								}
+							}, {
+								text : '取消',
+								handler : function() {
+									_this.formCancel();
+								}
+							}],
+					items : this.items
+				});
+	}
+});
