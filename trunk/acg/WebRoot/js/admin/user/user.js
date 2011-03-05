@@ -3,26 +3,185 @@ User = Acg.User;
 
 User.usm = new Ext.grid.CheckboxSelectionModel();
 
-User.userFrom = Ext.extend(Ext.ux.FormPanelEx, {
+User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
+			bodyStyle : "padding:10px;",
+			initComponent : function() {
+				this.items = [{
+							id : 'password',
+							name : 'password',
+							fieldLabel : '密　码',
+							inputType : 'password',
+							maxLength : 10,
+							minLength : 6,
+							allowBlank : false,
+							blankText : '请输入密码！'
+						}, {
+							name : 'password2',
+							fieldLabel : '确认密码',
+							inputType : 'password',
+							maxLength : 10,
+							minLength : 6,
+							allowBlank : false,
+							blankText : '请输入确认密码！',
+							vtype : "password",// 自定义的验证类型
+							vtypeText : "两次密码不一致！",
+							confirmTo : "password"// 要比较的另外一个的组件的id
+						}, {
+							name : 'name',
+							fieldLabel : '姓名',
+							maxLength : 10,
+							allowBlank : false,
+							blankText : '请输入姓名！'
+						}, {
+							name : 'email',
+							fieldLabel : 'email',
+							vtype : "email",// email格式验证
+							vtypeText : "不是有效的邮箱地址",
+							maxLength : 30
+						}, new Ext.form.RadioGroup({
+									fieldLabel : '性别',
+									items : [new Ext.form.Radio({
+														name : 'sex',
+														boxLabel : '男',
+														inputValue : 1,
+														checked : true
 
-});
+													}), new Ext.form.Radio({
+														name : 'sex',
+														boxLabel : '女',
+														inputValue : 0
+													})]
+								}), new Ext.form.RadioGroup({
+									fieldLabel : '是否启用',
+									items : [new Ext.form.Radio({
+														name : 'enabled',
+														boxLabel : '是',
+														inputValue : 1,
+														checked : true
+
+													}), new Ext.form.Radio({
+														name : 'enabled',
+														boxLabel : '否',
+														inputValue : 0
+													})]
+								})];
+				User.UserFormEx.superclass.initComponent.apply(this, arguments);
+			},
+			constructor : function(config) {
+				Ext.apply(this, config);
+				User.UserFormEx.superclass.constructor.call(this, {
+							buttons : []
+						});
+			}
+		});
+
+User.userAddForm = Ext.extend(User.UserFormEx, {
+			formSubmit : function() {
+				this.getForm().submit({
+							url : './user/userSave',
+							success : function(userAddForm, action) {
+								this.ownerCt.hide();
+								User.ustore.reload();
+							},
+							failure : function(userAddForm, action) {
+								if (action.failureType == 'server') {
+									Ext.Msg.alert('', '添加失败！');
+								}
+							},
+							scope : this
+						});
+			},
+			formCancel : function() {
+				this.ownerCt.hide();
+			},
+			constructor : function(config) {
+				Ext.apply(this, config);
+				User.userAddForm.superclass.constructor.call(this, {
+							buttons : []
+						});
+				this.insert(0, {
+							xtype : 'textfield',
+							name : 'loginName',
+							fieldLabel : '用户名',
+							maxLength : 10,
+							minLength : 6,
+							allowBlank : false,
+							blankText : '请输入用户名！',
+							vtype : "valueExist",
+							existUrl : './user/userExist',
+							filterName : 'filter_loginName',
+							vtypeText : "用户名已存在"
+						});
+			}
+		});
+
+User.userEditForm = Ext.extend(User.UserFormEx, {
+			formSubmit : function() {
+				this.getForm().submit({
+							url : './user/userSave',
+							success : function(userEditForm, action) {
+								this.ownerCt.hide();
+								User.ustore.reload();
+							},
+							failure : function(userEditForm, action) {
+								if (action.failureType == 'server') {
+									Ext.Msg.alert('', '添加失败！');
+								}
+							},
+							scope : this
+						});
+			},
+			formCancel : function() {
+				this.ownerCt.hide();
+			},
+			formLoad : function() {
+			},
+			constructor : function(config) {
+				Ext.apply(this, config);
+				User.userEditForm.superclass.constructor.call(this, {
+							buttons : []
+						});
+			}
+		});
+
+User.windowUser = new Ext.ux.WindowEx({
+			closeAction : 'hide',
+			width : 280
+		});
 
 User.utb = new Ext.Toolbar({
 	items : [{
 				text : '添加用户',
 				iconCls : 'user_add',
 				handler : function() {
-					var windowUserAdd = new Ext.ux.WindowEx({
-								title : '添加用户',
-								iconCls : 'user_add',
-								width : 330
-							});
-					windowUserAdd.show();
-					windowUserAdd.center();
+					User.windowUser.removeAll();
+					User.windowUser.add(new User.userAddForm());
+					User.windowUser.title = '添加用户';
+					User.windowUser.iconCls = 'user_add';
+					User.windowUser.show();
+					User.windowUser.center();
 				}
 			}, {
 				text : '编辑用户',
-				iconCls : 'user_edit'
+				iconCls : 'user_edit',
+				handler : function() {
+					var selections = User.userGridPanel.getSelectionModel()
+							.getSelections();
+					if (selections.length != 1) {
+						Ext.MessageBox.show({
+									msg : '必须选择一个用户！',
+									buttons : Ext.MessageBox.OK,
+									icon : Ext.MessageBox.WARNING
+								});
+					} else {
+						User.windowUser.removeAll();
+						User.windowUser.add(new User.userEditForm());
+						User.windowUser.title = '编辑用户';
+						User.windowUser.iconCls = 'user_edit';
+						User.windowUser.show();
+						User.windowUser.center();
+					}
+				}
 			}, {
 				text : '删除用户',
 				iconCls : 'user_delete',
@@ -44,7 +203,7 @@ User.utb = new Ext.Toolbar({
 						Ext.Msg.confirm('确认', '真的要删除选中的数据吗？', function(btn) {
 							if (btn == 'yes') {
 								Ext.Ajax.request({
-									url : 'userDelete',
+									url : './user/userDelete',
 									success : function(request) {
 										var result = Ext
 												.decode(request.responseText);
@@ -85,7 +244,7 @@ User.utb = new Ext.Toolbar({
 User.ustore = new Ext.data.JsonStore({
 			totalProperty : 'page.totalCount',
 			root : 'page.result',
-			url : './userPage',
+			url : './user/userPage',
 			fields : [{
 						name : 'id',
 						sortable : true,
@@ -193,8 +352,8 @@ User.userPanel = new Ext.Panel({
 			autoScroll : true,
 			border : false,
 			iconCls : 'user',
-			items : [ User.userTree ]
-});
+			items : [User.userTree]
+		});
 
 User.init = function() {
 	Index.menu.add(User.userPanel);

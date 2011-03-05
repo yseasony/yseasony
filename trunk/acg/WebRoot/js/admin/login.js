@@ -2,6 +2,7 @@ Ext.ns('Acg.Login');
 Login = Acg.Login;
 // 登录from
 Login.LoginFromEx = Ext.extend(Ext.ux.FormPanelEx, {
+			labelWidth : 50,
 			formSubmit : function() {
 				this.getForm().submit({
 					url : './j_spring_security_check',
