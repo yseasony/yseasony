@@ -189,7 +189,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						} else {
 							windowUser.removeAll();
-							var userEditForm = new User.userEditForm()
+							var userEditForm = new User.userEditForm();
 							windowUser.add(userEditForm);
 							windowUser.title = Lang.user.user_edit;
 							windowUser.iconCls = 'user_edit';

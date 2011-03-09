@@ -2,30 +2,29 @@ User.AuthFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 			bodyStyle : "padding:10px;",
 			initComponent : function() {
 				this.items = [{
-							name : 'password',
-							fieldLabel : '权限名',
-							inputType : 'password',
-							maxLength : 10,
-							minLength : 6,
+							name : 'displayName',
+							fieldLabel : Lang.auth.auth_displayName,
+							maxLength : 15,
+							minLength : 1,
 							allowBlank : false,
-							blankText : '请输入权限名！'
+							blankText : Lang.msg.auth_displayName_blank
 						}, {
 							name : 'name',
-							fieldLabel : '权限代码',
-							maxLength : 10,
+							fieldLabel : Lang.auth.auth_name,
+							maxLength : 100,
 							allowBlank : false,
-							blankText : '请输入姓名！'
+							blankText : Lang.msg.auth_name_blank
 						}, {
 							xtype : "hidden",
 							name : "id",
 							hidden : true,
 							hiddenLabel : true
 						}];
-				User.UserFormEx.superclass.initComponent.apply(this, arguments);
+				User.AuthFormEx.superclass.initComponent.apply(this, arguments);
 			},
 			constructor : function(config) {
 				Ext.apply(this, config);
-				User.UserFormEx.superclass.constructor.call(this, {
+				User.AuthFormEx.superclass.constructor.call(this, {
 							buttons : []
 						});
 			}
@@ -40,13 +39,13 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 					width : 280
 				});
 		this.items = [{
-					text : '添加权限',
-					iconCls : 'user_add',
+					text : Lang.auth.auth_add,
+					iconCls : 'add',
 					handler : function() {
 						window.removeAll();
-						window.add(new User.userAddForm(ownerGrid));
-						window.title = '添加权限';
-						window.iconCls = 'user_add';
+						window.add(new User.AuthFormEx(ownerGrid));
+						window.title = Lang.auth.auth_add;
+						window.iconCls = 'add';
 						window.show();
 						window.center();
 					}
@@ -57,7 +56,7 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 						var selections = ownerGrid.selModel.getSelections();
 						if (selections.length != 1) {
 							Ext.MessageBox.show({
-										msg : '必须选择一个用户！',
+										msg : Lang.msg.select_least_one,
 										buttons : Ext.MessageBox.OK,
 										icon : Ext.MessageBox.WARNING
 									});
