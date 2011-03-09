@@ -8,6 +8,15 @@ var Lang = {
 		password : '密　码',
 		confirm_password : '确认密码'
 	},
+	auth : {
+		auth_displayName : '权限名',
+		auth_name : '权限代码',
+		user_delete : '删除用户',
+		user_edit : '编辑用户',
+		auth_add : '添加权限',
+		password : '密　码',
+		confirm_password : '确认密码'
+	},
 	common : {
 		login_name : '用户名',
 		name : '姓名',
@@ -23,7 +32,7 @@ var Lang = {
 		email : 'email'
 	},
 	msg : {
-		data_exist:'记录已存在',
+		data_exist : '记录已存在',
 		email_check : '不是有效的邮箱地址',
 		confirm_msg : '真的要删除吗？',
 		server_error : '服务器出现错误',
@@ -35,6 +44,8 @@ var Lang = {
 		name_blank : '请输入姓名',
 		login_name_blank : '请输入姓名',
 		confirm_password_blank : '请输入确认密码',
-		confirm_error : '两次输入不一致'
+		confirm_error : '两次输入不一致',
+		auth_displayName_blank : '请输入权限名',
+		auth_name_blank : '请输入权限代码'
 	}
-}
+};
