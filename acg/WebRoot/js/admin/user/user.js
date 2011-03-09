@@ -1,8 +1,3 @@
-Ext.ns('Acg.User');
-User = Acg.User;
-
-User.usm = new Ext.grid.CheckboxSelectionModel();
-
 User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 			bodyStyle : "padding:10px;",
 			initComponent : function() {
@@ -16,17 +11,6 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 							allowBlank : false,
 							blankText : '请输入密码！'
 						}, {
-							name : 'password2',
-							fieldLabel : '确认密码',
-							inputType : 'password',
-							maxLength : 10,
-							minLength : 6,
-							allowBlank : false,
-							blankText : '请输入确认密码！',
-							vtype : "password",// 自定义的验证类型
-							vtypeText : "两次密码不一致！",
-							confirmTo : "password"// 要比较的另外一个的组件的id
-						}, {
 							name : 'name',
 							fieldLabel : '姓名',
 							maxLength : 10,
@@ -35,34 +19,39 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 						}, {
 							name : 'email',
 							fieldLabel : 'email',
-							vtype : "email",// email格式验证
+							vtype : "email",
 							vtypeText : "不是有效的邮箱地址",
 							maxLength : 30
+						}, {
+							xtype : "hidden",
+							name : "id",
+							hidden : true,
+							hiddenLabel : true
 						}, new Ext.form.RadioGroup({
 									fieldLabel : '性别',
-									items : [new Ext.form.Radio({
+									items : [new Ext.ux.RadioGroupEx({
 														name : 'sex',
 														boxLabel : '男',
-														inputValue : 1,
+														inputValue : true,
 														checked : true
 
 													}), new Ext.form.Radio({
 														name : 'sex',
 														boxLabel : '女',
-														inputValue : 0
+														inputValue : false
 													})]
 								}), new Ext.form.RadioGroup({
 									fieldLabel : '是否启用',
-									items : [new Ext.form.Radio({
+									items : [new Ext.ux.RadioGroupEx({
 														name : 'enabled',
 														boxLabel : '是',
-														inputValue : 1,
+														inputValue : true,
 														checked : true
 
 													}), new Ext.form.Radio({
 														name : 'enabled',
 														boxLabel : '否',
-														inputValue : 0
+														inputValue : false
 													})]
 								})];
 				User.UserFormEx.superclass.initComponent.apply(this, arguments);
@@ -81,7 +70,7 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 							url : './user/userSave',
 							success : function(userAddForm, action) {
 								this.ownerCt.hide();
-								User.ustore.reload();
+								ownerGrid.store.reload();
 							},
 							failure : function(userAddForm, action) {
 								if (action.failureType == 'server') {
@@ -95,7 +84,7 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 				this.ownerCt.hide();
 			},
 			constructor : function(config) {
-				Ext.apply(this, config);
+				this.ownerGrid = config;
 				User.userAddForm.superclass.constructor.call(this, {
 							buttons : []
 						});
@@ -112,6 +101,18 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 							filterName : 'filter_loginName',
 							vtypeText : "用户名已存在"
 						});
+				this.insert(2, {
+							name : 'password2',
+							fieldLabel : '确认密码',
+							inputType : 'password',
+							maxLength : 10,
+							minLength : 6,
+							allowBlank : false,
+							blankText : '请输入确认密码！',
+							vtype : "password",// 自定义的验证类型
+							vtypeText : "两次密码不一致！",
+							confirmTo : "password"// 要比较的另外一个的组件的id
+						});
 			}
 		});
 
@@ -121,7 +122,7 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 							url : './user/userSave',
 							success : function(userEditForm, action) {
 								this.ownerCt.hide();
-								User.ustore.reload();
+								ownerGrid.store.reload();
 							},
 							failure : function(userEditForm, action) {
 								if (action.failureType == 'server') {
@@ -134,230 +135,197 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 			formCancel : function() {
 				this.ownerCt.hide();
 			},
-			formLoad : function() {
+			formLoad : function(id) {
+				this.getForm().load({
+							url : './user/userEdit',
+							params : {
+								uid : id
+							},
+							waitTitle : '提示',
+							waitMsg : '正在处理您的请求,请稍候...',
+							success : function(form, action) {
+								console.log(action.result.data);
+							},
+							failure : function(form, action) {
+							}
+						});
 			},
 			constructor : function(config) {
-				Ext.apply(this, config);
+				this.ownerGrid = config;
 				User.userEditForm.superclass.constructor.call(this, {
 							buttons : []
 						});
 			}
 		});
 
-User.windowUser = new Ext.ux.WindowEx({
-			closeAction : 'hide',
-			width : 280
-		});
-
-User.utb = new Ext.Toolbar({
-	items : [{
-				text : '添加用户',
-				iconCls : 'user_add',
-				handler : function() {
-					User.windowUser.removeAll();
-					User.windowUser.add(new User.userAddForm());
-					User.windowUser.title = '添加用户';
-					User.windowUser.iconCls = 'user_add';
-					User.windowUser.show();
-					User.windowUser.center();
-				}
-			}, {
-				text : '编辑用户',
-				iconCls : 'user_edit',
-				handler : function() {
-					var selections = User.userGridPanel.getSelectionModel()
-							.getSelections();
-					if (selections.length != 1) {
-						Ext.MessageBox.show({
-									msg : '必须选择一个用户！',
-									buttons : Ext.MessageBox.OK,
-									icon : Ext.MessageBox.WARNING
-								});
-					} else {
-						User.windowUser.removeAll();
-						User.windowUser.add(new User.userEditForm());
-						User.windowUser.title = '编辑用户';
-						User.windowUser.iconCls = 'user_edit';
-						User.windowUser.show();
-						User.windowUser.center();
+User.UToolbar = Ext.extend(Ext.Toolbar, {
+	ownerGrid : null,
+	initComponent : function() {
+		_this = this;
+		var windowUser = new Ext.ux.WindowEx({
+					closeAction : 'hide',
+					width : 280
+				});
+		this.items = [{
+					text : '添加用户',
+					iconCls : 'user_add',
+					handler : function() {
+						windowUser.removeAll();
+						windowUser.add(new User.userAddForm(ownerGrid));
+						windowUser.title = '添加用户';
+						windowUser.iconCls = 'user_add';
+						windowUser.show();
+						windowUser.center();
 					}
-				}
-			}, {
-				text : '删除用户',
-				iconCls : 'user_delete',
-				handler : function() {
-					var selections = User.userGridPanel.getSelectionModel()
-							.getSelections();
-					var count = selections.length;
-					var ids = [];
-					Ext.each(selections, function(item) {
-								ids.push(item.id);
-							});
-					if (count <= 0) {
-						Ext.MessageBox.show({
-									msg : '至少选择一个用户！',
-									buttons : Ext.MessageBox.OK,
-									icon : Ext.MessageBox.WARNING
+				}, {
+					text : '编辑用户',
+					iconCls : 'user_edit',
+					handler : function() {
+						var selections = ownerGrid.selModel.getSelections();
+						if (selections.length != 1) {
+							Ext.MessageBox.show({
+										msg : '必须选择一个用户！',
+										buttons : Ext.MessageBox.OK,
+										icon : Ext.MessageBox.WARNING
+									});
+						} else {
+							windowUser.removeAll();
+							var userEditForm = new User.userEditForm()
+							windowUser.add(userEditForm);
+							windowUser.title = '编辑用户';
+							windowUser.iconCls = 'user_edit';
+							windowUser.show();
+							windowUser.center();
+							userEditForm.formLoad(selections[0].id);
+						}
+					}
+				}, {
+					text : '删除用户',
+					iconCls : 'user_delete',
+					handler : function() {
+						var selections = ownerGrid.selModel.getSelections();
+						var count = selections.length;
+						var ids = [];
+						Ext.each(selections, function(item) {
+									ids.push(item.id);
 								});
-					} else {
-						Ext.Msg.confirm('确认', '真的要删除选中的数据吗？', function(btn) {
-							if (btn == 'yes') {
-								Ext.Ajax.request({
-									url : './user/userDelete',
-									success : function(request) {
-										var result = Ext
-												.decode(request.responseText);
-										if (result.success) {
-											Ext.MessageBox.show({
-														msg : '删除成功!',
-														buttons : Ext.MessageBox.OK,
-														icon : Ext.MessageBox.OK
-													});
-											User.ustore.reload();
-										} else {
-											Ext.MessageBox.show({
-														msg : '删除失败!请联系管理员!',
+						if (count <= 0) {
+							Ext.MessageBox.show({
+										msg : '至少选择一个用户！',
+										buttons : Ext.MessageBox.OK,
+										icon : Ext.MessageBox.WARNING
+									});
+						} else {
+							Ext.Msg.confirm('确认', '真的要删除选中的数据吗？',
+									function(btn) {
+										if (btn == 'yes') {
+											Ext.Ajax.request({
+												url : './user/userDelete',
+												success : function(request) {
+													var result = Ext
+															.decode(request.responseText);
+													if (result.success) {
+														Ext.MessageBox.show({
+															msg : '删除成功!',
+															buttons : Ext.MessageBox.OK,
+															icon : Ext.MessageBox.OK
+														});
+														ownerGrid.store
+																.reload();
+													} else {
+														Ext.MessageBox.show({
+															msg : '删除失败!请联系管理员!',
+															buttons : Ext.MessageBox.ERROR,
+															icon : Ext.MessageBox.ERROR
+														});
+													}
+
+												},
+												failure : function(request) {
+													Ext.MessageBox.show({
+														msg : '服务器出现错误，删除失败!',
 														buttons : Ext.MessageBox.ERROR,
 														icon : Ext.MessageBox.ERROR
 													});
+												},
+												params : {
+													ids : ids.join(',')
+												}
+											});
 										}
-
-									},
-									failure : function(request) {
-										Ext.MessageBox.show({
-													msg : '服务器出现错误，删除失败!',
-													buttons : Ext.MessageBox.ERROR,
-													icon : Ext.MessageBox.ERROR
-												});
-									},
-									params : {
-										ids : ids.join(',')
-									}
-								});
-							}
-						});
+									});
+						}
 					}
-				}
-			}]
+				}], User.UToolbar.superclass.initComponent.apply(this,
+				arguments);
+	},
+
+	constructor : function(config) {
+		ownerGrid = config;
+		User.UToolbar.superclass.constructor.call(this, arguments);
+	}
+
 });
 
-User.ustore = new Ext.data.JsonStore({
-			totalProperty : 'page.totalCount',
-			root : 'page.result',
-			url : './user/userPage',
-			fields : [{
-						name : 'id',
-						sortable : true,
-						type : 'int'
-					}, {
-						name : 'loginName',
-						type : 'string'
-					}, {
-						name : 'name',
-						type : 'string'
-					}, {
-						name : 'enabled',
-						type : 'boolean'
-					}, {
-						name : 'sex',
-						type : 'boolean'
-					}, {
-						name : 'email',
-						type : 'string'
-					}]
+User.userGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
+	constructor : function(config) {
+		this.selModel = new Ext.grid.CheckboxSelectionModel();
+		this.colModel = new Ext.grid.ColumnModel([this.selModel, {
+					header : 'id',
+					dataIndex : 'id'
+				}, {
+					header : '登录名',
+					dataIndex : 'loginName'
+				}, {
+					header : '姓名',
+					dataIndex : 'name'
+				}, {
+					header : '性别',
+					dataIndex : 'sex',
+					renderer : function(value) {
+						return value ? '男' : '女';
+					}
+				}, {
+					header : '用户状态',
+					dataIndex : 'enabled',
+					renderer : function(value) {
+						return value ? '启用' : '禁用';
+					}
+				}, {
+					header : 'email',
+					dataIndex : 'email'
+				}]);
+		this.store = new Ext.data.JsonStore({
+					totalProperty : 'page.totalCount',
+					root : 'page.result',
+					url : './user/userPage',
+					fields : [{
+								name : 'id',
+								sortable : true,
+								type : 'int'
+							}, {
+								name : 'loginName',
+								type : 'string'
+							}, {
+								name : 'name',
+								type : 'string'
+							}, {
+								name : 'enabled',
+								type : 'boolean'
+							}, {
+								name : 'sex',
+								type : 'boolean'
+							}, {
+								name : 'email',
+								type : 'string'
+							}]
 
-		});
-
-User.ucm = new Ext.grid.ColumnModel([User.usm, {
-			header : 'id',
-			dataIndex : 'id'
-		}, {
-			header : '登录名',
-			dataIndex : 'loginName'
-		}, {
-			header : '姓名',
-			dataIndex : 'name'
-		}, {
-			header : '性别',
-			dataIndex : 'sex',
-			renderer : function(value) {
-				return value ? '男' : '女';
-			}
-		}, {
-			header : '用户状态',
-			dataIndex : 'enabled',
-			renderer : function(value) {
-				return value ? '启用' : '禁用';
-			}
-		}, {
-			header : 'email',
-			dataIndex : 'email'
-		}]);
-
-User.userGridPanel = new Ext.ux.GridPanelEx({
-			cm : User.ucm,
-			sm : User.usm,
-			store : User.ustore,
-			tbar : User.utb,
-			bbar : new Ext.ux.PagingToolbarEx({
-						pageSize : Common.pageSize, // data to display
-						store : User.ustore
-					})
-		});
-
-User.userTree = new Ext.tree.TreePanel({
-			border : false,
-			id : 'tree',
-			rootVisible : false,
-			loader : new Ext.tree.TreeLoader(),
-			root : new Ext.tree.AsyncTreeNode({
-						children : [{
-									text : '用户管理',
-									leaf : true,
-									listeners : {
-										click : function(control, e) {
-											tid = control.attributes.id;
-											Index.centerPanel.add({
-														closable : true,
-														id : tid,
-														title : '用户管理',
-														layout : 'fit',
-														items : User.userGridPanel
-													});
-											Index.centerPanel.setActiveTab(tid);
-											User.ustore.load({
-														params : {
-															start : 0,
-															limit : Common.pageSize
-														}
-													});
-										}
-									}
-								}, {
-									text : '权限管理',
-									leaf : false,
-									children : [{
-												text : '角色',
-												leaf : true
-											}, {
-												text : '权限',
-												leaf : true
-											}]
-								}]
-					})
-		});
-
-User.userPanel = new Ext.Panel({
-			title : '后台用户管理',
-			autoScroll : true,
-			border : false,
-			iconCls : 'user',
-			items : [User.userTree]
-		});
-
-User.init = function() {
-	Index.menu.add(User.userPanel);
-	Index.menu.doLayout();
-};
-
-Ext.onReady(User.init);
+				});
+		this.bbar = new Ext.ux.PagingToolbarEx({
+					pageSize : Common.pageSize, // data to display
+					store : this.store
+				}), Ext.apply(this, config);
+		this.tbar = new User.UToolbar(this), User.userGridPanel.superclass.constructor
+				.call(this, arguments);
+	}
+});

@@ -8,7 +8,7 @@
 <title>管理首页</title>
 <%@ include file="../common/extjs.jsp"%>
 <script type="text/javascript" src="${ctx}/js/admin/index.js"></script>
-<script type="text/javascript" src="${ctx}/js/admin/user/user.js"></script>
+<%@ include file="js/user.jsp"%>
 </head>
 <body>
 </body>
