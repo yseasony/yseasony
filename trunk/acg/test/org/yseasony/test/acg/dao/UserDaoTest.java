@@ -56,6 +56,6 @@ public class UserDaoTest extends BaseTest{
 		Page<User> page = new Page<User>();
 		List<User> list = userDao.page(page);
 		page.setResult(list);
-		page.setTotalCount(userDao.count());
+		page.setTotalCount(userDao.count(null));
 	}
 }

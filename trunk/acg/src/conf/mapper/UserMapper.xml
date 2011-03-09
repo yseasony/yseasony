@@ -22,7 +22,8 @@
 	<select id="findUserByLoginName" resultMap="userMap"
 		parameterType="java.lang.String">
 		select
-		id, email, login_name, name, password,enabled,sex
+		id, email, login_name as loginName , name,
+		password,enabled,sex
 		from acg_user
 		where login_name =
 		#{loginName,jdbcType=VARCHAR}
@@ -31,8 +32,9 @@
 	<select id="get" resultMap="userMap" parameterType="java.lang.Long">
 		select
 		id,
-		email, login_name, name, password,enabled,sex
-		from acg_user
+		email, login_name as loginName, name, password,enabled,sex
+		from
+		acg_user
 		where id =
 		#{id,jdbcType=BIGINT}
 	</select>
@@ -40,12 +42,12 @@
 	<select id="getRoleList" resultMap="roleMap" parameterType="java.lang.Long">
 		SELECT
 		acg_role.id,
-		acg_role.`name`,
-		acg_user.id
+		acg_role.`name`
 		FROM
 		acg_user
 		INNER JOIN
-		acg_user_role ON id = acg_user_role.user_id
+		acg_user_role
+		ON id = acg_user_role.user_id
 		INNER JOIN
 		acg_role ON
 		acg_user_role.role_id = acg_role.id
@@ -55,20 +57,29 @@
 	</select>
 
 	<delete id="delete" parameterType="java.lang.Long">
-		delete from acg_user where id = #{id,jdbcType=BIGINT}
+		delete from acg_user where id
+		= #{id,jdbcType=BIGINT}
 	</delete>
 
 	<insert id="insert" parameterType="org.yseasony.acg.entity.User">
 		insert into acg_user (id,
-		email, login_name, name, password)
-		values (#{id,jdbcType=BIGINT},
+		email, login_name, name, password,enabled,sex)
+		values
+		(#{id,jdbcType=BIGINT},
 		#{email,jdbcType=VARCHAR},
 		#{loginName,jdbcType=VARCHAR},
-		#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+		#{name,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},#{enabled},#{sex})
   </insert>
 
 	<select id="count" resultType="java.lang.Integer">
 		select count(id) from acg_user
+		<if test="filters != null">
+			where
+			<if test="filters.loginName != null">
+				login_name = #{filters.loginName}
+			</if>
+		</if>
 	</select>
 
 	<select id="page" resultType="user" parameterType="page">
@@ -76,18 +87,19 @@
 		id,
 		email, login_name as loginName, name, password,enabled,sex
 		FROM
-		acg_user LIMIT #{offset},
+		acg_user LIMIT #{pageStart},
 		#{limit}
 	</select>
 
-	<update id="update" parameterType="org.yseasony.acg.entity.User">
+	<update id="update" parameterType="user">
 		update acg_user
 		set email =
 		#{email,jdbcType=VARCHAR},
-		login_name = #{loginName,jdbcType=VARCHAR},
 		name = #{name,jdbcType=VARCHAR},
 		password =
-		#{password,jdbcType=VARCHAR}
+		#{password,jdbcType=VARCHAR},
+		sex = #{sex},
+		enabled = #{enabled}
 		where id = #{id,jdbcType=BIGINT}
   </update>
 
