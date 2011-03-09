@@ -11,6 +11,8 @@ public class Authority {
 
 	private String name;
 
+	private String displayName;
+
 	public Long getId() {
 		return id;
 	}
@@ -24,10 +26,19 @@ public class Authority {
 	}
 
 	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
+		this.name = name;
 	}
 
 	public String getPrefixedName() {
 		return AUTHORITY_PREFIX + name;
 	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
 }

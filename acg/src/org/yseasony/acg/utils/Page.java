@@ -26,6 +26,8 @@ public class Page<T> implements Serializable {
 
 	// -- 分页参数 --//
 	protected int pageNo = 0;
+	protected int pageStart = 0;
+	protected int pageLimit = 0;
 	protected int pageSize = 20;
 	protected String orderBy = null;
 	protected String order = null;
@@ -42,15 +44,15 @@ public class Page<T> implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-	public Page(Integer pageSize, Integer pageNo) {
-		if (pageSize != null) {
-			this.pageSize = pageSize;
+	public Page(Integer pageLimit, Integer pageStart) {
+		if (pageLimit != null) {
+			this.pageLimit = pageLimit;
 		}
-		
-		if (pageNo != null) {
-			this.pageNo = pageNo;
+
+		if (pageStart != null) {
+			this.pageStart = pageStart;
 		}
-		
+
 	}
 
 	// -- 分页参数访问函数 --//
@@ -110,10 +112,6 @@ public class Page<T> implements Serializable {
 	 */
 	public int getFirst() {
 		return ((pageNo - 1) * pageSize) + 1;
-	}
-
-	public int getOffset() {
-		return ((pageNo) * pageSize);
 	}
 
 	public int getLimit() {
@@ -266,5 +264,13 @@ public class Page<T> implements Serializable {
 		} else {
 			return pageNo;
 		}
+	}
+
+	public int getPageStart() {
+		return pageStart;
+	}
+
+	public int getPageLimit() {
+		return pageLimit;
 	}
 }

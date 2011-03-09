@@ -1,6 +1,7 @@
 package org.yseasony.acg.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,11 @@ public class UserSvcImpl {
 
 	@Transactional
 	public void save(User user) {
-		userDao.insert(user);
+		if (user.getId() != null) {
+			userDao.update(user);
+		} else {
+			userDao.insert(user);
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -29,7 +34,7 @@ public class UserSvcImpl {
 	public Page<User> userPage(Page<User> page) {
 		List<User> list = userDao.page(page);
 		page.setResult(list);
-		page.setTotalCount(userDao.count());
+		page.setTotalCount(userDao.count(null));
 		return page;
 	}
 
@@ -38,6 +43,16 @@ public class UserSvcImpl {
 		for (Integer id : ids) {
 			userDao.delete(id);
 		}
+	}
+
+	@Transactional(readOnly = true)
+	public boolean userExits(Map<String, ?> filters) {
+		return userDao.count(filters) == 1 ? false : true;
+	}
+
+	@Transactional(readOnly = true)
+	public User getUser(Long id) {
+		return userDao.get(id);
 	}
 
 }
