@@ -4,23 +4,23 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 				this.items = [{
 							id : 'password',
 							name : 'password',
-							fieldLabel : '密　码',
+							fieldLabel : Lang.user.password,
 							inputType : 'password',
 							maxLength : 10,
 							minLength : 6,
 							allowBlank : false,
-							blankText : '请输入密码！'
+							blankText : Lang.msg.pwd_blank
 						}, {
 							name : 'name',
-							fieldLabel : '姓名',
+							fieldLabel : Lang.common.name,
 							maxLength : 10,
 							allowBlank : false,
-							blankText : '请输入姓名！'
+							blankText : Lang.msg.name_blank
 						}, {
 							name : 'email',
-							fieldLabel : 'email',
+							fieldLabel : Lang.common.email,
 							vtype : "email",
-							vtypeText : "不是有效的邮箱地址",
+							vtypeText : Lang.msg.email_check,
 							maxLength : 30
 						}, {
 							xtype : "hidden",
@@ -28,29 +28,29 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 							hidden : true,
 							hiddenLabel : true
 						}, new Ext.form.RadioGroup({
-									fieldLabel : '性别',
+									fieldLabel : Lang.common.gender,
 									items : [new Ext.ux.RadioGroupEx({
 														name : 'sex',
-														boxLabel : '男',
+														boxLabel : Lang.common.male,
 														inputValue : true,
 														checked : true
 
 													}), new Ext.form.Radio({
 														name : 'sex',
-														boxLabel : '女',
+														boxLabel : Lang.common.female,
 														inputValue : false
 													})]
 								}), new Ext.form.RadioGroup({
-									fieldLabel : '是否启用',
+									fieldLabel : Lang.common.available,
 									items : [new Ext.ux.RadioGroupEx({
 														name : 'enabled',
-														boxLabel : '是',
+														boxLabel : Lang.common.yes,
 														inputValue : true,
 														checked : true
 
 													}), new Ext.form.Radio({
 														name : 'enabled',
-														boxLabel : '否',
+														boxLabel : Lang.common.no,
 														inputValue : false
 													})]
 								})];
@@ -74,7 +74,7 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 							},
 							failure : function(userAddForm, action) {
 								if (action.failureType == 'server') {
-									Ext.Msg.alert('', '添加失败！');
+									Ext.Msg.alert('', Lang.msg.addfaile);
 								}
 							},
 							scope : this
@@ -91,26 +91,26 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 				this.insert(0, {
 							xtype : 'textfield',
 							name : 'loginName',
-							fieldLabel : '用户名',
+							fieldLabel : Lang.common.login_name,
 							maxLength : 10,
 							minLength : 6,
 							allowBlank : false,
-							blankText : '请输入用户名！',
+							blankText : Lang.msg.login_name_blank,
 							vtype : "valueExist",
 							existUrl : './user/userExist',
 							filterName : 'filter_loginName',
-							vtypeText : "用户名已存在"
+							vtypeText : Lang.msg.data_exist
 						});
 				this.insert(2, {
 							name : 'password2',
-							fieldLabel : '确认密码',
+							fieldLabel : Lang.user.confirm_password,
 							inputType : 'password',
 							maxLength : 10,
 							minLength : 6,
 							allowBlank : false,
-							blankText : '请输入确认密码！',
+							blankText : Lang.msg.confirm_password_blank,
 							vtype : "password",// 自定义的验证类型
-							vtypeText : "两次密码不一致！",
+							vtypeText : Lang.msg.confirm_error,
 							confirmTo : "password"// 要比较的另外一个的组件的id
 						});
 			}
@@ -126,7 +126,7 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 							},
 							failure : function(userEditForm, action) {
 								if (action.failureType == 'server') {
-									Ext.Msg.alert('', '添加失败！');
+									Ext.Msg.alert('', Lang.msg.addfaile);
 								}
 							},
 							scope : this
@@ -141,12 +141,11 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 							params : {
 								uid : id
 							},
-							waitTitle : '提示',
-							waitMsg : '正在处理您的请求,请稍候...',
+							waitMsg : Lang.msg.wait_msg,
 							success : function(form, action) {
-								console.log(action.result.data);
 							},
 							failure : function(form, action) {
+								Ext.Msg.alert('', Lang.msg.server_error);
 							}
 						});
 			},
@@ -167,24 +166,24 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 					width : 280
 				});
 		this.items = [{
-					text : '添加用户',
+					text : Lang.user.user_add,
 					iconCls : 'user_add',
 					handler : function() {
 						windowUser.removeAll();
 						windowUser.add(new User.userAddForm(ownerGrid));
-						windowUser.title = '添加用户';
+						windowUser.title = Lang.common.user_add;
 						windowUser.iconCls = 'user_add';
 						windowUser.show();
 						windowUser.center();
 					}
 				}, {
-					text : '编辑用户',
+					text : Lang.user.user_edit,
 					iconCls : 'user_edit',
 					handler : function() {
 						var selections = ownerGrid.selModel.getSelections();
 						if (selections.length != 1) {
 							Ext.MessageBox.show({
-										msg : '必须选择一个用户！',
+										msg : Lang.msg.select_least_one,
 										buttons : Ext.MessageBox.OK,
 										icon : Ext.MessageBox.WARNING
 									});
@@ -192,7 +191,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 							windowUser.removeAll();
 							var userEditForm = new User.userEditForm()
 							windowUser.add(userEditForm);
-							windowUser.title = '编辑用户';
+							windowUser.title = Lang.user.user_edit;
 							windowUser.iconCls = 'user_edit';
 							windowUser.show();
 							windowUser.center();
@@ -200,7 +199,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 						}
 					}
 				}, {
-					text : '删除用户',
+					text : Lang.user.user_delete,
 					iconCls : 'user_delete',
 					handler : function() {
 						var selections = ownerGrid.selModel.getSelections();
@@ -211,13 +210,13 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 								});
 						if (count <= 0) {
 							Ext.MessageBox.show({
-										msg : '至少选择一个用户！',
+										msg : Lang.msg.select_least_one,
 										buttons : Ext.MessageBox.OK,
 										icon : Ext.MessageBox.WARNING
 									});
 						} else {
-							Ext.Msg.confirm('确认', '真的要删除选中的数据吗？',
-									function(btn) {
+							Ext.Msg.confirm(Lang.common.confirm,
+									Lang.msg.confirm_msg, function(btn) {
 										if (btn == 'yes') {
 											Ext.Ajax.request({
 												url : './user/userDelete',
@@ -226,7 +225,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 															.decode(request.responseText);
 													if (result.success) {
 														Ext.MessageBox.show({
-															msg : '删除成功!',
+															msg : Lang.msg.delete_success,
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
@@ -234,7 +233,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 																.reload();
 													} else {
 														Ext.MessageBox.show({
-															msg : '删除失败!请联系管理员!',
+															msg : Lang.msg.server_error,
 															buttons : Ext.MessageBox.ERROR,
 															icon : Ext.MessageBox.ERROR
 														});
@@ -243,7 +242,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 												},
 												failure : function(request) {
 													Ext.MessageBox.show({
-														msg : '服务器出现错误，删除失败!',
+														msg : Lang.msg.server_error,
 														buttons : Ext.MessageBox.ERROR,
 														icon : Ext.MessageBox.ERROR
 													});
@@ -268,28 +267,30 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 });
 
 User.userGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
-	constructor : function(config) {
+		constructor : function(config) {
 		this.selModel = new Ext.grid.CheckboxSelectionModel();
 		this.colModel = new Ext.grid.ColumnModel([this.selModel, {
 					header : 'id',
 					dataIndex : 'id'
 				}, {
-					header : '登录名',
+					header : Lang.common.login_name,
 					dataIndex : 'loginName'
 				}, {
-					header : '姓名',
+					header : Lang.common.name,
 					dataIndex : 'name'
 				}, {
-					header : '性别',
+					header : Lang.common.gender,
 					dataIndex : 'sex',
 					renderer : function(value) {
-						return value ? '男' : '女';
+						return value ? Lang.common.male : Lang.common.female;
 					}
 				}, {
-					header : '用户状态',
+					header : Lang.user.user_enabled,
 					dataIndex : 'enabled',
 					renderer : function(value) {
-						return value ? '启用' : '禁用';
+						return value
+								? Lang.common.enabled
+								: Lang.common.enabled;
 					}
 				}, {
 					header : 'email',
