@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.yseasony.acg.dao.AuthorityDao;
 import org.yseasony.acg.dao.UserDao;
+import org.yseasony.acg.entity.Authority;
 import org.yseasony.acg.entity.User;
 import org.yseasony.acg.utils.Page;
 
@@ -15,6 +17,9 @@ public class UserSvcImpl {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private AuthorityDao authorityDao;
 
 	@Transactional
 	public void save(User user) {
@@ -53,6 +58,14 @@ public class UserSvcImpl {
 	@Transactional(readOnly = true)
 	public User getUser(Long id) {
 		return userDao.get(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Authority> authPage(Page<Authority> page) {
+		List<Authority> list = authorityDao.page(page);
+		page.setResult(list);
+		page.setTotalCount(userDao.count(null));
+		return page;
 	}
 
 }
