@@ -28,8 +28,8 @@ User.AuthFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 							buttons : []
 						});
 			}
-		});
 
+		});
 User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 	ownerGrid : null,
 	initComponent : function() {
@@ -42,38 +42,18 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 					text : Lang.auth.auth_add,
 					iconCls : 'add',
 					handler : function() {
-						window.removeAll();
-						window.add(new User.AuthFormEx(ownerGrid));
-						window.title = Lang.auth.auth_add;
-						window.iconCls = 'add';
-						window.show();
-						window.center();
+						var u = new ownerGrid.store.recordType({
+									name : '',
+									displayName : ''
+								});
+						console.log(ownerGrid);
+						ownerGrid.stopEditing();
+						ownerGrid.store.insert(0, u);
+						ownerGrid.startEditing(0, 1);
 					}
 				}, {
-					text : '编辑用户',
-					iconCls : 'user_edit',
-					handler : function() {
-						var selections = ownerGrid.selModel.getSelections();
-						if (selections.length != 1) {
-							Ext.MessageBox.show({
-										msg : Lang.msg.select_least_one,
-										buttons : Ext.MessageBox.OK,
-										icon : Ext.MessageBox.WARNING
-									});
-						} else {
-							window.removeAll();
-							var userEditForm = new User.userEditForm()
-							window.add(userEditForm);
-							window.title = '编辑用户';
-							window.iconCls = 'user_edit';
-							window.show();
-							window.center();
-							userEditForm.formLoad(selections[0].id);
-						}
-					}
-				}, {
-					text : '删除用户',
-					iconCls : 'user_delete',
+					text : Lang.auth.auth_delete,
+					iconCls : 'delete',
 					handler : function() {
 						var selections = ownerGrid.selModel.getSelections();
 						var count = selections.length;
@@ -128,6 +108,12 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						}
 					}
+				}, {
+					text : Lang.common.save,
+					iconCls : 'save',
+					handler : function() {
+						ownerGrid.store.save();
+					}
 				}], User.UToolbar.superclass.initComponent.apply(this,
 				arguments);
 	},
@@ -139,41 +125,70 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 
 });
 
-User.authGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
-			constructor : function(config) {
-				this.selModel = new Ext.grid.CheckboxSelectionModel();
-				this.colModel = new Ext.grid.ColumnModel([this.selModel, {
-							header : 'id',
-							dataIndex : 'id'
-						}, {
-							header : '权限名',
-							dataIndex : 'displayName'
-						}, {
-							header : '权限代码',
-							dataIndex : 'name'
-						}]);
-				this.store = new Ext.data.JsonStore({
-							totalProperty : 'page.totalCount',
-							root : 'page.result',
-							url : './auth/authPage',
-							fields : [{
-										name : 'id',
-										sortable : true,
-										type : 'int'
-									}, {
-										name : 'displayName',
-										type : 'string'
-									}, {
-										name : 'name',
-										type : 'string'
-									}]
-
-						});
-				this.bbar = new Ext.ux.PagingToolbarEx({
-							pageSize : Common.pageSize, // data to display
-							store : this.store
-						}), Ext.apply(this, config);
-				// this.tbar = new User.UToolbar(this),
-				User.authGridPanel.superclass.constructor.call(this, arguments);
+User.authProxy = new Ext.data.HttpProxy({
+			api : {
+				read : './auth/authPage',
+				create : './auth/authSave',
+				update : 'app.php/users/update',
+				destroy : 'app.php/users/destroy'
 			}
 		});
+
+User.authReader = new Ext.data.JsonReader({
+			totalProperty : 'page.totalCount',
+			root : 'page.result',
+			successProperty : 'success',
+			idProperty : 'id',
+			messageProperty : 'message'
+		}, [{
+					name : 'id'
+				}, {
+					name : 'displayName',
+					allowBlank : false
+				}, {
+					name : 'name',
+					allowBlank : false
+				}]);
+
+User.authWriter = new Ext.data.JsonWriter({
+			encode : false,
+			writeAllFields : false
+		});
+
+User.authGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
+	initComponent : function() {
+		this.relayEvents(this.store, ['destroy', 'save', 'update']);
+		User.authGridPanel.superclass.initComponent.call(this);
+	},
+	constructor : function(config) {
+		this.selModel = new Ext.grid.CheckboxSelectionModel();
+		this.colModel = new Ext.grid.ColumnModel([this.selModel, {
+					header : 'id',
+					dataIndex : 'id'
+				}, {
+					header : Lang.auth.auth_displayName,
+					name : 'displayName',
+					dataIndex : 'displayName',
+					editor : new Ext.form.TextField({})
+				}, {
+					header : Lang.auth.auth_name,
+					name : 'name',
+					dataIndex : 'name',
+					editor : new Ext.form.TextField({})
+				}]);
+		this.store = new Ext.data.Store({
+					id : 'auth',
+					proxy : User.authProxy,
+					reader : User.authReader,
+					writer : User.authWriter,
+					autoSave : false,
+					restful : true
+				});
+		this.bbar = new Ext.ux.PagingToolbarEx({
+					pageSize : Common.pageSize, // data to display
+					store : this.store
+				}), Ext.apply(this, config);
+		this.tbar = new User.AuthToolbar(this), User.authGridPanel.superclass.constructor
+				.call(this, arguments);
+	}
+});
