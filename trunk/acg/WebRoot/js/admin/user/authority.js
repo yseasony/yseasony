@@ -58,27 +58,29 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 						var selections = ownerGrid.selModel.getSelections();
 						var count = selections.length;
 						var ids = [];
+						console.log(ownerGrid.getSelectionModel()
+								.getSelectedCell());
 						Ext.each(selections, function(item) {
 									ids.push(item.id);
 								});
 						if (count <= 0) {
 							Ext.MessageBox.show({
-										msg : '至少选择一个用户！',
+										msg : Lang.msg.select_least_one,
 										buttons : Ext.MessageBox.OK,
 										icon : Ext.MessageBox.WARNING
 									});
 						} else {
-							Ext.Msg.confirm('确认', '真的要删除选中的数据吗？',
-									function(btn) {
+							Ext.Msg.confirm(Lang.common.confirm,
+									Lang.msg.confirm_msg, function(btn) {
 										if (btn == 'yes') {
 											Ext.Ajax.request({
-												url : './user/userDelete',
+												url : './auth/authDelete',
 												success : function(request) {
 													var result = Ext
 															.decode(request.responseText);
 													if (result.success) {
 														Ext.MessageBox.show({
-															msg : '删除成功!',
+															msg : Lang.msg.delete_success,
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
@@ -86,7 +88,7 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 																.reload();
 													} else {
 														Ext.MessageBox.show({
-															msg : '删除失败!请联系管理员!',
+															msg : Lang.msg.server_error,
 															buttons : Ext.MessageBox.ERROR,
 															icon : Ext.MessageBox.ERROR
 														});
@@ -95,7 +97,7 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 												},
 												failure : function(request) {
 													Ext.MessageBox.show({
-														msg : '服务器出现错误，删除失败!',
+														msg : Lang.msg.server_error,
 														buttons : Ext.MessageBox.ERROR,
 														icon : Ext.MessageBox.ERROR
 													});
@@ -113,6 +115,7 @@ User.AuthToolbar = Ext.extend(Ext.Toolbar, {
 					iconCls : 'save',
 					handler : function() {
 						ownerGrid.store.save();
+						ownerGrid.store.reload();
 					}
 				}], User.UToolbar.superclass.initComponent.apply(this,
 				arguments);
@@ -129,14 +132,14 @@ User.authProxy = new Ext.data.HttpProxy({
 			api : {
 				read : './auth/authPage',
 				create : './auth/authSave',
-				update : 'app.php/users/update',
-				destroy : 'app.php/users/destroy'
+				update : './auth/authSave',
+				destroy : './auth/authDelete'
 			}
 		});
 
 User.authReader = new Ext.data.JsonReader({
-			totalProperty : 'page.totalCount',
-			root : 'page.result',
+			totalProperty : 'totalCount',
+			root : 'result',
 			successProperty : 'success',
 			idProperty : 'id',
 			messageProperty : 'message'
@@ -150,7 +153,7 @@ User.authReader = new Ext.data.JsonReader({
 					allowBlank : false
 				}]);
 
-User.authWriter = new Ext.data.JsonWriter({
+User.authWriter = new Ext.data.CleanJsonWriter({
 			encode : false,
 			writeAllFields : false
 		});
@@ -182,7 +185,8 @@ User.authGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 					reader : User.authReader,
 					writer : User.authWriter,
 					autoSave : false,
-					restful : true
+					restful : true,
+					async : false
 				});
 		this.bbar = new Ext.ux.PagingToolbarEx({
 					pageSize : Common.pageSize, // data to display
