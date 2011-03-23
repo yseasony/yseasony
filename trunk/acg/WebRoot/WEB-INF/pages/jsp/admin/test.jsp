@@ -1,39 +1,45 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<?xml version="1.0" encoding="UTF-8" ?>
 <%@ include file="../common/taglibs.jsp"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="${ctx}/css/admin/login.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Spring MVC</title>
 <%@ include file="../common/extjs.jsp"%>
-<title>test</title>
+    <script language="javascript">
+        Ext.onReady(function() {
+
+            var store = [
+                [1, '选项一'],
+                [2, '选项二'],
+                [3, '选项三'],
+                [4, '选项四'],
+                [5, '选项五'],
+                [6, '选项六'],
+                [7, '选项七'],
+                [8, '选项八']
+            ];
+
+            var form = new Ext.FormPanel({
+                title: '单选/多选下拉列表',
+                renderTo: 'form',
+                frame: true,
+                bodyStyle: 'padding:5px',
+                items: [
+                    { xtype: 'select', fieldLabel: '单选下拉', name: 's1', store: store, value: 1 },
+                    { xtype: 'multiselect', fieldLabel: '多选下拉', name: 's2', store: store, value: [2, 5, 4] },
+                    { xtype: 'multiselect', fieldLabel: '多选下拉', name: 's2', store: store, listWidth: 300}
+                ]
+            });
+
+
+        }, this, { delay: 200 });
+    </script>
 </head>
 <body>
-<div id="b"></div>
-<div id="c"></div>
-<script type="text/javascript">
-	//构造器函数
-
-	Ext.ux.MyPanel = Ext.extend(Ext.Panel, {
-		width : 300,
-		height : 300,
-		constructor : function(config) {
-	          Ext.apply(this, config);
-	          Ext.ux.MyPanel.superclass.constructor.call(this, arguments);
-	        }
-	});
-
-	var myfirstpanel = new Ext.ux.MyPanel({
-		title : 'My First Panel'
-	});
-
-	var mysecondpanel = new Ext.ux.MyPanel({
-		title : 'My Second Panel'
-	});
-
-	myfirstpanel.render('b');
-	mysecondpanel.render('c');
-</script>
+<div id="form"></div>
 
 </body>
 </html>
