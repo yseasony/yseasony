@@ -272,7 +272,8 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 
 });
 
-User.userGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
+User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
+			id : 'user',
 			constructor : function(config) {
 				this.selModel = new Ext.grid.CheckboxSelectionModel();
 				this.colModel = new Ext.grid.ColumnModel([this.selModel, {
@@ -336,6 +337,6 @@ User.userGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 						});
 				Ext.apply(this, config);
 				this.tbar = new User.UToolbar(this);
-				User.userGridPanel.superclass.constructor.call(this, arguments);
+				User.UserGridPanel.superclass.constructor.call(this, arguments);
 			}
 		});
