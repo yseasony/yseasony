@@ -22,7 +22,6 @@
 .x-orange-class {
  background: #ffb11c;
 }
-
 .x-yellow-class {
  background: #ff0;
 }
@@ -65,7 +64,6 @@
 .x-grid-group-hd DIV {    
     FONT: bold 12px tahoma,arial,helvetica,sans-serif;
 }
-
 .x-btn-text-icon .x-btn-center .x-btn-text {
 background-position:0pt 1px;
 background-repeat:no-repeat;
@@ -89,13 +87,11 @@ padding-right:0pt;
  font-size:12px;
 }
 
-
 .controlBtn img {
    
    cursor: pointer;
    
 }
-
 
 .x-grid3-summary-row{border-left:1px solid #fff;border-right:1px solid #fff;color:#333;background: #f1f2f4;}
 .x-grid3-summary-row .x-grid3-cell-inner{font-weight:bold;padding-bottom:4px;font-size:12px;}
@@ -106,4 +102,3 @@ padding-right:0pt;
 .positive{color:green;}
 .x-grid3-body .x-grid3-td-cost{background-color:#f1f2f4;}
 .x-grid3-summary-row .x-grid3-td-cost{background-color:#e1e2e4;}
-.x-grid3-dirty-cell{background-image:none;}
