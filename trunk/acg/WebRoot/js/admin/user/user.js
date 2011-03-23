@@ -1,5 +1,4 @@
 User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
-			bodyStyle : "padding:10px;",
 			initComponent : function() {
 				this.items = [{
 							id : 'password',
@@ -27,33 +26,41 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 							name : "id",
 							hidden : true,
 							hiddenLabel : true
-						}, new Ext.form.RadioGroup({
-									fieldLabel : Lang.common.gender,
-									items : [new Ext.ux.RadioGroupEx({
-														name : 'sex',
-														boxLabel : Lang.common.male,
-														inputValue : true,
-														checked : true
+						}, {
+							xtype : 'radiogroup',
+							fieldLabel : Lang.common.gender,
+							name : 'sex',
+							items : [{
+										boxLabel : Lang.common.male,
+										name : 'sex',
+										xtype : 'radio',
+										inputValue : 'true',
+										checked : true
+									}, {
+										boxLabel : Lang.common.female,
+										name : 'sex',
+										xtype : 'radio',
+										inputValue : 'false'
+									}]
 
-													}), new Ext.form.Radio({
-														name : 'sex',
-														boxLabel : Lang.common.female,
-														inputValue : false
-													})]
-								}), new Ext.form.RadioGroup({
-									fieldLabel : Lang.common.available,
-									items : [new Ext.ux.RadioGroupEx({
-														name : 'enabled',
-														boxLabel : Lang.common.yes,
-														inputValue : true,
-														checked : true
+						}, {
+							xtype : 'radiogroup',
+							fieldLabel : Lang.common.available,
+							name : 'enabled',
+							items : [{
+										boxLabel : Lang.common.yes,
+										name : 'enabled',
+										xtype : 'radio',
+										inputValue : 'true',
+										checked : true
+									}, {
+										boxLabel : Lang.common.no,
+										name : 'enabled',
+										xtype : 'radio',
+										inputValue : 'false'
+									}]
 
-													}), new Ext.form.Radio({
-														name : 'enabled',
-														boxLabel : Lang.common.no,
-														inputValue : false
-													})]
-								})];
+						}];
 				User.UserFormEx.superclass.initComponent.apply(this, arguments);
 			},
 			constructor : function(config) {
@@ -160,8 +167,7 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 User.UToolbar = Ext.extend(Ext.Toolbar, {
 	ownerGrid : null,
 	initComponent : function() {
-		_this = this;
-		var windowUser = new Ext.ux.WindowEx({
+		var window = new Ext.ux.WindowEx({
 					closeAction : 'hide',
 					width : 280
 				});
@@ -169,12 +175,12 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 					text : Lang.user.user_add,
 					iconCls : 'user_add',
 					handler : function() {
-						windowUser.removeAll();
-						windowUser.add(new User.userAddForm(ownerGrid));
-						windowUser.title = Lang.common.user_add;
-						windowUser.iconCls = 'user_add';
-						windowUser.show();
-						windowUser.center();
+						window.removeAll();
+						window.add(new User.userAddForm(ownerGrid));
+						window.title = Lang.user.user_add;
+						window.iconCls = 'user_add';
+						window.show();
+						window.center();
 					}
 				}, {
 					text : Lang.user.user_edit,
@@ -188,13 +194,13 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 										icon : Ext.MessageBox.WARNING
 									});
 						} else {
-							windowUser.removeAll();
+							window.removeAll();
 							var userEditForm = new User.userEditForm();
-							windowUser.add(userEditForm);
-							windowUser.title = Lang.user.user_edit;
-							windowUser.iconCls = 'user_edit';
-							windowUser.show();
-							windowUser.center();
+							window.add(userEditForm);
+							window.title = Lang.user.user_edit;
+							window.iconCls = 'user_edit';
+							window.show();
+							window.center();
 							userEditForm.formLoad(selections[0].id);
 						}
 					}
@@ -267,66 +273,69 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 });
 
 User.userGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
-		constructor : function(config) {
-		this.selModel = new Ext.grid.CheckboxSelectionModel();
-		this.colModel = new Ext.grid.ColumnModel([this.selModel, {
-					header : 'id',
-					dataIndex : 'id'
-				}, {
-					header : Lang.common.login_name,
-					dataIndex : 'loginName'
-				}, {
-					header : Lang.common.name,
-					dataIndex : 'name'
-				}, {
-					header : Lang.common.gender,
-					dataIndex : 'sex',
-					renderer : function(value) {
-						return value ? Lang.common.male : Lang.common.female;
-					}
-				}, {
-					header : Lang.user.user_enabled,
-					dataIndex : 'enabled',
-					renderer : function(value) {
-						return value
-								? Lang.common.enabled
-								: Lang.common.enabled;
-					}
-				}, {
-					header : 'email',
-					dataIndex : 'email'
-				}]);
-		this.store = new Ext.data.JsonStore({
-					totalProperty : 'page.totalCount',
-					root : 'page.result',
-					url : './user/userPage',
-					fields : [{
-								name : 'id',
-								sortable : true,
-								type : 'int'
-							}, {
-								name : 'loginName',
-								type : 'string'
-							}, {
-								name : 'name',
-								type : 'string'
-							}, {
-								name : 'enabled',
-								type : 'boolean'
-							}, {
-								name : 'sex',
-								type : 'boolean'
-							}, {
-								name : 'email',
-								type : 'string'
-							}]
+			constructor : function(config) {
+				this.selModel = new Ext.grid.CheckboxSelectionModel();
+				this.colModel = new Ext.grid.ColumnModel([this.selModel, {
+							header : 'id',
+							dataIndex : 'id'
+						}, {
+							header : Lang.common.login_name,
+							dataIndex : 'loginName'
+						}, {
+							header : Lang.common.name,
+							dataIndex : 'name'
+						}, {
+							header : Lang.common.gender,
+							dataIndex : 'sex',
+							renderer : function(value) {
+								return value
+										? Lang.common.male
+										: Lang.common.female;
+							}
+						}, {
+							header : Lang.user.user_enabled,
+							dataIndex : 'enabled',
+							renderer : function(value) {
+								return value
+										? Lang.common.enabled
+										: Lang.common.enabled;
+							}
+						}, {
+							header : 'email',
+							dataIndex : 'email'
+						}]);
+				this.store = new Ext.data.JsonStore({
+							totalProperty : 'totalCount',
+							root : 'result',
+							url : './user/userPage',
+							fields : [{
+										name : 'id',
+										sortable : true,
+										type : 'int'
+									}, {
+										name : 'loginName',
+										type : 'string'
+									}, {
+										name : 'name',
+										type : 'string'
+									}, {
+										name : 'enabled',
+										type : 'boolean'
+									}, {
+										name : 'sex',
+										type : 'boolean'
+									}, {
+										name : 'email',
+										type : 'string'
+									}]
 
-				});
-		this.bbar = new Ext.ux.PagingToolbarEx({
-					pageSize : Common.pageSize, // data to display
-					store : this.store
-				}), Ext.apply(this, config);
-		this.tbar = new User.UToolbar(this), User.userGridPanel.superclass.constructor
-				.call(this, arguments);
-	}
-});
+						});
+				this.bbar = new Ext.ux.PagingToolbarEx({
+							pageSize : Common.pageSize, // data to display
+							store : this.store
+						});
+				Ext.apply(this, config);
+				this.tbar = new User.UToolbar(this);
+				User.userGridPanel.superclass.constructor.call(this, arguments);
+			}
+		});

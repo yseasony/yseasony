@@ -16,12 +16,7 @@ Index.center = function() {
 							layout : 'fit',
 							title : '欢迎您!',
 							hideMode : 'offsets'
-						}],
-				listeners : {
-					remove : function(tp, c) {
-						c.hide();
-					}
-				}
+						}]
 			});
 	Index.centerPanel = center;
 	return center;

@@ -21,6 +21,7 @@
 	Ext.ux.GridPanelEx = Ext.extend(Ext.grid.GridPanel, {
 				loadMask : true,
 				autoWidth : true,
+				frame : true,
 				stripeRows : true,
 				viewConfig : {
 					forceFit : true
@@ -31,6 +32,54 @@
 							arguments);
 				}
 			});
+}
+{
+	Ext.ux.EditorGridPanelEx = Ext.extend(Ext.grid.EditorGridPanel, {
+		loadMask : true,
+		autoWidth : true,
+		stripeRows : true,
+		frame : true,
+		viewConfig : {
+			forceFit : true
+		},
+		// 校验
+		validateEx : function(ownerGrid) {
+			var m = ownerGrid.store.modified.slice(0);
+			for (var i = 0; i < m.length; i++) {
+				var record = m[i];
+				var fields = record.fields.keys;
+				for (var j = 0; j < fields.length; j++) {
+					var name = fields[j];
+					var value = record.data[name];
+					var colIndex = ownerGrid.colModel.findColumnIndex(name);
+					var rowIndex = ownerGrid.store.indexOfId(record.id);
+					var editor = ownerGrid.colModel.getCellEditor(colIndex);
+					if (editor != null) {
+						editor = ownerGrid.colModel.getCellEditor(colIndex).field;
+						if (!editor.validateValue(value)) {
+							var cell = ownerGrid.getView().getCell(rowIndex,
+									colIndex);
+							cell = Ext.get(cell);
+							cell.focus();
+							ownerGrid.startEditing(rowIndex, colIndex);
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		},
+		constructor : function(config) {
+			Ext.apply(Ext.form.VTypes, {
+						valueExist : Ext.vt
+					});
+			Ext.lib.Ajax.async = false;
+			Ext.form.Field.prototype.msgTarget = 'side';
+			Ext.apply(this, config);
+			Ext.ux.EditorGridPanelEx.superclass.constructor.call(this,
+					arguments);
+		}
+	});
 }
 {
 	Ext.ux.WindowEx = Ext.extend(Ext.Window, {
@@ -51,73 +100,59 @@
 }
 {
 	Ext.ux.FormPanelEx = Ext.extend(Ext.FormPanel, {
-		frame : true,
-		region : 'center',
-		buttonAlign : 'center',
-		autoHeight : true,
-		labelAlign : 'right',
-		labelWidth : 70,
-		defaultType : 'textfield',
-		ownerGrid : null,
-		formSubmit : function() {
-		},
-		formCancel : function() {
-		},
-		formLoad : function() {
-		},
-		constructor : function(config) {
-			Ext.apply(this, config);
-			Ext.apply(Ext.form.VTypes, {
-						password : function(val, field) {// val指这里的文本框值，field指这个文本框组件，大家要明白这个意思
-							if (field.confirmTo) {// confirmTo是我们自定义的配置参数，一般用来保存另外的组件的id值
-								var pwd = Ext.get(field.confirmTo);// 取得confirmTo的那个id的值
-								return val == pwd.getValue();
-							}
-							return false;
-						}
-					});
-			Ext.apply(Ext.form.VTypes, {
-				valueExist : function(val, field) {
-					if (field.existUrl && val.length >= field.minLength) {// 校验地址
-						var filters = new Object();
-						var b = false;
-						filters[field.filterName] = val;
-						Ext.Ajax.request({
-									async : false,
-									url : field.existUrl,
-									params : filters,
-									success : function(response, options) {
-										b = Ext.decode(response.responseText).success
+				frame : true,
+				region : 'center',
+				buttonAlign : 'center',
+				autoHeight : true,
+				labelAlign : 'right',
+				labelWidth : 70,
+				bodyStyle : "padding:10px;",
+				defaultType : 'textfield',
+				ownerGrid : null,
+				formSubmit : function() {
+				},
+				formCancel : function() {
+				},
+				formLoad : function() {
+				},
+				constructor : function(config) {
+					Ext.form.Field.prototype.msgTarget = 'qtip';
+					Ext.apply(this, config);
+					Ext.apply(Ext.form.VTypes, {
+								password : function(val, field) {// val指这里的文本框值，field指这个文本框组件，大家要明白这个意思
+									if (field.confirmTo) {// confirmTo是我们自定义的配置参数，一般用来保存另外的组件的id值
+										var pwd = Ext.get(field.confirmTo);// 取得confirmTo的那个id的值
+										return val == pwd.getValue();
 									}
-								});
-
-					}
-					return b;
+									return false;
+								}
+							});
+					Ext.apply(Ext.form.VTypes, {
+								valueExist : Ext.vt
+							});
+					var _this = this;
+					Ext.ux.FormPanelEx.superclass.constructor.call(this, {
+								keys : [{
+											key : [Ext.EventObject.ENTER],
+											handler : function() {
+												_this.formSubmit();
+											}
+										}],
+								buttons : [_this.buttons, {
+											text : '提交',
+											handler : function() {
+												_this.formSubmit();
+											}
+										}, {
+											text : '取消',
+											handler : function() {
+												_this.formCancel();
+											}
+										}],
+								items : this.items
+							});
 				}
 			});
-			_this = this;
-			Ext.ux.FormPanelEx.superclass.constructor.call(this, {
-						keys : [{
-									key : [Ext.EventObject.ENTER],
-									handler : function() {
-										_this.formSubmit();
-									}
-								}],
-						buttons : [_this.buttons, {
-									text : '提交',
-									handler : function() {
-										_this.formSubmit();
-									}
-								}, {
-									text : '取消',
-									handler : function() {
-										_this.formCancel();
-									}
-								}],
-						items : this.items
-					});
-		}
-	});
 }
 
 {
@@ -339,7 +374,7 @@
 						return this.value;
 					}
 					var p = this.el.up('form');// restrict to the form if it is
-												// in a
+					// in a
 					// form
 					if (!p)
 						p = Ext.getBody();
@@ -380,7 +415,7 @@
 						return;
 					}
 					var p = this.el.up('form');// restrict to the form if it is
-												// in a
+					// in a
 					// form
 					if (!p)
 						p = Ext.getBody();
@@ -395,7 +430,7 @@
 					if (!this.rendered)
 						return;
 					var p = this.el.up('form');// restrict to the form if it is
-												// in a
+					// in a
 					// form
 					if (!p)
 						p = Ext.getBody();
@@ -409,7 +444,7 @@
 					if (!this.rendered)
 						return;
 					var p = this.el.up('form');// restrict to the form if it is
-												// in a
+					// in a
 					// form
 					if (!p)
 						p = Ext.getBody();
@@ -431,7 +466,7 @@
 					if (!this.rendered)
 						return;
 					var p = this.el.up('form');// restrict to the form if it is
-												// in a
+					// in a
 					// form
 					if (!p)
 						p = Ext.getBody();
@@ -481,5 +516,56 @@
 			this.el.dom.maxLength = this.maxLength * 1;
 		}
 
+	};
+}
+
+{
+	Ext.data.CleanJsonWriter = Ext.extend(Ext.data.JsonWriter, {
+				render : function(params, baseParams, data) {
+					params.jsonData = data;
+				},
+				constructor : function(config) {
+					Ext.apply(this, config);
+					Ext.data.CleanJsonWriter.superclass.constructor.call(this,
+							arguments);
+				}
+			});
+}
+{
+	Ext.vt = function(val, field) {
+		if (field.existUrl && val.length >= field.minLength) {
+			var b = true;
+			var filters = new Object();
+			filters[field.filterName] = val;
+			if (field.startValue != undefined && field.startValue.isEmpty()) {
+				Ext.Ajax.request({
+							async : false,
+							url : field.existUrl,
+							params : filters,
+							success : function(response, options) {
+								b = Ext.decode(response.responseText).success;
+							}
+						});
+			} else if (field.startValue != undefined && !field.startValue.isEmpty()) {
+				if (field.startValue != val) {
+					Ext.Ajax.request({
+								async : false,
+								url : field.existUrl,
+								params : filters,
+								success : function(response, options) {
+									b = Ext.decode(response.responseText).success;
+								}
+							});
+				}
+
+			}
+		}
+		return b;
+	};
+}
+
+{
+	String.prototype.isEmpty = function() {
+		return /^\s*$/.test(this);
 	};
 }
