@@ -1,6 +1,6 @@
 package org.yseasony.acg.action.admin.user;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,65 +23,58 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping("/userPage")
 	@ResponseBody
-	public HashMap<String, Object> userPage(Integer start, Integer limit) {
+	public Page<User> userPage(Integer start, Integer limit) {
 		Page<User> page = new Page<User>(limit, start);
-		page = userSvcImpl.userPage(page);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put(PAGE, page);
-		return map;
+		return userSvcImpl.getUserPage(page);
 	}
 
 	@RequestMapping("/userDelete")
 	@ResponseBody
-	public HashMap<String, Object> userDelete(Integer[] ids) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Map<String, Object> userDelete(Integer[] ids) {
 		try {
-			userSvcImpl.delete(ids);
-			map.put(EXT_STATUS, true);
+			userSvcImpl.deleteUser(ids);
+			return getMapSuccess();
 		} catch (Exception e) {
-			map.put(EXT_STATUS, false);
+			return getMapError();
 		}
-		return map;
 	}
 
 	@RequestMapping("/userSave")
 	@ResponseBody
-	public HashMap<String, Object> userSave(User user) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Map<String, Object> userSave(User user) {
 		try {
-			userSvcImpl.save(user);
-			map.put(EXT_STATUS, true);
+			userSvcImpl.saveUser(user);
+			return getMapSuccess();
 		} catch (Exception e) {
-			map.put(EXT_STATUS, false);
+			return getMapError();
 		}
-		return map;
 	}
 
 	@RequestMapping("/userExist")
 	@ResponseBody
-	public HashMap<String, Object> userExist(HttpServletRequest request) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Map<String, Object> userExist(HttpServletRequest request) {
 		try {
-			boolean b = userSvcImpl.userExits(SqlWebUtils
+			boolean b = userSvcImpl.getUserExits(SqlWebUtils
 					.buildPropertyFilters(request));
+			Map<String, Object> map = getMapSuccess();
 			map.put(EXT_STATUS, b);
+			return map;
 		} catch (Exception e) {
-			map.put(EXT_STATUS, false);
+			return getMapError();
 		}
-		return map;
 	}
 
 	@RequestMapping("/userEdit")
 	@ResponseBody
-	public HashMap<String, Object> userExist(Long uid) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public Map<String, Object> userExist(Long uid) {
 		try {
-			map.put(EXT_STATUS, true);
-			map.put(EXT_DATA, userSvcImpl.getUser(uid));
+			User user = userSvcImpl.getUser(uid);
+			Map<String, Object> map = getMapSuccess();
+			map.put(EXT_DATA, user);
+			return map;
 		} catch (Exception e) {
-			map.put(EXT_STATUS, false);
+			return getMapError();
 		}
-		return map;
 	}
 
 }
