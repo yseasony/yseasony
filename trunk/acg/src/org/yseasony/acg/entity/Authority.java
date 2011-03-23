@@ -1,6 +1,10 @@
 package org.yseasony.acg.entity;
 
-public class Authority {
+import java.io.Serializable;
+
+public class Authority implements Serializable {
+
+	private static final long serialVersionUID = 4736362455844134581L;
 
 	/**
 	 * SpringSecurity中默认的角色/授权名前缀.

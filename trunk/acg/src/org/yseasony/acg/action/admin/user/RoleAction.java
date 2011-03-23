@@ -12,36 +12,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yseasony.acg.action.BaseAction;
 import org.yseasony.acg.entity.Authority;
+import org.yseasony.acg.entity.Role;
 import org.yseasony.acg.services.UserSvcImpl;
 import org.yseasony.acg.utils.Page;
 import org.yseasony.acg.utils.sql.SqlWebUtils;
 
 @Controller
-@RequestMapping("/admin/auth")
-public class AuthorityAction extends BaseAction {
+@RequestMapping("/admin/role")
+public class RoleAction extends BaseAction {
 
 	@Autowired
 	private UserSvcImpl userSvcImpl;
 
-	@RequestMapping("/authPage")
+	@RequestMapping("/rolePage")
 	@ResponseBody
-	public Page<Authority> authPage(Integer start, Integer limit) {
-		Page<Authority> page = new Page<Authority>(limit, start);
-		return userSvcImpl.getAuthPage(page);
+	public Page<Role> authPage(Integer start, Integer limit) {
+		Page<Role> page = new Page<Role>(limit, start);
+		return userSvcImpl.getRolePage(page);
 	}
 
-	@RequestMapping("/authDelete")
-	@ResponseBody
-	public Map<String, Object> authDelete(Integer[] ids) {
-		try {
-			userSvcImpl.deleteAuth(ids);
-			return getMapSuccess();
-		} catch (Exception e) {
-			return getMapError();
-		}
-	}
-
-	@RequestMapping("/authSave")
+	@RequestMapping("/roleSave")
 	@ResponseBody
 	public Map<String, Object> authSave(@RequestBody Authority authority) {
 		try {
