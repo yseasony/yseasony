@@ -28,7 +28,8 @@ User.authWriter = new Ext.data.CleanJsonWriter({
 			writeAllFields : false
 		});
 
-User.authGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
+User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
+	id : 'p_auth',
 	initComponent : function() {
 		this.relayEvents(this.store, ['destroy', 'save', 'update']);
 		this.selModel = new Ext.grid.CheckboxSelectionModel();
@@ -60,7 +61,7 @@ User.authGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 					store : this.store
 				});
 		this.tbar = this.buildTopToolbar();
-		User.authGridPanel.superclass.initComponent.call(this);
+		User.AuthGridPanel.superclass.initComponent.call(this);
 	},
 	constructor : function(config) {
 		this.store = new Ext.data.Store({
@@ -72,7 +73,7 @@ User.authGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 					restful : true
 				});
 		Ext.apply(this, config);
-		User.authGridPanel.superclass.constructor.call(this, arguments);
+		User.AuthGridPanel.superclass.constructor.call(this, arguments);
 	},
 	buildTopToolbar : function() {
 		return [{

@@ -13,7 +13,7 @@ User.userTree = new Ext.tree.TreePanel({
 					listeners : {
 						click : function(control, e) {
 							var tid = control.id;
-							var p = new User.userGridPanel()
+							var p = new User.userGridPanel();
 							Index.centerPanel.add({
 										closable : true,
 										id : tid,
@@ -61,22 +61,7 @@ User.userTree = new Ext.tree.TreePanel({
 								leaf : true,
 								listeners : {
 									click : function(control, e) {
-										var tid = control.id;
-										var p = new User.authGridPanel();
-										Index.centerPanel.add({
-													closable : true,
-													id : tid,
-													title : Lang.auth.auth_manager,
-													layout : 'fit',
-													items : p
-												});
-										p.store.load({
-													params : {
-														start : 0,
-														limit : Common.pageSize
-													}
-												});
-										Index.centerPanel.setActiveTab(tid);
+										User.buildTabPanel('p_auth', control.id);
 									}
 								}
 							}]
@@ -84,6 +69,52 @@ User.userTree = new Ext.tree.TreePanel({
 	})
 });
 
+User.buildTabPanel = function(id, tid) {
+	var tabPanel = Ext.getCmp(id);
+	console.log(tabPanel);
+	if (tabPanel == null) {
+		switch (id) {
+			case 'p_auth' :
+				tabPanel = new User.AuthGridPanel();
+				Index.centerPanel.add({
+							closable : true,
+							id : tid,
+							title : Lang.auth.auth_manager,
+							layout : 'fit',
+							items : tabPanel
+						});
+				break
+			case 'p_role' :
+				tabPanel = new User.AuthGridPanel();
+				Index.centerPanel.add({
+							closable : true,
+							id : tid,
+							title : Lang.auth.auth_manager,
+							layout : 'fit',
+							items : tabPanel
+						});
+				break
+			case 'p_user' :
+				tabPanel = new User.AuthGridPanel();
+				Index.centerPanel.add({
+							closable : true,
+							id : tid,
+							title : Lang.auth.auth_manager,
+							layout : 'fit',
+							items : tabPanel
+						});
+				break
+		}
+	}
+	tabPanel.store.load({
+				params : {
+					start : 0,
+					limit : Common.pageSize
+				}
+			});
+	Index.centerPanel.setActiveTab(tid);
+};
+	
 User.userPanel = new Ext.Panel({
 			title : '后台用户管理',
 			autoScroll : true,
