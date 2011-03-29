@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yseasony.acg.dao.UserDao;
@@ -54,8 +55,8 @@ public class UserDaoTest extends BaseTest{
 	@Test
 	public void userPage() {
 		Page<User> page = new Page<User>();
-		List<User> list = userDao.page(page);
+		List<User> list = userDao.page(null,new RowBounds(page.getPageStart(),page.getLimit()));
 		page.setResult(list);
-		page.setTotalCount(userDao.count(null));
+		page.setTotalCount(userDao.count());
 	}
 }

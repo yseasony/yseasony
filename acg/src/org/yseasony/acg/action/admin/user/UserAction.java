@@ -30,7 +30,7 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping("/userDelete")
 	@ResponseBody
-	public Map<String, Object> userDelete(Integer[] ids) {
+	public Map<String, Object> userDelete(Long[] ids) {
 		try {
 			userSvcImpl.deleteUser(ids);
 			return getMapSuccess();
@@ -41,9 +41,9 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping("/userSave")
 	@ResponseBody
-	public Map<String, Object> userSave(User user) {
+	public Map<String, Object> userSave(User user,Long[] roleIds) {
 		try {
-			userSvcImpl.saveUser(user);
+			userSvcImpl.saveUser(user,roleIds);
 			return getMapSuccess();
 		} catch (Exception e) {
 			return getMapError();
@@ -66,7 +66,7 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping("/userEdit")
 	@ResponseBody
-	public Map<String, Object> userExist(Long uid) {
+	public Map<String, Object> userEdit(Long uid) {
 		try {
 			User user = userSvcImpl.getUser(uid);
 			Map<String, Object> map = getMapSuccess();

@@ -563,7 +563,6 @@
 		return b;
 	};
 }
-
 {
 	String.prototype.isEmpty = function() {
 		return /^\s*$/.test(this);

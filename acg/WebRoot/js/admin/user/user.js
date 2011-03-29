@@ -1,4 +1,41 @@
 User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
+			getRoles : function() {
+				var roles = '';
+				Ext.Ajax.request({
+							async : false,
+							url : './role/roleAll',
+							success : function(response) {
+								roles = Ext.util.JSON
+										.decode(response.responseText);
+							},
+							failure : function(response) {
+								Ext.MessageBox.show({
+											msg : Lang.msg.server_error,
+											buttons : Ext.MessageBox.ERROR,
+											icon : Ext.MessageBox.ERROR
+										});
+							}
+						});
+				return roles;
+			},
+			formSubmit : function() {
+				this.getForm().submit({
+							url : './user/userSave',
+							success : function(userAddForm, action) {
+								this.ownerCt.hide();
+								ownerGrid.store.reload();
+							},
+							failure : function(userAddForm, action) {
+								if (action.failureType == 'server') {
+									Ext.Msg.alert('', Lang.msg.addfaile);
+								}
+							},
+							scope : this
+						});
+			},
+			formCancel : function() {
+				this.ownerCt.hide();
+			},
 			initComponent : function() {
 				this.items = [{
 							id : 'password',
@@ -60,6 +97,13 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 										inputValue : 'false'
 									}]
 
+						}, {
+							id : 'rolesCheckbox',
+							xtype : 'checkboxgroup',
+							fieldLabel : Lang.role.role,
+							columns : 2,
+							hideLables : true,
+							items : this.getRoles()
 						}];
 				User.UserFormEx.superclass.initComponent.apply(this, arguments);
 			},
@@ -72,24 +116,6 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 		});
 
 User.userAddForm = Ext.extend(User.UserFormEx, {
-			formSubmit : function() {
-				this.getForm().submit({
-							url : './user/userSave',
-							success : function(userAddForm, action) {
-								this.ownerCt.hide();
-								ownerGrid.store.reload();
-							},
-							failure : function(userAddForm, action) {
-								if (action.failureType == 'server') {
-									Ext.Msg.alert('', Lang.msg.addfaile);
-								}
-							},
-							scope : this
-						});
-			},
-			formCancel : function() {
-				this.ownerCt.hide();
-			},
 			constructor : function(config) {
 				this.ownerGrid = config;
 				User.userAddForm.superclass.constructor.call(this, {
@@ -124,52 +150,43 @@ User.userAddForm = Ext.extend(User.UserFormEx, {
 		});
 
 User.userEditForm = Ext.extend(User.UserFormEx, {
-			formSubmit : function() {
-				this.getForm().submit({
-							url : './user/userSave',
-							success : function(userEditForm, action) {
-								this.ownerCt.hide();
-								ownerGrid.store.reload();
-							},
-							failure : function(userEditForm, action) {
-								if (action.failureType == 'server') {
-									Ext.Msg.alert('', Lang.msg.addfaile);
+	formLoad : function(id) {
+		this.getForm().load({
+			url : './user/userEdit',
+			params : {
+				uid : id
+			},
+			waitMsg : Lang.msg.wait_msg,
+			success : function(form, action) {
+				var roles = action.result.data.roleList;
+				var rolebox = Ext.getCmp('rolesCheckbox');
+				for (var i = 0; i < rolebox.items.length; i++) {
+					Ext.each(roles, function(item) {
+								if (rolebox.items.itemAt(i).inputValue == item.id) {
+									rolebox.items.itemAt(i).setValue(true);
 								}
-							},
-							scope : this
-						});
+							});
+				}
 			},
-			formCancel : function() {
-				this.ownerCt.hide();
-			},
-			formLoad : function(id) {
-				this.getForm().load({
-							url : './user/userEdit',
-							params : {
-								uid : id
-							},
-							waitMsg : Lang.msg.wait_msg,
-							success : function(form, action) {
-							},
-							failure : function(form, action) {
-								Ext.Msg.alert('', Lang.msg.server_error);
-							}
-						});
-			},
-			constructor : function(config) {
-				this.ownerGrid = config;
-				User.userEditForm.superclass.constructor.call(this, {
-							buttons : []
-						});
+			failure : function(form, action) {
+				Ext.Msg.alert('', Lang.msg.server_error);
 			}
 		});
+	},
+	constructor : function(config) {
+		this.ownerGrid = config;
+		User.userEditForm.superclass.constructor.call(this, {
+					buttons : []
+				});
+	}
+});
 
 User.UToolbar = Ext.extend(Ext.Toolbar, {
 	ownerGrid : null,
 	initComponent : function() {
 		var window = new Ext.ux.WindowEx({
 					closeAction : 'hide',
-					width : 280
+					width : 290
 				});
 		this.items = [{
 					text : Lang.user.user_add,
@@ -272,11 +289,13 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 
 });
 
+User.userSm = new Ext.grid.CheckboxSelectionModel();
+
 User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 			id : 'user',
+			sm : User.userSm,
 			constructor : function(config) {
-				this.selModel = new Ext.grid.CheckboxSelectionModel();
-				this.colModel = new Ext.grid.ColumnModel([this.selModel, {
+				this.colModel = new Ext.grid.ColumnModel([User.userSm, {
 							header : 'id',
 							dataIndex : 'id'
 						}, {

@@ -10,15 +10,9 @@
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
 		<result column="sex" property="sex" jdbcType="BOOLEAN" />
-		<association property="roleList" column="id" javaType="role"
-			select="getRoleList" />
+		<collection property="roleList" column="id" ofType="role" select="getRoleList" />
 	</resultMap>
-
-	<resultMap id="roleMap" type="role">
-		<id column="id" property="id" jdbcType="BIGINT" />
-		<result column="name" property="name" jdbcType="VARCHAR" />
-	</resultMap>
-
+	
 	<select id="findUserByLoginName" resultMap="userMap"
 		parameterType="java.lang.String">
 		select
@@ -57,14 +51,14 @@
 	</select>
 
 	<delete id="delete" parameterType="java.lang.Long">
-		delete from acg_user where id
+		DELETE FROM acg_user WHERE id
 		= #{id,jdbcType=BIGINT}
 	</delete>
 
-	<insert id="insert" parameterType="org.yseasony.acg.entity.User">
+	<insert id="insert" parameterType="user">
 		INSERT INTO acg_user (id,
 		email, login_name, name, password,enabled,sex)
-		values
+		VALUES
 		(#{id,jdbcType=BIGINT},
 		#{email,jdbcType=VARCHAR},
 		#{loginName,jdbcType=VARCHAR},
@@ -83,13 +77,12 @@
 		</where>
 	</select>
 
-	<select id="page" resultType="user" parameterType="page">
+	<select id="page" resultType="user">
 		SELECT
 		id,
 		email, login_name as loginName, name, password,enabled,sex
 		FROM
-		acg_user LIMIT #{pageStart},
-		#{limit}
+		acg_user ORDER BY id 
 	</select>
 
 	<update id="update" parameterType="user">
@@ -105,5 +98,14 @@
 		= #{id,jdbcType=BIGINT}
   </update>
 
+	<delete id="deleteUserRole" parameterType="java.lang.Long">
+		DELETE FROM acg_user_role WHERE user_id = #{id}
+	</delete>
+	
+	<insert id="insertUserRole">
+		INSERT INTO acg_user_role (user_id,role_id)
+		VALUES
+		(#{userId},#{roleId})
+	</insert>
 
 </mapper>

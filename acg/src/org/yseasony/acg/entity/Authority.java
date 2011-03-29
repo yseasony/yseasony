@@ -14,7 +14,7 @@ public class Authority implements Serializable {
 	private Long id;
 
 	private String name;
-
+	
 	private String displayName;
 
 	public Long getId() {
@@ -44,5 +44,4 @@ public class Authority implements Serializable {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-
 }

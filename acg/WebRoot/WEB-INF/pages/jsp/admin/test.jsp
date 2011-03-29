@@ -9,37 +9,37 @@
 <title>Spring MVC</title>
 <%@ include file="../common/extjs.jsp"%>
     <script language="javascript">
-        Ext.onReady(function() {
-
-            var store = [
-                [1, '选项一'],
-                [2, '选项二'],
-                [3, '选项三'],
-                [4, '选项四'],
-                [5, '选项五'],
-                [6, '选项六'],
-                [7, '选项七'],
-                [8, '选项八']
-            ];
-
-            var form = new Ext.FormPanel({
-                title: '单选/多选下拉列表',
-                renderTo: 'form',
-                frame: true,
-                bodyStyle: 'padding:5px',
-                items: [
-                    { xtype: 'select', fieldLabel: '单选下拉', name: 's1', store: store, value: 1 },
-                    { xtype: 'multiselect', fieldLabel: '多选下拉', name: 's2', store: store, value: [2, 5, 4] },
-                    { xtype: 'multiselect', fieldLabel: '多选下拉', name: 's2', store: store, listWidth: 300}
-                ]
-            });
-
-
-        }, this, { delay: 200 });
+	
+	Ext.onReady(function(){
+		var myCheckboxGroup = new Ext.form.CheckboxGroup({ 
+		    id:'myGroup', 
+		    xtype: 'checkboxgroup', 
+		    renderTo :'form-cb',
+		    fieldLabel: 'Single Column', 
+		    itemCls: 'x-check-group-alt', 
+		    columns: 3, 
+		    items: [ 
+		        {boxLabel: '唱歌', name: '1'}, 
+		        {boxLabel: '游泳', name: '2', checked: true}, 
+		        {boxLabel: '看书', name: '3'},
+		        {boxLabel: '旅游', name: '4'},
+		        {boxLabel: '游戏', name: '5'},
+		        {boxLabel: '睡觉', name: '6'} 
+		    ] 
+		}); 
+		
+		//CheckboxGroup取值方法
+		for (var i = 0; i < myCheckboxGroup.items.length; i++)
+		{
+			if (myCheckboxGroup.items.itemAt(i).checked)
+			{
+				alert(myCheckboxGroup.items.itemAt(i).name);				
+			}
+		}
+	});
     </script>
 </head>
 <body>
-<div id="form"></div>
-
+<div id="form-cb"></div>
 </body>
 </html>
