@@ -4,6 +4,11 @@ User.authProxy = new Ext.data.HttpProxy({
 				create : './auth/authSave',
 				update : './auth/authUpdate',
 				destroy : './auth/authDelete'
+			},
+			listeners : {
+				exception : function(_this, options, response, error) {
+					console.log(e);
+				}
 			}
 		});
 
