@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.yseasony.acg.dao.AuthorityDao">
-	<resultMap id="authMap" type="authority">
+	<resultMap id="authMap" type="auth">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="display_name" property="displayName" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<select id="page" resultType="authority" parameterType="page">
+	<select id="page" resultType="auth" parameterType="page">
 		SELECT
 		id, display_name as displayName, name
 		FROM
-		acg_authority LIMIT
-		#{pageStart},
-		#{limit}
+		acg_authority
 	</select>
 
-	<insert id="insert" parameterType="authority">
+	<insert id="insert" parameterType="auth">
 		INSERT INTO acg_authority
 		(name,display_name) values(#{name},#{displayName})
 	</insert>
 
-	<update id="update" parameterType="authority">
+	<update id="update" parameterType="auth">
 		UPDATE acg_authority
 		<set>
 			<if test="name != null"> name = #{name},</if>
@@ -45,5 +43,13 @@
 		delete from acg_authority
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
+
+	<select id="getAll" resultType="auth">
+		SELECT
+		id, display_name as displayName
+		FROM
+		acg_authority 
+	</select>
+
 
 </mapper>

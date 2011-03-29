@@ -27,6 +27,7 @@
 		<param-value>
             classpath*:/applicationContext.xml
             classpath*:/applicationContext-security.xml
+            classpath*:/applicationContext-acg.xml
         </param-value>
 	</context-param>
 

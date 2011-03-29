@@ -50,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		Set<GrantedAuthority> authSet = Sets.newHashSet();
 		if (user.getRoleList() != null) {
 			for (Role role : user.getRoleList()) {
-				for (Authority authority : role.getAuthorityList()) {
+				for (Authority authority : role.getAuthorities()) {
 					authSet.add(new GrantedAuthorityImpl(authority
 							.getPrefixedName()));
 				}

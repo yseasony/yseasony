@@ -11,7 +11,7 @@ var Lang = {
 	role : {
 		role_manager : '角色管理',
 		role_add : '添加角色',
-		role_edit : '添加角色',
+		role_edit : '编辑角色',
 		role_delete : '删除角色',
 		role : '角色'
 	},

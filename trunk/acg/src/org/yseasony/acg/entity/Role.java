@@ -1,15 +1,19 @@
 package org.yseasony.acg.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
-public class Role {
-    private Long id;
+public class Role implements Serializable{
+
+	private static final long serialVersionUID = 3101134025201100284L;
+
+	private Long id;
 
     private String name;
 
-    private List<Authority> authorityList = Lists.newArrayList();
+    private List<Authority> authorities = Lists.newArrayList();
     
     public Long getId() {
         return id;
@@ -26,12 +30,14 @@ public class Role {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
-    
-    public List<Authority> getAuthorityList() {
-		return authorityList;
+
+	public List<Authority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setAuthorityList(List<Authority> authorityList) {
-		this.authorityList = authorityList;
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
+
+    
 }

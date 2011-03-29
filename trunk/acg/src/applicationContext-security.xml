@@ -13,7 +13,10 @@
 		<s:intercept-url pattern="/ext/**" filters="none" />
 		<s:intercept-url pattern="/css/**" filters="none" />
 		<s:intercept-url pattern="/js/**" filters="none" />
-
+		
+		<s:intercept-url pattern="/admin/auth/authPage" access="hasAnyRole('ROLE_authPage')" />
+		<s:intercept-url pattern="/admin/auth/authSave" access="hasAnyRole('ROLE_authSave')" />
+		
 		<s:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
 		<s:logout logout-success-url="/admin/login" />
 	</s:http>
