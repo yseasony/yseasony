@@ -18,6 +18,7 @@ var Lang = {
 	auth : {
 		auth_displayName : '权限名',
 		auth_name : '权限代码',
+		auth_button_name : '按钮名',
 		auth_manager : '权限管理',
 		auth_add : '添加权限',
 		auth_delete : '删除权限',

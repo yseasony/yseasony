@@ -1,5 +1,7 @@
 package org.yseasony.acg.security;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserSvcImpl userSvcImpl;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
@@ -32,31 +35,38 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("用户" + username + " 不存在");
 		}
 
-		Set<GrantedAuthority> grantedAuths = obtainGrantedAuthorities(user);
-		boolean enabled = true;
+		Map<String, Set<?>> map = obtainGrantedAuthorities(user);
+		Set<GrantedAuthority> grantedAuths = (Set<GrantedAuthority>) map
+				.get("authSet");
+		Set<String> authButtons = (Set<String>) map.get("authButtons");
+		boolean enabled = user.getEnabled();
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
-
-		UserDetails userdetails = new org.springframework.security.core.userdetails.User(
-				user.getLoginName(), user.getPassword(), enabled,
-				accountNonExpired, credentialsNonExpired, accountNonLocked,
-				grantedAuths);
-
+		UserEx userEx = new UserEx(user.getLoginName(), user.getPassword(),
+				enabled, accountNonExpired, credentialsNonExpired,
+				accountNonLocked, grantedAuths);
+		userEx.setAuthButtons(authButtons);
+		UserDetails userdetails = userEx;
 		return userdetails;
 	}
 
-	private Set<GrantedAuthority> obtainGrantedAuthorities(User user) {
+	private Map<String, Set<?>> obtainGrantedAuthorities(User user) {
+		Map<String, Set<?>> map = new HashMap<String, Set<?>>(2);
 		Set<GrantedAuthority> authSet = Sets.newHashSet();
+		Set<String> authButtons = Sets.newHashSet();
 		if (user.getRoleList() != null) {
 			for (Role role : user.getRoleList()) {
 				for (Authority authority : role.getAuthorities()) {
 					authSet.add(new GrantedAuthorityImpl(authority
 							.getPrefixedName()));
+					authButtons.add(authority.getButtonName());
 				}
 			}
 		}
-		return authSet;
+		map.put("authSet", authSet);
+		map.put("authButtons", authButtons);
+		return map;
 	}
 
 }

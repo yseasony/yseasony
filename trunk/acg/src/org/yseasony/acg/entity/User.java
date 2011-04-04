@@ -1,12 +1,14 @@
 package org.yseasony.acg.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.Lists;
 
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = -2997508252686865559L;
 
 	private Long id;
@@ -18,12 +20,14 @@ public class User implements Serializable {
 	private String name;
 
 	private String password;
-	
+
 	private Boolean enabled;
-	
+
 	private Boolean sex;
-	
-	private List<Role> roleList = Lists.newArrayList();//有序的关联对象集合
+
+	private List<Role> roleList = Lists.newArrayList();// 有序的关联对象集合
+
+	private Set<String> authButtons = new HashSet<String>();
 
 	public Long getId() {
 		return id;
@@ -64,7 +68,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password == null ? null : password.trim();
 	}
-	
+
 	public List<Role> getRoleList() {
 		return roleList;
 	}
@@ -72,7 +76,7 @@ public class User implements Serializable {
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
 	}
-	
+
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -88,5 +92,13 @@ public class User implements Serializable {
 	public void setSex(Boolean sex) {
 		this.sex = sex;
 	}
-	
+
+	public Set<String> getAuthButtons() {
+		return authButtons;
+	}
+
+	public void setAuthButtons(String buttonName) {
+		authButtons.add(buttonName);
+	}
+
 }

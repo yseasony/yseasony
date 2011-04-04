@@ -26,6 +26,9 @@ User.authReader = new Ext.data.JsonReader({
 				}, {
 					name : 'name',
 					allowBlank : false
+				}, {
+					name : 'buttonName',
+					allowBlank : false
 				}]);
 
 User.authWriter = new Ext.data.CleanJsonWriter({
@@ -58,6 +61,13 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 								existUrl : './auth/authExist',
 								filterName : 'filter_name',
 								vtypeText : Lang.msg.data_exist
+							})
+				}, {
+					header : Lang.auth.auth_button_name,
+					name : 'buttonName',
+					dataIndex : 'buttonName',
+					editor : new Ext.form.TextField({
+								allowBlank : false
 							})
 				}]);
 
