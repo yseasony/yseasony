@@ -58,7 +58,8 @@
 		SELECT
 		acg_authority.id,
 		acg_authority.display_name as displayName,
-		acg_authority.name
+		acg_authority.name,
+		acg_authority.button_name as buttonName
 		FROM
 		acg_role
 		INNER

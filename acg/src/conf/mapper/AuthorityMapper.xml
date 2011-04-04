@@ -5,18 +5,19 @@
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="display_name" property="displayName" jdbcType="VARCHAR" />
+		<result column="button_name" property="buttonName" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<select id="page" resultType="auth" parameterType="page">
+	<select id="page" resultMap="authMap" parameterType="page">
 		SELECT
-		id, display_name as displayName, name
+		id, display_name, name,button_name
 		FROM
 		acg_authority
 	</select>
 
 	<insert id="insert" parameterType="auth">
 		INSERT INTO acg_authority
-		(name,display_name) values(#{name},#{displayName})
+		(name,display_name,button_name) values(#{name},#{displayName},#{buttonName})
 	</insert>
 
 	<update id="update" parameterType="auth">
@@ -24,6 +25,7 @@
 		<set>
 			<if test="name != null"> name = #{name},</if>
 			<if test="displayName != null">display_name = #{displayName},</if>
+			<if test="buttonName != null">button_name = #{buttonName},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -44,12 +46,11 @@
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 
-	<select id="getAll" resultType="auth">
+	<select id="getAll" resultMap="authMap">
 		SELECT
-		id, display_name as displayName
+		id, display_name
 		FROM
 		acg_authority 
 	</select>
-
 
 </mapper>

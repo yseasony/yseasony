@@ -16,6 +16,11 @@ public class Authority implements Serializable {
 	private String name;
 	
 	private String displayName;
+	
+	/**
+	 * ext上对应的按钮
+	 */
+	private String buttonName;
 
 	public Long getId() {
 		return id;
@@ -44,4 +49,14 @@ public class Authority implements Serializable {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+
+	public String getButtonName() {
+		return buttonName;
+	}
+
+	public void setButtonName(String buttonName) {
+		this.buttonName = buttonName;
+	}
+	
+	
 }
