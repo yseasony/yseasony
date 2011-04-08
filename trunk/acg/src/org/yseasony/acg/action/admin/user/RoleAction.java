@@ -23,7 +23,7 @@ public class RoleAction extends BaseAction {
 
 	@Autowired
 	private UserSvcImpl userSvcImpl;
-	
+
 	@Autowired
 	private ExtUtil extUtil;
 
@@ -37,24 +37,22 @@ public class RoleAction extends BaseAction {
 	@RequestMapping("/roleAll")
 	@ResponseBody
 	public List<RoleVO> roleAll() {
-
-		try {
-			List<Role> roles = userSvcImpl.getAllRole();
-			return extUtil.checkboxConvert(roles, RoleVO.class);
-		} catch (Exception e) {
-			throw new RuntimeException();
-		}
+		List<Role> roles = userSvcImpl.getAllRole();
+		return extUtil.checkboxConvert(roles, RoleVO.class);
 	}
 
 	@RequestMapping("/roleSave")
 	@ResponseBody
 	public Map<String, Object> roleSave(Role role, Long[] authIds) {
-		try {
-			userSvcImpl.saveRole(role, authIds);
-			return getMapSuccess();
-		} catch (Exception e) {
-			return getMapError();
-		}
+		userSvcImpl.saveRole(role, authIds);
+		return getMapSuccess();
+	}
+
+	@RequestMapping("/roleUpdate")
+	@ResponseBody
+	public Map<String, Object> roleUpdate(Role role, Long[] authIds) {
+		userSvcImpl.saveRole(role, authIds);
+		return getMapSuccess();
 	}
 
 	@RequestMapping("/roleExist")

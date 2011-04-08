@@ -55,7 +55,7 @@
 		= #{id,jdbcType=BIGINT}
 	</delete>
 
-	<insert id="insert" parameterType="user">
+	<insert id="insert" parameterType="user" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO acg_user (id,
 		email, login_name, name, password,enabled,sex)
 		VALUES
