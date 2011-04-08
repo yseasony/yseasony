@@ -9,13 +9,29 @@
 		pre-post-annotations="enabled" />
 
 	<!-- http安全配置 -->
-	<s:http auto-config="false" use-expressions="true" entry-point-ref="authenticationEntryPoint">
+	<s:http auto-config="false" access-denied-page="/error/403.jsp" use-expressions="true" entry-point-ref="authenticationEntryPoint">
 		<s:intercept-url pattern="/ext/**" filters="none" />
 		<s:intercept-url pattern="/css/**" filters="none" />
 		<s:intercept-url pattern="/js/**" filters="none" />
 		
+		<!-- auth -->
 		<s:intercept-url pattern="/admin/auth/authPage" access="hasAnyRole('ROLE_authPage')" />
 		<s:intercept-url pattern="/admin/auth/authSave" access="hasAnyRole('ROLE_authSave')" />
+		<s:intercept-url pattern="/admin/auth/authUpdate/*" access="hasAnyRole('ROLE_authUpdate')" />
+		<s:intercept-url pattern="/admin/auth/authDelete" access="hasAnyRole('ROLE_authDelete')" />
+		<!-- end -->
+		<!-- role -->
+		<s:intercept-url pattern="/admin/role/rolePage" access="hasAnyRole('ROLE_rolePage')" />
+		<s:intercept-url pattern="/admin/role/roleSave" access="hasAnyRole('ROLE_roleSave')" />
+		<s:intercept-url pattern="/admin/role/roleUpdate" access="hasAnyRole('ROLE_roleUpdate')" />
+		<s:intercept-url pattern="/admin/role/roleDelete" access="hasAnyRole('ROLE_roleDelete')" />
+		<!-- end -->
+		<!-- user -->
+		<s:intercept-url pattern="/admin/user/userPage" access="hasAnyRole('ROLE_userPage')" />
+		<s:intercept-url pattern="/admin/user/userSave" access="hasAnyRole('ROLE_userSave')" />
+		<s:intercept-url pattern="/admin/user/userUpdate" access="hasAnyRole('ROLE_userUpdate')" />
+		<s:intercept-url pattern="/admin/user/userDelete" access="hasAnyRole('ROLE_userDelete')" />
+		<!-- end -->
 		
 		<s:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
 		<s:logout logout-success-url="/admin/login" />

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yseasony.acg.action.BaseAction;
 import org.yseasony.acg.entity.User;
+import org.yseasony.acg.security.UserEx;
 import org.yseasony.acg.services.UserSvcImpl;
 import org.yseasony.acg.utils.Page;
+import org.yseasony.acg.utils.SpringSecurityUtils;
 import org.yseasony.acg.utils.sql.SqlWebUtils;
 
 @Controller
@@ -75,6 +77,12 @@ public class UserAction extends BaseAction {
 		} catch (Exception e) {
 			return getMapError();
 		}
+	}
+	
+	@RequestMapping("/userInfo")
+	@ResponseBody
+	public UserEx getUserInfo() {
+		return SpringSecurityUtils.getCurrentUser();
 	}
 
 }
