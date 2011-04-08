@@ -94,6 +94,7 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 		return [{
 					text : Lang.auth.auth_add,
 					iconCls : 'add',
+					disabled : isGranted(userInfo.authButtons.AUTHSAVE),
 					handler : function() {
 						var u = new this.store.recordType({
 									name : '',
@@ -107,6 +108,7 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 				}, {
 					text : Lang.auth.auth_delete,
 					iconCls : 'delete',
+					disabled : isGranted(userInfo.authButtons.AUTHDELETE),
 					handler : function() {
 						var selections = this.selModel.getSelections();
 						var ids = [];
@@ -175,6 +177,7 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 				}, {
 					text : Lang.common.save,
 					iconCls : 'save',
+					disabled : isGranted(userInfo.authButtons.AUTHSAVE) && isGranted(userInfo.authButtons.AUTHUPDATE),
 					handler : function() {
 						if (this.validateEx(this)) {
 							var c = this.store.save();

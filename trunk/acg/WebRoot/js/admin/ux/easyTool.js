@@ -546,7 +546,8 @@
 								b = Ext.decode(response.responseText).success;
 							}
 						});
-			} else if (field.startValue != undefined && !field.startValue.isEmpty()) {
+			} else if (field.startValue != undefined
+					&& !field.startValue.isEmpty()) {
 				if (field.startValue != val) {
 					Ext.Ajax.request({
 								async : false,
@@ -562,6 +563,26 @@
 		}
 		return b;
 	};
+}
+{
+	var App = new Ext.App({});
+	Ext.util.Observable.observeClass(Ext.data.Connection);
+	Ext.data.Connection.on('requestexception', function(conn, resp, options) {
+				if (resp && resp.getResponseHeader) {
+					if (resp.getResponseHeader('_forbidden') == 'true') {
+						App.setAlert(App.STATUS_NOTICE, Lang.msg.access_denied);
+						return;
+					}
+				}
+			});
+	Ext.data.Connection.on('requestcomplete', function(conn, resp, options) {
+				if (resp && resp.getResponseHeader) {
+					if (resp.getResponseHeader('login_timeout') == 'true') {
+						App.setAlert(App.STATUS_NOTICE, Lang.msg.login_timeout);
+						return;
+					}
+				}
+			});
 }
 {
 	String.prototype.isEmpty = function() {

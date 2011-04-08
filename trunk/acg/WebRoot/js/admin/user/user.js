@@ -1,4 +1,5 @@
 User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
+			isUpdate : false,
 			getRoles : function() {
 				var roles = '';
 				Ext.Ajax.request({
@@ -19,6 +20,12 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 				return roles;
 			},
 			formSubmit : function() {
+				var url;
+				if (this.isUpdate) {
+					url = './user/userUpdate';
+				} else {
+					url = './user/userSave';
+				}
 				this.getForm().submit({
 							url : './user/userSave',
 							success : function(userAddForm, action) {
@@ -174,6 +181,7 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 		});
 	},
 	constructor : function(config) {
+		isUpdate : true,
 		this.ownerGrid = config;
 		User.userEditForm.superclass.constructor.call(this, {
 					buttons : []
@@ -191,6 +199,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 		this.items = [{
 					text : Lang.user.user_add,
 					iconCls : 'user_add',
+					disabled : isGranted(userInfo.authButtons.USERSAVE),
 					handler : function() {
 						window.removeAll();
 						window.add(new User.userAddForm(ownerGrid));
@@ -202,6 +211,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 				}, {
 					text : Lang.user.user_edit,
 					iconCls : 'user_edit',
+					disabled : isGranted(userInfo.authButtons.USERUPDATE),
 					handler : function() {
 						var selections = ownerGrid.selModel.getSelections();
 						if (selections.length != 1) {
@@ -223,6 +233,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 					}
 				}, {
 					text : Lang.user.user_delete,
+					disabled : isGranted(userInfo.authButtons.USERDELETE),
 					iconCls : 'user_delete',
 					handler : function() {
 						var selections = ownerGrid.selModel.getSelections();

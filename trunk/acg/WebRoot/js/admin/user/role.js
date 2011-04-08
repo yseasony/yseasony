@@ -1,19 +1,24 @@
 User.RoleFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 	labelWidth : 60,
+	isUpdate : false,
 	formCancel : function() {
 		this.ownerCt.hide();
 	},
 	formSubmit : function() {
+		var url;
+		if(this.isUpdate){
+			url = './role/roleUpdate';
+		} else {
+			url = './role/roleSave';
+		}
 		this.getForm().submit({
-					url : './role/roleSave',
+					url : url,
 					success : function(form, action) {
 						User.roleWindow.hide();
 						Ext.getCmp('p_role').store.reload();
 					},
 					failure : function(form, action) {
-						if (action.failureType == 'server') {
-							Ext.Msg.alert('', Lang.msg.addfaile);
-						}
+						Ext.Msg.alert('', Lang.msg.addfaile);
 					}
 				});
 	},
@@ -152,6 +157,7 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 		return [{
 					text : Lang.role.role_add,
 					iconCls : 'add',
+					disabled : isGranted(userInfo.authButtons.ROLESAVE),
 					handler : function() {
 						User.roleWindow.removeAll();
 						User.roleWindow.add(new User.RoleFormEx());
@@ -163,6 +169,7 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 				}, {
 					text : Lang.role.role_edit,
 					iconCls : 'edit',
+					disabled : isGranted(userInfo.authButtons.ROLEUPDATE),
 					handler : function() {
 						var selections = User.roleSm.getSelections();
 						if (selections.length != 1) {
@@ -173,7 +180,7 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 									});
 						} else {
 							User.roleWindow.removeAll();
-							var form = new User.RoleFormEx();
+							var form = new User.RoleFormEx({isUpdate : true});
 							User.roleWindow.add(form);
 							User.roleWindow.title = Lang.role.role_edit;
 							User.roleWindow.iconCls = 'edit';
@@ -185,6 +192,7 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 				}, {
 					text : Lang.role.role_delete,
 					iconCls : 'delete',
+					disabled : isGranted(userInfo.authButtons.ROLEDELETE),
 					handler : function() {
 						var selections = User.roleSm.getSelections();
 						var ids = [];
