@@ -40,6 +40,8 @@ var Lang = {
 		save : '保存'
 	},
 	msg : {
+		logout : '注销',
+		welcome : '欢迎您',
 		data_exist : '记录已存在',
 		email_check : '不是有效的邮箱地址',
 		confirm_msg : '真的要删除吗？',
@@ -56,6 +58,8 @@ var Lang = {
 		confirm_error : '两次输入不一致',
 		auth_displayName_blank : '请输入权限名',
 		auth_name_blank : '请输入权限代码',
-		role_name_blank : '角色名不能为空'
+		role_name_blank : '角色名不能为空',
+		access_denied : '你没有足够的权限',
+		login_timeout : '登录已超时，请重新登录'
 	}
 };

@@ -10,6 +10,7 @@ User.userTree = new Ext.tree.TreePanel({
 		children : [ {
 			text : Lang.user.user_manager,
 			leaf : true,
+			disabled : userInfo.authButtons.USER,
 			listeners : {
 				click : function(control, e) {
 					User.buildTabPanel('p_user', control.id);
@@ -18,8 +19,10 @@ User.userTree = new Ext.tree.TreePanel({
 		}, {
 			text : Lang.auth.auth_manager,
 			leaf : false,
+			disabled : userInfo.authButtons.AUTH,
 			children : [ {
 				text : Lang.role.role,
+				disabled : isGranted(userInfo.authButtons.ROLEPAGE),
 				leaf : true,
 				listeners : {
 					click : function(control, e) {
@@ -29,6 +32,7 @@ User.userTree = new Ext.tree.TreePanel({
 			}, {
 				text : Lang.auth.auth,
 				leaf : true,
+				disabled : isGranted(userInfo.authButtons.AUTHPAGE),
 				listeners : {
 					click : function(control, e) {
 						User.buildTabPanel('p_auth', control.id);

@@ -6,7 +6,7 @@ Index.center = function() {
 				id : 'center',
 				activeTab : 0,
 				region : 'center',
-				margins : '35 0 5 0',
+				margins : '5 0 5 0',
 				resizeTabs : true,
 				tabWidth : 150,
 				minTabWidth : 120,
@@ -32,8 +32,7 @@ Index.west = function() {
 				minSize : 175,
 				maxSize : 400,
 				collapsible : true,
-				margins : '35 0 5 5',
-				cmargins : '35 5 5 5',
+				margins : '5 0 5 5',
 				layout : 'accordion',
 				layoutConfig : {
 					animate : true
@@ -49,18 +48,41 @@ Index.east = function() {
 				region : 'east',
 				collapsible : true,
 				split : true,
-				width : 225,
+				width : 180,
 				maxSize : 400,
 				minSize : 175,
-				margins : '35 5 5 0'
+				margins : '5 5 5 0'
 			});
 	return right;
+};
+
+Index.north = function() {
+	return new Ext.Panel({
+				region : 'north',
+				border : false,
+				autoWidth : false,
+				autoHeight : true,
+				margins : '5 5 0 5',
+				buttonAlign : 'right',
+				items : [new Ext.Toolbar({
+							items : ['-',{
+										text : Lang.msg.welcome + ':'
+									}, {
+										text : userInfo.username,
+										iconCls : 'user'
+									},'->', {
+										text : Lang.msg.logout,
+										iconCls : 'logout'
+									},'-']
+						})]
+			});
 };
 
 Index.createViewport = function() {
 	var viewport = new Ext.Viewport({
 				layout : 'border',
-				items : [Index.east(), Index.west(), Index.center()]
+				items : [Index.north(), Index.east(), Index.west(),
+						Index.center()]
 			});
 };
 
