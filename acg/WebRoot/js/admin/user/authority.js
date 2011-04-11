@@ -7,7 +7,7 @@ User.authProxy = new Ext.data.HttpProxy({
 			},
 			listeners : {
 				exception : function(_this, options, response, error) {
-					console.log(e);
+					Ext.Msg.alert('', Lang.msg.server_error);
 				}
 			}
 		});

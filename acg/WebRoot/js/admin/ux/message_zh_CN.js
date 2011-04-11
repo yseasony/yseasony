@@ -37,7 +37,9 @@ var Lang = {
 		disabled : '禁用',
 		confirm : '确认',
 		email : 'email',
-		save : '保存'
+		save : '保存',
+		week : ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+		keyWordFind : '关键字查询'
 	},
 	msg : {
 		logout : '注销',

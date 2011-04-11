@@ -20,7 +20,7 @@ Login.LoginFromEx = Ext.extend(Ext.ux.FormPanelEx, {
 								Ext.Msg.alert('', '验证码错误！');
 								reloadcode();
 							} else {
-								Ext.Msg.alert('', '服务器出现问题！');
+								Ext.Msg.alert('', Lang.msg.server_error);
 							}
 						}
 					}

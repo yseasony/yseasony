@@ -181,8 +181,7 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 		});
 	},
 	constructor : function(config) {
-		isUpdate : true,
-		this.ownerGrid = config;
+		isUpdate : true, this.ownerGrid = config;
 		User.userEditForm.superclass.constructor.call(this, {
 					buttons : []
 				});
@@ -191,6 +190,8 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 
 User.UToolbar = Ext.extend(Ext.Toolbar, {
 	ownerGrid : null,
+	searchField : null, 
+	searchOptions : null,
 	initComponent : function() {
 		var window = new Ext.ux.WindowEx({
 					closeAction : 'hide',
@@ -289,12 +290,24 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						}
 					}
-				}], User.UToolbar.superclass.initComponent.apply(this,
-				arguments);
+				}, '->', this.searchField];
+		User.UToolbar.superclass.initComponent.apply(this, arguments);
 	},
 
 	constructor : function(config) {
 		ownerGrid = config;
+		this.searchField = new Ext.form.TextField({
+							emptyText : Lang.common.keyWordFind,
+							enableKeyEvents : true,
+							listeners : {
+								keypress : function(obj, evt) {
+									if (evt.getKey() == Ext.EventObject.RETURN)
+										this.ChaXun();
+								},
+								scope : this
+							}
+						});
+		this.searchOptions =  new Ext.form.				
 		User.UToolbar.superclass.constructor.call(this, arguments);
 	}
 
