@@ -264,8 +264,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
-														ownerGrid.store
-																.reload();
+														ownerGrid.store.reload();
 													} else {
 														Ext.MessageBox.show({
 															msg : Lang.msg.server_error,
@@ -290,13 +289,14 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						}
 					}
-				}, '->', this.searchField];
+				},'-', '->',this.searchOptions,'-', this.searchField,'-',{text: Lang.common.search}];
 		User.UToolbar.superclass.initComponent.apply(this, arguments);
 	},
 
 	constructor : function(config) {
 		ownerGrid = config;
 		this.searchField = new Ext.form.TextField({
+							width:          100,
 							emptyText : Lang.common.keyWordFind,
 							enableKeyEvents : true,
 							listeners : {
@@ -307,7 +307,27 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 								scope : this
 							}
 						});
-		this.searchOptions =  new Ext.form.				
+		this.searchOptions =  new Ext.form.ComboBox({
+            width:          70,
+            xtype:          'combo',
+            mode:           'local',
+            value:          'mrs',
+            triggerAction:  'all',
+            forceSelection: true,
+            editable:       false,
+            fieldLabel:     'Title',
+            name:           'title',
+            hiddenName:     'title',
+            displayField:   'name',
+            valueField:     'value',
+            store:          new Ext.data.JsonStore({
+                fields : ['name', 'value'],
+                data   : [
+                    {name : Lang.common.uid,   value: 'mr'},
+                    {name : Lang.common.login_name,  value: 'mrs'}
+                ]
+            })
+        });		
 		User.UToolbar.superclass.constructor.call(this, arguments);
 	}
 

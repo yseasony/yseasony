@@ -27,6 +27,7 @@ var Lang = {
 	common : {
 		login_name : '用户名',
 		name : '姓名',
+		uid : 'uid',
 		gender : '性别',
 		male : '男',
 		female : '女',
@@ -39,7 +40,8 @@ var Lang = {
 		email : 'email',
 		save : '保存',
 		week : ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-		keyWordFind : '关键字查询'
+		keyWordFind : '关键字查询',
+		search : '查询'
 	},
 	msg : {
 		logout : '注销',
