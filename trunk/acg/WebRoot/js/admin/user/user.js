@@ -289,7 +289,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						}
 					}
-				},'-', '->',this.searchOptions,'-', this.searchField,'-',{text: Lang.common.search}];
+				},'-', '->',this.searchOptions,'-', this.searchField,'-',{iconCls : 'search',text: Lang.common.search}];
 		User.UToolbar.superclass.initComponent.apply(this, arguments);
 	},
 
