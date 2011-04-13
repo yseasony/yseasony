@@ -56,7 +56,7 @@ User.buildTabPanel = function(id, tid) {
 				layout : 'fit',
 				items : tabPanel
 			});
-			break
+			break;
 		case 'p_role':
 			tabPanel = new User.RoleGridPanel();
 			Index.centerPanel.add({
@@ -66,7 +66,7 @@ User.buildTabPanel = function(id, tid) {
 				layout : 'fit',
 				items : tabPanel
 			});
-			break
+			break;
 		case 'p_user':
 			tabPanel = new User.UserGridPanel();
 			Index.centerPanel.add({
@@ -76,7 +76,7 @@ User.buildTabPanel = function(id, tid) {
 				layout : 'fit',
 				items : tabPanel
 			});
-			break
+			break;
 		}
 	}
 	tabPanel.store.load({

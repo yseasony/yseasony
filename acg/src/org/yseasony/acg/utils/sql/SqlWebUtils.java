@@ -17,7 +17,7 @@ public class SqlWebUtils {
 	 * 
 	 * @see #buildPropertyFilters(HttpServletRequest, String)
 	 */
-	public static Map<String, ?> buildPropertyFilters(
+	public static Map<String, Object> buildPropertyFilters(
 			final HttpServletRequest request) {
 		return buildPropertyFilters(request, "filter_");
 	}
@@ -28,7 +28,7 @@ public class SqlWebUtils {
 	 * 
 	 * eg. filter_name
 	 */
-	public static Map<String, ?> buildPropertyFilters(
+	public static Map<String, Object> buildPropertyFilters(
 			final HttpServletRequest request, final String filterPrefix) {
 		// 从request中获取含属性前缀名的参数,构造去除前缀名后的参数Map.
 		return WebUtils.getParametersStartingWith(request, filterPrefix);
