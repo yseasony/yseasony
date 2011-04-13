@@ -25,9 +25,10 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping("/userPage")
 	@ResponseBody
-	public Page<User> userPage(Integer start, Integer limit) {
+	public Page<User> userPage(Integer start, Integer limit,HttpServletRequest request) {
+		Map<String, Object> filters = SqlWebUtils.buildPropertyFilters(request);
 		Page<User> page = new Page<User>(limit, start);
-		return userSvcImpl.getUserPage(page);
+		return userSvcImpl.getUserPage(page,filters);
 	}
 
 	@RequestMapping("/userDelete")

@@ -77,12 +77,20 @@
 		</where>
 	</select>
 
-	<select id="page" resultType="user">
+	<select id="page" resultMap="userMap">
 		SELECT
 		id,
 		email, login_name as loginName, name, password,enabled,sex
 		FROM
-		acg_user ORDER BY id 
+		acg_user 
+		<where>
+			<if test="filters != null">
+				<if test="filters.loginName != null">
+					login_name = #{filters.loginName}
+				</if>
+			</if>
+		</where>
+		ORDER BY id 
 	</select>
 
 	<update id="update" parameterType="user">

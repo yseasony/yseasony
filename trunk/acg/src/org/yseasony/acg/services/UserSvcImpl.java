@@ -27,7 +27,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 	private RoleDao roleDao;
 
 	@Transactional
-	public void saveUser(User user,Long[] roleIds) {
+	public void saveUser(User user, Long[] roleIds) {
 		if (user.getId() != null) {
 			userDao.deleteUserRole(user.getId());
 			userDao.update(user);
@@ -61,7 +61,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 		if (authIds != null) {
 			for (Long authId : authIds) {
 				roleDao.insertRoleAuth(role.getId(), authId);
-			}	
+			}
 		}
 	}
 
@@ -71,8 +71,8 @@ public class UserSvcImpl extends BaseSvcImpl {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<User> getUserPage(Page<User> page) {
-		return getPage(userDao, page);
+	public Page<User> getUserPage(Page<User> page, Map<String, Object> filters) {
+		return getPage(userDao, page, filters);
 	}
 
 	@Transactional
@@ -135,7 +135,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 	public List<Role> getAllRole() {
 		return roleDao.getAll();
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<Role> getRolePage(Page<Role> page) {
 		return getPage(roleDao, page);

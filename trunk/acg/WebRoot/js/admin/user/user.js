@@ -292,7 +292,15 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 				},'-', '->',this.searchOptions,'-', this.searchField,'-',{iconCls : 'search',text: Lang.common.search}];
 		User.UToolbar.superclass.initComponent.apply(this, arguments);
 	},
-
+	search : function() {
+		console.log(this.searchOptions.getValue());
+		var filters = new Object();
+		filters[this.searchOptions.getValue()] = 'admin';
+		filters['start'] = 0;
+		filters['limit'] = Common.pageSize;
+		ownerGrid.store.load({params:filters});
+		console.log(ownerGrid.store);
+	},
 	constructor : function(config) {
 		ownerGrid = config;
 		this.searchField = new Ext.form.TextField({
@@ -302,7 +310,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 							listeners : {
 								keypress : function(obj, evt) {
 									if (evt.getKey() == Ext.EventObject.RETURN)
-										this.ChaXun();
+										this.search();
 								},
 								scope : this
 							}
@@ -311,7 +319,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
             width:          70,
             xtype:          'combo',
             mode:           'local',
-            value:          'mrs',
+            value:          'filter_loginName',
             triggerAction:  'all',
             forceSelection: true,
             editable:       false,
@@ -323,8 +331,8 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
             store:          new Ext.data.JsonStore({
                 fields : ['name', 'value'],
                 data   : [
-                    {name : Lang.common.uid,   value: 'mr'},
-                    {name : Lang.common.login_name,  value: 'mrs'}
+                    {name : Lang.common.uid, value: 'filter_uid'},
+                    {name : Lang.common.login_name, value: 'filter_loginName'}
                 ]
             })
         });		
@@ -340,7 +348,7 @@ User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 			sm : User.userSm,
 			constructor : function(config) {
 				this.colModel = new Ext.grid.ColumnModel([User.userSm, {
-							header : 'id',
+							header : Lang.common.uid,
 							dataIndex : 'id'
 						}, {
 							header : Lang.common.login_name,
