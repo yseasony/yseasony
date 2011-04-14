@@ -92,7 +92,7 @@ Index.north = function() {
 														action) {
 													window.location = './login';
 												}
-											})
+											});
 								}
 							}, '-']
 				})]

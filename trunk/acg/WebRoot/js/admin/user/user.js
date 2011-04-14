@@ -30,7 +30,7 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 							url : './user/userSave',
 							success : function(userAddForm, action) {
 								this.ownerCt.hide();
-								ownerGrid.store.reload();
+								Ext.getCmp('p_user').store.reload();
 							},
 							failure : function(userAddForm, action) {
 								if (action.failureType == 'server') {
@@ -124,7 +124,6 @@ User.UserFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 
 User.userAddForm = Ext.extend(User.UserFormEx, {
 			constructor : function(config) {
-				this.ownerGrid = config;
 				User.userAddForm.superclass.constructor.call(this, {
 							buttons : []
 						});
@@ -188,33 +187,153 @@ User.userEditForm = Ext.extend(User.UserFormEx, {
 	}
 });
 
-User.UToolbar = Ext.extend(Ext.Toolbar, {
-	ownerGrid : null,
-	searchField : null, 
-	searchOptions : null,
+User.userWindow = new Ext.ux.WindowEx({
+			closeAction : 'hide',
+			width : 290
+		});
+
+User.userSm = new Ext.grid.CheckboxSelectionModel();
+
+User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
+	search : function() {
+		var value = this.searchField.getValue();
+		if (value != null && value != '') {
+			this.params[this.searchOptions.getValue()] = value;
+		} else {
+			this.params = {
+				'start' : 0,
+				'limit' : Common.pageSize
+			};
+		}
+		this.getStore().baseParams = this.params;
+		this.load();
+	},
+	id : 'p_user',
+	sm : User.userSm,
 	initComponent : function() {
-		var window = new Ext.ux.WindowEx({
-					closeAction : 'hide',
-					width : 290
+		this.searchField = this.buildSearchField();
+		this.searchOptions = this.buildSearchOptions();
+		this.colModel = new Ext.grid.ColumnModel([User.userSm, {
+					header : Lang.common.uid,
+					dataIndex : 'id'
+				}, {
+					header : Lang.common.login_name,
+					dataIndex : 'loginName'
+				}, {
+					header : Lang.common.name,
+					dataIndex : 'name'
+				}, {
+					header : Lang.common.gender,
+					dataIndex : 'sex',
+					renderer : function(value) {
+						return value ? Lang.common.male : Lang.common.female;
+					}
+				}, {
+					header : Lang.user.user_enabled,
+					dataIndex : 'enabled',
+					renderer : function(value) {
+						return value
+								? Lang.common.enabled
+								: Lang.common.enabled;
+					}
+				}, {
+					header : 'email',
+					dataIndex : 'email'
+				}]);
+		this.store = new Ext.data.JsonStore({
+					totalProperty : 'totalCount',
+					root : 'result',
+					url : './user/userPage',
+					fields : [{
+								name : 'id',
+								sortable : true,
+								type : 'int'
+							}, {
+								name : 'loginName',
+								type : 'string'
+							}, {
+								name : 'name',
+								type : 'string'
+							}, {
+								name : 'enabled',
+								type : 'boolean'
+							}, {
+								name : 'sex',
+								type : 'boolean'
+							}, {
+								name : 'email',
+								type : 'string'
+							}]
+
 				});
-		this.items = [{
+		if (this.bbar == null) {
+			this.bbar = new Ext.ux.PagingToolbarEx({
+						pageSize : this.params.limit,
+						store : this.getStore()
+					});
+		}
+		this.tbar = this.buildTopToolbar();
+		User.UserGridPanel.superclass.initComponent.call(this);
+	},
+	buildSearchOptions : function() {
+		return new Ext.form.ComboBox({
+					width : 70,
+					xtype : 'combo',
+					mode : 'local',
+					value : 'filter_loginName',
+					triggerAction : 'all',
+					forceSelection : true,
+					editable : false,
+					fieldLabel : 'Title',
+					name : 'title',
+					hiddenName : 'title',
+					displayField : 'name',
+					valueField : 'value',
+					store : new Ext.data.JsonStore({
+								fields : ['name', 'value'],
+								data : [{
+											name : Lang.common.uid,
+											value : 'filter_uid'
+										}, {
+											name : Lang.common.login_name,
+											value : 'filter_loginName'
+										}]
+							})
+				})
+	},
+	buildSearchField : function() {
+		return new Ext.form.TextField({
+					width : 100,
+					emptyText : Lang.common.keyWordFind,
+					enableKeyEvents : true,
+					listeners : {
+						keypress : function(obj, evt) {
+							if (evt.getKey() == Ext.EventObject.RETURN)
+								this.search();
+						},
+						scope : this
+					}
+				})
+	},
+	buildTopToolbar : function() {
+		return [{
 					text : Lang.user.user_add,
 					iconCls : 'user_add',
 					disabled : isGranted(userInfo.authButtons.USERSAVE),
 					handler : function() {
-						window.removeAll();
-						window.add(new User.userAddForm(ownerGrid));
-						window.title = Lang.user.user_add;
-						window.iconCls = 'user_add';
-						window.show();
-						window.center();
+						User.userWindow.removeAll();
+						User.userWindow.add(new User.userAddForm());
+						User.userWindow.title = Lang.user.user_add;
+						User.userWindow.iconCls = 'user_add';
+						User.userWindow.show();
+						User.userWindow.center();
 					}
 				}, {
 					text : Lang.user.user_edit,
 					iconCls : 'user_edit',
 					disabled : isGranted(userInfo.authButtons.USERUPDATE),
 					handler : function() {
-						var selections = ownerGrid.selModel.getSelections();
+						var selections = User.userSm.getSelections();
 						if (selections.length != 1) {
 							Ext.MessageBox.show({
 										msg : Lang.msg.select_least_one,
@@ -222,13 +341,13 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 										icon : Ext.MessageBox.WARNING
 									});
 						} else {
-							window.removeAll();
+							User.userWindow.removeAll();
 							var userEditForm = new User.userEditForm();
-							window.add(userEditForm);
-							window.title = Lang.user.user_edit;
-							window.iconCls = 'user_edit';
-							window.show();
-							window.center();
+							User.userWindow.add(userEditForm);
+							User.userWindow.title = Lang.user.user_edit;
+							User.userWindow.iconCls = 'user_edit';
+							User.userWindow.show();
+							User.userWindow.center();
 							userEditForm.formLoad(selections[0].id);
 						}
 					}
@@ -237,7 +356,7 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 					disabled : isGranted(userInfo.authButtons.USERDELETE),
 					iconCls : 'user_delete',
 					handler : function() {
-						var selections = ownerGrid.selModel.getSelections();
+						var selections = User.userSm.getSelections();
 						var count = selections.length;
 						var ids = [];
 						Ext.each(selections, function(item) {
@@ -264,7 +383,8 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
-														ownerGrid.store.reload();
+														Ext.getCmp('p_user').store
+																.reload();
 													} else {
 														Ext.MessageBox.show({
 															msg : Lang.msg.server_error,
@@ -289,125 +409,22 @@ User.UToolbar = Ext.extend(Ext.Toolbar, {
 									});
 						}
 					}
-				},'-', '->',this.searchOptions,'-', this.searchField,'-',{iconCls : 'search',text: Lang.common.search}];
-		User.UToolbar.superclass.initComponent.apply(this, arguments);
+				}, '-', '->', this.searchOptions, '-', this.searchField, '-', {
+					iconCls : 'search',
+					text : Lang.common.search
+				}];
 	},
-	search : function() {
-		console.log(this.searchOptions.getValue());
-		var filters = new Object();
-		filters[this.searchOptions.getValue()] = 'admin';
-		filters['start'] = 0;
-		filters['limit'] = Common.pageSize;
-		ownerGrid.store.load({params:filters});
-		console.log(ownerGrid.store);
+	params : {
+		'start' : 0,
+		'limit' : Common.pageSize
+	},
+	load : function() {
+		this.getStore().load({
+					params : this.getStore().baseParams
+				});
 	},
 	constructor : function(config) {
-		ownerGrid = config;
-		this.searchField = new Ext.form.TextField({
-							width:          100,
-							emptyText : Lang.common.keyWordFind,
-							enableKeyEvents : true,
-							listeners : {
-								keypress : function(obj, evt) {
-									if (evt.getKey() == Ext.EventObject.RETURN)
-										this.search();
-								},
-								scope : this
-							}
-						});
-		this.searchOptions =  new Ext.form.ComboBox({
-            width:          70,
-            xtype:          'combo',
-            mode:           'local',
-            value:          'filter_loginName',
-            triggerAction:  'all',
-            forceSelection: true,
-            editable:       false,
-            fieldLabel:     'Title',
-            name:           'title',
-            hiddenName:     'title',
-            displayField:   'name',
-            valueField:     'value',
-            store:          new Ext.data.JsonStore({
-                fields : ['name', 'value'],
-                data   : [
-                    {name : Lang.common.uid, value: 'filter_uid'},
-                    {name : Lang.common.login_name, value: 'filter_loginName'}
-                ]
-            })
-        });		
-		User.UToolbar.superclass.constructor.call(this, arguments);
+		Ext.apply(this, config);
+		User.UserGridPanel.superclass.constructor.call(this, arguments);
 	}
-
 });
-
-User.userSm = new Ext.grid.CheckboxSelectionModel();
-
-User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
-			id : 'user',
-			sm : User.userSm,
-			constructor : function(config) {
-				this.colModel = new Ext.grid.ColumnModel([User.userSm, {
-							header : Lang.common.uid,
-							dataIndex : 'id'
-						}, {
-							header : Lang.common.login_name,
-							dataIndex : 'loginName'
-						}, {
-							header : Lang.common.name,
-							dataIndex : 'name'
-						}, {
-							header : Lang.common.gender,
-							dataIndex : 'sex',
-							renderer : function(value) {
-								return value
-										? Lang.common.male
-										: Lang.common.female;
-							}
-						}, {
-							header : Lang.user.user_enabled,
-							dataIndex : 'enabled',
-							renderer : function(value) {
-								return value
-										? Lang.common.enabled
-										: Lang.common.enabled;
-							}
-						}, {
-							header : 'email',
-							dataIndex : 'email'
-						}]);
-				this.store = new Ext.data.JsonStore({
-							totalProperty : 'totalCount',
-							root : 'result',
-							url : './user/userPage',
-							fields : [{
-										name : 'id',
-										sortable : true,
-										type : 'int'
-									}, {
-										name : 'loginName',
-										type : 'string'
-									}, {
-										name : 'name',
-										type : 'string'
-									}, {
-										name : 'enabled',
-										type : 'boolean'
-									}, {
-										name : 'sex',
-										type : 'boolean'
-									}, {
-										name : 'email',
-										type : 'string'
-									}]
-
-						});
-				this.bbar = new Ext.ux.PagingToolbarEx({
-							pageSize : Common.pageSize, // data to display
-							store : this.store
-						});
-				Ext.apply(this, config);
-				this.tbar = new User.UToolbar(this);
-				User.UserGridPanel.superclass.constructor.call(this, arguments);
-			}
-		});

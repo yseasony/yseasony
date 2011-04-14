@@ -1,6 +1,6 @@
 Ext.ns('Acg.Common');
 Common = Acg.Common;
-Common.pageSize = 20;
+Common.pageSize = 4;
 Ext.QuickTips.init();
 
 isGranted = function(auth) {
@@ -8,7 +8,7 @@ isGranted = function(auth) {
 		return true;
 	else
 		return auth;
-}
+};
 
 var userInfo = new Object();
 userInfo.authButtons = new Object();

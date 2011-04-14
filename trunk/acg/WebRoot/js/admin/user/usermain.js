@@ -79,12 +79,8 @@ User.buildTabPanel = function(id, tid) {
 			break;
 		}
 	}
-	tabPanel.store.load({
-		params : {
-			start : 0,
-			limit : Common.pageSize
-		}
-	});
+	tabPanel.getStore().baseParams = tabPanel.params;
+	tabPanel.getStore().load();
 	Index.centerPanel.setActiveTab(tid);
 };
 
