@@ -10,9 +10,10 @@
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
 		<result column="sex" property="sex" jdbcType="BOOLEAN" />
-		<collection property="roleList" column="id" ofType="role" select="getRoleList" />
+		<collection property="roleList" column="id" ofType="role"
+			select="getRoleList" />
 	</resultMap>
-	
+
 	<select id="findUserByLoginName" resultMap="userMap"
 		parameterType="java.lang.String">
 		select
@@ -55,9 +56,11 @@
 		= #{id,jdbcType=BIGINT}
 	</delete>
 
-	<insert id="insert" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="user" useGeneratedKeys="true"
+		keyProperty="id">
 		INSERT INTO acg_user (id,
-		email, login_name, name, password,enabled,sex)
+		email, login_name, name,
+		password,enabled,sex)
 		VALUES
 		(#{id,jdbcType=BIGINT},
 		#{email,jdbcType=VARCHAR},
@@ -77,20 +80,37 @@
 		</where>
 	</select>
 
-	<select id="page" resultMap="userMap">
+	<select id="pageCount" resultType="java.lang.Integer">
+		select count(id) from acg_user
+		<where>
+			<if test="filters != null">
+				<if test="filters.loginName != null">
+					login_name like CONCAT('%', #{filters.loginName}, '%')
+				</if>
+				<if test="filters.uid != null">
+					id = #{filters.uid}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="page" resultType="user">
 		SELECT
 		id,
 		email, login_name as loginName, name, password,enabled,sex
 		FROM
-		acg_user 
+		acg_user
 		<where>
 			<if test="filters != null">
 				<if test="filters.loginName != null">
-					login_name = #{filters.loginName}
+					login_name like CONCAT('%', #{filters.loginName}, '%')
+				</if>
+				<if test="filters.uid != null">
+					id = #{filters.uid}
 				</if>
 			</if>
 		</where>
-		ORDER BY id 
+		ORDER BY id
 	</select>
 
 	<update id="update" parameterType="user">
@@ -107,9 +127,10 @@
   </update>
 
 	<delete id="deleteUserRole" parameterType="java.lang.Long">
-		DELETE FROM acg_user_role WHERE user_id = #{id}
+		DELETE FROM
+		acg_user_role WHERE user_id = #{id}
 	</delete>
-	
+
 	<insert id="insertUserRole">
 		INSERT INTO acg_user_role (user_id,role_id)
 		VALUES

@@ -80,7 +80,7 @@ User.buildTabPanel = function(id, tid) {
 		}
 	}
 	tabPanel.getStore().baseParams = tabPanel.params;
-	tabPanel.getStore().load();
+	tabPanel.load();
 	Index.centerPanel.setActiveTab(tid);
 };
 
