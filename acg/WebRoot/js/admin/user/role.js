@@ -6,7 +6,7 @@ User.RoleFormEx = Ext.extend(Ext.ux.FormPanelEx, {
 	},
 	formSubmit : function() {
 		var url;
-		if(this.isUpdate){
+		if (this.isUpdate) {
 			url = './role/roleUpdate';
 		} else {
 			url = './role/roleSave';
@@ -180,7 +180,9 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 									});
 						} else {
 							User.roleWindow.removeAll();
-							var form = new User.RoleFormEx({isUpdate : true});
+							var form = new User.RoleFormEx({
+										isUpdate : true
+									});
 							User.roleWindow.add(form);
 							User.roleWindow.title = Lang.role.role_edit;
 							User.roleWindow.iconCls = 'edit';
@@ -220,8 +222,7 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
-														Ext.getCmp('p_role').store
-																.reload();
+														Ext.getCmp('p_role').store.reload();
 													} else {
 														Ext.MessageBox.show({
 															msg : Lang.msg.server_error,
@@ -244,7 +245,6 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 											});
 										}
 									});
-
 						}
 					}
 				}]
