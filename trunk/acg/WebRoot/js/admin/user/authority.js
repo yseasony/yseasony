@@ -71,10 +71,12 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 							})
 				}]);
 
-		this.bbar = new Ext.ux.PagingToolbarEx({
-					pageSize : Common.pageSize, // data to display
-					store : this.store
-				});
+		if (this.bbar == null) {
+			this.bbar = new Ext.ux.PagingToolbarEx({
+						pageSize : this.params.limit,
+						store : this.getStore()
+					});
+		}
 		this.tbar = this.buildTopToolbar();
 		User.AuthGridPanel.superclass.initComponent.call(this);
 	},
@@ -89,6 +91,15 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 				});
 		Ext.apply(this, config);
 		User.AuthGridPanel.superclass.constructor.call(this, arguments);
+	},
+	params : {
+		'start' : 0,
+		'limit' : Common.pageSize
+	},
+	load : function() {
+		this.getStore().load({
+					params : this.getStore().baseParams
+				});
 	},
 	buildTopToolbar : function() {
 		return [{
@@ -177,7 +188,8 @@ User.AuthGridPanel = Ext.extend(Ext.ux.EditorGridPanelEx, {
 				}, {
 					text : Lang.common.save,
 					iconCls : 'save',
-					disabled : isGranted(userInfo.authButtons.AUTHSAVE) && isGranted(userInfo.authButtons.AUTHUPDATE),
+					disabled : isGranted(userInfo.authButtons.AUTHSAVE)
+							&& isGranted(userInfo.authButtons.AUTHUPDATE),
 					handler : function() {
 						if (this.validateEx(this)) {
 							var c = this.store.save();
