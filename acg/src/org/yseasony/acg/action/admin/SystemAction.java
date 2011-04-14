@@ -1,9 +1,13 @@
 package org.yseasony.acg.action.admin;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.yseasony.acg.action.BaseAction;
 import org.yseasony.acg.security.UserEx;
 import org.yseasony.acg.utils.SpringSecurityUtils;
@@ -26,6 +30,13 @@ public class SystemAction extends BaseAction {
 			return redirect("/admin/login");
 		}
 		return "admin/index";
+	}
+	
+	@RequestMapping("/logout")
+	@ResponseBody
+	public Map<String, Object> logout(HttpServletRequest request){
+		request.getSession().invalidate();
+		return getMapSuccess();
 	}
 
 	@RequestMapping("/test")

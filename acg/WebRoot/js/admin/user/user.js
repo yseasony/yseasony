@@ -197,15 +197,14 @@ User.userSm = new Ext.grid.CheckboxSelectionModel();
 User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 	search : function() {
 		var value = this.searchField.getValue();
-		if (value != null && value != '') {
-			this.params[this.searchOptions.getValue()] = value;
-		} else {
-			this.params = {
+		var params = {
 				'start' : 0,
 				'limit' : Common.pageSize
 			};
+		if (value != null && value != '') {
+			params[this.searchOptions.getValue()] = value;
 		}
-		this.getStore().baseParams = this.params;
+		this.getStore().baseParams = params;
 		this.load();
 	},
 	id : 'p_user',

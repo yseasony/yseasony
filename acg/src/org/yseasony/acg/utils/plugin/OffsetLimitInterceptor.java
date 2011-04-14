@@ -65,10 +65,11 @@ public class OffsetLimitInterceptor implements Interceptor{
 		if(offset != RowBounds.NO_ROW_OFFSET || limit != RowBounds.NO_ROW_LIMIT) {
 			MappedStatement ms = (MappedStatement)queryArgs[MAPPED_STATEMENT_INDEX];
 			String sessionFactoryId = ms.getConfiguration().getEnvironment().getId();
-			//获取sql
-			String sql = ms.getStaticSql();
+			
 			//准备分页参数
 			Object parameter = queryArgs[PARAMETER_INDEX];
+			//获取sql
+			String sql = ms.getStaticSql(parameter);
 			HashMap<String,Object> map = new HashMap<String, Object>();
 			if (parameter != null) {
 				if (parameter instanceof Map) {

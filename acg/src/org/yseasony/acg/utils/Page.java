@@ -46,6 +46,7 @@ public class Page<T> implements Serializable {
 
 	public Page(Integer pageLimit, Integer pageStart) {
 		if (pageLimit != null) {
+			this.pageSize = pageLimit;
 			this.pageLimit = pageLimit;
 		}
 

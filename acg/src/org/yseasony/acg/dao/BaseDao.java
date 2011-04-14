@@ -9,7 +9,9 @@ import org.apache.ibatis.session.RowBounds;
 public interface BaseDao<T> {
 
 	List<T> page(@Param("filters") Map<String, ?> filters,RowBounds rowBounds);
-
+	
+	int pageCount(@Param("filters") Map<String, ?> filters);
+	
 	int count(@Param("filters") Map<String, ?> filters);
 
 	int count();

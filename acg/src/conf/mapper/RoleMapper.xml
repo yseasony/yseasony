@@ -14,7 +14,18 @@
 		FROM
 		acg_role ORDER BY id
 	</select>
-
+	
+	<select id="pageCount" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM acg_role
+		<where>
+			<if test="filters != null">
+				<if test="filters.name != null">
+					name = #{filters.name}
+				</if>
+			</if>
+		</where>
+	</select>
+	
 	<select id="count" resultType="java.lang.Integer">
 		SELECT COUNT(id) FROM acg_role
 		<where>
