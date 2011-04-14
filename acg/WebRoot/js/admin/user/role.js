@@ -142,16 +142,27 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 							}]
 
 				});
-		this.bbar = new Ext.ux.PagingToolbarEx({
-					pageSize : Common.pageSize, // data to display
-					store : this.store
-				});
+		if (this.bbar == null) {
+			this.bbar = new Ext.ux.PagingToolbarEx({
+						pageSize : this.params.limit,
+						store : this.getStore()
+					});
+		}
 		this.tbar = this.buildTopToolbar();
 		User.RoleGridPanel.superclass.initComponent.call(this);
 	},
 	constructor : function(config) {
 		Ext.apply(this, config);
 		User.RoleGridPanel.superclass.constructor.call(this, arguments);
+	},
+	params : {
+		'start' : 0,
+		'limit' : Common.pageSize
+	},
+	load : function() {
+		this.getStore().load({
+					params : this.getStore().baseParams
+				});
 	},
 	buildTopToolbar : function() {
 		return [{
@@ -222,7 +233,8 @@ User.RoleGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 															buttons : Ext.MessageBox.OK,
 															icon : Ext.MessageBox.OK
 														});
-														Ext.getCmp('p_role').store.reload();
+														Ext.getCmp('p_role').store
+																.reload();
 													} else {
 														Ext.MessageBox.show({
 															msg : Lang.msg.server_error,
