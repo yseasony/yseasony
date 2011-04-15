@@ -13,7 +13,7 @@ import com.mzland.analytics.entity.PromotionPkg;
 @Service
 public class CooperationSvcImpl {
 
-	private final static String DEFAULT_PKG_NUMBER = "0000000000";
+	private final static String DEFAULT_PKG_NUMBER = "00000";
 	private static Logger logger = Logger.getLogger(CooperationSvcImpl.class);
 
 	@Autowired

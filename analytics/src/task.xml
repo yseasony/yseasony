@@ -10,6 +10,7 @@
 	</bean>
 	<bean id="taskUpdateTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="taskUpdateJobDetail" />
+		<property name="startDelay" value="360000" />
 		<property name="repeatInterval" value="360000" />
 	</bean>
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="stop">
