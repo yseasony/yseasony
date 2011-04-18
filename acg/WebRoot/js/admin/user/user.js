@@ -410,7 +410,11 @@ User.UserGridPanel = Ext.extend(Ext.ux.GridPanelEx, {
 					}
 				}, '-', '->', this.searchOptions, '-', this.searchField, '-', {
 					iconCls : 'search',
-					text : Lang.common.search
+					text : Lang.common.search,
+					handler : function(){
+						console.log(this);
+						this.ownerCt.ownerCt.search();
+					}
 				}];
 	},
 	params : {
