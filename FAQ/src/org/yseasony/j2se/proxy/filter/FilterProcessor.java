@@ -1,7 +1,11 @@
 package org.yseasony.j2se.proxy.filter;
 
 class FilterAdapter implements Processor {
-  Filter filter;
+  /**
+ * @uml.property  name="filter"
+ * @uml.associationEnd  multiplicity="(1 1)"
+ */
+Filter filter;
   public FilterAdapter(Filter filter) {
     this.filter = filter;
   }

@@ -10,7 +10,13 @@ void next();
 }	
 
 public class Sequence {
+/**
+ * @uml.property  name="items" multiplicity="(0 -1)" dimension="1"
+ */
 private Object[] items;
+/**
+ * @uml.property  name="next"
+ */
 private int next = 0;
 public Sequence(int size) { items = new Object[size]; }
 public void add(Object x) {
