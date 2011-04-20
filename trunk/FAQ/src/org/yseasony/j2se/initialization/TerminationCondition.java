@@ -5,7 +5,10 @@ package org.yseasony.j2se.initialization;
 // hasn't been properly cleaned up.
 
 class Book {
-  boolean checkedOut = false;
+  /**
+ * @uml.property  name="checkedOut"
+ */
+boolean checkedOut = false;
   Book(boolean checkOut) {
     checkedOut = checkOut;
   }

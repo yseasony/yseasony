@@ -4,7 +4,10 @@ package org.yseasony.j2se.initialization;
 // Simple use of the "this" keyword.
 
 public class Leaf {
-  int i = 0;
+  /**
+ * @uml.property  name="i"
+ */
+int i = 0;
   Leaf increment() {
     i++;
     return this;
