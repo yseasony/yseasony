@@ -9,6 +9,7 @@
 <%@ include file="../common/extjs.jsp"%>
 <script type="text/javascript" src="${ctx}/js/admin/index.js"></script>
 <%@ include file="js/user.jsp"%>
+<%@ include file="js/system.jsp"%>
 </head>
 <body>
 </body>
