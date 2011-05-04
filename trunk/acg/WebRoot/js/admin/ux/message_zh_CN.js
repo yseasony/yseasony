@@ -43,6 +43,10 @@ var Lang = {
 		keyWordFind : '关键字查询',
 		search : '查询'
 	},
+	menu :{
+		back_user_manager : '后台用户管理',
+		system_config : '系统设置'
+	},
 	msg : {
 		logout : '注销',
 		welcome : '欢迎您',

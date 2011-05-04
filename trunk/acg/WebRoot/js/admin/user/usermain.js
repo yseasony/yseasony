@@ -85,8 +85,9 @@ User.buildTabPanel = function(id, tid) {
 };
 
 User.userPanel = new Ext.Panel({
-	title : '后台用户管理',
+	title : Lang.menu.back_user_manager,
 	autoScroll : true,
+	collapsed : true,
 	border : false,
 	iconCls : 'user',
 	items : [ User.userTree ]

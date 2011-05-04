@@ -30,6 +30,7 @@ Index.west = function() {
 				margins : '0 0 0 5',
 				split : true,
 				collapsible : true,
+				layout : 'accordion',
 				layoutConfig : {
 					animate : true
 				}
