@@ -1,15 +1,15 @@
 package org.yseasony.test.acg.dao;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yseasony.acg.dao.UserDao;
 import org.yseasony.acg.entity.User;
-import org.yseasony.acg.utils.Page;
+import org.yseasony.acg.utils.Pagination;
 import org.yseasony.test.acg.base.BaseTest;
 
 public class UserDaoTest extends BaseTest{
@@ -46,6 +46,7 @@ public class UserDaoTest extends BaseTest{
 		user.setEmail("aaa11");
 		user.setLoginName("weweew1");
 		user.setPassword("qwewqewq11");
+		user.setEnabled(true);
 		userDao.insert(user);
 		user = userDao.findUserByLoginName("weweew1");
 		Assert.assertNull(user.getRoleList());
@@ -54,9 +55,10 @@ public class UserDaoTest extends BaseTest{
 	
 	@Test
 	public void userPage() {
-		Page<User> page = new Page<User>();
-		List<User> list = userDao.page(null,new RowBounds(page.getPageStart(),page.getLimit()));
-		page.setResult(list);
-		page.setTotalCount(userDao.count());
+		Pagination<User> page = new Pagination<User>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uid", "1");
+		page = userDao.page(map,page);
+		System.out.println(page);
 	}
 }
