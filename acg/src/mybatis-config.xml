@@ -18,9 +18,9 @@
 	</typeAliases>
 
 	<plugins>
-		<plugin interceptor="org.yseasony.acg.utils.plugin.OffsetLimitInterceptor">
-			<!-- dialect,sessionfactory -->
-			<property name="dialect" value="org.yseasony.acg.utils.sql.dialect.MySQLDialect,SqlSessionFactory" />
+		<plugin interceptor="org.yseasony.acg.utils.plugin.mybatis.ResultSetHandlerInterceptor" />
+		<plugin interceptor="org.yseasony.acg.utils.plugin.mybatis.StatementHandlerInterceptor" >
+		<property name="dialect" value="org.yseasony.acg.utils.sql.dialect.MySQLDialect,SqlSessionFactory" />
 		</plugin>
 	</plugins>
 </configuration>

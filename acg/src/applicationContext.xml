@@ -48,7 +48,7 @@
 		<property name="basePackage" value="org.yseasony.acg.dao" />
 	</bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="org.yseasony.acg.utils.plugin.mybatis.MySqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:conf/mapper/*Mapper.xml" />
