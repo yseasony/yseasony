@@ -34,7 +34,7 @@
 		#{id,jdbcType=BIGINT}
 	</select>
 
-	<select id="getRoleList" resultMap="roleMap" parameterType="java.lang.Long">
+	<select id="getRoleList" resultMap="org.yseasony.acg.dao.RoleDao.roleMap" parameterType="java.lang.Long">
 		SELECT
 		acg_role.id,
 		acg_role.`name`
@@ -80,13 +80,10 @@
 		</where>
 	</select>
 
-	<select id="pageCount" resultType="java.lang.Integer">
+	<select id="pageCount" resultType="long">
 		select count(id) from acg_user
 		<where>
 			<if test="filters != null">
-				<if test="filters.loginName != null">
-					login_name like CONCAT('%', #{filters.loginName}, '%')
-				</if>
 				<if test="filters.uid != null">
 					id = #{filters.uid}
 				</if>
@@ -97,14 +94,11 @@
 	<select id="page" resultType="user">
 		SELECT
 		id,
-		email, login_name as loginName, name, password,enabled,sex
+		email, login_name as loginName, name, password, enabled, sex
 		FROM
 		acg_user
 		<where>
 			<if test="filters != null">
-				<if test="filters.loginName != null">
-					login_name like CONCAT('%', #{filters.loginName}, '%')
-				</if>
 				<if test="filters.uid != null">
 					id = #{filters.uid}
 				</if>

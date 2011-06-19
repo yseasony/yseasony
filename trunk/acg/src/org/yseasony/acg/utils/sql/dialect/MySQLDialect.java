@@ -1,23 +1,34 @@
 package org.yseasony.acg.utils.sql.dialect;
-/**
- * @author badqiu
- */
-public class MySQLDialect extends Dialect{
 
-	public boolean supportsLimitOffset(){
-		return true;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class MySQLDialect implements Dialect {
+
+	@Override
+	public void setLimitParamters(PreparedStatement ps, int parameterSize,
+			int offset, int limit) throws SQLException {
+		if (offset <= 0) {
+			ps.setInt(parameterSize + 1, limit);
+		} else {
+			ps.setInt(parameterSize + 1, limit);
+			ps.setInt(parameterSize + 2, limit);
+		}
 	}
-	
-    public boolean supportsLimit() {   
-        return true;   
-    }  
-    
-	public String getLimitString(String sql, int offset,String offsetPlaceholder, int limit, String limitPlaceholder) {
-        if (offset > 0) {   
-        	return sql + " LIMIT #{sql_offset} , #{sql_limit} "; 
-        } else {   
-            return sql + " LIMIT #{sql_limit}";
-        }  
-	}   
-  
+
+	@Override
+	public String getLimitString(String sql, boolean hasOffset) {
+		if (hasOffset) {
+			sql = sql + " LIMIT ?,?";
+		} else {
+			sql = sql + " LIMIT ?";
+		}
+		return sql;
+	}
+
+	@Override
+	public String getLimitString(String sql, int offset, int limit) {
+		throw new RuntimeException("un implements");
+	}
+
 }
