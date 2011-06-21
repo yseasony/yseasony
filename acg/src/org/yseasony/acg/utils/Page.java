@@ -47,7 +47,7 @@ public class Page<T> implements Serializable {
 	
 	public Page(Integer offset, Integer limit) {
 		if (offset != null && limit != null) {
-			this.pageNo = offset / limit;
+			this.pageNo = (offset / limit) + 1;
 			this.pageSize = limit;
 		}
 	}
