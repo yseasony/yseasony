@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.session.RowBounds;
 
 import com.google.common.collect.Lists;
 
@@ -25,9 +26,7 @@ public class Page<T> implements Serializable {
 	public static final String DESC = "desc";
 
 	// -- 分页参数 --//
-	protected int pageNo = 0;
-	protected int pageStart = 0;
-	protected int pageLimit = 0;
+	protected int pageNo = 1;
 	protected int pageSize = 20;
 	protected String orderBy = null;
 	protected String order = null;
@@ -40,20 +39,17 @@ public class Page<T> implements Serializable {
 	public Page() {
 	}
 
-	public Page(int pageSize) {
-		this.pageSize = pageSize;
+	public Page(Integer pageSize) {
+		if (pageSize != null) {
+			this.pageSize = pageSize;
+		}
 	}
-
-	public Page(Integer pageLimit, Integer pageStart) {
-		if (pageLimit != null) {
-			this.pageSize = pageLimit;
-			this.pageLimit = pageLimit;
+	
+	public Page(Integer offset, Integer limit) {
+		if (offset != null && limit != null) {
+			this.pageNo = offset / limit;
+			this.pageSize = limit;
 		}
-
-		if (pageStart != null) {
-			this.pageStart = pageStart;
-		}
-
 	}
 
 	// -- 分页参数访问函数 --//
@@ -109,14 +105,15 @@ public class Page<T> implements Serializable {
 	}
 
 	/**
-	 * 根据pageNo和pageSize计算当前页第一条记录在总结果集中的位置,序号从1开始.
+	 * 根据pageNo和pageSize计算当前页第一条记录在总结果集中的位置, 序号从0开始.
 	 */
-	public int getFirst() {
-		return ((pageNo - 1) * pageSize) + 1;
+	public int getOffset() {
+		return ((pageNo - 1) * pageSize);
 	}
-
-	public int getLimit() {
-		return ((pageNo + 1) * pageSize);
+	
+	public RowBounds newRowBounds() {
+		System.out.println(getOffset());
+		return new RowBounds(getOffset(), pageSize);
 	}
 
 	/**
@@ -267,11 +264,4 @@ public class Page<T> implements Serializable {
 		}
 	}
 
-	public int getPageStart() {
-		return pageStart;
-	}
-
-	public int getPageLimit() {
-		return pageLimit;
-	}
 }

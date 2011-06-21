@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yseasony.acg.dao.UserDao;
 import org.yseasony.acg.entity.User;
-import org.yseasony.acg.utils.Pagination;
+import org.yseasony.acg.utils.Page;
 import org.yseasony.test.acg.base.BaseTest;
 
 public class UserDaoTest extends BaseTest{
@@ -55,10 +55,11 @@ public class UserDaoTest extends BaseTest{
 	
 	@Test
 	public void userPage() {
-		Pagination<User> page = new Pagination<User>();
+		Page<User> page = new Page<User>().pageNo(3);
+		System.out.println(page.getOffset());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", "1");
-		page = userDao.page(map,page);
+		page = userDao.page(page);
 		System.out.println(page);
 	}
 }

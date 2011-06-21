@@ -13,7 +13,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.yseasony.acg.utils.Pagination;
+import org.yseasony.acg.utils.Page;
 
 public class PaginationMapperMethod {  
 	  
@@ -52,21 +52,21 @@ public class PaginationMapperMethod {
     @SuppressWarnings({ "unchecked", "rawtypes" })  
     public Object execute(Object[] args) {  
         final Object param = getParam(args);  
-        Pagination<Object> page;  
-        RowBounds rowBounds;  
+        Page<Object> page ;  
+        RowBounds rowBounds ;  
         if (paginationIndex != null) {  
-            page = (Pagination) args[paginationIndex];  
+            page = (Page) args[paginationIndex];  
             rowBounds = page.newRowBounds();  
         }  
         else if (rowBoundsIndex != null) {  
             rowBounds = (RowBounds) args[rowBoundsIndex];  
-            page = new Pagination<Object>(rowBounds);  
+            page = new Page<Object>();  
         }  
         else {  
             throw new BindingException("Invalid bound statement (not found rowBounds or pagination in paramenters)");  
         }  
-        page.setTotal(executeForCount(param));  
-        page.setList(executeForList(param, rowBounds));  
+        page.setTotalCount(executeForCount(param));  
+        page.setResult(executeForList(param, rowBounds));  
         return page;  
     }  
       
@@ -98,7 +98,7 @@ public class PaginationMapperMethod {
     private void setupMethodSignature() {  
         final Class<?>[] argTypes = method.getParameterTypes();  
         for (int i = 0; i < argTypes.length; i++) {  
-            if (Pagination.class.isAssignableFrom(argTypes[i])) {  
+            if (Page.class.isAssignableFrom(argTypes[i])) {  
                 paginationIndex = i;  
             }  
             else if (RowBounds.class.isAssignableFrom(argTypes[i])) {  

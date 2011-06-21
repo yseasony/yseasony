@@ -14,7 +14,7 @@ public class BaseSvcImpl {
 	}
 
 	<T> Page<T> getPage(BaseDao<T> basedao, Page<T> page, Map<String, ?> filters) {
-		List<T> list = basedao.page(filters,new RowBounds(page.getPageStart(),page.getPageLimit()));
+		List<T> list = basedao.page(filters,new RowBounds());
 		page.setResult(list);
 		page.setTotalCount(basedao.pageCount(filters));
 		return page;

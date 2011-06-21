@@ -21,9 +21,9 @@ public class User implements Serializable {
 
 	private String password;
 
-	private Boolean enabled;
+	private Boolean enabled = true;
 
-	private Boolean sex;
+	private Boolean sex = true;
 
 	private List<Role> roleList = Lists.newArrayList();// 有序的关联对象集合
 

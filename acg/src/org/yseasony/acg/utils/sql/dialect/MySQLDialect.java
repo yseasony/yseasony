@@ -11,7 +11,7 @@ public class MySQLDialect implements Dialect {
 		if (offset <= 0) {
 			ps.setInt(parameterSize + 1, limit);
 		} else {
-			ps.setInt(parameterSize + 1, limit);
+			ps.setInt(parameterSize + 1, offset);
 			ps.setInt(parameterSize + 2, limit);
 		}
 	}
