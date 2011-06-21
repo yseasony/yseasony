@@ -10,7 +10,7 @@ import org.apache.ibatis.binding.BindingException;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.util.ReflectionUtils;
-import org.yseasony.acg.utils.Pagination;
+import org.yseasony.acg.utils.Page;
 
 public class PaginationMapperProxy implements InvocationHandler {  
 	  
@@ -44,7 +44,7 @@ public class PaginationMapperProxy implements InvocationHandler {
             return null;  
         }  
         final Class<?> declaringInterface = findDeclaringInterface(proxy, method);  
-        if (Pagination.class.isAssignableFrom(method.getReturnType())) {  
+        if (Page.class.isAssignableFrom(method.getReturnType())) {  
             // 分页处理  
             return new PaginationMapperMethod(declaringInterface, method, sqlSession).execute(args);  
         }  
