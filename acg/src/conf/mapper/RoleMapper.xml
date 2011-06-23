@@ -3,7 +3,7 @@
 <mapper namespace="org.yseasony.acg.dao.RoleDao">
 
 	<resultMap id="roleMap" type="role">
-		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<collection property="authorities" column="id" ofType="auth" select="getAuthorities" />
 	</resultMap>
@@ -54,7 +54,7 @@
 		#{name} WHERE id = #{id}
 	</update>
 
-	<update id="delete" parameterType="java.lang.Long">
+	<update id="delete" parameterType="int">
 		DELETE FROM acg_role WHERE id
 		= #{id}
 	</update>
@@ -65,7 +65,7 @@
 		(#{roleId},#{authId})
 	</insert>
 
-	<select id="getAuthorities" resultType="auth" parameterType="java.lang.Long">
+	<select id="getAuthorities" resultType="auth" parameterType="int">
 		SELECT
 		acg_authority.id,
 		acg_authority.display_name as displayName,
@@ -82,7 +82,7 @@
 		WHERE acg_role.id = #{id}
 	</select>
 	
-	<delete id="deleteRoleAuth" parameterType="java.lang.Long">
+	<delete id="deleteRoleAuth" parameterType="int">
 		DELETE FROM acg_role_authority WHERE role_id = #{id}
 	</delete>
 

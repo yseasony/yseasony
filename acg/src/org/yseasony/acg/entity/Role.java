@@ -9,17 +9,17 @@ public class Role implements Serializable{
 
 	private static final long serialVersionUID = 3101134025201100284L;
 
-	private Long id;
+	private Integer id;
 
     private String name;
 
     private List<Authority> authorities = Lists.newArrayList();
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

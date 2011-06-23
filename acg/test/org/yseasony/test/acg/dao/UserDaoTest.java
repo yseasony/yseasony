@@ -55,7 +55,7 @@ public class UserDaoTest extends BaseTest{
 	
 	@Test
 	public void userPage() {
-		Page<User> page = new Page<User>().pageNo(3);
+		Page<User> page = new Page<User>(30,10);
 		System.out.println(page.getOffset());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", "1");
