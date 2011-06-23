@@ -72,7 +72,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 
 	@Transactional(readOnly = true)
 	public Page<User> getUserPage(Page<User> page, Map<String, Object> filters) {
-		return getPage(userDao, page, filters);
+		return userDao.page(filters, page);
 	}
 
 	@Transactional
@@ -123,7 +123,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 
 	@Transactional(readOnly = true)
 	public Page<Authority> getAuthPage(Page<Authority> page) {
-		return getPage(authorityDao, page);
+		return authorityDao.page(page);
 	}
 
 	@Transactional(readOnly = true)
@@ -138,7 +138,7 @@ public class UserSvcImpl extends BaseSvcImpl {
 
 	@Transactional(readOnly = true)
 	public Page<Role> getRolePage(Page<Role> page) {
-		return getPage(roleDao, page);
+		return roleDao.page(page);
 	}
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.yseasony.acg.dao.AuthorityDao">
 	<resultMap id="authMap" type="auth">
-		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="display_name" property="displayName" jdbcType="VARCHAR" />
 		<result column="button_name" property="buttonName" jdbcType="VARCHAR" />
@@ -52,7 +52,7 @@
 		</where>
 	</select>
 
-	<delete id="delete" parameterType="java.lang.Long">
+	<delete id="delete" parameterType="int">
 		delete from acg_authority
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
