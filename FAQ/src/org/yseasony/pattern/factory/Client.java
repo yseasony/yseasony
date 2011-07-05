@@ -12,7 +12,8 @@ public class Client {
         this.factory = factory;
     }
 
-    public void doSomething(){
+    @SuppressWarnings("unused")
+	public void doSomething(){
         Product product= factory.createProduct();
         //to do something...
     }
