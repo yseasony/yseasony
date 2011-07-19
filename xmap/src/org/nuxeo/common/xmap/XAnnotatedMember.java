@@ -107,6 +107,11 @@ public class XAnnotatedMember {
             return;
         }
 
+        Object object = this.getter.getValue(instance);
+        if (object == null) {
+			return;
+		}
+        
         Node node = base;
 
         int len = this.path.segments.length;
@@ -121,8 +126,6 @@ public class XAnnotatedMember {
             }
 
         }
-
-        Object object = this.getter.getValue(instance);
 
         if ((object != null)
                 && (Element.class.isAssignableFrom(object.getClass()))) {
