@@ -76,8 +76,9 @@ public class UserSvcImpl extends BaseSvcImpl {
 	}
 
 	@Transactional
-	public void deleteUser(Long[] ids) {
-		for (Long id : ids) {
+	public void deleteUser(Long[] userIds) {
+		for (Long id : userIds) {
+			userDao.deleteUserRole(id);
 			userDao.delete(id);
 		}
 	}

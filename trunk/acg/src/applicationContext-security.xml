@@ -59,7 +59,7 @@
 		<!-- 开发时自动登录的filter -->
 	<bean id="autoLoginFilter" class="org.yseasony.acg.security.AutoLoginFilter">
 		<property name="enabled" value="${security.autologin.enabled}" />
-		<property name="defaultUserName" value="yseasony" />
+		<property name="defaultUserName" value="${security.autologin.username}" />
 	</bean>
 
 	<!-- 项目实现的用户查询服务 -->

@@ -27,7 +27,7 @@ public class UserAction extends BaseAction {
 	@ResponseBody
 	public Page<User> userPage(Integer start, Integer limit,HttpServletRequest request) {
 		Map<String, Object> filters = SqlWebUtils.buildPropertyFilters(request);
-		Page<User> page = new Page<User>(limit, start);
+		Page<User> page = new Page<User>(start, limit);
 		return userSvcImpl.getUserPage(page,filters);
 	}
 

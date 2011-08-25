@@ -112,7 +112,6 @@ public class Page<T> implements Serializable {
 	}
 	
 	public RowBounds newRowBounds() {
-		System.out.println(getOffset());
 		return new RowBounds(getOffset(), pageSize);
 	}
 

@@ -30,7 +30,7 @@ public class RoleAction extends BaseAction {
 	@RequestMapping("/rolePage")
 	@ResponseBody
 	public Page<Role> rolePage(Integer start, Integer limit) {
-		Page<Role> page = new Page<Role>(limit, start);
+		Page<Role> page = new Page<Role>(start, limit);
 		return userSvcImpl.getRolePage(page);
 	}
 

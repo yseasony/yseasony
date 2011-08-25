@@ -1,7 +1,7 @@
 package org.yseasony.acg.utils;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,7 +15,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
 	private static ApplicationContext applicationContext = null;
 
-	protected static Log logger = LogFactory.getLog(SpringContextHolder.class);
+	protected static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
 
 	/**
 	 * 实现ApplicationContextAware接口, 注入Context到静态变量中.
