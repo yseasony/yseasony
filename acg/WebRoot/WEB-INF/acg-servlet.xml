@@ -28,12 +28,29 @@
 
 	<bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper"></bean>
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/pages/jsp/" />
-		<property name="suffix" value=".jsp" />
+	<bean id="velocityConfig"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/pages/vm" />
+		<property name="configLocation" value="/WEB-INF/velocity.properties" />
+	</bean>
+
+	<bean id="viewResolver1"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="cache" value="true" />
+		<property name="suffix" value=".vm" />
+		<property name="requestContextAttribute" value="request" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="numberToolAttribute" value="numberTool" />
+		<property name="attributesMap">
+			<map>
+				<entry key="authz">
+					<bean class="org.yseasony.acg.security.VelocityUserDetails" />
+				</entry>
+			</map>
+		</property>
 	</bean>
 
 </beans>
