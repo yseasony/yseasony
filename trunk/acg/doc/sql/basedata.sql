@@ -39,7 +39,10 @@ INSERT INTO `acg_role_authority` VALUES ('1', '12');
 -- ----------------------------
 -- Records of acg_user
 -- ----------------------------
-INSERT INTO `acg_user` VALUES ('10', 'yseasony', '123456', null, 'qwewqewq11', '', null);
+INSERT INTO `acg_user`(id,login_name,password,name,enabled,sex,email) VALUES ('10', 'yseasony', '123456', '', 1, 1,'yseasony@gmail.com');
 
+-- ----------------------------
+-- Records of acg_user_role
+-- ----------------------------
 
-
+INSERT INTO `acg_user_role` VALUES (10, 1);

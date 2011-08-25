@@ -43,12 +43,12 @@ create table acg.acg_role_authority
 create table acg.acg_user
 (
    id                   bigint(20) not null auto_increment,
-   email                national varchar(100) default '',
    login_name           national varchar(30) not null,
    name                 national varchar(20) default '',
    password             national varchar(20) not null,
    enabled              bit not null default b'1',
    sex                  bit not null default b'1',
+   email                national varchar(100) default '',
    primary key (id),
    key login_name (login_name)
 );
