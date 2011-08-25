@@ -12,7 +12,7 @@
 	</context-param>
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<param-value>WEB-INF/log4j.properties</param-value>
+		<param-value>classpath:log4j.xml</param-value>
 	</context-param>
 	<context-param>
 		<param-name>log4jRefreshInterval</param-name>
@@ -25,13 +25,13 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-            classpath*:/applicationContext.xml
-            classpath*:/applicationContext-security.xml
-            classpath*:/applicationContext-acg.xml
+            classpath:applicationContext.xml
+            classpath:applicationContext-security.xml
+            classpath:applicationContext-acg.xml
         </param-value>
 	</context-param>
 
-	<!-- Filter 定义  -->
+	<!-- Filter 定义 -->
 	<!-- Character Encoding filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -79,9 +79,7 @@
 		<url-pattern>/admin/jcaptcha.jpg</url-pattern>
 	</filter-mapping>
 
-	<!--
-		jcaptcha登录表单处理URL. 必须放在springSecurityFilter的filter-mapping定义之前
-	-->
+	<!-- jcaptcha登录表单处理URL. 必须放在springSecurityFilter的filter-mapping定义之前 -->
 	<filter-mapping>
 		<filter-name>jcaptchaFilter</filter-name>
 		<url-pattern>/admin/j_spring_security_check</url-pattern>
