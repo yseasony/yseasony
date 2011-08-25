@@ -103,6 +103,7 @@
 			<h2>Welcome ${authz.principal}</h2>
 
 			<div class="clear"></div>
+			<div class="clear"></div>
 			<!-- End .clear -->
 
 			<div class="content-box">
