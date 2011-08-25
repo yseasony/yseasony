@@ -40,7 +40,7 @@ public class GMailEngine extends ListImageCaptchaEngine {
 	protected void buildInitialFactories() {
 		int minWordLength = 4;
 		int maxWordLength = 5;
-		int fontSize = 50;
+		int fontSize = 60;
 		int imageWidth = 250;
 		int imageHeight = 100;
 
