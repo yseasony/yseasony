@@ -16,13 +16,11 @@ import org.yseasony.acg.utils.SpringSecurityUtils;
 @RequestMapping("/admin")
 public class SystemAction extends BaseAction {
 
-
 	@RequestMapping("/login")
 	public String login(HttpServletResponse response) {
-		response.setHeader("login_timeout", "true");
 		return "admin/login";
 	}
-
+	
 	@RequestMapping("/index")
 	public String index() {
 		UserEx user = SpringSecurityUtils.getCurrentUser();
