@@ -61,4 +61,6 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<bean name="springContextHolder" class="org.yseasony.acg.utils.SpringContextHolder"
+          lazy-init="false"/>
 </beans>

@@ -32,7 +32,7 @@ public class AuthorityAction extends BaseAction {
 	@RequestMapping("/authPage")
 	@ResponseBody
 	public Page<Authority> authPage(Integer start, Integer limit) {
-		Page<Authority> page = new Page<Authority>(limit, start);
+		Page<Authority> page = new Page<Authority>(start, limit);
 		return userSvcImpl.getAuthPage(page);
 	}
 

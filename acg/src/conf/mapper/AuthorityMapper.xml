@@ -53,8 +53,7 @@
 	</select>
 
 	<delete id="delete" parameterType="int">
-		delete from acg_authority
-		where id = #{id,jdbcType=BIGINT}
+		delete from acg_authority where id = #{id,jdbcType=BIGINT}
 	</delete>
 
 	<select id="getAll" resultMap="authMap">

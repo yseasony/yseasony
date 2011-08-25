@@ -22,14 +22,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.cache.Cache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class MemcachedCache implements Cache {
 
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-	private final Log log = LogFactory.getLog(MemcachedCache.class);
+	private static Logger log = LoggerFactory.getLogger(MemcachedCache.class);
 	private final static MemcachedClient CLIENT = MemcachedClientWrapper
 			.getInstance().getClient();
 	private final static int EXPIRATION = MemcachedClientWrapper.getInstance()
@@ -44,10 +44,7 @@ public final class MemcachedCache implements Cache {
 
 	private String toKeyString(final Object key) {
 		String keyString = KEY_PREFIX + Integer.toHexString(key.hashCode());
-		if (log.isDebugEnabled()) {
-			log.debug("Object key '" + key + "' converted in '" + keyString
-					+ "'");
-		}
+		log.debug("Object key '{}' converted in '{}'", key, keyString);
 		return keyString;
 	}
 
@@ -76,10 +73,7 @@ public final class MemcachedCache implements Cache {
 		Object ret = null;
 		try {
 			ret = CLIENT.get(keyString);
-			if (this.log.isDebugEnabled()) {
-				this.log.debug("Retrived object (" + keyString + ", " + ret
-						+ ")");
-			}
+			log.debug("Retrived object ({}, {} )", keyString, ret);
 		} catch (TimeoutException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -116,9 +110,7 @@ public final class MemcachedCache implements Cache {
 	public Object removeObject(Object key) {
 		String keyString = toKeyString(key);
 
-		if (log.isDebugEnabled()) {
-			log.debug("Removing object '" + keyString + "'");
-		}
+		log.debug("Removing object '{}'", keyString);
 
 		Object result = this.getObject(keyString);
 		if (result != null) {
