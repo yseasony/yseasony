@@ -7,8 +7,22 @@
 	<link rel="stylesheet" href="/acg/css/admin/style.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="/acg/css/admin/invalid.css" type="text/css" media="screen">
 	<script type="text/javascript" src="/acg/js/jquery-1.6.2.js"></script>
-	<script type="text/javascript" src="/acg/js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="/acg/js/jquery.pager.js"></script>
+	<script type="text/javascript" src="/acg/js/admin/sidebar.js"></script>
 
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#pagination").pager({ pagenumber: 1, pagecount: 15, buttonClickCallback: PageClick });
+        });
+
+        PageClick = function(pageclickednumber) {
+            $("#pagination").pager({ pagenumber: pageclickednumber, pagecount: 15, buttonClickCallback: PageClick });
+            $("#result").html("Clicked Page " + pageclickednumber);
+        }
+       
+    </script>
+    
 </head>
 <body>
 	<div id="body-wrapper">
@@ -169,17 +183,8 @@
 								<option value="option3">Delete</option>
 							</select> <a class="button" href="#">Apply to selected</a>
 						</div>
-
-						<div class="pagination">
-							<a href="#" title="First Page">« First</a><a href="#"
-								title="Previous Page">« Previous</a> <a href="#" class="number"
-								title="1">1</a> <a href="#" class="number" title="2">2</a> <a
-								href="#" class="number current" title="3">3</a> <a href="#"
-								class="number" title="4">4</a> <a href="#" title="Next Page">Next
-								»</a><a href="#" title="Last Page">Last »</a>
-
-						</div> <!-- End .pagination -->
-						<div id="pager"></div>
+						<div id="pagination"></div> 
+						<!-- End .pagination -->
 						<div class="clear"></div></td>
 				</tr>
 			</tfoot>
