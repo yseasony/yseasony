@@ -24,7 +24,7 @@
 	</appender>
 	
 	<appender class="org.apache.log4j.ConsoleAppender" name="stdout_debug">
-		<param value="ERROR" name="Threshold" />
+		<param value="debug" name="Threshold" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param value="%d [%t] %p %c - %m%n" name="ConversionPattern" />
 		</layout>
