@@ -1,14 +1,5 @@
-<script type="text/javascript">
-
-        $(document).ready(function() {
-            $("#pagination").pager({ pagenumber: 1, pagecount: 15, buttonClickCallback: PageClick });
-        });
-
-        PageClick = function(pageclickednumber) {
-            $("#pagination").pager({ pagenumber: pageclickednumber, pagecount: 15, buttonClickCallback: PageClick });
-            $("#result").html("Clicked Page " + pageclickednumber);
-        }
-</script>
+#parse("common/taglibs.vm")
+<script type="text/javascript" src="$ctx/js/admin/user/user.js"></script>
 <div class="content-box-header">
 	<h3 style="cursor: s-resize;">Content box</h3>
 	<ul class="content-box-tabs">
@@ -34,41 +25,35 @@
 			<thead>
 				<tr>
 					<th><input class="check-all" type="checkbox" /></th>
-					<th>Column 11</th>
-					<th>Column 2</th>
-					<th>Column 3</th>
-					<th>Column 4</th>
-					<th>Column 5</th>
+					<th style="width:20px;">id</th>
+					<th style="width:100px;">用户名</th>
+					<th style="width:100px;">姓名</th>
+					<th style="width:50px;">性别</th>
+					<th style="width:50px;">状态</th>
+					<th style="width:200px;">email</th>
+					<th style="width:200px;">操作</th>
 				</tr>
 
 			</thead>
 
 			<tfoot>
 				<tr>
-					<td colspan="6">
-						<div class="bulk-actions align-left">
-							<select name="dropdown">
-								<option selected="selected" value="option1">Choose an
-									action...</option>
-								<option value="option2">Edit</option>
-								<option value="option3">Delete</option>
-							</select> <a class="button" href="#">Apply to selected</a>
-						</div>
-
+					<td colspan="8">
 						<div id="pagination"></div>
 						<!-- End .pagination -->
 						<div class="clear"></div></td>
 				</tr>
 			</tfoot>
 
-			<tbody>
-				<tr class="alt-row">
+			<tbody id="user_table">
+				<tr id="user_template">
 					<td><input type="checkbox" /></td>
-					<td>Lorem ipsum dolor</td>
-					<td><a href="#" title="title">Sit amet</a>
-					</td>
-					<td>Consectetur adipiscing</td>
-					<td>Donec tortor diam</td>
+					<td id="uid"></td>
+					<td id="loginName"></td>
+					<td id="name"></td>
+					<td id="sex"></td>
+					<td id="enabled"></td>
+					<td id="email"></td>
 					<td>
 						<!-- Icons --> <a href="#" title="Edit"><img
 							src="${ctx}/img/admin/pencil.png" alt="Edit" /> </a> <a href="#"
@@ -77,20 +62,6 @@
 							src="${ctx}/img/admin/hammer_screwdriver.png" alt="Edit Meta" /> </a></td>
 				</tr>
 
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Lorem ipsum dolor</td>
-					<td><a href="#" title="title">Sit amet</a>
-					</td>
-					<td>Consectetur adipiscing</td>
-					<td>Donec tortor diam</td>
-					<td>
-						<!-- Icons --> <a href="#" title="Edit"><img
-							src="${ctx}/img/admin/pencil.png" alt="Edit" /> </a> <a href="#"
-						title="Delete"><img src="${ctx}/img/admin/cross.png" alt="Delete" />
-					</a> <a href="#" title="Edit Meta"><img
-							src="${ctx}/img/admin/hammer_screwdriver.png" alt="Edit Meta" /> </a></td>
-				</tr>
 
 			</tbody>
 

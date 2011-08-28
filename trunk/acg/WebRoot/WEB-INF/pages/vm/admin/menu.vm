@@ -19,7 +19,7 @@
 		<!-- Add the class "current" to current menu item -->
 		<li><a href="#" class="nav-top-item">用户管理</a>
 			<ul style="display: block;">
-				<li><a href="${ctx}/admin/user/userPage">用户</a>
+				<li><a href="${ctx}/admin/user/userPage" name="load">用户</a>
 				</li>
 				<li><a href="#">Manage Articles</a>
 				</li>

@@ -87,6 +87,12 @@ $(document).ready(function(){
 			}
 		);
 
+		
+		 $("a[name='load']").click(function(){
+			  var url = $(this).attr("href");
+			  $("#main-conetent-box").empty().load(url);
+			  return false;
+		  });
 });
   
   

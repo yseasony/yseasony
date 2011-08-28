@@ -22,9 +22,8 @@
 			<h2>Welcome ${authz.principal}</h2>
 			<div class="clear"></div>
 			<!-- End .clear -->
-			<div class="content-box">
+			<div class="content-box" id="main-conetent-box">
 				<!-- Start Content Box -->
-				#parse("admin/user/user.vm")
 			</div>
 			<!-- End .content-box -->
 			<div class="clear"></div>

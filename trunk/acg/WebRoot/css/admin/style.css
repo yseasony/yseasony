@@ -412,11 +412,13 @@ ul.content-box-tabs li a.current {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	cursor: pointer;
+	border-radius: 4px 4px 4px 4px;
 }
 
 #pagination a {
 	margin: 0 5px 0 0;
 	padding: 3px 6px;
+	border-radius: 4px 4px 4px 4px;
 }
 
 #pagination a.number {
@@ -437,6 +439,10 @@ ul.content-box-tabs li a.current {
 #pagination a.pgEmpty {
 border:1px solid #eee;
 color:#eee;
+}
+
+#pagination a.pgNext {
+border: 1px solid #ddd;
 }
 
 /************ Shortcut Buttons ************/

@@ -23,12 +23,18 @@ public class UserAction extends BaseAction {
 	@Autowired
 	private UserSvcImpl userSvcImpl;
 
-	@RequestMapping("/userPage")
+	@RequestMapping("/userList")
 	@ResponseBody
-	public Page<User> userPage(Integer start, Integer limit,HttpServletRequest request) {
+	public Page<User> userList(Integer pageNo, HttpServletRequest request) {
 		Map<String, Object> filters = SqlWebUtils.buildPropertyFilters(request);
-		Page<User> page = new Page<User>(start, limit);
+		Page<User> page = new Page<User>();
+		page.setPageNo(pageNo);
 		return userSvcImpl.getUserPage(page,filters);
+	}
+	
+	@RequestMapping("/userPage")
+	public String userPage() {
+		return "admin/user/user";
 	}
 
 	@RequestMapping("/userDelete")

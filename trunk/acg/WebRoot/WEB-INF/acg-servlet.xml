@@ -11,7 +11,11 @@
 		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan base-package="org.yseasony.acg.action" />
-
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="*.html" location="*.html" />
+	<mvc:resources mapping="*.ico" location="*.ico" />
 	<mvc:annotation-driven />
 
 	<bean
@@ -34,7 +38,7 @@
 		<property name="configLocation" value="/WEB-INF/velocity.properties" />
 	</bean>
 
-	<bean id="viewResolver1"
+	<bean id="velocityResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="cache" value="true" />
 		<property name="suffix" value=".vm" />
@@ -44,6 +48,7 @@
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="numberToolAttribute" value="numberTool" />
+		<property name="order" value="1" />
 		<property name="attributesMap">
 			<map>
 				<entry key="authz">
@@ -52,5 +57,6 @@
 			</map>
 		</property>
 	</bean>
+
 
 </beans>
