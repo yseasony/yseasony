@@ -1,7 +1,24 @@
+var mainContent = {
+	// Check all checkboxes when the one in a table head is checked
+	checkAllHandler : function() {
+		$(this).parent().parent().parent().parent().find(
+				"input[type='checkbox']").attr('checked',
+				$(this).is(':checked'));
+	},
+	tabClickHandler : function() { 
+		$(this).parent().siblings().find("a").removeClass('current'); // Remove "current" class from all tabs
+		$(this).addClass('current'); // Add class "current" to clicked tab
+		var currentTab = $(this).attr('href'); // Set variable "currentTab" to the value of href of clicked tab
+		$(currentTab).siblings().hide(); // Hide all content divs
+		$(currentTab).show(); // Show the content div with the id equal to the id of clicked tab
+		return false; 
+	}
+};
+
+
 $(document).ready(function(){
 	
-	//Sidebar Accordion Menu:
-		
+		//Sidebar Accordion Menu:
 		$("#main-nav li ul").hide(); // Hide all sub menus
 		$("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
 		
@@ -33,8 +50,7 @@ $(document).ready(function(){
 			}
 		);
 
-    //Minimize Content Box
-		
+		//Minimize Content Box
 		$(".content-box-header h3").css({ "cursor":"s-resize" }); // Give the h3 in Content Box Header a different cursor
 		$(".closed-box .content-box-content").hide(); // Hide the content of the header if it has the class "closed"
 		$(".closed-box .content-box-tabs").hide(); // Hide the tabs in the header if it has the class "closed"
@@ -47,25 +63,12 @@ $(document).ready(function(){
 			}
 		);
 
-    // Content box tabs:
-		
+		// Content box tabs:
 		$('.content-box .content-box-content div.tab-content').hide(); // Hide the content divs
 		$('ul.content-box-tabs li a.default-tab').addClass('current'); // Add the class "current" to the default tab
 		$('.content-box-content div.default-tab').show(); // Show the div with class "default-tab"
-		
-		$('.content-box ul.content-box-tabs li a').click( // When a tab is clicked...
-			function() { 
-				$(this).parent().siblings().find("a").removeClass('current'); // Remove "current" class from all tabs
-				$(this).addClass('current'); // Add class "current" to clicked tab
-				var currentTab = $(this).attr('href'); // Set variable "currentTab" to the value of href of clicked tab
-				$(currentTab).siblings().hide(); // Hide all content divs
-				$(currentTab).show(); // Show the content div with the id equal to the id of clicked tab
-				return false; 
-			}
-		);
 
-    //Close button:
-		
+		//Close button:
 		$(".close").click(
 			function () {
 				$(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
@@ -75,25 +78,14 @@ $(document).ready(function(){
 			}
 		);
 
-    // Alternating table rows:
-		
+		// Alternating table rows:
 		$('tbody tr:even').addClass("alt-row"); // Add class "alt-row" to even table rows
-
-    // Check all checkboxes when the one in a table head is checked:
 		
-		$('.check-all').click(
-			function(){
-				$(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));   
-			}
-		);
-
-		
-		 $("a[name='load']").click(function(){
-			  var url = $(this).attr("href");
-			  $("#main-conetent-box").empty().load(url);
-			  return false;
-		  });
+		$("a[name='load']").click(function(){
+			var url = $(this).attr("href");
+			$("#main-conetent-box").empty().load(url);
+			return false;
+		});
 });
-  
-  
+
   

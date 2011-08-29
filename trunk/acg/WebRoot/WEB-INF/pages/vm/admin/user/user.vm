@@ -1,12 +1,12 @@
 #parse("common/taglibs.vm")
 <script type="text/javascript" src="$ctx/js/admin/user/user.js"></script>
 <div class="content-box-header">
-	<h3 style="cursor: s-resize;">Content box</h3>
+	<h3 style="cursor: s-resize;">用户</h3>
 	<ul class="content-box-tabs">
-		<li><a href="#tab1" class="default-tab current">Table</a>
+		<li><a href="#tab1" class="default-tab current">列表</a>
 		</li>
 		<!-- href must be unique and match the id of target div -->
-		<li><a href="#tab2">Forms</a>
+		<li><a href="#tab2">添加</a>
 		</li>
 	</ul>
 
@@ -19,12 +19,10 @@
 
 	<div style="display: block;" class="tab-content default-tab" id="tab1">
 		<!-- This is the target div. id must match the href of this div's tab -->
-
 		<table>
-
 			<thead>
 				<tr>
-					<th><input class="check-all" type="checkbox" /></th>
+					<th style="width:20px;"><input class="check-all" type="checkbox" /></th>
 					<th style="width:20px;">id</th>
 					<th style="width:100px;">用户名</th>
 					<th style="width:100px;">姓名</th>
@@ -33,7 +31,6 @@
 					<th style="width:200px;">email</th>
 					<th style="width:200px;">操作</th>
 				</tr>
-
 			</thead>
 
 			<tfoot>
@@ -41,7 +38,8 @@
 					<td colspan="8">
 						<div id="pagination"></div>
 						<!-- End .pagination -->
-						<div class="clear"></div></td>
+						<div class="clear"></div>
+					</td>
 				</tr>
 			</tfoot>
 
@@ -55,20 +53,151 @@
 					<td id="enabled"></td>
 					<td id="email"></td>
 					<td>
-						<!-- Icons --> <a href="#" title="Edit"><img
-							src="${ctx}/img/admin/pencil.png" alt="Edit" /> </a> <a href="#"
-						title="Delete"><img src="${ctx}/img/admin/cross.png" alt="Delete" />
-					</a> <a href="#" title="Edit Meta"><img
-							src="${ctx}/img/admin/hammer_screwdriver.png" alt="Edit Meta" /> </a></td>
+						<!-- Icons --> 
+						<a href="#" title="Edit"><img src="${ctx}/img/admin/pencil.png" alt="Edit" /></a>
+						<a href="#" title="Delete"><img src="${ctx}/img/admin/cross.png" alt="Delete" /></a> 
+						<a href="#" title="Edit Meta"><img src="${ctx}/img/admin/hammer_screwdriver.png" alt="Edit Meta" /></a>
+					</td>
 				</tr>
-
-
 			</tbody>
 
 		</table>
-
 	</div>
 	<!-- End #tab1 -->
 
+
+<div style="display: none;" class="tab-content" id="tab2">
+
+	<form action="" method="post" id="userform">
+		<fieldset>
+			<!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+
+			<p>
+				<label>用户名</label><input class="text-input min-input"
+					id="small-input" name="loginName" type="text" maxlength = "10"> 
+					<span class="input-notification success png_bg">Successful message</span>
+				<br>
+				<small>A small description of the field</small>
+			</p>
+
+			<p>
+				<label>密码</label> <input
+					class="text-input medium-input datepicker" id="medium-input"
+					name="medium-input" type="password" > <span
+					class="input-notification error png_bg">Error message</span>
+			</p>
+			
+			<p>
+				<label>确认密码</label> <input
+					class="text-input medium-input datepicker" id="medium-input"
+					name="medium-input" type="password" > <span
+					class="input-notification error png_bg">Error message</span>
+			</p>
+
+			<p>
+
+				<label>Large form input</label> <input
+					class="text-input large-input" id="large-input" name="large-input"
+					type="text">
+			</p>
+
+			<p>
+				<label>Checkboxes</label> <input name="checkbox1" type="checkbox">
+				This is a checkbox <input name="checkbox2" type="checkbox">
+				And this is another checkbox
+			</p>
+
+
+			<p>
+				<label>Radio buttons</label> <input name="radio1" type="radio">
+				This is a radio button<br> <input name="radio2" type="radio">
+				This is another radio button
+			</p>
+
+			<p>
+				<label>This is a drop down list</label> <select name="dropdown"
+					class="small-input">
+
+					<option selected="selected" value="option1">Option 1</option>
+					<option value="option2">Option 2</option>
+					<option value="option3">Option 3</option>
+					<option value="option4">Option 4</option>
+				</select>
+			</p>
+
+			<p>
+
+				<label>Textarea with WYSIWYG</label>
+			<div class="wysiwyg" style="width: 653px;">
+				<ul class="panel">
+					<li><a class="bold">
+							<!-- -->
+					</a>
+					</li>
+					<li><a class="italic">
+							<!-- -->
+					</a>
+					</li>
+					<li class="separator"></li>
+					<li><a class="createLink">
+							<!-- -->
+					</a>
+					</li>
+					<li><a class="insertImage">
+							<!-- -->
+					</a>
+					</li>
+					<li class="separator"></li>
+					<li><a class="h1">
+							<!-- -->
+					</a>
+					</li>
+					<li><a class="h2">
+							<!-- -->
+					</a>
+					</li>
+					<li><a class="h3">
+							<!-- -->
+					</a>
+					</li>
+					<li class="separator"></li>
+					<li><a class="increaseFontSize">
+							<!-- -->
+					</a>
+					</li>
+					<li><a class="decreaseFontSize">
+							<!-- -->
+					</a>
+					</li>
+					<li class="separator"></li>
+					<li><a class="removeFormat">
+							<!-- -->
+					</a>
+					</li>
+				</ul>
+				<div style="clear: both;">
+					<!-- -->
+				</div>
+				<iframe id="textareaIFrame" style="min-height: 250px; width: 645px;"></iframe>
+			</div>
+			<textarea style="display: none;" class="text-input textarea wysiwyg"
+				id="textarea" name="textfield" cols="79" rows="15"></textarea>
+			</p>
+
+			<p>
+				<input class="button" value="Submit" type="submit">
+			</p>
+
+		</fieldset>
+
+
+		<div class="clear"></div>
+		<!-- End .clear -->
+
+	</form>
+
+</div>
+<!-- End #tab2 -->
+					
 </div>
 <!-- End .content-box-content -->
