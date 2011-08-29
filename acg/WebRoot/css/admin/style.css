@@ -83,7 +83,7 @@ strong {
 }
 
 small {
-	font-size: 0.85em;
+	font-size: 0.95em;
 }
 
 pre {
@@ -377,6 +377,7 @@ ul.content-box-tabs li a.current {
 	font-weight: bold;
 	font-size: 15px;
 	border-bottom: 1px solid #ddd;
+	text-align: center;
 }
 
 #main-content tbody {
@@ -394,6 +395,7 @@ ul.content-box-tabs li a.current {
 #main-content table td,#main-content table th {
 	padding: 10px;
 	line-height: 1.3em;
+	text-align: center;
 }
 
 #main-content table tfoot td .bulk-actions {
@@ -498,7 +500,7 @@ form fieldset legend {
 }
 
 form p small {
-	font-size: 0.75em;
+	font-size: 0.95em;
 	color: #777;
 }
 
@@ -508,6 +510,10 @@ form input.text-input,form select,form textarea,form .wysiwyg {
 	background: #fff url('../../img/admin/bg-form-field.gif') top left repeat-x;
 	border: 1px solid #d5d5d5;
 	color: #333;
+}
+
+form .min-input {
+	width: 15% !important;
 }
 
 form .small-input {
