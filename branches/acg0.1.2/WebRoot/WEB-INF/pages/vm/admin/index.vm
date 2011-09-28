@@ -1,0 +1,37 @@
+#parse("common/taglibs.vm")
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>管理中心</title>
+	<link rel="stylesheet" href="$ctx/css/admin/reset.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="$ctx/css/admin/style.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="$ctx/css/admin/invalid.css" type="text/css" media="screen">
+	<script type="text/javascript" src="$ctx/js/jquery-1.6.2.js"></script>
+	<script type="text/javascript" src="$ctx/js/admin/sidebar.js"></script>
+	<script type="text/javascript" src="$ctx/js/jquery.pager.js"></script>
+	<script type="text/javascript" src="$ctx/js/jquery.validate.min.js"></script>
+</head>
+<body>
+	<div id="body-wrapper">
+		<div id="sidebar">#parse("admin/menu.vm")</div>
+		<!-- End #sidebar -->
+		<div id="main-content">
+			<!-- Main Content Section with everything -->
+			#parse("admin/noscript.vm")
+			<!-- Page Head -->
+			<h2>Welcome ${authz.principal}</h2>
+			<div class="clear"></div>
+			<!-- End .clear -->
+			<div class="content-box" id="main-conetent-box">
+				<!-- Start Content Box -->
+			</div>
+			<!-- End .content-box -->
+			<div class="clear"></div>
+			#parse("admin/footer.vm")
+			<!-- End #footer -->
+		</div>
+		<!-- End #main-content -->
+	</div>
+</body>
+</html>
