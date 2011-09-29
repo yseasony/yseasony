@@ -57,7 +57,7 @@ $(document).ready(function() {
 		rules: {
 			loginName: {
 				required: true,
-				minlength: 6
+				minlength: 6,
 			},
 			password: {
 				required: true,
@@ -78,18 +78,19 @@ $(document).ready(function() {
 				equalTo: "Enter the same password as above"
 			}
 		},
+		errorElement: "span",
+//		errorClass: "input-notification error png_bg" ,
 		// the errorPlacement has to take the table layout into account
-		errorPlacement: function(error, element) {
-			error.prependTo(element.next("span"));
-		},
+//		errorPlacement: function(error, element) {
+//			error.prependTo(element.next("span"));
+//		},
 		// specifying a submitHandler prevents the default submit, good for the demo
 		submitHandler: function() {
 			alert("submitted!");
 		},
 		// set this class to error-labels to indicate valid fields
 		success: function(span) {
-			// set &nbsp; as text for IE
-			span.html("&nbsp;").addClass("checked");
+			span.addClass("checked");
 		}
 		
 	});

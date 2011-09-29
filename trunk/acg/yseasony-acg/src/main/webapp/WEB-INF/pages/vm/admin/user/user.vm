@@ -75,7 +75,6 @@
 			<p>
 				<label>用户名</label><input class="text-input min-input"
 					id="small-input" name="loginName" type="text" maxlength = "10"> 
-					<span class="input-notification success png_bg">Successful message</span>
 				<br>
 				<small>A small description of the field</small>
 			</p>
