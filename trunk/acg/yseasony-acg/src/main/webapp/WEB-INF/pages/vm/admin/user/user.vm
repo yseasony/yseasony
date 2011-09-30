@@ -76,21 +76,23 @@
 				<label>用户名</label><input class="text-input min-input"
 					id="small-input" name="loginName" type="text" maxlength = "10"> 
 				<br>
-				<small>A small description of the field</small>
+				<small>用户名长度为6到10位</small>
 			</p>
 
 			<p>
 				<label>密码</label> <input
-					class="text-input medium-input datepicker" id="medium-input"
-					name="medium-input" type="password" > <span
-					class="input-notification error png_bg">Error message</span>
+					class="text-input small-dadian-input datepicker" id="password"
+					name="password" type="password" maxlength = "15">
+					<br>
+					<small>密码长度为6到15位</small>
 			</p>
 			
 			<p>
 				<label>确认密码</label> <input
-					class="text-input medium-input datepicker" id="medium-input"
-					name="medium-input" type="password" > <span
-					class="input-notification error png_bg">Error message</span>
+					class="text-input small-dadian-input datepicker" id="medium-input"
+					name="password_confirm" type="password" maxlength = "15">
+					<br>
+					<small>请再次输入密码确认</small>
 			</p>
 
 			<p>
