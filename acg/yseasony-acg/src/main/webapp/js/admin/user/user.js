@@ -31,7 +31,7 @@ var user = {
 					if (i % 2 == 0) {
 						row.attr("class", "alt-row ready");
 					} else {
-						row.attr("class","ready");
+						row.attr("class", "ready");
 					}
 					row.appendTo("#user_table");
 				});
@@ -41,6 +41,48 @@ var user = {
 				console.log("aaaaaaa");
 			}
 		});
+	},
+	userValidate : function() {
+		$("#userform").validate({
+			rules : {
+				loginName : {
+					required : true,
+					minlength : 6,
+				},
+				password : {
+					required : true,
+					minlength : 6
+				},
+				password_confirm : {
+					required : true,
+					minlength : 6,
+					equalTo : "#password"
+				}
+			},
+			messages : {
+				loginName : {
+					required : "请输入用户名",
+					minlength : jQuery.format("用户名长度至少 {0} 位")
+				},
+				password : {
+					required : "请输入密码",
+					minlength : jQuery.format("密码长度至少 {0} 位")
+				},
+				password_confirm : {
+					required : "请输入确认密码",
+					minlength : jQuery.format("密码长度至少 {0} 位"),
+					equalTo : "两次密码输入不同"
+				}
+			},
+			errorElement : "span",
+			submitHandler : function() {
+				alert("submitted!");
+			},
+			success : function(span) {
+				span.addClass("checked");
+			}
+
+		});
 	}
 };
 
@@ -48,51 +90,10 @@ var pageClick = function(pageclickednumber) {
 	user.page(pageclickednumber);
 };
 
-$(document).ready(function() {
-	user.page(1);
-    $('.check-all').click(mainContent.checkAllHandler);
-    $('.content-box ul.content-box-tabs li a').click(mainContent.tabClickHandler);
-    
-    $("#userform").validate({
-		rules: {
-			loginName: {
-				required: true,
-				minlength: 6,
-			},
-			password: {
-				required: true,
-			},
-			password_confirm: {
-				required: true,
-				equalTo: "#password"
-			}
-		},
-		messages: {
-			loginName: {
-				required: "Enter a username",
-				minlength: jQuery.format("Enter at least {0} characters")
-			},
-			password_confirm: {
-				required: "Repeat your password",
-				minlength: jQuery.format("Enter at least {0} characters"),
-				equalTo: "Enter the same password as above"
-			}
-		},
-		errorElement: "span",
-//		errorClass: "input-notification error png_bg" ,
-		// the errorPlacement has to take the table layout into account
-//		errorPlacement: function(error, element) {
-//			error.prependTo(element.next("span"));
-//		},
-		// specifying a submitHandler prevents the default submit, good for the demo
-		submitHandler: function() {
-			alert("submitted!");
-		},
-		// set this class to error-labels to indicate valid fields
-		success: function(span) {
-			span.addClass("checked");
-		}
-		
-	});
-	
-});
+$(document).ready(
+		function() {
+			user.page(1);
+			$('.check-all').click(mainContent.checkAllHandler);
+			$('.content-box ul.content-box-tabs li a').click(mainContent.tabClickHandler);
+			user.userValidate();
+		});
