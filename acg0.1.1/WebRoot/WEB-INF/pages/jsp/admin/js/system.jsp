@@ -1,0 +1,1 @@
+<script type="text/javascript" src="${ctx}/js/admin/system/systemmain.js"></script>

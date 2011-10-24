@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+.save {
+	background-image: url(../../img/c_save.gif);
+}
+
+.add {
+	background-image: url(../../img/c_add.png);
+}
+
+.delete {
+	background-image: url(../../img/c_delete.gif);
+}
+
+.edit {
+	background-image: url(../../img/c_edit.gif);
+}
+
+.user {
+	background-image: url(../../img/user.png);
+}
+
+.user_add {
+	background-image: url(../../img/user_add.png);
+}
+
+.user_delete {
+	background-image: url(../../img/user_delete.png);
+}
+
+.user_edit {
+	background-image: url(../../img/user_edit.png);
+}
+
+.logout {
+	background-image: url(../../img/logout.png);
+}
+
+.search {
+	background-image: url(../../img/search.png);
+}
+
+.system {
+	background-image: url(../../img/admin/setting_tools.png);
+}		
