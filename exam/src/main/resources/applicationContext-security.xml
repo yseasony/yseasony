@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:s="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
+	default-lazy-init="true">
+
+	<s:global-method-security
+		pre-post-annotations="enabled" />
+
+	<!-- http安全配置 -->
+	<s:http auto-config="false" access-denied-page="/error/403.jsp" use-expressions="true" entry-point-ref="authenticationEntryPoint">
+		<s:intercept-url pattern="/ext/**" filters="none" />
+		<s:intercept-url pattern="/css/**" filters="none" />
+		<s:intercept-url pattern="/js/**" filters="none" />
+		
+		<!-- auth -->
+		<s:intercept-url pattern="/admin/auth/authPage" access="hasAnyRole('ROLE_authPage')" />
+		<s:intercept-url pattern="/admin/auth/authSave" access="hasAnyRole('ROLE_authSave')" />
+		<s:intercept-url pattern="/admin/auth/authUpdate/*" access="hasAnyRole('ROLE_authUpdate')" />
+		<s:intercept-url pattern="/admin/auth/authDelete" access="hasAnyRole('ROLE_authDelete')" />
+		<!-- end -->
+		<!-- role -->
+		<s:intercept-url pattern="/admin/role/rolePage" access="hasAnyRole('ROLE_rolePage')" />
+		<s:intercept-url pattern="/admin/role/roleSave" access="hasAnyRole('ROLE_roleSave')" />
+		<s:intercept-url pattern="/admin/role/roleUpdate" access="hasAnyRole('ROLE_roleUpdate')" />
+		<s:intercept-url pattern="/admin/role/roleDelete" access="hasAnyRole('ROLE_roleDelete')" />
+		<!-- end -->
+		<!-- user -->
+		<s:intercept-url pattern="/admin/user/userPage" access="hasAnyRole('ROLE_userPage')" />
+		<s:intercept-url pattern="/admin/user/userSave" access="hasAnyRole('ROLE_userSave')" />
+		<s:intercept-url pattern="/admin/user/userUpdate" access="hasAnyRole('ROLE_userUpdate')" />
+		<s:intercept-url pattern="/admin/user/userDelete" access="hasAnyRole('ROLE_userDelete')" />
+		<!-- end -->
+		
+		<s:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+		<s:logout logout-success-url="/admin/login" />
+		<s:custom-filter after="SECURITY_CONTEXT_FILTER" ref="autoLoginFilter" />
+	</s:http>
+
+	<!-- 认证配置, 使用userDetailsService提供的用户信息 -->
+	<s:authentication-manager alias="authenticationManager">
+		<s:authentication-provider user-service-ref="userDetailsService">
+			<s:password-encoder hash="plaintext" />
+		</s:authentication-provider>
+	</s:authentication-manager>
+
+	<bean id="authenticationFilter"
+		class="org.yseasony.exam.security.MyAuthenticationProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="filterProcessesUrl" value="/admin/j_spring_security_check" />
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<property name="loginFormUrl" value="/admin/login" />
+	</bean>
+	
+		<!-- 开发时自动登录的filter -->
+	<bean id="autoLoginFilter" class="org.yseasony.exam.security.AutoLoginFilter">
+		<property name="enabled" value="${security.autologin.enabled}" />
+		<property name="defaultUserName" value="${security.autologin.username}" />
+	</bean>
+
+	<!-- 项目实现的用户查询服务 -->
+	<bean id="userDetailsService" class="org.yseasony.exam.security.UserDetailsServiceImpl" />
+
+	<!--JCaptcha验证码服务 -->
+	<bean id="captchaService"
+		class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="org.yseasony.exam.security.GMailEngine" />
+		</property>
+		<!-- 默认生成的图片180秒过期 , 可另行设置 <property name="minGuarantedStorageDelayInSeconds" 
+			value="180" /> -->
+	</bean>
+</beans>
