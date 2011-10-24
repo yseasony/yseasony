@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yseasony.exam.dao.RoleDao">
+
+	<resultMap id="roleMap" type="role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<collection property="authorities" column="id" ofType="auth" select="getAuthorities" />
+	</resultMap>
+
+	<select id="page" resultMap="roleMap" parameterType="page">
+		SELECT
+		id, name
+		FROM
+		exam_role ORDER BY id
+	</select>
+	
+	<select id="pageCount" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM exam_role
+		<where>
+			<if test="filters != null">
+				<if test="filters.name != null">
+					name = #{filters.name}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM exam_role
+		<where>
+			<if test="filters != null">
+				<if test="filters.name != null">
+					name = #{filters.name}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="role" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO exam_role (name) VALUES (#{name})
+	</insert>
+
+	<select id="get" resultMap="roleMap" parameterType="java.lang.Long">
+		SELECT
+		id, name
+		FROM
+		exam_role WHERE id = #{id}
+	</select>
+
+	<update id="update" parameterType="role">
+		UPDATE exam_role SET name =
+		#{name} WHERE id = #{id}
+	</update>
+
+	<update id="delete" parameterType="int">
+		DELETE FROM exam_role WHERE id
+		= #{id}
+	</update>
+
+	<insert id="insertRoleAuth">
+		INSERT INTO exam_role_authority (role_id,authority_id)
+		VALUES
+		(#{roleId},#{authId})
+	</insert>
+
+	<select id="getAuthorities" resultType="auth" parameterType="int">
+		SELECT
+		exam_authority.id,
+		exam_authority.display_name as displayName,
+		exam_authority.name,
+		exam_authority.button_name as buttonName
+		FROM
+		exam_role
+		INNER
+		JOIN exam_role_authority ON exam_role.id =
+		exam_role_authority.role_id
+		INNER JOIN exam_authority ON exam_authority.id
+		=
+		exam_role_authority.authority_id
+		WHERE exam_role.id = #{id}
+	</select>
+	
+	<delete id="deleteRoleAuth" parameterType="int">
+		DELETE FROM exam_role_authority WHERE role_id = #{id}
+	</delete>
+
+	<select id="getAll" resultType="role">
+		SELECT id, name FROM exam_role 
+	</select>
+	
+</mapper>
