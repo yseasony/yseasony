@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yseasony.acg.dao.RoleDao">
+
+	<resultMap id="roleMap" type="role">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<collection property="authorities" column="id" ofType="auth" select="getAuthorities" />
+	</resultMap>
+
+	<select id="page" resultMap="roleMap" parameterType="page">
+		SELECT
+		id, name
+		FROM
+		acg_role ORDER BY id
+	</select>
+	
+	<select id="pageCount" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM acg_role
+		<where>
+			<if test="filters != null">
+				<if test="filters.name != null">
+					name = #{filters.name}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM acg_role
+		<where>
+			<if test="filters != null">
+				<if test="filters.name != null">
+					name = #{filters.name}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="role" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO acg_role (name) VALUES (#{name})
+	</insert>
+
+	<select id="get" resultMap="roleMap" parameterType="java.lang.Long">
+		SELECT
+		id, name
+		FROM
+		acg_role WHERE id = #{id}
+	</select>
+
+	<update id="update" parameterType="role">
+		UPDATE acg_role SET name =
+		#{name} WHERE id = #{id}
+	</update>
+
+	<update id="delete" parameterType="java.lang.Long">
+		DELETE FROM acg_role WHERE id
+		= #{id}
+	</update>
+
+	<insert id="insertRoleAuth">
+		INSERT INTO acg_role_authority (role_id,authority_id)
+		VALUES
+		(#{roleId},#{authId})
+	</insert>
+
+	<select id="getAuthorities" resultType="auth" parameterType="java.lang.Long">
+		SELECT
+		acg_authority.id,
+		acg_authority.display_name as displayName,
+		acg_authority.name,
+		acg_authority.button_name as buttonName
+		FROM
+		acg_role
+		INNER
+		JOIN acg_role_authority ON acg_role.id =
+		acg_role_authority.role_id
+		INNER JOIN acg_authority ON acg_authority.id
+		=
+		acg_role_authority.authority_id
+		WHERE acg_role.id = #{id}
+	</select>
+	
+	<delete id="deleteRoleAuth" parameterType="java.lang.Long">
+		DELETE FROM acg_role_authority WHERE role_id = #{id}
+	</delete>
+
+	<select id="getAll" resultType="role">
+		SELECT id, name FROM acg_role 
+	</select>
+	
+</mapper>
