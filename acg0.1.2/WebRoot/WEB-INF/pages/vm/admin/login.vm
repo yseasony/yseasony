@@ -1,0 +1,80 @@
+#parse("common/taglibs.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>登陆</title>
+<link rel="stylesheet" href="$ctx/css/admin/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="$ctx/css/admin/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="$ctx/css/admin/invalid.css" type="text/css" media="screen" />
+<script type="text/javascript" src="$ctx/js/jquery-1.6.2.js"></script>
+</head>
+
+<body id="login">
+	<div id="login-wrapper" class="png_bg">
+		<div id="login-top">
+		</div>
+		<!-- End #logn-top -->
+		<div id="login-content">
+
+			<form action="$ctx/admin/j_spring_security_check" method="post" >
+
+				<div class="noneInformation">
+					<div></div>
+				</div>
+				<p>
+					<label>用户名</label><input class="text-input" type="text" name="j_username"/>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>密　码 </label><input class="text-input" type="password" name="j_password"/>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>验证码 </label><input class="text-input" id="captcha-input" type="text" name="j_captcha"/>
+					<img src="$ctx/admin/jcaptcha.jpg" alt="captcha" id="captcha-img"/>
+				</p>
+				<div class="clear"></div>
+				<p id="remember-password">
+					<input type="checkbox" />下次自动登录
+				</p>
+				<div class="clear"></div>
+				<p>
+					<input class="button" value="登　录" type="submit" />
+				</p>
+
+			</form>
+		</div>
+		<!-- End #login-content -->
+	</div>
+	<!-- End #login-wrapper -->
+	<div id="facebox" style="display: none;">
+		<div class="popup">
+			<table>
+				<tbody>
+					<tr>
+						<td class="tl"></td>
+						<td class="b"></td>
+						<td class="tr"></td>
+					</tr>
+					<tr>
+						<td class="b"></td>
+						<td class="body">
+							<div class="content"></div>
+							<div class="footer">
+								<a href="#" class="close"> 
+									<img src="$ctx/img/admin/closelabel.gif" title="close" class="close_image" alt="close"/></a>
+							</div></td>
+						<td class="b"></td>
+					</tr>
+					<tr>
+						<td class="bl"></td>
+						<td class="b"></td>
+						<td class="br"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
