@@ -11,6 +11,8 @@
 	<script type="text/javascript" src="$ctx/js/admin/sidebar.js"></script>
 	<script type="text/javascript" src="$ctx/js/jquery.pager.js"></script>
 	<script type="text/javascript" src="$ctx/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="$ctx/js/admin/base.js"></script>
+	<script type="text/javascript" src="$ctx/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 	<div id="body-wrapper">

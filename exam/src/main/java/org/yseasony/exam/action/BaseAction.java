@@ -7,7 +7,7 @@ import org.yseasony.utils.BasicConstant;
 
 public class BaseAction {
 
-	public final static String EXT_STATUS = "success";
+	public final static String SUCCESS = "success";
 	public final static String EXT_DATA = "data";
 	public final static String EXT_MESSAGE = "message";
 	public final static String PAGE = "page";
@@ -16,7 +16,7 @@ public class BaseAction {
 
 	public Map<String, Object> getMapSuccess() {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		modelMap.put(EXT_STATUS, true);
+		modelMap.put(SUCCESS, true);
 		return modelMap;
 	}
 
@@ -27,7 +27,7 @@ public class BaseAction {
 	public Map<String, Object> getMapError(String msg) {
 		Map<String, Object> modelMap = new HashMap<String, Object>(2);
 		modelMap.put(EXT_MESSAGE, msg);
-		modelMap.put(EXT_STATUS, false);
+		modelMap.put(SUCCESS, false);
 		return modelMap;
 	}
 

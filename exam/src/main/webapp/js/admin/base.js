@@ -1,29 +1,21 @@
-Ext.ns('Acg.Common');
-Common = Acg.Common;
-Common.pageSize = 20;
-Ext.QuickTips.init();
-
-isGranted = function(auth) {
-	if (auth == undefined)
-		return true;
-	else
-		return auth;
-};
-
-var userInfo = new Object();
-userInfo.authButtons = new Object();
-Ext.Ajax.request({
-			async : false,
-			url : './user/userInfo',
-			success : function(response) {
-				userInfo = Ext.util.JSON.decode(response.responseText);
+var common = {
+	page : function(url, pageNo, f) {
+		$.ajax({
+			url : url,
+			type : 'POST',
+			data : {
+				pageNo : pageNo
 			},
-			failure : function(response) {
-				Ext.MessageBox.show({
-							msg : Lang.msg.server_error,
-							buttons : Ext.MessageBox.ERROR,
-							icon : Ext.MessageBox.ERROR
-						});
-			}
+			success : f
 		});
+	},
+	pagination : function(page, pageClick) {
+		$("#pagination").pager({
+			pagenumber : page.pageNo,
+			pagecount : page.totalPages,
+			buttonClickCallback : pageClick
+		});
+		$(".ready").remove();
+	}
 
+};

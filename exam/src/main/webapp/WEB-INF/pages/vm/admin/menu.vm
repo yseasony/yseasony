@@ -15,26 +15,20 @@
 	<ul id="main-nav">
 		<!-- Accordion Menu -->
 		<!-- Add the class "no-submenu" to menu items with no sub menu -->
-		<li><a href="#" class="nav-top-item">Dashboard</a></li>
+		<li><a href="#" class="nav-top-item">公告面板</a></li>
 		<!-- Add the class "current" to current menu item -->
 		<li><a href="#" class="nav-top-item">用户管理</a>
 			<ul style="display: block;">
 				<li><a href="${ctx}/admin/user/userPage" name="load">用户</a>
 				</li>
-				<li><a href="#">Manage Articles</a>
-				</li>
-				<li><a href="#">Manage Comments</a>
-				</li>
-				<li><a href="#">Manage Categories</a>
-				</li>
 			</ul>
 		</li>
 
-		<li><a href="#" class="nav-top-item"> Pages </a>
+		<li><a href="#" class="nav-top-item">考试管理</a>
 			<ul style="display: none;">
-				<li><a href="#">Create a new Page</a>
+				<li><a href="${ctx}/admin/exam/examinationPagerPage" name="load">试卷信息</a>
 				</li>
-				<li><a href="#">Manage Pages</a>
+				<li><a href="${ctx}/admin/exam/questionBankPage" name="load">考试信息</a>
 				</li>
 			</ul></li>
 

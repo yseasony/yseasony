@@ -17,7 +17,7 @@ public interface BaseDao<T> {
 
 	void delete(Object id);
 
-	void insert(T t);
+	T insert(T t);
 
 	T get(Object id);
 

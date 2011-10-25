@@ -84,7 +84,7 @@ public class AuthorityAction extends BaseAction {
 			boolean b = userSvcImpl.getAuthExits(SqlWebUtils
 					.buildPropertyFilters(request));
 			Map<String, Object> map = getMapSuccess();
-			map.put(EXT_STATUS, b);
+			map.put(SUCCESS, b);
 			return map;
 		} catch (Exception e) {
 			return getMapError();
