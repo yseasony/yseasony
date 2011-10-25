@@ -65,7 +65,7 @@
 
 <div style="display: none;" class="tab-content" id="tab2">
 
-	<form action="" method="post" id="userform">
+	<form action="" method="post" id="examinationPagerform">
 		<fieldset>
 			<!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
 
