@@ -30,4 +30,9 @@ public class ExaminationPagerAction extends BaseAction{
     public String examinationPagerPage() {
         return "admin/exam/examinationPager";
     }
+    
+    @RequestMapping("/addExaminationPager")
+    public String addExaminationPager(ExaminationPager examinationPager){
+        return "admin/exam/examinationPager";
+    }
 }

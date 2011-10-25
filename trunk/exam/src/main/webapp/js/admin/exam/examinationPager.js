@@ -1,7 +1,7 @@
 var examinationPager = {
 	url : "./exam/examinationPagerList",
 	pageSuccess : function(page) {
-		common.pagination(page, pageClick);
+		common.pagination(page, this.pageClick);
 		$("#examinationPager_template").show();
 		$.each(page.result, function(i, n) {
 			var row = $("#examinationPager_template").clone();
@@ -25,11 +25,10 @@ var examinationPager = {
 		common.page(this.url, pageNo, this.pageSuccess);
 	},
 	userValidate : function() {
-		$("#userform").validate({
+		$("#examinationPagerform").validate({
 			rules : {
-				loginName : {
-					required : true,
-					minlength : 6,
+				title : {
+					required : true
 				},
 				password : {
 					required : true,
@@ -42,9 +41,8 @@ var examinationPager = {
 				}
 			},
 			messages : {
-				loginName : {
-					required : "请输入用户名",
-					minlength : jQuery.format("用户名长度至少 {0} 位")
+				title : {
+					required : "请输入试卷名称"
 				},
 				password : {
 					required : "请输入密码",
@@ -65,11 +63,10 @@ var examinationPager = {
 			}
 
 		});
+	},
+	pageClick : function(pageclickednumber) {
+		this.page(pageclickednumber);
 	}
-};
-
-var pageClick = function(pageclickednumber) {
-	examinationPager.page(pageclickednumber);
 };
 
 $(document).ready(
