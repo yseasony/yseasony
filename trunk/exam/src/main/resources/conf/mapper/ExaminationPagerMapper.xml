@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yseasony.exam.dao.ExaminationPagerDao">
+	<resultMap id="examinationPagerMap" type="examinationPager">
+		<id column="ex_id" property="exId" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="DATE" />
+		<result column="end_time" property="endTime" jdbcType="DATE" />
+		<result column="invigilate_name" property="invigilateName"
+			jdbcType="VARCHAR" />
+		<result column="create_time" jdbcType="DATE" property="createTime" />
+	</resultMap>
+
+	<select id="pageCount" resultType="long">
+		SELECT count(*) FROM exam_examination_pager
+	</select>
+
+	<select id="page" resultType="examinationPager">
+		SELECT title, start_time, end_time,
+		invigilate_name, ex_id, create_time
+		FROM exam_examination_pager order
+		by create_time desc
+	</select>
+</mapper>
