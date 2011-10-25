@@ -12,7 +12,8 @@
 	</resultMap>
 
 	<select id="pageCount" resultType="long">
-		SELECT count(*) FROM exam_examination_pager
+		SELECT count(*) FROM
+		exam_examination_pager
 	</select>
 
 	<select id="page" resultType="examinationPager">
@@ -21,4 +22,14 @@
 		FROM exam_examination_pager order
 		by create_time desc
 	</select>
+
+	<insert id="insert" parameterType="examinationPager">
+		insert into exam_examination_pager (ex_id, title, start_time,
+		end_time, invigilate_name, create_time
+		)
+		values (#{exId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{startTime,jdbcType=DATE},
+		#{endTime,jdbcType=DATE}, #{invigilateName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}
+		)
+	</insert>
 </mapper>
