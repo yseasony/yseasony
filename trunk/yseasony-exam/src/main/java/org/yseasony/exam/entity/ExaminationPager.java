@@ -1,8 +1,15 @@
 package org.yseasony.exam.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ExaminationPager {
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.yseasony.exam.utils.JsonDateSerializer;
+
+public class ExaminationPager implements Serializable{
+    
+    private static final long serialVersionUID = -1238225048006320354L;
+
     private Integer exId;
 
     private String title;
@@ -13,7 +20,7 @@ public class ExaminationPager {
 
     private String invigilateName;
 
-    private Date createTime;
+    private Date createTime = new Date();
 
     public Integer getExId() {
         return exId;
@@ -31,6 +38,7 @@ public class ExaminationPager {
         this.title = title == null ? null : title.trim();
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class) 
     public Date getStartTime() {
         return startTime;
     }
@@ -39,6 +47,7 @@ public class ExaminationPager {
         this.startTime = startTime;
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class) 
     public Date getEndTime() {
         return endTime;
     }
@@ -55,6 +64,7 @@ public class ExaminationPager {
         this.invigilateName = invigilateName == null ? null : invigilateName.trim();
     }
 
+    @JsonSerialize(using=JsonDateSerializer.class) 
     public Date getCreateTime() {
         return createTime;
     }

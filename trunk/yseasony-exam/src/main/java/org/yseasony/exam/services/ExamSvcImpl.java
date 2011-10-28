@@ -44,7 +44,8 @@ public class ExamSvcImpl {
     
     @Transactional
     public ExaminationPager saveExaminationPager(ExaminationPager examinationPager){
-        return examinationPagerDao.insert(examinationPager);
+        examinationPagerDao.insert(examinationPager);
+        return examinationPager;
     }
     
 }
