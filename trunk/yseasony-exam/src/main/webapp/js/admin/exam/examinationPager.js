@@ -1,6 +1,7 @@
 var examinationPager = {
 	url : "./exam/examinationPagerList",
 	pageSuccess : function(page) {
+		console.log(page);
 		common.pagination(page, this.pageClick);
 		$("#examinationPager_template").show();
 		$.each(page.result, function(i, n) {
@@ -9,7 +10,7 @@ var examinationPager = {
 			row.find("#exId").text(n.exId);
 			row.find("#title").text(n.title);
 			row.find("#startTime").text(n.startTime);
-			row.find("#startTime").text(n.endTime);
+			row.find("#endTime").text(n.endTime);
 			row.find("#invigilateName").text(n.invigilateName);
 			row.find("#createTime").text(n.createTime);
 			if (i % 2 == 0) {
@@ -30,33 +31,34 @@ var examinationPager = {
 				title : {
 					required : true
 				},
-				password : {
-					required : true,
-					minlength : 6
+				startTime : {
+					required : true
 				},
-				password_confirm : {
-					required : true,
-					minlength : 6,
-					equalTo : "#password"
+				endTime : {
+					required : true
+				},
+				invigilateName : {
+					required : true
 				}
 			},
 			messages : {
 				title : {
 					required : "请输入试卷名称"
 				},
-				password : {
-					required : "请输入密码",
-					minlength : jQuery.format("密码长度至少 {0} 位")
+				startTime : {
+					required : "请输入考试开始时间"
 				},
-				password_confirm : {
-					required : "请输入确认密码",
-					minlength : jQuery.format("密码长度至少 {0} 位"),
-					equalTo : "两次密码输入不同"
+				endTime : {
+					required : "请输入考试结束时间"
+				},
+				invigilateName : {
+					required : "请输入监考人"
 				}
 			},
 			errorElement : "span",
 			submitHandler : function() {
 				alert("submitted!");
+				form.submit();
 			},
 			success : function(span) {
 				span.addClass("checked");
