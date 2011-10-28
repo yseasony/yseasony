@@ -4,11 +4,11 @@
 	<resultMap id="examinationPagerMap" type="examinationPager">
 		<id column="ex_id" property="exId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
-		<result column="start_time" property="startTime" jdbcType="DATE" />
-		<result column="end_time" property="endTime" jdbcType="DATE" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
 		<result column="invigilate_name" property="invigilateName"
 			jdbcType="VARCHAR" />
-		<result column="create_time" jdbcType="DATE" property="createTime" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 	</resultMap>
 
 	<select id="pageCount" resultType="long">
@@ -16,20 +16,18 @@
 		exam_examination_pager
 	</select>
 
-	<select id="page" resultType="examinationPager">
+	<select id="page" resultMap="examinationPagerMap" parameterType="page">
 		SELECT title, start_time, end_time,
 		invigilate_name, ex_id, create_time
 		FROM exam_examination_pager order
 		by create_time desc
 	</select>
 
-	<insert id="insert" parameterType="examinationPager">
-		insert into exam_examination_pager (ex_id, title, start_time,
+	<insert id="insert" parameterType="examinationPager" useGeneratedKeys="true" keyProperty="exId">
+		insert into exam_examination_pager (title, start_time,
 		end_time, invigilate_name, create_time
 		)
-		values (#{exId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
-		#{startTime,jdbcType=DATE},
-		#{endTime,jdbcType=DATE}, #{invigilateName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}
+		values (#{title}, #{startTime}, #{endTime}, #{invigilateName}, #{createTime}
 		)
 	</insert>
 </mapper>
