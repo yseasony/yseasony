@@ -50,4 +50,10 @@ public class ExaminationPagerAction extends BaseAction{
         examSvcImpl.saveExaminationPager(examinationPager);
         return "admin/exam/examinationPager";
     }
+    
+    @RequestMapping("/examinationPagerDelete")
+    public String examinationPagerDelete(Integer id){
+        examSvcImpl.deleteExaminationPager(id);
+        return "admin/exam/examinationPager";
+    }
 }

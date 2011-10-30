@@ -48,4 +48,9 @@ public class ExamSvcImpl {
         return examinationPager;
     }
     
+    @Transactional
+    public void deleteExaminationPager(Integer id){
+    	examinationPagerDao.delete(id);
+    }
+    
 }
