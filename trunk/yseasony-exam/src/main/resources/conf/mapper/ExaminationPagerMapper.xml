@@ -30,4 +30,9 @@
 		values (#{title}, #{startTime}, #{endTime}, #{invigilateName}, #{createTime}
 		)
 	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM exam_examination_pager WHERE ex_id = #{id}
+	</delete>
+	
 </mapper>

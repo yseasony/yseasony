@@ -95,6 +95,13 @@
 					type="text">
 			</p>
 			
+			
+			<p>
+				<label>导入题目</label> <input
+					class="file small-dadian-input" name="invigilateName"
+					type="file" >
+			</p>
+			
 			<p>
 				<input class="button" value="提交" type="submit">
 			</p>
