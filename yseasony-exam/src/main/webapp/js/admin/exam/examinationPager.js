@@ -1,8 +1,7 @@
 var examinationPager = {
 	url : "./exam/examinationPagerList",
 	pageSuccess : function(page) {
-		console.log(page);
-		common.pagination(page, this.pageClick);
+		common.pagination(page);
 		$("#examinationPager_template").show();
 		$.each(page.result, function(i, n) {
 			var row = $("#examinationPager_template").clone();
@@ -23,7 +22,7 @@ var examinationPager = {
 		$("#examinationPager_template").hide();
 	},
 	page : function(pageNo) {
-		common.page(this.url, pageNo, this.pageSuccess);
+		common.page(this, pageNo);
 	},
 	userValidate : function() {
 		$("#examinationPagerform").validate({
@@ -67,7 +66,7 @@ var examinationPager = {
 		});
 	},
 	pageClick : function(pageclickednumber) {
-		this.page(pageclickednumber);
+		this.pageCallback.page(pageclickednumber);
 	}
 };
 

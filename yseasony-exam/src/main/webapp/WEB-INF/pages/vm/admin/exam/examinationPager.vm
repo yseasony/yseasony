@@ -61,7 +61,7 @@
 
 <div style="display: none;" class="tab-content" id="tab2">
 
-	<form action="${ctx}/admin/exam/examinationPagerSave" method="post" id="examinationPagerform">
+	<form action="${ctx}/admin/exam/examinationPagerSave" method="post" id="examinationPagerform" enctype="multipart/form-data">
 		<fieldset>
 
 			<p>
@@ -98,7 +98,7 @@
 			
 			<p>
 				<label>导入题目</label> <input
-					class="file small-dadian-input" name="invigilateName"
+					class="file small-dadian-input" name="examFile"
 					type="file" >
 			</p>
 			

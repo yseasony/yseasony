@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="exam_question_bank" >
+  <resultMap id="BaseResultMap" type="org.yseasony.exam.entity.ExamQuestionBank" >
+    <id column="qb_id" property="qbId" jdbcType="INTEGER" />
+    <result column="ex_id" property="exId" jdbcType="INTEGER" />
+    <result column="qt_id" property="qtId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    qb_id, ex_id, qt_id, title, question, answer, score, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.yseasony.exam.entity.ExamQuestionBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exam_question_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exam_question_bank
+    where qb_id = #{qbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exam_question_bank
+    where qb_id = #{qbId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.yseasony.exam.entity.ExamQuestionBankExample" >
+    delete from exam_question_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.yseasony.exam.entity.ExamQuestionBank" >
+    insert into exam_question_bank (qb_id, ex_id, qt_id, 
+      title, question, answer, 
+      score, create_time)
+    values (#{qbId,jdbcType=INTEGER}, #{exId,jdbcType=INTEGER}, #{qtId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER}, #{createTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yseasony.exam.entity.ExamQuestionBank" >
+    insert into exam_question_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qbId != null" >
+        qb_id,
+      </if>
+      <if test="exId != null" >
+        ex_id,
+      </if>
+      <if test="qtId != null" >
+        qt_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qbId != null" >
+        #{qbId,jdbcType=INTEGER},
+      </if>
+      <if test="exId != null" >
+        #{exId,jdbcType=INTEGER},
+      </if>
+      <if test="qtId != null" >
+        #{qtId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.yseasony.exam.entity.ExamQuestionBankExample" resultType="java.lang.Integer" >
+    select count(*) from exam_question_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exam_question_bank
+    <set >
+      <if test="record.qbId != null" >
+        qb_id = #{record.qbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.exId != null" >
+        ex_id = #{record.exId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qtId != null" >
+        qt_id = #{record.qtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.question != null" >
+        question = #{record.question,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exam_question_bank
+    set qb_id = #{record.qbId,jdbcType=INTEGER},
+      ex_id = #{record.exId,jdbcType=INTEGER},
+      qt_id = #{record.qtId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      question = #{record.question,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yseasony.exam.entity.ExamQuestionBank" >
+    update exam_question_bank
+    <set >
+      <if test="exId != null" >
+        ex_id = #{exId,jdbcType=INTEGER},
+      </if>
+      <if test="qtId != null" >
+        qt_id = #{qtId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+    </set>
+    where qb_id = #{qbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yseasony.exam.entity.ExamQuestionBank" >
+    update exam_question_bank
+    set ex_id = #{exId,jdbcType=INTEGER},
+      qt_id = #{qtId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=DATE}
+    where qb_id = #{qbId,jdbcType=INTEGER}
+  </update>
+</mapper>

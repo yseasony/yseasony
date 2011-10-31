@@ -2,7 +2,7 @@ package org.yseasony.exam.entity;
 
 import java.util.Date;
 
-public class QuestionBank {
+public class ExamQuestionBank {
     private Integer qbId;
 
     private Integer exId;
@@ -17,7 +17,7 @@ public class QuestionBank {
 
     private Integer score;
 
-    private Date createTime = new Date();
+    private Date createTime;
 
     public Integer getQbId() {
         return qbId;
