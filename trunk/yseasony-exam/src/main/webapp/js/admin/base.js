@@ -1,19 +1,21 @@
 var common = {
-	page : function(url, pageNo, f) {
+	pageCallback : null,
+	page : function(p, pageNo) {
+		pageCallback = p;
 		$.ajax({
-			url : url,
+			url : p.url,
 			type : 'POST',
 			data : {
 				pageNo : pageNo
 			},
-			success : f
+			success : p.pageSuccess
 		});
 	},
-	pagination : function(page, pageClick) {
+	pagination : function(page) {
 		$("#pagination").pager({
 			pagenumber : page.pageNo,
 			pagecount : page.totalPages,
-			buttonClickCallback : pageClick
+			buttonClickCallback : pageCallback.pageClick
 		});
 		$(".ready").remove();
 	}

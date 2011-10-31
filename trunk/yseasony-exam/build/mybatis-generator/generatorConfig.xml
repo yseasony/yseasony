@@ -33,7 +33,7 @@
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
-		<table tableName="exam_examination_pager">
+		<table tableName="exam_question_bank">
 			<property name="enableSelectByExample" value="false" />
 			<property name="enableDeleteByExample" value="false" />
 			<property name="enableUpdateByExample" value="false" />
