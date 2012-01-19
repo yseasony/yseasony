@@ -53,7 +53,7 @@ public final class BasicConstant {
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     // =============================================================
-    //  对象常量
+    // 对象常量
     // =============================================================
 
     // 0-valued primitive wrappers
@@ -85,4 +85,3 @@ public final class BasicConstant {
     /** 空字符串。 */
     public static final String EMPTY_STRING = "";
 }
-
