@@ -58,7 +58,7 @@ public class SQLBuilder {
             document = saxReader.read(ips);
         } catch (DocumentException e) {
             logger.error("读取系统中用到的SQL 语句XML出错");
-            throw new RuntimeException("读取sql语句XML文件出错:" + e.getMessage());
+            throw new RuntimeException("读取sql语句XML文件出错:", e);
         }
         Element root = document.getRootElement();
         List<Element> sqlElements = root.selectNodes("//sqlElement");
@@ -66,7 +66,7 @@ public class SQLBuilder {
         for (Element sql : sqlElements) {
             key = sql.attribute("key").getValue();
             if (sqlContainer.containsKey(key)) {
-                logger.warn("key值:" + key + "重复");
+                logger.warn("key值: {} 重复", key);
             }
             sqlContainer.put(key, sql.getText());
 
@@ -76,7 +76,7 @@ public class SQLBuilder {
             try {
                 ips.close();
             } catch (IOException e) {
-                logger.error("关闭输入流出错:" + e.getMessage());
+                logger.error("关闭输入流出错:", e);
             }
         }
     }
