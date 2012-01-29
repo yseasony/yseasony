@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls namespace="test.dao">
+	<sqlElement key="find">  
+    <![CDATA[ 
+         SELECT T.CNSTTP as cnstTp, T.CNSTCODE as cnstCode, T.CNSTNAME as cnstName, 
+         T.CREATETIME as createTime,T.EDIT_TIME as editTime  
+         FROM CHN_CNST T 
+         WHERE
+         T.DEL = 0 
+         AND T.CNSTTP = :cnstTp 
+         #if ($cnstCode && $cnstCode != '')
+        	AND T.CNSTCODE =:cnstCode
+     	 #end
+     	 #if ($cnstName && $cnstName != '')
+        	AND T.CNSTNAME LIKE '%'||:cnstName||'%'
+     	 #end
+         ORDER BY T.CREATETIME DESC
+    ]]>
+	</sqlElement>
+
+	<sqlElement key="findOne">  
+    <![CDATA[ 
+         SELECT T.CNSTTP as cnstTp, T.CNSTCODE as cnstCode, T.CNSTNAME as cnstName, 
+         T.CREATETIME as createTime ,T.EDIT_TIME as editTime  
+         FROM CHN_CNST T 
+         WHERE
+         T.DEL = 0
+         AND T.CNSTTP = :cnstTp 
+         #if ($cnstCode && $cnstCode != '')
+        	AND T.CNSTCODE =:cnstCode
+     	 #end
+     	 #if ($cnstName && $cnstName != '')
+        	AND T.CNSTNAME =:cnstName
+     	 #end
+         ORDER BY T.CREATETIME DESC
+    ]]>
+	</sqlElement>
+	
+</sqls>  

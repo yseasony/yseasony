@@ -25,12 +25,10 @@ public class SQLBuilder {
     private List<String> sqlFilePaths;
 
     public SQLBuilder() {
-        initSqlContainer();
     }
 
     public SQLBuilder(String path) {
         this.path = path;
-        initSqlContainer();
     }
 
     public String getDynamicalSql(String key, Map<String, ?> param) {
@@ -38,7 +36,7 @@ public class SQLBuilder {
         return VelocityUtils.render(sql, param);
     }
 
-    private void initSqlContainer() {
+    public void init() {
         if (sqlFilePaths == null) {
             throw new IllegalArgumentException("sql语句文件不能为空!");
         }
@@ -61,10 +59,11 @@ public class SQLBuilder {
             throw new RuntimeException("读取sql语句XML文件出错:", e);
         }
         Element root = document.getRootElement();
-        List<Element> sqlElements = root.selectNodes("//sqlElement");
+        String namespace = root.attribute("namespace").getValue();
+        List<Element> sqlElements = root.selectNodes("sqlElement");
         String key;
         for (Element sql : sqlElements) {
-            key = sql.attribute("key").getValue();
+            key = namespace + "." +sql.attribute("key").getValue();
             if (sqlContainer.containsKey(key)) {
                 logger.warn("key值: {} 重复", key);
             }
