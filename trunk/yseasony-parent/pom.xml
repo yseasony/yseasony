@@ -8,6 +8,7 @@
 	<name>yseasony-parent</name>
 
 	<properties>
+		<yseasony.version>0.0.1-SNAPSHOT</yseasony.version>
 		<junit.version>4.9</junit.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 		<aspectj.version>1.6.11</aspectj.version>
@@ -24,7 +25,7 @@
 		<commons-code.version>1.5</commons-code.version>
 		<commons-collections.version>3.2.1</commons-collections.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
-		<commons-lang3.version>3.0.1</commons-lang3.version>
+		<commons-lang3.version>3.1</commons-lang3.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<commons-pool.version>1.5.6</commons-pool.version>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -281,6 +282,11 @@
 				<artifactId>jaxen</artifactId>
 				<version>${jaxen.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.yseasony</groupId>
+				<artifactId>yseasony-utils</artifactId>
+				<version>${yseasony.version}</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
@@ -317,7 +323,7 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.11</version>
 					<configuration>
-						<argLine>-Xmx256M</argLine>
+						<argLine>-Xmx256M -Dfile.encoding=${project.build.sourceEncoding}</argLine>
 						<includes>
 							<include>**/*Test.java</include>
 						</includes>
