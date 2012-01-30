@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.yseasony.utils.AssertUtils;
-import org.yseasony.utils.encode.EncodeUtils;
+import org.yseasony.utils.encode.Encodes;
 
 /**
  * Http与Servlet工具类.
  * 
- * @author calvin
  */
 public abstract class ServletUtils {
 
@@ -167,6 +166,6 @@ public abstract class ServletUtils {
 	 */
 	public static String encodeHttpBasic(String userName, String password) {
 		String encode = userName + ":" + password;
-		return "Basic " + EncodeUtils.encodeBase64(encode.getBytes());
+		return "Basic " + Encodes.encodeBase64(encode.getBytes());
 	}
 }
