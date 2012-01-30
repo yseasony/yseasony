@@ -1,4 +1,4 @@
-package org.yseasony.utils.web;
+package org.yseasony.utils.web.velocity;
 
 import java.io.StringWriter;
 import java.util.Map;
