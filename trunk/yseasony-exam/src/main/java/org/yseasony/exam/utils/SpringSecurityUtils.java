@@ -81,7 +81,7 @@ public class SpringSecurityUtils {
 			return false;
 		}
 
-		Collection<GrantedAuthority> grantedAuthorityList = authentication.getAuthorities();
+		Collection<? extends GrantedAuthority> grantedAuthorityList = authentication.getAuthorities();
 		for (String role : roles) {
 			for (GrantedAuthority authority : grantedAuthorityList) {
 				if (role.equals(authority.getAuthority())) {
