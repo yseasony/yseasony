@@ -6,11 +6,13 @@
 	<parent>
 		<groupId>org.yseasony</groupId>
 		<artifactId>yseasony-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2</version>
 	</parent>
+	
 	<artifactId>yseasony-utils</artifactId>
 	<packaging>jar</packaging>
 	<name>yseasony-utils</name>
+	<version>0.0.1</version>
 
 	<dependencies>
 		<dependency>
