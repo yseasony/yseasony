@@ -12,7 +12,7 @@
 	<artifactId>yseasony-utils</artifactId>
 	<packaging>jar</packaging>
 	<name>yseasony-utils</name>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<dependencies>
 		<dependency>
@@ -113,20 +113,5 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>-Xmx256M -Dfile.encoding=${project.build.sourceEncoding}</argLine>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
