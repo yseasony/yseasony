@@ -52,7 +52,7 @@ public class DataAction extends BaseAction {
             String data = IOUtils.toString(dataFile.getInputStream());
             edmDataService.importing(groupName, data);
         } catch (IOException e) {
-            e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
+            logger.error(e.getMessage(), e);
         }
         return "redirect:/index";
     }
@@ -75,7 +75,7 @@ public class DataAction extends BaseAction {
 
     @RequestMapping(value = "/save_task")
     @ResponseBody
-    public Map<String, Object> saveTask(HttpServletRequest request) {
+    public String saveTask(HttpServletRequest request) {
         Map<String, Object> args = getParameters(request);
         if (StringUtils.isNotBlank(String.valueOf(args.get("startTime")))) {
             Long startTime = DateUtils.ymdFormatL(String.valueOf(args.get("startTime")));
@@ -93,9 +93,7 @@ public class DataAction extends BaseAction {
         }
 
         edmDataService.saveTask(args);
-        Map<String, Object> maps = new HashMap<String, Object>();
-        maps.put("success", true);
-        return maps;
+        return "redirect:/data/task_list";
 
     }
 

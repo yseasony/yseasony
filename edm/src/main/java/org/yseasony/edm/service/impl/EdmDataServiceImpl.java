@@ -46,7 +46,8 @@ public class EdmDataServiceImpl implements EdmDataService {
 
     @Transactional
     @Override
-    public void importing(String groupName, String data) {
+    public int importing(String groupName, String data) {
+        int exist = 0;
         Integer groupId = null;
         if (StringUtils.isNotBlank(groupName)) {
             groupId = groupDao.findByGroupName(groupName);
@@ -70,6 +71,7 @@ public class EdmDataServiceImpl implements EdmDataService {
                     } else {
                         EdmEmail edmEmail1 = edmEmailDao.getEdmEmailByEmail(email);
                         if (edmEmail1 != null) {
+                            exist++;
                             continue;
                         }
                     }
@@ -103,6 +105,8 @@ public class EdmDataServiceImpl implements EdmDataService {
 
         }
         edmEmailDao.batchInsert(edmEmails);
+
+        return exist;
     }
 
     @Override
