@@ -1,0 +1,51 @@
+#set($layout="/layout/layout.vm")
+<div class="results">
+    <table id="result_list">
+        <thead>
+        <tr>
+            <th scope="col" class="sortable sorted ascending">
+                <div class="text">Id</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+
+
+                <div class="text">email</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">name</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+
+
+                <div class="text">phone</div>
+                <div class="clear"></div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        #foreach($!item in $!page.result)
+        #set($r = $!velocityCount % 2 + 1)
+        <tr class="row${r}">
+            <th>$!item.id</th>
+            <td>$!item.email</td>
+            <td>$!item.name</td>
+            <td>$!item.phone</td>
+        </tr>
+##
+##        <tr class="row2">
+##            <th><a href="/admin/conf/movieustv/2/">2</a></th>
+##            <td>生活大爆炸 The Big Bang Theory</td>
+##            <td>0</td>
+##            <td><input class="vIntegerField" id="id_form-1-display" name="form-1-display" type="text" value="1"></td>
+##            <td><input class="vIntegerField" id="id_form-1-recommand" name="form-1-recommand" type="text" value="1">
+##            </td>
+##        </tr>
+        #end
+
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,5 @@
+#set($layout="/layout/layout.vm")
+<fieldset class="module aligned ">
+<div>$!{title}</div>
+<div style="margin-top: 50px">$!{preview_email_html}</div>
+</fieldset>

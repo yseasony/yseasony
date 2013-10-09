@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls namespace="edm_email">
+    <sqlElement key="getTaskCount">
+        <![CDATA[
+        SELECT
+            COUNT(*)
+        FROM
+            edm_email
+        WHERE
+            1 = 1
+            #if ($startAge && $startAge != '')
+        	    AND age >=:startAge
+     	    #end
+     	    #if ($endAge && $endAge != '')
+        	    AND age <=:endAge
+     	    #end
+     	    #if ($xueli && $xueli != '')
+        	    AND xueli = :xueli
+     	    #end
+     	    #if ($sex && $sex != '')
+        	    AND sex = :sex
+     	    #end
+     	    #if ($city && $city != '')
+        	    AND city = :city
+     	    #end
+     	    #if ($province && $province != '')
+        	    AND province = :province
+     	    #end
+     	    #if ($startTime && $startTime != '')
+        	    AND create_time >= :startTime
+     	    #end
+     	    #if ($endTime && $endTime != '')
+        	    AND create_time <= :endTime
+     	    #end
+     	    #if ($groupId && $groupId != '')
+        	    AND group_id = :groupId
+     	    #end
+        ]]>
+    </sqlElement>
+
+    <sqlElement key="getTaskList">
+        <![CDATA[
+        SELECT
+            *
+        FROM
+            edm_email
+        WHERE
+            1 = 1
+            #if ($startAge && $startAge != '')
+        	    AND age >=:startAge
+     	    #end
+     	    #if ($endAge && $endAge != '')
+        	    AND age <=:endAge
+     	    #end
+     	    #if ($xueli && $xueli != '')
+        	    AND xueli = :xueli
+     	    #end
+     	    #if ($sex && $sex != '')
+        	    AND sex = :sex
+     	    #end
+     	    #if ($city && $city != '')
+        	    AND city = :city
+     	    #end
+     	    #if ($province && $province != '')
+        	    AND province = :province
+     	    #end
+     	    #if ($startTime && $startTime != '')
+        	    AND create_time >= :startTime
+     	    #end
+     	    #if ($endTime && $endTime != '')
+        	    AND create_time <= :endTime
+     	    #end
+     	    #if ($groupId && $groupId != '')
+        	    AND group_id = :groupId
+     	    #end
+        ]]>
+    </sqlElement>
+
+</sqls>

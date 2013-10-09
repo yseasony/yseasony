@@ -1,0 +1,147 @@
+#set($layout="/layout/layout.vm")
+<form enctype="multipart/form-data" action="/data/importing" method="post" id="task_form">
+    <fieldset class="module aligned ">
+        <div>
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">任务名:</label>
+                    <input class="vBigIntegerField" id="groupName" name="groupName" type="text" value="">
+                </div>
+            </div>
+
+            <fieldset class="module aligned " style="margin: 10px;padding: 10px">
+                <div class="form-row field-id">筛选条件</div>
+                <div class="form-row field-id">
+                    <div>
+                        <label for="id_id">年龄:</label>
+                        <input class="vBigIntegerField" id="id_id" name="startAge" type="text" value=""> -
+                        <input class="vBigIntegerField" id="id_id" name="endAge" type="text" value="">
+                    </div>
+                    <div>
+                        <label for="id_id">学历:</label>
+                        <input class="vBigIntegerField" id="id_id" name="xueli" type="text" value="">
+                    </div>
+                    <div>
+                        <label for="id_id">性别:</label>
+                        男 <input type="radio" name="sex" value="1">
+                        女 <input type="radio" name="sex" value="0">
+                    </div>
+
+                    <div>
+                        <label for="id_id">导入时间:</label>
+                        <input class="vBigIntegerField" id="startTime" name="startTime" type="text" value=""> -
+                        <input class="vBigIntegerField" id="endTime" name="endTime" type="text" value="">
+                    </div>
+
+                    <div>
+                        <label for="id_id">省:</label>
+                        <input class="vBigIntegerField" id="id_id" name="province" type="text" value="">
+                    </div>
+
+                    <div>
+                        <label for="id_id">市:</label>
+                        <input class="vBigIntegerField" id="id_id" name="city" type="text" value="">
+                    </div>
+
+                    <div>
+                        <label for="id_id">邮件组:</label>
+                        <label>
+                            <select name="groupId">
+                                <option value="">请选择</option>
+                                #foreach($item in $!edmEmailGroups)
+                                    <option value="$item.id">$item.groupName</option>
+                                #end
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="submit-row" style="float: left">
+                        <input type="button" onclick="test_task();" value="检测筛选条件" class="default" name="_save">
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <div>
+                <label for="id_id">邮件模版:</label>
+                <label>
+                    <select name="templateId" id="templateId">
+                        <option value="">请选择</option>
+                        #foreach($item in $!edmEmailTemplates)
+                            <option value="$item.id">$item.id - $item.name</option>
+                        #end
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">执行时间:</label>
+                    <input class="vBigIntegerField" id="taskStartTime" name="taskStartTime" type="text" value=""
+                           style="width: 200px">
+                </div>
+            </div>
+
+            <div class="submit-row" style="float: left">
+                <input type="button" onclick="save_task();" value="保存" class="default" name="_save">
+            </div>
+
+        </div>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    function test_task() {
+        var options = {
+            url: '/data/test_task_count',
+            type: 'get',
+            dataType: 'json',
+            data: $("#task_form").serialize(),
+            success: function (re) {
+                alert(re.count);
+            }
+        };
+
+        $.ajax(options);
+    }
+
+    function save_task() {
+
+
+        if ($("#groupName").val() == '') {
+            alert("任务名不能为空");
+            return
+        }
+
+        if ($("#templateId").val() == '') {
+            alert("请选择邮件模版");
+            return
+        }
+
+        if ($("#taskStartTime").val() == '') {
+            alert("执行时间不能为空");
+            return
+        }
+
+        var options = {
+            url: '/data/save_task',
+            type: 'post',
+            dataType: 'json',
+            data: $("#task_form").serialize(),
+            success: function (re) {
+                alert(re);
+            }
+        };
+
+        $.ajax(options);
+    }
+
+
+    $(function () {
+        $("#startTime").datepicker({"dateFormat": "yy-mm-dd"});
+        $("#endTime").datepicker({"dateFormat": "yy-mm-dd"});
+        $("#taskStartTime").datetimepicker({"dateFormat": "yy-mm-dd", timeFormat: 'HH:mm:ss'});
+    });
+
+
+</script>

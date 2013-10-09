@@ -1,0 +1,26 @@
+<style>
+#content-related {
+    float: left;
+    width: 200px;
+    min-height: 400px;
+    height: auto;
+}
+</style>
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <ul class="actionlist">
+            <li class="changelink">
+                <a href="/index">管理中心</a>
+            </li>
+            <li class="changelink">
+                <a href="/data/import">数据导入</a>
+            </li>
+            <li class="changelink">
+                <a href="/data/email_template_list">邮件模版</a>
+            </li>
+            <li class="changelink">
+                <a href="/data/task_list">发送邮件</a>
+            </li>
+        </ul>
+    </div>
+</div>

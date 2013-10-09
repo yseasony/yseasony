@@ -1,0 +1,64 @@
+#set($layout="/layout/layout.vm")
+<fieldset class="module aligned ">
+    <div><a href="/data/create_task">创建发送任务</a></div>
+</fieldset>
+
+<div class="results">
+    <table id="result_list">
+        <thead>
+        <tr>
+            <th scope="col" class="sortable sorted ascending">
+                <div class="text">Id</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+
+
+                <div class="text">name</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">发送时间</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">发送数量</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">发送成功数量</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">筛选条件</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">模版号</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable">
+                <div class="text">创建时间</div>
+                <div class="clear"></div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+            #foreach($!item in $!page.result)
+                #set($r = $!velocityCount % 2 + 1)
+            <tr class="row${r}">
+                <th>$!item.id</th>
+                <td>$!item.name</td>
+                <td>$!item.taskStartTime</td>
+                <td>$!item.taskSendNum</td>
+                <td>$!item.sendSuccessNum</td>
+                <td>$!item.sendConditions</td>
+                <td>$!item.templateId</td>
+                <td>$!item.createTime</td>
+            </tr>
+            #end
+
+        </tbody>
+    </table>
+</div>

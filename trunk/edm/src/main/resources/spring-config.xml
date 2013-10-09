@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<bean id="propertyConfigurer" class="org.yseasony.edm.utils.DecryptPropertyPlaceholderConfigurer">-->
+    <!--<property name="locations">-->
+    <!--<list>-->
+    <!--<value>classpath:desdb.properties</value>&lt;!&ndash; 加密后文件 &ndash;&gt;-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="fileEncoding" value="utf-8"/>-->
+    <!--<property name="keyLocation" value="classpath:desdb.key" />&lt;!&ndash; 密钥文件位置 &ndash;&gt;-->
+    <!--</bean>-->
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="false"/>
+        <property name="locations">
+            <list>
+                <value>classpath*:/application.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  This is Database Configuration -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="${mysql.jdbc.username}"/>
+        <property name="url" value="${mysql.jdbc.url}"/>
+        <property name="password" value="${mysql.jdbc.password}"/>
+
+        <property name="maxActive" value="${mysql.jdbc.maxActive}"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxWait" value="60000"/>
+        <property name="maxIdle" value="${mysql.jdbc.maxIdle}"/>
+        <property name="minIdle" value="1"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="120"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <bean id="sqlBuilder" class="org.yseasony.edm.utils.SQLBuilder" init-method="init">
+        <property name="sqlFilePaths">
+            <list value-type="java.lang.String">
+                <value>edm_email_sql.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:annotation-config/>
+
+    <tx:annotation-driven/>
+
+    <aop:aspectj-autoproxy/>
+
+    <context:component-scan base-package="org.yseasony.edm">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>
