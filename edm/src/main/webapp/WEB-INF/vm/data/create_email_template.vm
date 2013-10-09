@@ -1,0 +1,48 @@
+#set($layout="/layout/layout.vm")
+<form enctype="multipart/form-data" action="/data/save_email_template" method="post" id="movieustv_form">
+    <input type="hidden" name="csrfmiddlewaretoken" value="L1HsyPdJMfahJ33FO7V3OKp2zLxuym6O">
+    <fieldset class="module aligned ">
+        <div>
+            <div class="form-row field-id" >
+                <div>
+                    <label for="id_id">模版名称:</label>
+                    <input class="vBigIntegerField" id="id_id" name="name" type="text" value="">
+                </div>
+            </div>
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">邮件标题:</label>
+                    <input class="vBigIntegerField" id="id_id" name="emailTitle" type="text" value="" style="width: 660px;">
+                </div>
+            </div>
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">内置参数:</label>
+                    <div>邮件地址：$!{_email}</div>
+                </div>
+            </div>
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">邮件内容:</label>
+                    <textarea class="vBigIntegerField" id="id_id" name="emailHtml" style="margin: 2px 0px; width: 660px; height: 353px;"></textarea>
+                </div>
+            </div>
+
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">邮件参数:</label>
+                    <textarea class="vBigIntegerField" id="id_id" name="emailParameter" style="margin: 2px 0px; width: 660px; height: 353px;"></textarea>
+                </div>
+            </div>
+
+            <div class="submit-row" style="float: left">
+                <input type="submit" value="保存" class="default" name="_save">
+            </div>
+
+        </div>
+    </fieldset>
+</form>

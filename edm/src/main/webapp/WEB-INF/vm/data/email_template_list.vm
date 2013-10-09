@@ -1,0 +1,43 @@
+#set($layout="/layout/layout.vm")
+<fieldset class="module aligned ">
+    <div><a href="/data/edit_email_template">创建邮件模版</a></div>
+
+    <div class="results" style="margin-top: 10px">
+        <table id="result_list">
+            <thead>
+            <tr>
+                <th scope="col" class="sortable sorted ascending" style="width: 30px">
+                    <div class="text">Id</div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="sortable">
+                    <div class="text">name</div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="sortable">
+                    <div class="text">操作</div>
+                    <div class="clear"></div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+                #foreach($!item in $!page.result)
+                    #set($r = $!foreach.index % 2 + 1)
+                <tr class="row${r}">
+                    <td style="width: 30px">$!item.id</td>
+                    <td><a href="/data/edit_email_template?id=$!item.id">$!item.name</a></td>
+                    <td>
+                        <a href="/data/edit_email_template?id=$!item.id">编辑</a>
+                        <a target="_blank" href="/data/preview_email_template?id=$!item.id">预览</a>
+                        <a target="_blank" href="/data/create_test_email_template?id=$!item.id">测试发送</a>
+                    </td>
+                </tr>
+                #end
+
+            </tbody>
+        </table>
+    </div>
+
+
+</fieldset>

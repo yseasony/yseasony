@@ -1,0 +1,30 @@
+#set($layout="/layout/layout.vm")
+<form enctype="multipart/form-data" action="/data/importing" method="post" id="movieustv_form">
+    <input type="hidden" name="csrfmiddlewaretoken" value="L1HsyPdJMfahJ33FO7V3OKp2zLxuym6O">
+    <fieldset class="module aligned ">
+        <div>
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">分组:</label>
+                    <input class="vBigIntegerField" id="id_id" name="groupName" type="text" value="">
+                </div>
+            </div>
+
+            <div class="form-row field-id">
+                <div>
+                    <label for="id_id">数据文件:</label>
+                    <input class="vBigIntegerField" name="dataFile" type="file">
+                </div>
+            </div>
+
+            <div class="submit-row" style="float: left">
+                <input type="submit" value="保存" class="default" name="_save">
+            </div>
+
+        </div>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+
+</script>
