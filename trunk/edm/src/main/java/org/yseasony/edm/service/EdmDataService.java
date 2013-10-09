@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 下午12:40
  */
 public interface EdmDataService {
-    void importing(String groupName, String data);
+    int importing(String groupName, String data);
 
     Page<EdmEmail> getEdmEmailPage(Page<EdmEmail> edmEmailPage, Map<String, Object> args);
 
