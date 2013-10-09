@@ -1,0 +1,8 @@
+#mysql version database setting
+mysql.jdbc.url=${mysql_jdbc_url}
+mysql.jdbc.username=${mysql_jdbc_username}
+mysql.jdbc.password=${mysql_jdbc_password}
+
+#dbcp settings
+mysql.jdbc.maxActive=3
+mysql.jdbc.maxIdle=2
